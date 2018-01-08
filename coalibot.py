@@ -12,6 +12,7 @@ from time import sleep
 import requests
 import json
 import commands
+import os
 
 sc = SlackClient(os.environ["SLACK_API_TOKEN"])
 parrot = ["parrot", "middleparrot", "rightparrot", "aussieparrot", "gothparrot", "oldtimeyparrot", "boredparrot", "shuffleparrot", "shufflefurtherparrot", "congaparrot", "reversecongaparrot", "partyparrot", "sadparrot", "parrotcop", "fastparrot", "slowparrot", "parrotdad", "dealwithitparrot", "fiestaparrot", "pizzaparrot", "hamburgerparrot", "bananaparrot", "chillparrot", "explodyparrot", "shufflepartyparrot", "icecreamparrot", "sassyparrot", "confusedparrot", "aussiecongaparrot", "aussiereversecongaparrot", "parrotwave1", "parrotwave2", "parrotwave3", "parrotwave4", "parrotwave5", "parrotwave6", "parrotwave7", "congapartyparrot", "moonwalkingparrot", "thumbsupparrot", "coffeeparrot", "parrotwithmustache", "christmasparrot", "witnessprotectionparrot", "parrotsleep", "parrotbeer", "darkbeerparrot", "blondesassyparrot", "bluescluesparrot", "gentlemanparrot", "margaritaparrot", "oriolesparrot", "dreidelparrot", "harrypotterparrot", "fieriparrot", "upvotepartyparrot", "twinsparrot", "tripletsparrot", "stableparrot", "shipitparrot", "skiparrot", "loveparrot", "halalparrot", "nyanparrot", "wendyparrot", "popcornparrot", "donutparrot", "evilparrot", "discoparrot", "matrixparrot", "papalparrot", "stalkerparrot", "scienceparrot", "prideparrot", "revolutionparrot", "fidgetparrot", "beretparrot", "tacoparrot", "ryangoslingparrot", "john_francis_parrot", "mexa_parrot", "moneyparrot", "moneyparrot2", "parrothd" ]
@@ -333,7 +334,7 @@ def kaamelott(channel):
         citation = fp.read()
     message = citation.split('\n')[random.randint(0, len(citation.split('\n'))- 1)]
     if message == "":
-        kaamelott()
+        kaamelott(channel)
         return
     sc.api_call(
             "chat.postMessage",
