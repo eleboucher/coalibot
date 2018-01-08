@@ -26,7 +26,7 @@ def get_token(grant_type):
     client = Client(token_endpoint = "https://api.intra.42.fr/oauth/token",
             resource_endpoint = "https://api.intra.42.fr",
             client_id = os.environ["INTRA_CLIENT_ID"],
-            client_secret = "INTRA_SECRET")
+            client_secret =  os.environ["INTRA_SECRET"])
     client.request_token(grant_type=grant_type)
     return client
 
@@ -339,7 +339,7 @@ def kaamelott(channel):
     sc.api_call(
             "chat.postMessage",
             channel= channel,
-            icon_url= "http://citation-celebre.leparisien.fr/images/personnage-fiction/3350.jpg",
+            icon_url= "https://img15.hostingpics.net/pics/4833663350.jpg",
             username = "Perceval",
             text= ">" + message
         )
