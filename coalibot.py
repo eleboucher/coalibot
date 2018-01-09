@@ -394,13 +394,14 @@ def post_reaction(text, channel, ts):
 
 def crypto(cryptoname, ts, channel):
     reply = ""
+    response
     url = "https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto="+ cryptoname + "&fiat=EUR"
     try:
         response = requests.request("GET",url).json()
     except :
         reply =  "Erreur"
-    if ('last' in response.values()[0]):
-        reply = "{} : *{:.2f}*".format(cryptoname, response.values()[0]['last'])
+    if (response and 'last' in response.values()[0]):
+        reply = "{} : *{:.2f} EUR*".format(cryptoname, response.values()[0]['last'])
     else:
         reply =  "Erreur"
     sc.api_call(
