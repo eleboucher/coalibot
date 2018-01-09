@@ -392,6 +392,24 @@ def post_reaction(text, channel, ts):
         name = text
         )
 
+def crypto(cryptoname, ts, channel):
+    reply = ""
+    url = "https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto="+ cryptoname + "&fiat=EUR"
+    try:
+        response = requests.request("GET",url).json()
+    except :
+        reply =  "Erreur"
+    if ('last' in response.values()[0]):
+        reply = "{} : *{:.2f}*".format(cryptoname, response.values()[0]['last'])
+    else:
+        reply =  "Erreur"
+    sc.api_call(
+            "chat.postMessage",
+            thread_ts = ts,
+            channel = channel,
+            text = reply
+        )
+
 def handle_command(message, channel, ts, user):
     reply = ""
     if "jpp" in message:
@@ -411,6 +429,8 @@ def handle_command(message, channel, ts, user):
                 reply = where(message.split( )[2].lower())
             if message.split( )[1].lower() == "who":
                 reply = who(message.split( )[2].lower())
+            if message.split( )[1].lower() == "crypto":
+                crypto(message.split( )[2].upper(), ts, channel)
             if message.split( )[1].lower() == "list":
                 reply = list(message.split( )[2].lower())
             if message.split( )[1].lower() == "addmusic" and get_username(user) not in listban('banmusic.txt'):
