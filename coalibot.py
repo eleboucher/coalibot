@@ -31,8 +31,9 @@ def get_username(user):
                 "users.info",
                 user = user
                 )
-    if ('name' in username):
-        return (username['name'])
+
+    if ('user' in username and 'name' in username['user']):
+        return (username['user']['name'])
     else :
         return "null"
 
