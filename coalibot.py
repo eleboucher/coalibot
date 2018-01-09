@@ -8,7 +8,6 @@ from datetime import datetime, timedelta, date
 import random
 import sys
 import time
-from time import sleep
 import requests
 import json
 import commands
@@ -18,9 +17,6 @@ sc = SlackClient(os.environ["SLACK_API_TOKEN"])
 parrot = ["parrot", "middleparrot", "rightparrot", "aussieparrot", "gothparrot", "oldtimeyparrot", "boredparrot", "shuffleparrot", "shufflefurtherparrot", "congaparrot", "reversecongaparrot", "partyparrot", "sadparrot", "parrotcop", "fastparrot", "slowparrot", "parrotdad", "dealwithitparrot", "fiestaparrot", "pizzaparrot", "hamburgerparrot", "bananaparrot", "chillparrot", "explodyparrot", "shufflepartyparrot", "icecreamparrot", "sassyparrot", "confusedparrot", "aussiecongaparrot", "aussiereversecongaparrot", "parrotwave1", "parrotwave2", "parrotwave3", "parrotwave4", "parrotwave5", "parrotwave6", "parrotwave7", "congapartyparrot", "moonwalkingparrot", "thumbsupparrot", "coffeeparrot", "parrotwithmustache", "christmasparrot", "witnessprotectionparrot", "parrotsleep", "parrotbeer", "darkbeerparrot", "blondesassyparrot", "bluescluesparrot", "gentlemanparrot", "margaritaparrot", "oriolesparrot", "dreidelparrot", "harrypotterparrot", "fieriparrot", "upvotepartyparrot", "twinsparrot", "tripletsparrot", "stableparrot", "shipitparrot", "skiparrot", "loveparrot", "halalparrot", "nyanparrot", "wendyparrot", "popcornparrot", "donutparrot", "evilparrot", "discoparrot", "matrixparrot", "papalparrot", "stalkerparrot", "scienceparrot", "prideparrot", "revolutionparrot", "fidgetparrot", "beretparrot", "tacoparrot", "ryangoslingparrot", "john_francis_parrot", "mexa_parrot", "moneyparrot", "moneyparrot2", "parrothd" ]
 
 coalitions = ['the-alliance','the-order','the-federation','the-assembly']
-
-
-SOCKET_DELAY = 1
 
 def get_token(grant_type):
     client = Client(token_endpoint = "https://api.intra.42.fr/oauth/token",
@@ -46,8 +42,6 @@ def get_more_location(client, request, locations, range_begin):
         return
 
 def get_range_logtime (user, range_begin, range_end):
-    print range_begin
-    print range_end
     range_begin = datetime.strptime(str(range_begin), '%Y-%m-%d')
     range_end = datetime.strptime(str(range_end), '%Y-%m-%d')
     range_date = "?page[size]=100&range[begin_at]=" + str(range_begin) + "," + str(range_end)
@@ -94,7 +88,7 @@ def logtime(message, ts, channel):
             text = reply
             )
     else:
-        return "Usage: bc logtime login datedebut datefin (date au format \"Y-M-D\")"
+        post_message("Usage: bc logtime login datedebut datefin (date au format \"Y-M-D\")", channel)
 
 def format_output_datetime(duration_timedelta):
     hours, remainder = divmod(duration_timedelta, 3600)
@@ -211,23 +205,23 @@ def youtube_url_validation(url):
         return 0
 
 def addmusic(link, user):
-    with open('./music.json', 'r') as fp:
+    with open('music.json', 'r') as fp:
         content = json.load(fp)
-    if (("youtube" in link or "youtu.be" in link and youtube_url_validation(link)) or "soundcloud.com" in link) and  checkduplicate(content, link) == False :
+    if (("youtube" in link or "youtu.be" in link and youtube_url_validation(link) == 1) or "soundcloud.com" in link) and  checkduplicate(content, link) == False :
         info = {
                 "login": user,
                 "link": link
                 }
         content.append(info)
         return "Musique ajoutée"
-        with open("./music.json", "w") as output:
+        with open("music.json", "w") as output:
             json.dump(content, output)
     else :
         return "Lien incorrect"
 
 def musique():
     try:
-        with open('./music.json', 'r') as fp:
+        with open('music.json', 'r') as fp:
            content = json.load(fp)
     except IOError:
         return "erreur de fichier"
@@ -287,7 +281,7 @@ def alliance():
         return "Nous sommes à la {}eme place avec {} points de retard. :the-alliance:".format((rang + 1), diff_score)
     else :
         diff_score = data[rang]['score'] - data[1]['score']
-        return "Felicitation Nous sommes premier avec {} points d'avance. :the-alliance:".format((diff_score))
+        return "Felicitations Nous sommes premiers avec {} points d'avance. :the-alliance:".format((diff_score))
 
 def roll(nb, taille):
     if nb.isdigit() == False and nb.isdigit() == False:
@@ -371,7 +365,7 @@ def addban(bannedfile, user):
     with open(bannedfile, 'a') as fp:
         fp.write(user +'\n')
 
-def post_message(text, chan):
+def post_message(text, channel):
     sc.api_call(
         "chat.postMessage",
         channel=channel,
@@ -388,7 +382,13 @@ def post_reaction(text, channel, ts):
 
 def handle_command(message, channel, ts, user):
     reply = ""
-    if message.split( )[0].lower() in ["coalibot", "cb", "bc"] and len(message.split( )) > 1:
+    if "jpp" in message:
+   	post_reaction("jpp", channel, ts)
+    if "rip" in message:
+	post_reaction("rip", channel, ts)
+    if  any(coal in message.lower() for coal in coalitions):
+        post_reaction("the-alliance", channel, ts)
+    if len(message.split( )) > 1 and message.split( )[0].lower() in ["coalibot", "cb", "bc"] :
         if len(message.split( )) > 2:
             if message.split( )[1].lower() == "prof":
                 reply = profile(message.split( )[2].lower())
@@ -446,22 +446,21 @@ def handle_command(message, channel, ts, user):
         reply =  "Doucement avec les bots"
     elif message.split( )[0].lower() in ["!parrot", "!perroquet", "!perruche", "!parakeet"] :
         reply =  ":"+parrot[random.randint(0, len(parrot)) - 1]+":"
-
     if reply != "" or reply is not None :
         post_message(reply, channel)
+    
 
 if sc.rtm_connect():
     while True:
-        events = sc.rtm_read()
-        if len(events) > 0:
-            for event in events:
-                print event
-                if ('channel' in event and 'text' in event and event.get('type') == 'message' and 'user' in event):
-                    channel = event['channel']
-                    message = event['text']
-                    ts = event['ts']
-                    user = event['user']
-                    handle_command(message, channel, ts, user)
+  		events = sc.rtm_read()
+  		if len(events) > 0:
+  			for event in events:
+  				if ('channel' in event and 'text' in event and event.get('type') == 'message' and 'user' in event):
+  					channel = event['channel']
+  					message = event['text']
+  					ts = event['ts']
+  					user = event['user']
+ 					handle_command(message, channel, ts, user)
 
 else:
-    print('Connection failed, invalid token?')
+   print ("connection failed")
