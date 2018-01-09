@@ -392,10 +392,10 @@ def post_reaction(text, channel, ts):
         name = text
         )
 
-def crypto(cryptoname, ts, channel):
+def crypto(cryptoname,currency, ts, channel):
     reply = ""
     response = {}
-    url = "https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto="+ cryptoname + "&fiat=EUR"
+    url = "https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto="+ cryptoname + "&fiat=" + currency
     try:
         response = requests.request("GET",url).json()
     except :
@@ -431,7 +431,11 @@ def handle_command(message, channel, ts, user):
             if message.split( )[1].lower() == "who":
                 reply = who(message.split( )[2].lower())
             if message.split( )[1].lower() == "crypto":
-                crypto(message.split( )[2].upper(), ts, channel)
+                if (len(message.split( )) == 4):
+                    currency = message.split( )[3].upper()
+                else :
+                    currency = "EUR"
+                crypto(message.split( )[2].upper(),currency, ts, channel)
             if message.split( )[1].lower() == "list":
                 reply = list(message.split( )[2].lower())
             if message.split( )[1].lower() == "addmusic" and get_username(user) not in listban('banmusic.txt'):
