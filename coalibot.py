@@ -26,6 +26,17 @@ def get_token(grant_type):
     client.request_token(grant_type=grant_type)
     return client
 
+def get_username(user):
+    username = sc.api_call(
+                "users.info",
+                user = user
+                )
+    if ('name' in username):
+        return (username['name'])
+    else :
+        return "null"
+
+
 def get_more_location(client, request, locations, range_begin):
     try:
         tmp = True
@@ -207,13 +218,9 @@ def youtube_url_validation(url):
 def addmusic(link, user):
     with open('music.json', 'r') as fp:
         content = json.load(fp)
-    username = sc.api_call(
-                "users.info",
-                user = user
-                )
     if (("youtube" in link or "youtu.be" in link and youtube_url_validation(link) == 1) or "soundcloud.com" in link) and  checkduplicate(content, link) == False :
         info = {
-                "login": username['name'],
+                "login": get_username(user),
                 "link": link
                 }
         content.append(info)
@@ -367,7 +374,7 @@ def listban(bannedfile):
 
 def addban(bannedfile, user):
     with open(bannedfile, 'a') as fp:
-        fp.write(user +'\n')
+        fp.write(get_username(user) +'\n')
 
 def post_message(text, channel):
     sc.api_call(
@@ -396,8 +403,8 @@ def handle_command(message, channel, ts, user):
         if len(message.split( )) > 2:
             if message.split( )[1].lower() == "prof":
                 reply = profile(message.split( )[2].lower())
-            if user == "elebouch" and message.split( )[1].lower() == "ban":
-                addban(message.split( )[2].lower())
+            if get_username(user) == "elebouch" and message.split( )[1].lower() == "banmusic":
+                addban('banmusic.txt', message.split( )[2].lower())
                 reply = "Utilisateur banni du coalibot"
             if message.split( )[1].lower() == "where":
                 reply = where(message.split( )[2].lower())
@@ -405,7 +412,7 @@ def handle_command(message, channel, ts, user):
                 reply = who(message.split( )[2].lower())
             if message.split( )[1].lower() == "list":
                 reply = list(message.split( )[2].lower())
-            if message.split( )[1].lower() == "addmusic" and user not in listban('banmusic.txt'):
+            if message.split( )[1].lower() == "addmusic" and get_username(user) not in listban('banmusic.txt'):
                reply = addmusic(message.split( )[2], user)
             if message.split( )[1].lower() == "logtime" :
                 logtime(message, ts, channel)
