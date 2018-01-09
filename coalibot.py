@@ -213,9 +213,9 @@ def addmusic(link, user):
                 "link": link
                 }
         content.append(info)
-        return "Musique ajoutée"
         with open("music.json", "w") as output:
             json.dump(content, output)
+        return "Musique ajoutée"
     else :
         return "Lien incorrect"
 
