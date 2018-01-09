@@ -394,7 +394,7 @@ def post_reaction(text, channel, ts):
 
 def crypto(cryptoname, ts, channel):
     reply = ""
-    response
+    response = {}
     url = "https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto="+ cryptoname + "&fiat=EUR"
     try:
         response = requests.request("GET",url).json()
