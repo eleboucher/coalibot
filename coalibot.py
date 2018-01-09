@@ -375,7 +375,7 @@ def listban(bannedfile):
 
 def addban(bannedfile, user):
     with open(bannedfile, 'a') as fp:
-        fp.write(get_username(user) +'\n')
+        fp.write(user +'\n')
 
 def post_message(text, channel):
     sc.api_call(
@@ -406,7 +406,7 @@ def handle_command(message, channel, ts, user):
                 reply = profile(message.split( )[2].lower())
             if get_username(user) == "elebouch" and message.split( )[1].lower() == "banmusic":
                 addban('banmusic.txt', message.split( )[2].lower())
-                reply = "Utilisateur banni du coalibot"
+                reply = "Utilisateur banni de bc musique"
             if message.split( )[1].lower() == "where":
                 reply = where(message.split( )[2].lower())
             if message.split( )[1].lower() == "who":
