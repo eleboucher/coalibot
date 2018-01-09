@@ -207,9 +207,13 @@ def youtube_url_validation(url):
 def addmusic(link, user):
     with open('music.json', 'r') as fp:
         content = json.load(fp)
+    username = sc.api_call(
+                "users.info",
+                user = user
+                )
     if (("youtube" in link or "youtu.be" in link and youtube_url_validation(link) == 1) or "soundcloud.com" in link) and  checkduplicate(content, link) == False :
         info = {
-                "login": user,
+                "login": username['name'],
                 "link": link
                 }
         content.append(info)
@@ -448,7 +452,7 @@ def handle_command(message, channel, ts, user):
         reply =  ":"+parrot[random.randint(0, len(parrot)) - 1]+":"
     if reply != "" or reply is not None :
         post_message(reply, channel)
-    
+
 
 if sc.rtm_connect():
     while True:
