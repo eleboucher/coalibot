@@ -401,7 +401,7 @@ def crypto(cryptoname,currency, ts, channel):
     except :
         reply =  "Erreur"
     if (response and 'last' in response.values()[0]):
-        reply = "{} : *{:.2f} EUR*".format(cryptoname, response.values()[0]['last'])
+        reply = "{} : *{:.2f} {}*".format(cryptoname, response.values()[0]['last'], currency)
     else:
         reply =  "Erreur"
     sc.api_call(
