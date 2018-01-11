@@ -399,16 +399,27 @@ def post_reaction(text, channel, ts):
 
 def crypto(cryptoname,currency, ts, channel):
     reply = ""
-    try :
-        info = client.get_ticker(symbol=(cryptoname + "BTC"))
-        if  currency in ['USD', 'EUR']:
+    try:
+        if cryptoname != "BTC":
+            info = client.get_ticker(symbol=(cryptoname + "BTC"))
+        elif currency != "BTC":
+            info = client.get_ticker(symbol=(cryptoname + "USDT"))
+        else:
+            info = None
+        if currency in ['USD', 'EUR'] and info is not None:
             btcprice = client.get_ticker(symbol='BTCUSDT')
-            if currency in 'EUR':
-                price = c.convert(float(info['lastPrice']) * float(btcprice['lastPrice']), 'USD', 'EUR')
+            if cryptoname != "BTC":
+                if currency == 'EUR':
+                    price = c.convert(float(info['lastPrice']) * float(btcprice['lastPrice']), 'USD', 'EUR')
+                else:
+                    price = float(info['lastPrice']) * float(btcprice['lastPrice'])
             else:
-                price = float(info['lastPrice']) * float(btcprice['lastPrice'])
+                if currency == 'EUR':
+                    price = c.convert(float(info['lastPrice']), 'USD', 'EUR')
+                else:
+                    price = float(info['lastPrice'])
         else :
-            if currency in 'BTC':
+            if currency == 'BTC':
                 price = float(info['lastPrice'])
             else:
                 reply =  "Erreur"
