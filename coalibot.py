@@ -15,8 +15,6 @@ import os
 from binance.client import Client
 from currency_converter import CurrencyConverter
 
-client = Client("", "")
-c = CurrencyConverter()
 
 sc = SlackClient(os.environ["SLACK_API_TOKEN"])
 parrot = ["parrot", "middleparrot", "rightparrot", "aussieparrot", "gothparrot", "oldtimeyparrot", "boredparrot", "shuffleparrot", "shufflefurtherparrot", "congaparrot", "reversecongaparrot", "partyparrot", "sadparrot", "parrotcop", "fastparrot", "slowparrot", "parrotdad", "dealwithitparrot", "fiestaparrot", "pizzaparrot", "hamburgerparrot", "bananaparrot", "chillparrot", "explodyparrot", "shufflepartyparrot", "icecreamparrot", "sassyparrot", "confusedparrot", "aussiecongaparrot", "aussiereversecongaparrot", "parrotwave1", "parrotwave2", "parrotwave3", "parrotwave4", "parrotwave5", "parrotwave6", "parrotwave7", "congapartyparrot", "moonwalkingparrot", "thumbsupparrot", "coffeeparrot", "parrotwithmustache", "christmasparrot", "witnessprotectionparrot", "parrotsleep", "parrotbeer", "darkbeerparrot", "blondesassyparrot", "bluescluesparrot", "gentlemanparrot", "margaritaparrot", "oriolesparrot", "dreidelparrot", "harrypotterparrot", "fieriparrot", "upvotepartyparrot", "twinsparrot", "tripletsparrot", "stableparrot", "shipitparrot", "skiparrot", "loveparrot", "halalparrot", "nyanparrot", "wendyparrot", "popcornparrot", "donutparrot", "evilparrot", "discoparrot", "matrixparrot", "papalparrot", "stalkerparrot", "scienceparrot", "prideparrot", "revolutionparrot", "fidgetparrot", "beretparrot", "tacoparrot", "ryangoslingparrot", "john_francis_parrot", "mexa_parrot", "moneyparrot", "moneyparrot2", "parrothd" ]
@@ -398,16 +396,18 @@ def post_reaction(text, channel, ts):
         )
 
 def crypto(cryptoname,currency, ts, channel):
+    clientbinance = Client("", "")
+    c = CurrencyConverter()
     reply = ""
     try:
         if cryptoname != "BTC":
-            info = client.get_ticker(symbol=(cryptoname + "BTC"))
+            info = clientbinance.get_ticker(symbol=(cryptoname + "BTC"))
         elif currency != "BTC":
-            info = client.get_ticker(symbol=(cryptoname + "USDT"))
+            info = clientbinance.get_ticker(symbol=(cryptoname + "USDT"))
         else:
             info = None
         if currency in ['USD', 'EUR'] and info is not None:
-            btcprice = client.get_ticker(symbol='BTCUSDT')
+            btcprice = clientbinance.get_ticker(symbol='BTCUSDT')
             if cryptoname != "BTC":
                 if currency == 'EUR':
                     price = c.convert(float(info['lastPrice']) * float(btcprice['lastPrice']), 'USD', 'EUR')
