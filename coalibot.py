@@ -12,7 +12,7 @@ import requests
 import json
 import commands
 import os
-from binance.client import Client
+from binance.client import Client as binanceClient
 from currency_converter import CurrencyConverter
 
 
@@ -396,7 +396,7 @@ def post_reaction(text, channel, ts):
         )
 
 def crypto(cryptoname,currency, ts, channel):
-    clientbinance = Client("", "")
+    clientbinance = binanceClient("", "")
     c = CurrencyConverter()
     reply = ""
     try:
