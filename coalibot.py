@@ -466,7 +466,7 @@ def handle_command(message, channel, ts, user):
     if message.split( )[0].lower() == "!anais":
         post_reaction(parrot[random.randint(0, len(parrot)) - 1], channel, ts)
     elif message.split( )[0].lower() == "!elebouch":
-        reply = "Charbonne pour finir son `ft_printf`"
+        reply = "Charbonne pour commencer son `ft_ls` et retry son `ft_printf`"
     elif message.split( )[0].lower() == "!lain":
         post_reaction("francais", channel, ts)
     elif message.split( )[0].lower() == "!fpons":
