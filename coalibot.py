@@ -12,6 +12,11 @@ import requests
 import json
 import commands
 import os
+from binance.client import Client
+from currency_converter import CurrencyConverter
+
+client = Client("", "")
+c = CurrencyConverter()
 
 sc = SlackClient(os.environ["SLACK_API_TOKEN"])
 parrot = ["parrot", "middleparrot", "rightparrot", "aussieparrot", "gothparrot", "oldtimeyparrot", "boredparrot", "shuffleparrot", "shufflefurtherparrot", "congaparrot", "reversecongaparrot", "partyparrot", "sadparrot", "parrotcop", "fastparrot", "slowparrot", "parrotdad", "dealwithitparrot", "fiestaparrot", "pizzaparrot", "hamburgerparrot", "bananaparrot", "chillparrot", "explodyparrot", "shufflepartyparrot", "icecreamparrot", "sassyparrot", "confusedparrot", "aussiecongaparrot", "aussiereversecongaparrot", "parrotwave1", "parrotwave2", "parrotwave3", "parrotwave4", "parrotwave5", "parrotwave6", "parrotwave7", "congapartyparrot", "moonwalkingparrot", "thumbsupparrot", "coffeeparrot", "parrotwithmustache", "christmasparrot", "witnessprotectionparrot", "parrotsleep", "parrotbeer", "darkbeerparrot", "blondesassyparrot", "bluescluesparrot", "gentlemanparrot", "margaritaparrot", "oriolesparrot", "dreidelparrot", "harrypotterparrot", "fieriparrot", "upvotepartyparrot", "twinsparrot", "tripletsparrot", "stableparrot", "shipitparrot", "skiparrot", "loveparrot", "halalparrot", "nyanparrot", "wendyparrot", "popcornparrot", "donutparrot", "evilparrot", "discoparrot", "matrixparrot", "papalparrot", "stalkerparrot", "scienceparrot", "prideparrot", "revolutionparrot", "fidgetparrot", "beretparrot", "tacoparrot", "ryangoslingparrot", "john_francis_parrot", "mexa_parrot", "moneyparrot", "moneyparrot2", "parrothd" ]
@@ -394,16 +399,23 @@ def post_reaction(text, channel, ts):
 
 def crypto(cryptoname,currency, ts, channel):
     reply = ""
-    response = {}
-    url = "https://apiv2.bitcoinaverage.com/indices/global/ticker/short?crypto="+ cryptoname + "&fiat=" + currency
     try:
-        response = requests.request("GET",url).json()
+        info = client.get_ticker(symbol=(cryptoname + "BTC"))
+        if  currency in ['USD', 'EUR']:
+            btcprice = client.get_ticker(symbol='BTCUSDT')
+            if currency in 'EUR':
+                price = c.convert(float(info['lastPrice']) * float(btcprice['lastPrice']), 'USD', 'EUR')
+            else:
+                price = float(info['lastPrice']) * float(btcprice['lastPrice'])
+        else :
+            if currency in 'BTC':
+                price = float(info['lastPrice'])
+            else:
+                reply =  "Erreur"
     except :
         reply =  "Erreur"
-    if (response and 'last' in response.values()[0]):
-        reply = "{} : *{:,.2f} {}*".format(cryptoname, response.values()[0]['last'], currency)
-    else:
-        reply =  "Erreur"
+    if reply != "Erreur" or reply != "" :
+        reply = "{} : *{:,.2f} {}* ({:,.2f}%)".format(cryptoname, price, currency, info['priceChangePercent'])
     sc.api_call(
             "chat.postMessage",
             thread_ts = ts,
