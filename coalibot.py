@@ -488,18 +488,24 @@ def handle_command(message, channel, ts, user):
     if reply != "" or reply is not None :
         post_message(reply, channel)
 
+def coalibot():
+    if sc.rtm_connect():
+        while True:
+      		events = sc.rtm_read()
+      		if len(events) > 0:
+      			for event in events:
+      				if ('channel' in event and 'text' in event and event.get('type') == 'message' and 'user' in event):
+      					channel = event['channel']
+      					message = event['text']
+      					ts = event['ts']
+      					user = event['user']
+     					handle_command(message, channel, ts, user)
 
-if sc.rtm_connect():
-    while True:
-  		events = sc.rtm_read()
-  		if len(events) > 0:
-  			for event in events:
-  				if ('channel' in event and 'text' in event and event.get('type') == 'message' and 'user' in event):
-  					channel = event['channel']
-  					message = event['text']
-  					ts = event['ts']
-  					user = event['user']
- 					handle_command(message, channel, ts, user)
+    else:
+       print ("connection failed")
 
-else:
-   print ("connection failed")
+if __name__ == '__main__':
+    try:
+        coalibot()
+    except:
+        os.execv(sys.executable, ['python'] + sys.argv)
