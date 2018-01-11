@@ -399,7 +399,7 @@ def post_reaction(text, channel, ts):
 
 def crypto(cryptoname,currency, ts, channel):
     reply = ""
-    try:
+    try :
         info = client.get_ticker(symbol=(cryptoname + "BTC"))
         if  currency in ['USD', 'EUR']:
             btcprice = client.get_ticker(symbol='BTCUSDT')
@@ -414,8 +414,8 @@ def crypto(cryptoname,currency, ts, channel):
                 reply =  "Erreur"
     except :
         reply =  "Erreur"
-    if reply != "Erreur" or reply != "" :
-        reply = "{} : *{:,.2f} {}* ({:,.2f}%)".format(cryptoname, price, currency, info['priceChangePercent'])
+    if reply != "Erreur" :
+        reply = "{} : *{:,.2f} {}* ({:,.2f}%)".format(cryptoname, price, currency, float(info['priceChangePercent']))
     sc.api_call(
             "chat.postMessage",
             thread_ts = ts,
