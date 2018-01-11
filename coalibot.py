@@ -463,7 +463,7 @@ def handle_command(message, channel, ts, user):
             reply = "Bonjours\n Je t'invite à taper `iscsictl list targets` dans ton terminal\n à copier la ligne contenant ton login mais sans la partie entre <>\n puis à taper `iscsictl <la ligne copiée>`"
         elif message.split( )[1].lower() == "meteo" :
             weather()
-    if message.split( )[0].lower() == "!anais":
+    elif message.split( )[0].lower() == "!anais":
         post_reaction(parrot[random.randint(0, len(parrot)) - 1], channel, ts)
     elif message.split( )[0].lower() == "!elebouch":
         reply = "Charbonne pour commencer son `ft_ls` et retry son `ft_printf`"
