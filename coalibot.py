@@ -469,6 +469,8 @@ def handle_command(message, channel, ts, user):
         reply = "Charbonne pour commencer son `ft_ls` et retry son `ft_printf`"
     elif message.split( )[0].lower() == "!lain":
         post_reaction("francais", channel, ts)
+    elif message.split( )[0].lower() == "!jcharloi":
+        reply = "fait tes 9h"
     elif message.split( )[0].lower() == "!fpons":
         reply = "t'as pas un `cloud-1` à finir ?"
     elif message.split( )[0].lower() == "!oss":
