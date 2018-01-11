@@ -494,6 +494,8 @@ def handle_command(message, channel, ts, user):
         post_reaction("francais", channel, ts)
     elif message.split( )[0].lower() == "!jcharloi":
         reply = "fais tes 9h!"
+    elif message.split( )[0].lower() == "!sygnano":
+        reply = "https://youtu.be/V2UGfj2qPCw?t=8s"
     elif message.split( )[0].lower() == "!fpons":
         reply = "t'as pas un `cloud-1` à finir ?"
     elif message.split( )[0].lower() == "!oss":
