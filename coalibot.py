@@ -476,10 +476,12 @@ def handle_command(message, channel, ts, user):
             score(ts, channel)
         elif message.split( )[1].lower() == "alliance" :
             reply = alliance()
-        elif message.split( )[1].lower() == "musique" :
+        elif message.split( )[1].lower() == "music" :
             reply = musique()
         elif message.split( )[1].lower() == "help" :
             reply = "TODO"
+        elif message.split( )[1].lower() == "source" :
+            reply = "`https://github.com/genesixx/coalibot`"
         elif message.split( )[1].lower() == "brew" :
             reply = "```rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo \'export PATH=$HOME/.brew/bin:$PATH\' >> $HOME/.zshrc && source $HOME/.zshrc && brew update```"
         elif message.split( )[1].lower() == "halp":
