@@ -181,17 +181,17 @@ def score(ts, channel):
                         },
                         {
                             "title": data[1]['name'],
-                            "value": str(data[1]['score']) + "("+ str(int(data[1]['score']) - int(data[0]['score']))  +")",
+                            "value": str(data[1]['score']) + " ("+ str(int(data[1]['score']) - int(data[0]['score']))  +")",
                             "short": True
                         },
                         {
                             "title": data[2]['name'],
-                            "value": str(data[1]['score']) + "("+ str(int(data[2]['score']) - int(data[0]['score']))  +")",
+                            "value": str(data[1]['score']) + " ("+ str(int(data[2]['score']) - int(data[0]['score']))  +")",
                             "short": True
                         },
                         {
                             "title": data[3]['name'],
-                            "value": str(data[1]['score']) + "("+ str(int(data[3]['score']) - int(data[0]['score']))  +")",
+                            "value": str(data[1]['score']) + " ("+ str(int(data[3]['score']) - int(data[0]['score']))  +")",
                             "short": True
                         }
                     ],
