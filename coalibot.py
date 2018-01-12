@@ -310,7 +310,7 @@ def roll(nb, taille):
     else:
         return ":3:"
 
-def weather():
+def weather(channel):
     try:
         commands.getstatusoutput("curl fr.wttr.in/48.90,2.32?T0 > meteo.txt")
     except IOError:
@@ -318,7 +318,7 @@ def weather():
     with open('./meteo.txt', 'r') as fp:
        sc.api_call(
                "files.upload",
-               channels=canal,
+               channels=channel,
                file=fp,
                )
 
@@ -479,7 +479,7 @@ def handle_command(message, channel, ts, user):
         elif message.split( )[1].lower() == "music" :
             reply = musique()
         elif message.split( )[1].lower() == "help" :
-            reply = "TODO"
+            reply = ""
         elif message.split( )[1].lower() == "source" :
             reply = "`https://github.com/genesixx/coalibot`"
         elif message.split( )[1].lower() == "brew" :
@@ -487,7 +487,7 @@ def handle_command(message, channel, ts, user):
         elif message.split( )[1].lower() == "halp":
             reply = "Bonjours\n Je t'invite à taper `iscsictl list targets` dans ton terminal\n à copier la ligne contenant ton login mais sans la partie entre <>\n puis à taper `iscsictl <la ligne copiée>`"
         elif message.split( )[1].lower() == "meteo" :
-            weather()
+            weather(channel)
     elif message.split( )[0].lower() == "!anais":
         post_reaction(parrot[random.randint(0, len(parrot)) - 1], channel, ts)
     elif message.split( )[0].lower() == "!elebouch":
