@@ -480,7 +480,7 @@ def handle_command(message, channel, ts, user):
                else :
                     reply = "Usage: bc roll nbdé tailledudé"
             if message.split( )[1].lower() == "lmgtfy" :
-                 reply = "http://lmgtfy.com/?q=" + message.split( )[2].replace(" ","+")
+                 reply = "http://lmgtfy.com/?q=" + message.replace("bc lmgtfy", "").replace(" ","+")
         elif message.split( )[1].lower() == "score" :
             score(ts, channel)
         elif message.split( )[1].lower() == "alliance" :
