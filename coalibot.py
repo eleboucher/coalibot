@@ -535,7 +535,8 @@ def coalibot():
       					message = event['text']
       					ts = event['ts']
       					user = event['user']
-     					handle_command(message, channel, ts, user)
+                        if channel != "C3QG85SG6":
+     						handle_command(message, channel, ts, user)
 
     else:
        print ("connection failed")
