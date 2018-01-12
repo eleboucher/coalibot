@@ -434,6 +434,15 @@ def crypto(cryptoname,currency, ts, channel):
             text = reply
         )
 
+def help(channel):
+    with open('featurespic.jpeg', 'r') as fp:
+       sc.api_call(
+               "files.upload",
+               channels=channel,
+               file=fp,
+               )
+
+
 def handle_command(message, channel, ts, user):
     reply = ""
     if "jpp" in message:
@@ -479,7 +488,7 @@ def handle_command(message, channel, ts, user):
         elif message.split( )[1].lower() == "music" :
             reply = musique()
         elif message.split( )[1].lower() == "help" :
-            reply = ""
+            help(channel)
         elif message.split( )[1].lower() == "source" :
             reply = "`https://github.com/genesixx/coalibot`"
         elif message.split( )[1].lower() == "brew" :
