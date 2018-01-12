@@ -536,7 +536,7 @@ def coalibot():
       					ts = event['ts']
       					user = event['user']
      					handle_command(message, channel, ts, user)
-            time.sleep(1)
+        	time.sleep(1)
 
     else:
        print ("connection failed")
