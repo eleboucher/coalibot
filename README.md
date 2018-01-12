@@ -21,6 +21,7 @@ Bot pour le slack de [42Born2Code](42.fr)
 | who | Donne qui est à cette place | bc where place |
 
 Bonus
+
 | Commandes | Fonction | usage |
 | ------------- |:-------------:|:-------------:|
 | kaamelott | Donne une citation aléatoire de Kaamelott | !kaamelott |
