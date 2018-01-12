@@ -152,7 +152,7 @@ def profile(user):
     graph = "https://projects.intra.42.fr/projects/graph?login=" + user
     return "{} {}\nPhoto: {}\nTemps de log cette semaine {:02d}:{:02d}\nNiveau: {:.02f} {}\nNiveau piscine {:0.2f} {} {}\n{} stage\nGraph: {}".format(data['displayname'], coalslug,data['image_url'],h ,m, 0 if lvl == 0 else data['cursus_users'][0]['level'], ('' if lvl == 0 else data['cursus_users'][0]['grade']), lvlpiscine , data['pool_month'], data['pool_year'], hasdoneintern(user), graph)
 
-def score(ts):
+def score(ts, channel):
     url = "/v2/coalitions"
     client = get_token("client_credentials")
     reply = ""
@@ -473,7 +473,7 @@ def handle_command(message, channel, ts, user):
             if message.split( )[1].lower() == "lmgtfy" :
                  reply = "http://lmgtfy.com/?q=" + message.split( )[2].replace(" ","+")
         elif message.split( )[1].lower() == "score" :
-            score(ts)
+            score(ts, channel)
         elif message.split( )[1].lower() == "alliance" :
             reply = alliance()
         elif message.split( )[1].lower() == "musique" :
