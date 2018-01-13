@@ -1,6 +1,6 @@
 # Coalibot
 
-Bot pour le slack de [42Born2Code](42.fr)
+Bot pour le slack de [42Born2Code](http://www.42.fr/)
 
 ## Features
 | Commandes | Fonction | usage |
