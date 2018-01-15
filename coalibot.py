@@ -496,7 +496,7 @@ def handle_command(message, channel, ts, user):
         elif message.split( )[1].lower() == "halp":
             reply = "Bonjours\n Je t'invite à taper `iscsictl list targets` dans ton terminal\n à copier la ligne contenant ton login mais sans la partie entre <>\n puis à taper `iscsictl <la ligne copiée>`"
 	elif message.split( )[1].lower() == "home":
-            reply = "https://42born2code.slack.com/archives/C7P0Z4F3L/p1510233807000241"
+            reply = "si `Disk Not Ejected Properly ??` suivre : https://42born2code.slack.com/archives/C7P0Z4F3L/p1510233807000241"
 	elif message.split( )[1].lower() == "meteo" :
             weather(channel)
     elif message.split( )[0].lower() == "!anais":
