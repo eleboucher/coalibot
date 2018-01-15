@@ -495,7 +495,9 @@ def handle_command(message, channel, ts, user):
             reply = "```rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo \'export PATH=$HOME/.brew/bin:$PATH\' >> $HOME/.zshrc && source $HOME/.zshrc && brew update```"
         elif message.split( )[1].lower() == "halp":
             reply = "Bonjours\n Je t'invite à taper `iscsictl list targets` dans ton terminal\n à copier la ligne contenant ton login mais sans la partie entre <>\n puis à taper `iscsictl <la ligne copiée>`"
-        elif message.split( )[1].lower() == "meteo" :
+	elif message.split( )[1].lower() == "home":
+            reply = "https://42born2code.slack.com/archives/C7P0Z4F3L/p1510233807000241"
+	elif message.split( )[1].lower() == "meteo" :
             weather(channel)
     elif message.split( )[0].lower() == "!anais":
         post_reaction(parrot[random.randint(0, len(parrot)) - 1], channel, ts)
