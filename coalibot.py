@@ -268,6 +268,8 @@ def where(user):
         return
     if "?" in user:
         return
+    if user == "queen" or user == "way":
+	return "follow me bruddah\ni'll show you de way :uganda_knuckles:"
     url = "/v2/users/" + user + "/locations"
     client = get_token("client_credentials")
     try:
