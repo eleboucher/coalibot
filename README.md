@@ -18,7 +18,7 @@ Bot pour le slack de [42Born2Code](http://www.42.fr/)
 | score | Donne le score des coalitions | bc score |
 | source | Donne le repo de coalibot | bc source |
 | where | Donne la position de l'étudiant | bc where login |
-| who | Donne qui est à cette place | bc where place |
+| who | Donne qui est à cette place | bc who place |
 
 Bonus
 
