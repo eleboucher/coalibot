@@ -511,6 +511,8 @@ def handle_command(message, channel, ts, user):
         reply = "fais tes 9h!"
     elif message.split( )[0].lower() == "!glegendr":
 	reply = "Corrige ton `fillit`!"
+    elif message.split( )[0].lower() == "!makefile":
+        reply = "`https://forum.intra.42.fr/topics/85/messages`"
     elif message.split( )[0].lower() == "!sygnano":
         reply = "https://youtu.be/V2UGfj2qPCw?t=8s"
     elif message.split( )[0].lower() == "!fpons":
