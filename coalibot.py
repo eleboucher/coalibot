@@ -45,12 +45,12 @@ def get_username(user):
         return "null"
 
 def get_first_day_of_the_quarter(quarter):
-    return datetime.strptime(str(datetime(datetime.now().year, 3 * quarter - 2, 1)), '%Y-%m-%d')
+    return datetime.strptime(str((datetime(datetime.now().year, 3 * quarter - 2, 1)).date()), '%Y-%m-%d').date()
 
 def get_last_day_of_the_quarter(quarter):
     month = 3 * quarter
     remaining = month / 12
-    return datetime.strptime(str(datetime(datetime.now().year + remaining, month % 12 + 1, 1) +timedelta(days=-1)), '%Y-%m-%d')
+    return datetime.strptime(str((datetime(datetime.now().year + remaining, month % 12 + 1, 1) +timedelta(days=-1)).date()), '%Y-%m-%d').date()
 
 def get_more_location(client, request, locations, range_begin):
     try:
@@ -79,7 +79,6 @@ def get_range_logtime (user, range_begin, range_end):
     except IOError:
         return 0;
     logtime = timedelta()
-    time.sleep(1)
     if range_begin != range_end :
         get_more_location(client, url, data, range_begin)
     for x in data :
@@ -97,9 +96,9 @@ def logtime(message, ts, channel):
         reply = ""
         if  "trimestre" in message.split( )[3]:
             quarter = int(message.split( )[3].replace("trimestre", ""))
-            if quarter <= 4 and quarter >= 0:
-                date_begin = get_first_day_of_the_quarter(quarter)
-                date_end = get_last_day_of_the_quarter(quarter)
+            if quarter <= 4 and quarter > 0:
+                date_begin = str(get_first_day_of_the_quarter(quarter))
+                date_end = str(get_last_day_of_the_quarter(quarter))
                 logtime = get_range_logtime(message.split( )[2], date_begin, date_end)
                 try:
                     (h, m) = format_output_datetime(logtime.days * 86400 + logtime.seconds)
