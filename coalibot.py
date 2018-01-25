@@ -14,6 +14,10 @@ import commands
 import os
 from binance.client import Client as binanceClient
 from currency_converter import CurrencyConverter
+try:
+    from urllib import quote_plus
+except:
+    from urllib.parse import quote_plus
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -507,7 +511,7 @@ def handle_command(message, channel, ts, user):
                else :
                     reply = "Usage: bc roll nbdé tailledudé"
             if message.split( )[1].lower() == "lmgtfy" :
-                 reply = "http://lmgtfy.com/?q=" + message.replace("bc lmgtfy ", "").replace(" ","+")
+                 reply = "http://lmgtfy.com/?q=" + quote_plus(' '.join(message.split('\n')[0].split(' ')[1:]))
         elif message.split( )[1].lower() == "score" :
             score(ts, channel)
         elif message.split( )[1].lower() == "alliance" :
