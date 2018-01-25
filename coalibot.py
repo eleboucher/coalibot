@@ -568,7 +568,7 @@ def coalibot():
       					message = event['text']
       					ts = event['ts']
       					user = event['user']
-                        if channel not in blacklist
+                        		if channel not in blacklist:
      					    handle_command(message, channel, ts, user)
         	time.sleep(1)
 
