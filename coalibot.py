@@ -28,7 +28,7 @@ def get_token(grant_type):
             client_id = os.environ["INTRA_CLIENT_ID"],
             client_secret =  os.environ["INTRA_SECRET"])
     client.request_token(grant_type=grant_type)
-    sleep(1)
+    time.sleep(1)
     return client
 
 def get_username(user):
@@ -53,7 +53,7 @@ def get_more_location(client, request, locations, range_begin):
                 tmp = client.request(request + "&page[number]=" + str(i))
                 locations += tmp
                 i += 1
-                sleep(1)
+                time.sleep(1)
             else:
                 return
     except :
@@ -70,7 +70,7 @@ def get_range_logtime (user, range_begin, range_end):
     except IOError:
         return 0;
     logtime = timedelta()
-    sleep(1)
+    time.sleep(1)
     if range_begin != range_end :
         get_more_location(client, url, data, range_begin)
     for x in data :
