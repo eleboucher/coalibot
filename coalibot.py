@@ -511,7 +511,10 @@ def handle_command(message, channel, ts, user):
                else :
                     reply = "Usage: bc roll nbdé tailledudé"
             if message.split( )[1].lower() == "lmgtfy" :
-                 reply = "http://lmgtfy.com/?q=" + quote_plus(' '.join(message.split('\n')[0].split(' ')[1:]))
+                try:
+                    reply = "http://lmgtfy.com/?q=" + quote_plus(' '.join(message.split('\n')[0].split(' ')[2:]))
+                except:
+                    pass
         elif message.split( )[1].lower() == "score" :
             score(ts, channel)
         elif message.split( )[1].lower() == "alliance" :
