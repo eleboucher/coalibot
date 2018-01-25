@@ -15,7 +15,8 @@ import os
 from binance.client import Client as binanceClient
 from currency_converter import CurrencyConverter
 
-
+reload(sys)
+sys.setdefaultencoding('utf8')
 sc = SlackClient(os.environ["SLACK_API_TOKEN"])
 parrot = ["parrot", "middleparrot", "rightparrot", "aussieparrot", "gothparrot", "oldtimeyparrot", "boredparrot", "shuffleparrot", "shufflefurtherparrot", "congaparrot", "reversecongaparrot", "partyparrot", "sadparrot", "parrotcop", "fastparrot", "slowparrot", "parrotdad", "dealwithitparrot", "fiestaparrot", "pizzaparrot", "hamburgerparrot", "bananaparrot", "chillparrot", "explodyparrot", "shufflepartyparrot", "icecreamparrot", "sassyparrot", "confusedparrot", "aussiecongaparrot", "aussiereversecongaparrot", "parrotwave1", "parrotwave2", "parrotwave3", "parrotwave4", "parrotwave5", "parrotwave6", "parrotwave7", "congapartyparrot", "moonwalkingparrot", "thumbsupparrot", "coffeeparrot", "parrotwithmustache", "christmasparrot", "witnessprotectionparrot", "parrotsleep", "parrotbeer", "darkbeerparrot", "blondesassyparrot", "bluescluesparrot", "gentlemanparrot", "margaritaparrot", "oriolesparrot", "dreidelparrot", "harrypotterparrot", "fieriparrot", "upvotepartyparrot", "twinsparrot", "tripletsparrot", "stableparrot", "shipitparrot", "skiparrot", "loveparrot", "halalparrot", "nyanparrot", "wendyparrot", "popcornparrot", "donutparrot", "evilparrot", "discoparrot", "matrixparrot", "papalparrot", "stalkerparrot", "scienceparrot", "prideparrot", "revolutionparrot", "fidgetparrot", "beretparrot", "tacoparrot", "ryangoslingparrot", "john_francis_parrot", "mexa_parrot", "moneyparrot", "moneyparrot2", "parrothd" ]
 
@@ -27,6 +28,7 @@ def get_token(grant_type):
             client_id = os.environ["INTRA_CLIENT_ID"],
             client_secret =  os.environ["INTRA_SECRET"])
     client.request_token(grant_type=grant_type)
+    sleep(1)
     return client
 
 def get_username(user):
@@ -51,6 +53,7 @@ def get_more_location(client, request, locations, range_begin):
                 tmp = client.request(request + "&page[number]=" + str(i))
                 locations += tmp
                 i += 1
+                sleep(1)
             else:
                 return
     except :
@@ -67,6 +70,7 @@ def get_range_logtime (user, range_begin, range_end):
     except IOError:
         return 0;
     logtime = timedelta()
+    sleep(1)
     if range_begin != range_end :
         get_more_location(client, url, data, range_begin)
     for x in data :
@@ -552,5 +556,6 @@ def coalibot():
 if __name__ == '__main__':
     try:
         coalibot()
-    except:
+    except Exception as e:
+        print e
         os.execv(sys.executable, ['python'] + sys.argv)
