@@ -45,12 +45,12 @@ def get_username(user):
         return "null"
 
 def get_first_day_of_the_quarter(quarter):
-    return datetime.datetime(datetime.datetime.now().year, 3 * quarter - 2, 1)
+    return datetime.strptime(str(datetime(datetime.now().year, 3 * quarter - 2, 1)), '%Y-%m-%d')
 
 def get_last_day_of_the_quarter(quarter):
     month = 3 * quarter
     remaining = month / 12
-    return datetime.datetime(datetime.datetime.now().year + remaining, month % 12 + 1, 1) + datetime.timedelta(days=-1)
+    return datetime.strptime(str(datetime(datetime.now().year + remaining, month % 12 + 1, 1) +timedelta(days=-1)), '%Y-%m-%d')
 
 def get_more_location(client, request, locations, range_begin):
     try:
