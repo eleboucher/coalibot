@@ -504,7 +504,7 @@ def handle_command(message, channel, ts, user):
     elif message.split( )[0].lower() == "!anais":
         post_reaction(parrot[random.randint(0, len(parrot)) - 1], channel, ts)
     elif message.split( )[0].lower() == "!elebouch":
-        reply = "Charbonne pour commencer son `ft_ls` et retry son `ft_printf`"
+        reply = "Charbonne pour finir son `ft_ls`"
     elif message.split( )[0].lower() == "!lain":
         post_reaction("francais", channel, ts)
     elif message.split( )[0].lower() == "!jcharloi":
@@ -526,7 +526,7 @@ def handle_command(message, channel, ts, user):
     elif message.split( )[0].lower() == "!test":
         reply =  "oui je suis osi un beauteux "
     elif message.split( )[0].lower() == "!mfranc":
-        reply =  "Doucement avec les bots"
+        reply =  ">Doucement avec les bots"
     elif message.split( )[0].lower() in ["!parrot", "!perroquet", "!perruche", "!parakeet"] :
         reply =  ":"+parrot[random.randint(0, len(parrot)) - 1]+":"
     if reply != "" or reply is not None :
