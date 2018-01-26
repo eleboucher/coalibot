@@ -98,7 +98,9 @@ def get_range_logtime (user, range_begin, range_end):
 
 def logtime(message, ts, channel):
     reply = ""
-    if "trimestre" in message.split( )[3] and (len(message.split( )) == 4 or len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030)):
+    if len(message.split( )) < 4 :
+        reply = "Usage: bc logtime login datedebut datefin (date au format \"Y-M-D\")"
+    elif "trimestre" in message.split( )[3] and (len(message.split( )) == 4 or len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030)):
             quarter = int(message.split( )[3].replace("trimestre", ""))
             if len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
                 year = int(message.split( )[4])
@@ -142,11 +144,6 @@ def logtime(message, ts, channel):
                 h = 0
                 m = 0
             reply = "{:02d}h{:02d}".format(h,m)
-        else:
-            reply = "la date doit etre au format YYYY-MM-DD"
-    else:
-        post_message("Usage: bc logtime login datedebut datefin (date au format \"Y-M-D\")", channel)
-	return
     sc.api_call(
         "chat.postMessage",
         thread_ts = ts,
