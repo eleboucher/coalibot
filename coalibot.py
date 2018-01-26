@@ -52,7 +52,7 @@ def get_username(user):
 def get_first_day_of_the_quarter(quarter, year):
     return datetime.strptime(str((datetime(year, 3 * quarter - 2, 1)).date()), '%Y-%m-%d').date()
 
-def get_last_day_of_the_quarter(quarter):
+def get_last_day_of_the_quarter(quarter, year):
     month = 3 * quarter
     remaining = month / 12
     return datetime.strptime(str((datetime(year + remaining, month % 12 + 1, 1) +timedelta(days=-1)).date()), '%Y-%m-%d').date()
@@ -97,7 +97,7 @@ def get_range_logtime (user, range_begin, range_end):
     return logtime
 
 def logtime(message, ts, channel):
-    if (len(message.split( )) == 4 or (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030)) and message.split( )[4] in month.values():
+    if len(message.split( )) == 4  or ((int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030) and message.split( )[4] in month.values()):
         if len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
             year = int(message.split( )[4])
         else:
@@ -112,7 +112,7 @@ def logtime(message, ts, channel):
             h = 0
             m = 0
         reply = "{:02d}h{:02d}".format(h,m)
-    elif len(message.split( )) == 4 or (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
+    elif len(message.split( )) == 4 or len(message.split( )) == 4 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
         reply = ""
         if  "trimestre" in message.split( )[3]:
             quarter = int(message.split( )[3].replace("trimestre", ""))
