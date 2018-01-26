@@ -100,6 +100,16 @@ def logtime(message, ts, channel):
     reply = ""
     if len(message.split( )) < 4 :
         reply = "Usage: bc logtime login datedebut datefin (date au format \"Y-M-D\")"
+    elif len(message.split( )) == 4 and (int(message.split( )[3]) > 2012 and int(message.split( )[3]) < 2030)) :
+        date_begin = date(int(message.split( )[3]), 1, 1)
+        date_end = date(int(message.split( )[3]), 12, 31)
+        logtime = get_range_logtime(message.split( )[2], date_begin, date_end)
+        try:
+            (h, m) = format_output_datetime(logtime.days * 86400 + logtime.seconds)
+        except :
+            h = 0
+            m = 0
+        reply = "{:02d}h{:02d}".format(h,m)
     elif "trimestre" in message.split( )[3] and (len(message.split( )) == 4 or len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030)):
             quarter = int(message.split( )[3].replace("trimestre", ""))
             if len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
