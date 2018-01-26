@@ -14,6 +14,7 @@ import commands
 import os
 from binance.client import Client as binanceClient
 from currency_converter import CurrencyConverter
+import calendar
 try:
     from urllib import quote_plus
 except:
@@ -27,7 +28,7 @@ parrot = ["parrot", "middleparrot", "rightparrot", "aussieparrot", "gothparrot",
 coalitions = ['the-alliance','the-order','the-federation','the-assembly']
 blacklist = ['C0G07RYJD', 'C3QG85SG6']
 trimestre = {"trimestre1" : 1, "trimestre2" : 2, "trimestre3" : 3, "trimestre4" : 4}
-
+month = {"janvier": 1, "fevrier": 2, "mars": 3, "avril": 4, "mai": 5, "juin": 6, "juillet": 7, "aout": 8, "septembre": 9, "octobre": 10,"novembre": 11,"decembre": 2 }
 def get_token(grant_type):
     client = Client(token_endpoint = "https://api.intra.42.fr/oauth/token",
             resource_endpoint = "https://api.intra.42.fr",
@@ -48,13 +49,13 @@ def get_username(user):
     else :
         return "null"
 
-def get_first_day_of_the_quarter(quarter):
-    return datetime.strptime(str((datetime(datetime.now().year, 3 * quarter - 2, 1)).date()), '%Y-%m-%d').date()
+def get_first_day_of_the_quarter(quarter, year):
+    return datetime.strptime(str((datetime(year, 3 * quarter - 2, 1)).date()), '%Y-%m-%d').date()
 
 def get_last_day_of_the_quarter(quarter):
     month = 3 * quarter
     remaining = month / 12
-    return datetime.strptime(str((datetime(datetime.now().year + remaining, month % 12 + 1, 1) +timedelta(days=-1)).date()), '%Y-%m-%d').date()
+    return datetime.strptime(str((datetime(year + remaining, month % 12 + 1, 1) +timedelta(days=-1)).date()), '%Y-%m-%d').date()
 
 def get_more_location(client, request, locations, range_begin):
     try:
@@ -96,13 +97,32 @@ def get_range_logtime (user, range_begin, range_end):
     return logtime
 
 def logtime(message, ts, channel):
-    if len(message.split( )) >= 4 :
+    if (len(message.split( )) == 4 or (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030)) and message.split( )[4] in month.values():
+        if len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
+            year = int(message.split( )[4])
+        else:
+            year = datetime.now().year
+        _, num_days = calendar.monthrange(year, month.get(message.split( )[4]))
+        date_begin = datetime.date(year, month.get(message.split( )[4]), 1)
+        date_end = datetime.date(year, month.get(message.split( )[4]), num_days)
+        logtime = get_range_logtime(message.split( )[2], date_begin, date_end)
+        try:
+            (h, m) = format_output_datetime(logtime.days * 86400 + logtime.seconds)
+        except :
+            h = 0
+            m = 0
+        reply = "{:02d}h{:02d}".format(h,m)
+    elif len(message.split( )) == 4 or (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
         reply = ""
         if  "trimestre" in message.split( )[3]:
             quarter = int(message.split( )[3].replace("trimestre", ""))
+            if len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
+                year = int(message.split( )[4])
+            else:
+                year = datetime.now().year
             if quarter <= 4 and quarter > 0:
-                date_begin = str(get_first_day_of_the_quarter(quarter))
-                date_end = str(get_last_day_of_the_quarter(quarter))
+                date_begin = str(get_first_day_of_the_quarter(quarter, year))
+                date_end = str(get_last_day_of_the_quarter(quarter, year))
                 logtime = get_range_logtime(message.split( )[2], date_begin, date_end)
                 try:
                     (h, m) = format_output_datetime(logtime.days * 86400 + logtime.seconds)
@@ -110,27 +130,27 @@ def logtime(message, ts, channel):
                     h = 0
                     m = 0
                 reply = "{:02d}h{:02d}".format(h,m)
-        elif len(message.split( )) >= 5:
-            if "today" in message.split( )[4]:
-                date_end = str(date.today())
-            else :
-                date_end = message.split( )[4]
-            if validate(date_end) == 1 and validate(message.split( )[3]) == 1 and "!" not in message.split( )[2] :
-                logtime = get_range_logtime(message.split( )[2], message.split( )[3], date_end)
-                try:
-                    (h, m) = format_output_datetime(logtime.days * 86400 + logtime.seconds)
-                except :
-                    h = 0
-                    m = 0
-                reply = "{:02d}h{:02d}".format(h,m)
-            else :
-                reply = "la date doit etre au format YYYY-MM-DD"
-        sc.api_call(
-            "chat.postMessage",
-            thread_ts = ts,
-            channel = channel,
-            text = reply
-            )
+    elif len(message.split( )) == 5:
+        if "today" in message.split( )[4]:
+            date_end = str(date.today())
+        else :
+            date_end = message.split( )[4]
+        if validate(date_end) == 1 and validate(message.split( )[3]) == 1 and "!" not in message.split( )[2] :
+            logtime = get_range_logtime(message.split( )[2], message.split( )[3], date_end)
+            try:
+                (h, m) = format_output_datetime(logtime.days * 86400 + logtime.seconds)
+            except :
+                h = 0
+                m = 0
+            reply = "{:02d}h{:02d}".format(h,m)
+        else :
+            reply = "la date doit etre au format YYYY-MM-DD"
+    sc.api_call(
+        "chat.postMessage",
+        thread_ts = ts,
+        channel = channel,
+        text = reply
+        )
     else:
         post_message("Usage: bc logtime login datedebut datefin (date au format \"Y-M-D\")", channel)
 
