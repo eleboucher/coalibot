@@ -143,16 +143,18 @@ def logtime(message, ts, channel):
                 h = 0
                 m = 0
             reply = "{:02d}h{:02d}".format(h,m)
-        else :
+        else:
             reply = "la date doit etre au format YYYY-MM-DD"
-    sc.api_call(
+    else:
+        post_message("Usage: bc logtime login datedebut datefin (date au format \"Y-M-D\")", channel)
+	return
+    sc.api_call(               
         "chat.postMessage",
         thread_ts = ts,
         channel = channel,
         text = reply
         )
-    else:
-        post_message("Usage: bc logtime login datedebut datefin (date au format \"Y-M-D\")", channel)
+
 
 def format_output_datetime(duration_timedelta):
     hours, remainder = divmod(duration_timedelta, 3600)
