@@ -100,7 +100,7 @@ def logtime(message, ts, channel):
     reply = ""
     if len(message.split( )) < 4 :
         reply = "Usage: bc logtime login datedebut datefin (date au format \"Y-M-D\")"
-    elif len(message.split( )) == 4 and (int(message.split( )[3]) > 2012 and int(message.split( )[3]) < 2030)) :
+    elif len(message.split( )) == 4 and message.split( )[3].isdigit() and (int(message.split( )[3]) > 2012 and int(message.split( )[3]) < 2030) :
         date_begin = date(int(message.split( )[3]), 1, 1)
         date_end = date(int(message.split( )[3]), 12, 31)
         logtime = get_range_logtime(message.split( )[2], date_begin, date_end)
@@ -604,7 +604,7 @@ def coalibot():
       					user = event['user']
                         		if channel not in blacklist:
      					    handle_command(message, channel, ts, user)
-        	time.sleep(1)
+        	time.sleep(0.5)
 
     else:
        print ("connection failed")
