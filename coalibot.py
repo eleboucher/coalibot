@@ -97,23 +97,9 @@ def get_range_logtime (user, range_begin, range_end):
     return logtime
 
 def logtime(message, ts, channel):
-    if len(message.split( )) == 4  or ((int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030) and message.split( )[4] in month.values()):
-        if len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
-            year = int(message.split( )[4])
-        else:
-            year = datetime.now().year
-        _, num_days = calendar.monthrange(year, month.get(message.split( )[4]))
-        date_begin = datetime.date(year, month.get(message.split( )[4]), 1)
-        date_end = datetime.date(year, month.get(message.split( )[4]), num_days)
-        logtime = get_range_logtime(message.split( )[2], date_begin, date_end)
-        try:
-            (h, m) = format_output_datetime(logtime.days * 86400 + logtime.seconds)
-        except :
-            h = 0
-            m = 0
-        reply = "{:02d}h{:02d}".format(h,m)
-    elif len(message.split( )) == 4 or len(message.split( )) == 4 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
-        reply = ""
+    reply = ""
+    if "trimestre" in message.split( )[3] and len(message.split( )) == 4 or len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
+        print "trimestre"
         if  "trimestre" in message.split( )[3]:
             quarter = int(message.split( )[3].replace("trimestre", ""))
             if len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
@@ -130,6 +116,24 @@ def logtime(message, ts, channel):
                     h = 0
                     m = 0
                 reply = "{:02d}h{:02d}".format(h,m)
+
+    elif message.split( )[3] in month.keys() and len(message.split( )) == 4  or len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
+        if len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
+            year = int(message.split( )[4])
+        else:
+            year = datetime.now().year
+        print month.get(message.split( )[3])
+        _, num_days = calendar.monthrange(year, month.get(message.split( )[3]))
+        date_begin = date(year, month.get(message.split( )[3]), 1)
+        date_end = date(year, month.get(message.split( )[3]), num_days)
+        print date_end
+        logtime = get_range_logtime(message.split( )[2], date_begin, date_end)
+        try:
+            (h, m) = format_output_datetime(logtime.days * 86400 + logtime.seconds)
+        except :
+            h = 0
+            m = 0
+        reply = "{:02d}h{:02d}".format(h,m)
     elif len(message.split( )) == 5:
         if "today" in message.split( )[4]:
             date_end = str(date.today())
@@ -148,7 +152,7 @@ def logtime(message, ts, channel):
     else:
         post_message("Usage: bc logtime login datedebut datefin (date au format \"Y-M-D\")", channel)
 	return
-    sc.api_call(               
+    sc.api_call(
         "chat.postMessage",
         thread_ts = ts,
         channel = channel,
