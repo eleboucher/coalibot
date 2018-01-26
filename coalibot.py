@@ -98,8 +98,7 @@ def get_range_logtime (user, range_begin, range_end):
 
 def logtime(message, ts, channel):
     reply = ""
-    if "trimestre" in message.split( )[3] and len(message.split( )) == 4 or len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
-        if  "trimestre" in message.split( )[3]:
+    if "trimestre" in message.split( )[3] and (len(message.split( )) == 4 or len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030)):
             quarter = int(message.split( )[3].replace("trimestre", ""))
             if len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
                 year = int(message.split( )[4])
@@ -115,8 +114,7 @@ def logtime(message, ts, channel):
                     h = 0
                     m = 0
                 reply = "{:02d}h{:02d}".format(h,m)
-
-    elif message.split( )[3] in month.keys() and len(message.split( )) == 4  or len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
+    elif message.split( )[3] in month.keys() and (len(message.split( )) == 4 or (len(message.split( )) == 5 and int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030)):
         if len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
             year = int(message.split( )[4])
         else:
@@ -155,7 +153,6 @@ def logtime(message, ts, channel):
         channel = channel,
         text = reply
         )
-
 
 def format_output_datetime(duration_timedelta):
     hours, remainder = divmod(duration_timedelta, 3600)
