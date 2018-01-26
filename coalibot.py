@@ -99,7 +99,6 @@ def get_range_logtime (user, range_begin, range_end):
 def logtime(message, ts, channel):
     reply = ""
     if "trimestre" in message.split( )[3] and len(message.split( )) == 4 or len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
-        print "trimestre"
         if  "trimestre" in message.split( )[3]:
             quarter = int(message.split( )[3].replace("trimestre", ""))
             if len(message.split( )) == 5 and (int(message.split( )[4]) > 2012 and int(message.split( )[4]) < 2030):
@@ -122,11 +121,9 @@ def logtime(message, ts, channel):
             year = int(message.split( )[4])
         else:
             year = datetime.now().year
-        print month.get(message.split( )[3])
         _, num_days = calendar.monthrange(year, month.get(message.split( )[3]))
         date_begin = date(year, month.get(message.split( )[3]), 1)
         date_end = date(year, month.get(message.split( )[3]), num_days)
-        print date_end
         logtime = get_range_logtime(message.split( )[2], date_begin, date_end)
         try:
             (h, m) = format_output_datetime(logtime.days * 86400 + logtime.seconds)
