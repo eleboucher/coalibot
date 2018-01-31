@@ -362,7 +362,7 @@ def roll(nb, taille):
         return
     string = ""
     if int(nb) <= 100 and int(taille) <= 10000 and int(taille) > 0:
-        for i in range (1,int(nb)):
+        for i in range (1,int(nb) + 1):
             string += str(random.randint(0, int(taille))) + " "
         return string
     else:
@@ -503,9 +503,9 @@ def help(channel):
 
 def handle_command(message, channel, ts, user):
     reply = ""
-    if "jpp" in message:
+    if "jpp" in message.lower():
    	post_reaction("jpp", channel, ts)
-    if "rip" in message:
+    if "rip" in message.lower():
 	post_reaction("rip", channel, ts)
     if  any(coal in message.lower() for coal in coalitions):
         post_reaction("the-alliance", channel, ts)
