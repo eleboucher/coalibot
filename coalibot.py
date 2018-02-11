@@ -585,7 +585,7 @@ def handle_command(message, channel, ts, user):
     elif message.split( )[0].lower() == "!test":
         reply =  "oui je suis osi un beauteux "
     elif message.split( )[0].lower() == "!mfranc":
-        reply =  ">Doucement avec les bots"
+        reply = random.choice([">Doucement avec les bots", ">Puuuuuuuuuuuuu"])
     elif message.split( )[0].lower() in ["!parrot", "!perroquet", "!perruche", "!parakeet"] :
         reply =  ":"+parrot[random.randint(0, len(parrot)) - 1]+":"
     if reply != "" or reply is not None :
