@@ -278,7 +278,9 @@ def youtube_url_validation(url):
 def addmusic(link, user):
     with open('music.json', 'r') as fp:
         content = json.load(fp)
-    if (("youtube" in link or "youtu.be" in link) or "soundcloud.com" in link) and  checkduplicate(content, link) == False :
+    if ("youtube" in link or "youtu.be" in link) or "soundcloud.com" in link:
+        if checkduplicate(content, link) != False:
+            return "Lien déjà enregistré"
         info = {
                 "login": get_username(user),
                 "link": link
