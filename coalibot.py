@@ -563,7 +563,7 @@ def handle_command(message, channel, ts, user):
     elif message.split( )[0].lower() == "!anais":
         post_reaction(parrot[random.randint(0, len(parrot)) - 1], channel, ts)
     elif message.split( )[0].lower() == "!elebouch":
-        reply = "Charbonne pour finir son `ft_ls`"
+        reply = "Dodge les BH tel un moine shaolin"
     elif message.split( )[0].lower() == "!lain":
         post_reaction("francais", channel, ts)
     elif message.split( )[0].lower() == "!jcharloi":
