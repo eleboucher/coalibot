@@ -1,0 +1,5 @@
+configparser==3.5.0
+CurrencyConverter==0.13.2
+python-binance==0.6.5
+sanction==0.4.1
+slackclient==1.1.2
