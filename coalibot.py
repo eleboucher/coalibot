@@ -571,7 +571,7 @@ def handle_command(message, channel, ts, user):
     elif message.split( )[0].lower() == "!jcharloi":
         reply = "fais tes 9h!"
     elif message.split( )[0].lower() == "!glegendr":
-	reply = "Corrige ton `fillit`!"
+	reply = "/giphy how about no"
     elif message.split( )[0].lower() == "!makefile":
         reply = "`https://forum.intra.42.fr/topics/85/messages`"
     elif message.split( )[0].lower() == "!sygnano":
