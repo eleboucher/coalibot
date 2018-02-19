@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 15:13:10 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/19 16:43:24 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/19 18:09:04 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ const token = process.env.SLACK_API_TOKEN;
 const bot = new Slack({ token });
 
 function postMessage(text, channel) {
-	bot.chat.postMessage({
-		channel: channel,
-		text: text
-	});
+	console.log(
+		bot.chat.postMessage({
+			channel: channel,
+			text: text
+		})
+	);
 }
 
 function postUserMessage(text, channel, image, name) {
@@ -42,7 +44,7 @@ function sendReaction(text, channel, ts) {
 function fileUpload(fs, channel) {
 	bot.files.upload({
 		channels: channel,
-		file: fp
+		file: fs
 	});
 }
 
@@ -54,17 +56,17 @@ function postOnThread(text, channel, ts) {
 	});
 }
 
-async function getUsername(user) {
-	return await bot.users
-		.info({
-			user: user
-		})
-		.then(function(username) {
+function getUsername(user) {
+	return bot.users.info({
+		user: user
+	});
+	/*	username = getUsername(user).then(function(username) {
 			if ('user' in username && 'name' in username['user']) {
 				return username['user']['name'];
 			}
 			return null;
 		});
+		console.log(username);*/
 }
 
 module.exports.postMessage = postMessage;

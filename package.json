@@ -1,27 +1,24 @@
 {
-  "name": "coalibot",
-  "version": "1.0.0",
-  "description": "Coalibot from 42Born2Code slack",
-  "main": "src/main.js",
-  "scripts": {
-    "start": "node src/main.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/genesixx/coalibot.git"
-  },
-  "keywords": [
-    "slack",
-    "bot"
-  ],
-  "author": "elebouch <elebouch@student.42.fr>",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/genesixx/coalibot/issues"
-  },
-  "homepage": "https://github.com/genesixx/coalibot#readme",
-  "dependencies": {
-    "@slack/client": "^3.16.0",
-    "slack": "^11.0.0"
-  }
+	"name": "coalibot",
+	"version": "1.0.0",
+	"description": "Coalibot from 42Born2Code slack",
+	"main": "src/main.js",
+	"scripts": {
+		"start": "node src/slack_rtm.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/genesixx/coalibot.git"
+	},
+	"keywords": ["slack", "bot"],
+	"author": "elebouch <elebouch@student.42.fr>",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": "https://github.com/genesixx/coalibot/issues"
+	},
+	"homepage": "https://github.com/genesixx/coalibot#readme",
+	"dependencies": {
+		"@slack/client": "^3.16.0",
+		"slack": "^11.0.0"
+	}
 }
