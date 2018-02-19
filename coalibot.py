@@ -565,8 +565,8 @@ def handle_command(message, channel, ts, user):
             reply = musique()
         elif message.split( )[1].lower() == "help" :
             help(channel)
-		elif message.split( )[1].lower() == "dobby" :
-				dobby(channel, get_username(user))
+        elif message.split( )[1].lower() == "dobby" :
+            dobby(channel, get_username(user))
         elif message.split( )[1].lower() == "source" :
             reply = "`https://github.com/genesixx/coalibot`"
         elif message.split( )[1].lower() == "brew" :
