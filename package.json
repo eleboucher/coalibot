@@ -10,7 +10,10 @@
 		"type": "git",
 		"url": "git+https://github.com/genesixx/coalibot.git"
 	},
-	"keywords": ["slack", "bot"],
+	"keywords": [
+		"slack",
+		"bot"
+	],
 	"author": "elebouch <elebouch@student.42.fr>",
 	"license": "GPL-3.0",
 	"bugs": {
@@ -19,6 +22,11 @@
 	"homepage": "https://github.com/genesixx/coalibot#readme",
 	"dependencies": {
 		"@slack/client": "^3.16.0",
+		"client-oauth2": "^4.1.0",
+		"moment": "^2.20.1",
+		"p-throttle": "^1.1.0",
+		"request": "^2.83.0",
+		"request-promise": "^4.2.2",
 		"slack": "^11.0.0"
 	}
 }

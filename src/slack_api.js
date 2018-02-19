@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 15:13:10 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/19 18:09:04 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/20 11:03:06 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,18 @@ function fileUpload(fs, channel) {
 }
 
 function postOnThread(text, channel, ts) {
-	bot.postMessage({
+	bot.chat.postMessage({
 		thread_ts: ts,
 		channel: channel,
 		text: text
+	});
+}
+
+function postAttachments(text, attachments, channel) {
+	bot.chat.postMessage({
+		channel: channel,
+		text: text,
+		attachments: attachments
 	});
 }
 
@@ -75,3 +83,4 @@ module.exports.sendReaction = sendReaction;
 module.exports.fileUpload = fileUpload;
 module.exports.postOnThread = postOnThread;
 module.exports.getUsername = getUsername;
+module.exports.postAttachments = postAttachments;

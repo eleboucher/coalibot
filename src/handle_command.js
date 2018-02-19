@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handlecommand.js                                   :+:      :+:    :+:   */
+/*   handle_command.js                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/19 18:33:21 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/20 14:03:56 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ const {
 	postOnThread,
 	getUsername
 } = require('./slack_api');
+const { score, profile } = require('./42_api');
 const fs = require('fs');
 
 const reply = {
@@ -39,35 +40,50 @@ const reply = {
 };
 
 functions = {
-	alliance: (channel, ts, user) => alliance(channel),
-	home: (channel, ts, user) => postMessage(reply['home'], channel),
-	brew: (channel, ts, user) => postMessage(reply['brew'], channel),
-	halp: (channel, ts, user) => postMessage(reply['halp'], channel),
-	source: (channel, ts, user) => postMessage(reply['source'], channel),
-	score: (channel, ts, user) => score(ts, channel),
-	help: (channel, ts, user) =>
+	alliance: (message, channel, ts, user) => alliance(channel),
+	home: (message, channel, ts, user) =>
+		postOnThread(reply['home'], channel, ts),
+	brew: (message, channel, ts, user) =>
+		postOnThread(reply['brew'], channel, ts),
+	halp: (message, channel, ts, user) =>
+		postOnThread(reply['halp'], channel, ts),
+	source: (message, channel, ts, user) =>
+		postOnThread(reply['source'], channel, ts),
+	score: (message, channel, ts, user) => score(ts, channel),
+	help: (message, channel, ts, user) =>
 		fileUpload(fs.createReadStream('./featurespic.jpeg'), channel),
-	elebouch: (channel, ts, user) => postMessage(reply['elebouch'], channel),
-	jcharloi: (channel, ts, user) => postMessage(reply['jcharloi'], channel),
-	glegendr: (channel, ts, user) => postMessage(reply['glegendr'], channel),
-	makefile: (channel, ts, user) => postMessage(reply['makefile'], channel),
-	sygnano: (channel, ts, user) => postMessage(reply['sygnano'], channel),
-	nestor: (channel, ts, user) => postMessage(reply['nestor'], channel),
-	fpons: (channel, ts, user) => postMessage(reply['fpons'], channel)
+	elebouch: (message, channel, ts, user) =>
+		postMessage(reply['elebouch'], channel),
+	jcharloi: (message, channel, ts, user) =>
+		postMessage(reply['jcharloi'], channel),
+	glegendr: (message, channel, ts, user) =>
+		postMessage(reply['glegendr'], channel),
+	makefile: (message, channel, ts, user) =>
+		postOnThread(reply['makefile'], channel, ts),
+	sygnano: (message, channel, ts, user) =>
+		postMessage(reply['sygnano'], channel),
+	nestor: (message, channel, ts, user) =>
+		postOnThread(reply['nestor'], channel, ts),
+	fpons: (message, channel, ts, user) => postMessage(reply['fpons'], channel),
+	score: (message, channel, ts, user) => score(channel, ts),
+	profile: (message, channel, ts, user) =>
+		profile(message.split(' ')[2], channel, ts)
 };
 
 function handleCommand(message, channel, ts, user) {
 	if (message.includes('jpp')) sendReaction('joy', channel, ts);
 	if (message.includes('rip')) sendReaction('joy', channel, ts);
 	if (message.startsWith('bc')) {
-		if (
-			message.split(' ').length === 2 &&
-			message.split(' ')[1].toLowerCase() in functions
-		)
-			functions[message.split(' ')[1].toLowerCase()](channel, ts, user);
+		if (message.split(' ')[1].toLowerCase() in functions)
+			functions[message.split(' ')[1].toLowerCase()](
+				message,
+				channel,
+				ts,
+				user
+			);
 	}
 	if (message.indexOf('!') === 0) {
-		functions[message.replace('!', '')](channel, ts, user);
+		functions[message.replace('!', '')](message, channel, ts, user);
 	}
 }
 
