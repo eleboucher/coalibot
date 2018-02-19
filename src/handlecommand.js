@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/19 18:28:48 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/19 18:33:21 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ functions = {
 };
 
 function handleCommand(message, channel, ts, user) {
-	if (message.indexOf('jpp') !== -1) sendReaction('joy', channel, ts);
-	if (message.indexOf('rip') !== -1) sendReaction('joy', channel, ts);
-	if (message.split(' ')[0].toLowerCase() === 'bc') {
+	if (message.includes('jpp')) sendReaction('joy', channel, ts);
+	if (message.includes('rip')) sendReaction('joy', channel, ts);
+	if (message.startsWith('bc')) {
 		if (
 			message.split(' ').length === 2 &&
 			message.split(' ')[1].toLowerCase() in functions
