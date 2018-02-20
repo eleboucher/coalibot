@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/20 14:03:56 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/20 15:41:25 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ const {
 	postOnThread,
 	getUsername
 } = require('./slack_api');
-const { score, profile } = require('./42_api');
+const { score, profil, who, where } = require('./42_api');
 const fs = require('fs');
 
 const reply = {
@@ -66,8 +66,10 @@ functions = {
 		postOnThread(reply['nestor'], channel, ts),
 	fpons: (message, channel, ts, user) => postMessage(reply['fpons'], channel),
 	score: (message, channel, ts, user) => score(channel, ts),
-	profile: (message, channel, ts, user) =>
-		profile(message.split(' ')[2], channel, ts)
+	profil: (message, channel, ts, user) =>
+		profil(message.split(' ')[2], channel, ts),
+	who: (message, channel, ts, user) => who(message.split(' ')[2], channel),
+	where: (message, channel, ts, user) => where(message.split(' ')[2], channel)
 };
 
 function handleCommand(message, channel, ts, user) {

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/20 15:12:38 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/20 15:47:21 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ function request42(url) {
 						return json;
 					})
 					.catch(function(err) {
-						return NULL;
+						return null;
 					});
 			},
 			2,
@@ -122,15 +122,10 @@ function score(channel) {
 function get_range_logtime(user, range_begin, range_end) {
 	range_begin = moment(range_begin).format('YYYY-MM-DD');
 	range_end = moment(range_end).format('YYYY-MM-DD');
-	range_date =
-		'?page[size]=100&range[begin_at]=' +
-		String(range_begin) +
-		',' +
-		String(range_end);
-	url = '/v2/users/' + user + '/locations' + range_date;
-
+	range_date = `?page[size]=100&range[begin_at]=${range_begin},${range_end}`;
+	url = `/v2/users/${user}/locations${range_date}`;
 	return request42(url).then(function(data) {
-		var logtime = moment.duration(0);
+		let logtime = moment.duration(0);
 		if (range_begin !== range_end) {
 			let tmp = {};
 			let i = 2;
@@ -140,7 +135,6 @@ function get_range_logtime(user, range_begin, range_end) {
 						data[data.length - 1]['begin_at'].slice(0, 10)
 					);
 					if (moment(range_begin).isBefore(last_location)) {
-						console.log("c'est partie");
 						tmp = await request42(url + '&page[number]=' + i);
 						console.log(tmp);
 						data.push(tmp);
@@ -162,14 +156,13 @@ function get_range_logtime(user, range_begin, range_end) {
 	});
 }
 function format_output_datetime(time) {
-	time = Number(time.as('minutes'));
-	hours = Math.floor(time / 60);
-	min = Math.floor(time % 60);
-	console.log(min);
+	const timem = Number(time.as('minutes'));
+	const hours = Math.floor(timem / 60);
+	const min = Math.floor(timem % 60);
 	return [hours, min];
 }
 
-function profile(user, channel) {
+function profil(user, channel) {
 	url = '/v2/users/' + user;
 	urlcoal = url + '/coalitions/';
 	request42(url).then(function(data) {
@@ -192,16 +185,16 @@ function profile(user, channel) {
 				var time = format_output_datetime(logtime);
 				graph =
 					'https://projects.intra.42.fr/projects/graph?login=' + user;
-				var stage = (function() {
-					for (u of data['projects_users']) {
-						if (u['project']['id'] === 118) {
-							if (u['status'] === 'finished') return 'A fait son';
-							else if (u['status'] === 'in_progress')
-								return 'En cours de';
-						}
-					}
-					return "N'a pas fait son";
-				})();
+				const stage = (data => {
+					const ret = {
+						finished: 'A fait son',
+						in_progress: 'En cours de'
+					};
+					const u = data.projects_users.find(
+						d => d.project.id === 118
+					);
+					return u ? ret[u[status]] : "N'a pas fait son";
+				})(data);
 				postMessage(
 					util.format(
 						'%s %s\nPhoto: `%s`\nTemps de log cette semaine %d:%d\nNiveau: %d\nNiveau piscine  %d %s %s\n%s stage\nGraph: %s',
@@ -224,5 +217,42 @@ function profile(user, channel) {
 	});
 }
 
+function who(place, channel) {
+	if (place.startsWith('!') || place.startsWith('!')) return;
+	const url = `/v2/campus/1/locations/?filter[host]=${place}&filter[active]=true`;
+	console.log(url);
+	request42(url).then(function(data) {
+		console.log(data);
+		if (data.length === 0) postMessage(`Place *${place}* vide`, channel);
+		else
+			postMessage(
+				`*${data[0]['user']['login']}* est à la place *${place}*`,
+				channel
+			);
+	});
+}
+
+function where(user, channel) {
+	if (user.startsWith('!') || user.startsWith('!')) return;
+	if (user === 'queen' || user == 'way')
+		postMessage(
+			"follow me bruddah\ni'll show you de way :uganda_knuckles:",
+			channel
+		);
+	url = `/v2/users/${user}/locations`;
+	request42(url).then(function(data) {
+		console.log(data);
+		if (data.length === 0 || data[0]['end_at'])
+			postMessage(`*${user}* est hors ligne`, channel);
+		else
+			postMessage(
+				`*${user}* est à la place *${data[0]['host']}*`,
+				channel
+			);
+	});
+}
+
 module.exports.score = score;
-module.exports.profile = profile;
+module.exports.profil = profil;
+module.exports.who = who;
+module.exports.where = where;
