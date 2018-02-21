@@ -207,7 +207,7 @@ def profile(user):
     logtime = get_range_logtime(user, range_begin, range_end)
     (h, m) = format_output_datetime(logtime.days * 86400 + logtime.seconds)
     graph = "https://projects.intra.42.fr/projects/graph?login=" + user
-    return "{} {}\nPhoto: {}\nTemps de log cette semaine {:02d}:{:02d}\nNiveau: {:.02f} {}\nNiveau piscine {:0.2f} {} {}\n{} stage\nGraph: {}".format(data['displayname'], coalslug,data['image_url'],h ,m, 0 if lvl == 0 else data['cursus_users'][0]['level'], ('' if lvl == 0 else data['cursus_users'][0]['grade']), lvlpiscine , data['pool_month'], data['pool_year'], hasdoneintern(user), graph)
+    return "{} {}\nPhoto: `{}`\nTemps de log cette semaine {:02d}:{:02d}\nNiveau: {:.02f} {}\nNiveau piscine {:0.2f} {} {}\n{} stage\nGraph: {}".format(data['displayname'], coalslug,data['image_url'],h ,m, 0 if lvl == 0 else data['cursus_users'][0]['level'], ('' if lvl == 0 else data['cursus_users'][0]['grade']), lvlpiscine , data['pool_month'], data['pool_year'], hasdoneintern(user), graph)
 
 def score(ts, channel):
     url = "/v2/coalitions"
