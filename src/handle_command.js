@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/20 15:41:25 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/21 18:00:31 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ const {
 	sendReaction,
 	fileUpload,
 	postOnThread,
-	getUsername
+	getUsername,
 } = require('./slack_api');
-const { score, profil, who, where } = require('./42_api');
+const { score, alliance, logtime, profil, who, where } = require('./42_api');
 const fs = require('fs');
 
 const reply = {
@@ -36,7 +36,7 @@ const reply = {
 	sygnano: 'https://youtu.be/V2UGfj2qPCw?t=8s',
 	nestor:
 		'Pour commander sur nestor utilise le code `NESTOR42` ! tu peux utiliser le code de parrainage `cZ44h` pour avoir 5e gratuitement',
-	fpons: 'Fais quelque chose !!!'
+	fpons: 'Fais quelque chose !!!',
 };
 
 functions = {
@@ -68,15 +68,21 @@ functions = {
 	score: (message, channel, ts, user) => score(channel, ts),
 	profil: (message, channel, ts, user) =>
 		profil(message.split(' ')[2], channel, ts),
+	logtime: (message, channel, ts, user) => logtime(message, channel, ts),
 	who: (message, channel, ts, user) => who(message.split(' ')[2], channel),
-	where: (message, channel, ts, user) => where(message.split(' ')[2], channel)
+	where: (message, channel, ts, user) =>
+		where(message.split(' ')[2], channel),
 };
 
-function handleCommand(message, channel, ts, user) {
-	if (message.includes('jpp')) sendReaction('joy', channel, ts);
-	if (message.includes('rip')) sendReaction('joy', channel, ts);
+function handleCommand(msg, channel, ts, user) {
+	const message = msg
+		.toLowerCase()
+		.replace(/\s+/g, ' ')
+		.trim();
+	if (/\brip\b/.test(message)) sendReaction('kissing_heart', channel, ts);
+	if (/\bjpp\b/.test(message)) sendReaction('joy', channel, ts);
 	if (message.startsWith('bc')) {
-		if (message.split(' ')[1].toLowerCase() in functions)
+		if (message.split(' ')[1] in functions)
 			functions[message.split(' ')[1].toLowerCase()](
 				message,
 				channel,
@@ -84,8 +90,17 @@ function handleCommand(message, channel, ts, user) {
 				user
 			);
 	}
-	if (message.indexOf('!') === 0) {
-		functions[message.replace('!', '')](message, channel, ts, user);
+	if (
+		message.indexOf('!') === 0 &&
+		message.replace('!', '').split(' ')[0] in functions
+	) {
+		console.log(message.replace('!', '').split(' ')[0]);
+		functions[message.replace('!', '').split(' ')[0]](
+			message.replace('!', 'bc '),
+			channel,
+			ts,
+			user
+		);
 	}
 }
 

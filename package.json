@@ -24,9 +24,11 @@
 		"@slack/client": "^3.16.0",
 		"client-oauth2": "^4.1.0",
 		"moment": "^2.20.1",
+		"nodemon": "^1.15.1",
 		"p-throttle": "^1.1.0",
 		"request": "^2.83.0",
 		"request-promise": "^4.2.2",
-		"slack": "^11.0.0"
+		"slack": "^11.0.0",
+		"sprintf-js": "^1.1.1"
 	}
 }

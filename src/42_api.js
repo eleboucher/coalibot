@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/20 15:47:21 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/21 18:01:04 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,52 +17,76 @@ const {
 	fileUpload,
 	postOnThread,
 	getUsername,
-	postAttachments
+	postAttachments,
 } = require('./slack_api');
-var ClientOAuth2 = require('client-oauth2');
-var rp = require('request-promise');
-var moment = require('moment');
-var util = require('util');
-const pThrottle = require('p-throttle');
+const rq = require('./request').rq;
+const ClientOAuth2 = require('client-oauth2');
 
-var forty2auth = new ClientOAuth2({
+const moment = require('moment');
+const sprintf = require('sprintf-js').sprintf;
+const month = {
+	janvier: 0,
+	fevrier: 1,
+	mars: 2,
+	avril: 3,
+	mai: 4,
+	juin: 5,
+	juillet: 6,
+	aout: 7,
+	septembre: 8,
+	octobre: 9,
+	novembre: 10,
+	decembre: 11,
+};
+const forty2auth = new ClientOAuth2({
 	clientId: process.env.INTRA_CLIENT_ID,
 	clientSecret: process.env.INTRA_SECRET,
-	accessTokenUri: 'https://api.intra.42.fr/oauth/token'
+	accessTokenUri: 'https://api.intra.42.fr/oauth/token',
 });
 
-function request42(url) {
+const request42 = async url => {
 	var url = 'https://api.intra.42.fr' + url;
-	return forty2auth.credentials.getToken().then(
-		pThrottle(
-			function(token) {
-				var options = {
-					uri: url,
-					qs: {
-						access_token: token.data.access_token
-					},
-					headers: {
-						'User-Agent': 'Request-Promise'
-					},
-					json: true // Automatically parses the JSON string in the response
-				};
-				return rp(options)
-					.then(function(json) {
-						return json;
-					})
-					.catch(function(err) {
-						return null;
-					});
-			},
-			2,
-			1000
-		)
-	);
-}
+	const token = await forty2auth.credentials.getToken();
+	var options = {
+		uri: url,
+		qs: {
+			access_token: token.data.access_token,
+		},
+		headers: {
+			'User-Agent': 'Request-Promise',
+		},
+		json: true, // Automatically parses the JSON string in the response
+	};
+	return await rq(options);
+};
 
-function score(channel) {
+const alliance = channel => {
 	request42('/v2/coalitions').then(function(json) {
-		console.log(json);
+		json.sort(function(a, b) {
+			return a.score < b.score;
+		});
+		let rang = 0;
+		while (json[rang]['id'] !== 2) rang += 1;
+		if (rang === 0) {
+			const diff = json[rang]['score'] - json[1]['score'];
+			postMessage(
+				`Felicitations Nous sommes premiers avec ${rang +
+					1} points d'avance. :the-alliance:`,
+				channel
+			);
+		} else {
+			const diff = json[0]['score'] - json[rang]['score'];
+			postMessage(
+				`Nous sommes à la ${rang +
+					1}eme place avec ${diff} points de retard. :the-alliance:`,
+				channel
+			);
+		}
+	});
+};
+
+const score = channel => {
+	request42('/v2/coalitions').then(function(json) {
 		json.sort(function(a, b) {
 			return a.score < b.score;
 		});
@@ -79,7 +103,7 @@ function score(channel) {
 					{
 						title: json[0]['name'],
 						value: json[0]['score'],
-						short: true
+						short: true,
 					},
 					{
 						title: json[1]['name'],
@@ -89,7 +113,7 @@ function score(channel) {
 								Number(json[1]['score'] - json[0]['score']) +
 								')'
 						),
-						short: true
+						short: true,
 					},
 					{
 						title: json[2]['name'],
@@ -99,7 +123,7 @@ function score(channel) {
 								Number(json[2]['score'] - json[0]['score']) +
 								')'
 						),
-						short: true
+						short: true,
 					},
 					{
 						title: json[3]['name'],
@@ -109,60 +133,68 @@ function score(channel) {
 								Number(json[3]['score'] - json[0]['score']) +
 								')'
 						),
-						short: true
-					}
+						short: true,
+					},
 				],
-				footer: 'Powered by Coalibot'
-			}
+				footer: 'Powered by Coalibot',
+			},
 		];
 		postAttachments('', attachments, channel);
 	});
-}
+};
 
-function get_range_logtime(user, range_begin, range_end) {
+const get_range_logtime = (user, range_begin, range_end) => {
 	range_begin = moment(range_begin).format('YYYY-MM-DD');
 	range_end = moment(range_end).format('YYYY-MM-DD');
 	range_date = `?page[size]=100&range[begin_at]=${range_begin},${range_end}`;
-	url = `/v2/users/${user}/locations${range_date}`;
-	return request42(url).then(function(data) {
-		let logtime = moment.duration(0);
-		if (range_begin !== range_end) {
-			let tmp = {};
-			let i = 2;
-			(async () => {
-				while (tmp !== null) {
-					last_location = moment(
-						data[data.length - 1]['begin_at'].slice(0, 10)
-					);
+	url = `/v2/users/${user}/locations/${range_date}`;
+	return request42(url).then(async function(data) {
+		if (range_begin === range_end) {
+			return moment.duration(0);
+		}
+		try {
+			async function get_more(data) {
+				let tmp;
+				let i = 2;
+				let ret = data;
+				do {
+					last_location = moment(ret[ret.length - 1]['begin_at']);
 					if (moment(range_begin).isBefore(last_location)) {
 						tmp = await request42(url + '&page[number]=' + i);
-						console.log(tmp);
-						data.push(tmp);
+						if (tmp) {
+							ret = ret.concat(tmp);
+						}
 						i += 1;
-					} else return;
-				}
-				return;
-			})();
+					} else {
+						return ret;
+					}
+				} while (tmp && tmp.length);
+				return ret;
+			}
+			let locations = await get_more(data);
+			let logtime = moment.duration(0);
+			for (let x of locations) {
+				if (x['end_at']) log_end = moment(x['end_at']);
+				else log_end = moment();
+				log_start = moment(x['begin_at']);
+				log_session = log_end - log_start;
+				logtime.add(log_session);
+			}
+			return logtime;
+		} catch (e) {
+			return moment.duration(0);
 		}
-		for (let x of data) {
-			if (x['end_at']) log_end = moment(x['end_at']);
-			else log_end = moment();
-			console.log(x['begin_at']);
-			log_start = moment(x['begin_at']);
-			log_session = log_end - log_start;
-			logtime.add(log_session);
-		}
-		return logtime;
 	});
-}
-function format_output_datetime(time) {
+};
+
+const format_output_datetime = time => {
 	const timem = Number(time.as('minutes'));
 	const hours = Math.floor(timem / 60);
 	const min = Math.floor(timem % 60);
 	return [hours, min];
-}
+};
 
-function profil(user, channel) {
+const profil = (user, channel) => {
 	url = '/v2/users/' + user;
 	urlcoal = url + '/coalitions/';
 	request42(url).then(function(data) {
@@ -188,7 +220,7 @@ function profil(user, channel) {
 				const stage = (data => {
 					const ret = {
 						finished: 'A fait son',
-						in_progress: 'En cours de'
+						in_progress: 'En cours de',
 					};
 					const u = data.projects_users.find(
 						d => d.project.id === 118
@@ -196,8 +228,8 @@ function profil(user, channel) {
 					return u ? ret[u[status]] : "N'a pas fait son";
 				})(data);
 				postMessage(
-					util.format(
-						'%s %s\nPhoto: `%s`\nTemps de log cette semaine %d:%d\nNiveau: %d\nNiveau piscine  %d %s %s\n%s stage\nGraph: %s',
+					sprintf(
+						'%s %s\nPhoto: `%s`\nTemps de log cette semaine %02d:%02d\nNiveau: %.2f\nNiveau piscine  %.2f %s %s\n%s stage\nGraph: %s',
 						data['displayname'],
 						coalslug,
 						data['image_url'],
@@ -215,43 +247,159 @@ function profil(user, channel) {
 			});
 		});
 	});
-}
+};
 
-function who(place, channel) {
-	if (place.startsWith('!') || place.startsWith('!')) return;
-	const url = `/v2/campus/1/locations/?filter[host]=${place}&filter[active]=true`;
-	console.log(url);
-	request42(url).then(function(data) {
-		console.log(data);
-		if (data.length === 0) postMessage(`Place *${place}* vide`, channel);
-		else
-			postMessage(
-				`*${data[0]['user']['login']}* est à la place *${place}*`,
-				channel
+const logtime = (message, channel, ts) => {
+	if (message.split(' ').length < 4) {
+		postOnThread(
+			'Usage: bc logtime login datedebut datefin (date au format "Y-M-D")',
+			channel,
+			ts
+		);
+	} else if (
+		message.split(' ').length === 4 &&
+		!isNaN(message.split(' ')[3]) &&
+		parseInt(message.split(' ')[3]) > 2012
+	) {
+		let date_begin = moment({
+			y: parseInt(message.split(' ')[3]),
+			M: 0,
+			d: 1,
+		});
+		let date_end = moment({
+			y: parseInt(message.split(' ')[3]),
+			M: 11,
+			d: 31,
+		});
+		get_range_logtime(message.split(' ')[2], date_begin, date_end).then(
+			logtime => {
+				var time = format_output_datetime(logtime);
+				postOnThread(
+					sprintf(`%02dh%02d`, time[0], time[1]),
+					channel,
+					ts
+				);
+			}
+		);
+	} else if (
+		message.split(' ')[3].includes('trimestre') &&
+		(message.split(' ').length === 4 ||
+			(message.split(' ').length === 5 &&
+				parseInt(message.split(' ')[4]) > 2012))
+	) {
+		let quarter =
+			parseInt(message.split(' ')[3].replace('trimestre', '')) - 1;
+		let year;
+		if (
+			message.split(' ').length === 5 &&
+			parseInt(message.split(' ')[4]) > 2012
+		)
+			year = parseInt(message.split(' ')[4]);
+		else year = new Date().getFullYear();
+		let date_begin = moment(new Date(year, quarter * 3, 1));
+		let date_end = moment(new Date(year, date_begin.get('month') + 3, 0));
+		get_range_logtime(message.split(' ')[2], date_begin, date_end).then(
+			logtime => {
+				var time = format_output_datetime(logtime);
+				postOnThread(
+					sprintf(`%02dh%02d`, time[0], time[1]),
+					channel,
+					ts
+				);
+			}
+		);
+	} else if (
+		message.split(' ')[3] in month &&
+		(message.split(' ').length === 4 ||
+			(message.split(' ').length === 5 &&
+				parseInt(message.split(' ')[4]) > 2012))
+	) {
+		if (
+			message.split(' ').length === 5 &&
+			parseInt(message.split(' ')[4]) > 2012
+		)
+			year = parseInt(message.split(' ')[4]);
+		else year = new Date().getFullYear();
+		let date_begin = moment(
+			new Date(year, month[message.split(' ')[3]], 1)
+		);
+		let date_end = moment(
+			new Date(year, month[message.split(' ')[3]] + 1, 0)
+		);
+		get_range_logtime(message.split(' ')[2], date_begin, date_end).then(
+			logtime => {
+				var time = format_output_datetime(logtime);
+				postOnThread(
+					sprintf(`%02dh%02d`, time[0], time[1]),
+					channel,
+					ts
+				);
+			}
+		);
+	} else if (message.split(' ').length === 5) {
+		let date_end;
+		if (message.split(' ')[4] === 'today') date_end = moment();
+		else date_end = moment(message.split(' ')[4]);
+		let date_begin = moment(message.split(' ')[3]);
+		console.log({ date_begin, date_end });
+		if (date_end.isValid() && date_begin.isValid()) {
+			get_range_logtime(message.split(' ')[2], date_begin, date_end).then(
+				logtime => {
+					var time = format_output_datetime(logtime);
+					postOnThread(
+						sprintf(`%02dh%02d`, time[0], time[1]),
+						channel,
+						ts
+					);
+				}
 			);
-	});
-}
+		}
+	}
+};
 
-function where(user, channel) {
-	if (user.startsWith('!') || user.startsWith('!')) return;
+const who = (place, channel) => {
+	if (place.startsWith('!') || place.startsWith('?')) return;
+	const url = `/v2/campus/1/locations/?filter[host]=${place}&filter[active]=true`;
+	request42(url)
+		.catch(err => {
+			postMessage(`place incorrect`, channel);
+		})
+		.then(function(data) {
+			if (data.length === 0)
+				postMessage(`Place *${place}* vide`, channel);
+			else
+				postMessage(
+					`*${data[0]['user']['login']}* est à la place *${place}*`,
+					channel
+				);
+		});
+};
+
+const where = (user, channel) => {
+	if (user.startsWith('!') || user.startsWith('?')) return;
 	if (user === 'queen' || user == 'way')
 		postMessage(
 			"follow me bruddah\ni'll show you de way :uganda_knuckles:",
 			channel
 		);
 	url = `/v2/users/${user}/locations`;
-	request42(url).then(function(data) {
-		console.log(data);
-		if (data.length === 0 || data[0]['end_at'])
-			postMessage(`*${user}* est hors ligne`, channel);
-		else
-			postMessage(
-				`*${user}* est à la place *${data[0]['host']}*`,
-				channel
-			);
-	});
-}
+	request42(url)
+		.catch(err => {
+			postMessage(`login incorrect`, channel);
+		})
+		.then(function(data) {
+			if (data.length === 0 || data[0]['end_at'])
+				postMessage(`*${user}* est hors ligne`, channel);
+			else
+				postMessage(
+					`*${user}* est à la place *${data[0]['host']}*`,
+					channel
+				);
+		});
+};
 
+module.exports.alliance = alliance;
+module.exports.logtime = logtime;
 module.exports.score = score;
 module.exports.profil = profil;
 module.exports.who = who;
