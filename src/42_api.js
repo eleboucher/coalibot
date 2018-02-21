@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/21 18:01:04 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/21 18:08:44 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,10 @@ const {
 } = require('./slack_api');
 const rq = require('./request').rq;
 const ClientOAuth2 = require('client-oauth2');
-
+const { month } = require('./const');
 const moment = require('moment');
 const sprintf = require('sprintf-js').sprintf;
-const month = {
-	janvier: 0,
-	fevrier: 1,
-	mars: 2,
-	avril: 3,
-	mai: 4,
-	juin: 5,
-	juillet: 6,
-	aout: 7,
-	septembre: 8,
-	octobre: 9,
-	novembre: 10,
-	decembre: 11,
-};
+
 const forty2auth = new ClientOAuth2({
 	clientId: process.env.INTRA_CLIENT_ID,
 	clientSecret: process.env.INTRA_SECRET,

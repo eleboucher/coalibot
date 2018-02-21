@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/21 18:00:31 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/21 18:43:52 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ const {
 	getUsername,
 } = require('./slack_api');
 const { score, alliance, logtime, profil, who, where } = require('./42_api');
+const { citation } = require('./citation');
 const fs = require('fs');
+const { parrot } = require('./const');
 
 const reply = {
 	home:
@@ -68,10 +70,34 @@ functions = {
 	score: (message, channel, ts, user) => score(channel, ts),
 	profil: (message, channel, ts, user) =>
 		profil(message.split(' ')[2], channel, ts),
+
 	logtime: (message, channel, ts, user) => logtime(message, channel, ts),
 	who: (message, channel, ts, user) => who(message.split(' ')[2], channel),
 	where: (message, channel, ts, user) =>
 		where(message.split(' ')[2], channel),
+	oss: (message, channel, ts, user) =>
+		citation(
+			channel,
+			'./oss.txt',
+			'https://static-cdn.jtvnw.net/emoticons/v1/518312/3.0',
+			'Hubert Bonisseur de La Bath'
+		),
+	parrot: (message, channel, ts, user) =>
+		postMessage(
+			':' +
+				parrot[
+					Math.floor(Math.random() * Math.floor(parrot.length - 1))
+				] +
+				':',
+			channel
+		),
+	kaamelott: (message, channel, ts, user) =>
+		citation(
+			channel,
+			'./kaamelott.txt',
+			'https://img15.hostingpics.net/pics/4833663350.jpg',
+			'Perceval'
+		),
 };
 
 function handleCommand(msg, channel, ts, user) {
@@ -94,7 +120,6 @@ function handleCommand(msg, channel, ts, user) {
 		message.indexOf('!') === 0 &&
 		message.replace('!', '').split(' ')[0] in functions
 	) {
-		console.log(message.replace('!', '').split(' ')[0]);
 		functions[message.replace('!', '').split(' ')[0]](
 			message.replace('!', 'bc '),
 			channel,

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 15:13:10 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/20 11:03:06 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/21 18:38:39 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ function postMessage(text, channel) {
 	console.log(
 		bot.chat.postMessage({
 			channel: channel,
-			text: text
+			text: text,
 		})
 	);
 }
@@ -29,7 +29,7 @@ function postUserMessage(text, channel, image, name) {
 		channel: channel,
 		text: text,
 		icon_url: image,
-		name: name
+		username: name,
 	});
 }
 
@@ -37,14 +37,14 @@ function sendReaction(text, channel, ts) {
 	bot.reactions.add({
 		timestamp: ts,
 		channel: channel,
-		name: text
+		name: text,
 	});
 }
 
 function fileUpload(fs, channel) {
 	bot.files.upload({
 		channels: channel,
-		file: fs
+		file: fs,
 	});
 }
 
@@ -52,7 +52,7 @@ function postOnThread(text, channel, ts) {
 	bot.chat.postMessage({
 		thread_ts: ts,
 		channel: channel,
-		text: text
+		text: text,
 	});
 }
 
@@ -60,13 +60,13 @@ function postAttachments(text, attachments, channel) {
 	bot.chat.postMessage({
 		channel: channel,
 		text: text,
-		attachments: attachments
+		attachments: attachments,
 	});
 }
 
 function getUsername(user) {
 	return bot.users.info({
-		user: user
+		user: user,
 	});
 	/*	username = getUsername(user).then(function(username) {
 			if ('user' in username && 'name' in username['user']) {
