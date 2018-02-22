@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/22 21:21:21 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/22 21:28:07 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ functions = {
 
 function handleCommand(msg, channel, ts, user) {
     const message = msg.replace(/\s+/g, ' ').trim();
-    if (/\brip\b/.test(message)) sendReaction('kissing_heart', channel, ts);
-    if (/\bjpp\b/.test(message)) sendReaction('joy', channel, ts);
+    if (/\brip\b/.test(message)) sendReaction('rip', channel, ts);
+    if (/\bjpp\b/.test(message)) sendReaction('jpp', channel, ts);
     if (message.toLowerCase().startsWith('bc')) {
         if (message.split(' ')[1].toLowerCase() in functions)
             functions[message.split(' ')[1].toLowerCase()](
