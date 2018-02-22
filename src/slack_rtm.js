@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 13:39:56 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/22 21:20:58 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/22 21:30:54 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPEN, () => {
 rtm.on(RTM_EVENTS.MESSAGE, function(message) {
     var channel = message['channel'];
     if (!BLACKLISTCHAN.includes(channel) && message.text != null) {
-        console.log(message);
         var text = message['text'];
         var ts = message['ts'];
         var user = message['user'];
