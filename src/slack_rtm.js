@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 13:39:56 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/20 11:05:11 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/22 10:41:58 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,26 @@ const appData = {};
 // Initialize the RTM client with the recommended settings. Using the defaults for these
 // settings is deprecated.
 const rtm = new RtmClient(token, {
-	dataStore: false,
-	useRtmConnect: true
+    dataStore: false,
+    useRtmConnect: true
 });
 
 // The client will emit an RTM.RTM_CONNECTION_OPEN the connection is ready for
 // sending and recieving messages
 rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPEN, () => {
-	console.log(`Ready`);
+    console.log(`Ready`);
 });
 
 // Read messages
 rtm.on(RTM_EVENTS.MESSAGE, function(message) {
-	var channel = message['channel'];
-	if (!BLACKLISTCHAN.includes(channel) && message.text != null) {
-		console.log(message);
-		var text = message['text'];
-		var ts = message['ts'];
-		var user = message['user'];
-		handleCommand(text, channel, ts, user);
-	}
+    var channel = message['channel'];
+    if (!BLACKLISTCHAN.includes(channel) && message.text != null) {
+        console.log(message);
+        var text = message['text'];
+        var ts = message['ts'];
+        var user = message['user'];
+        handleCommand(text, channel, ts, user);
+    }
 });
 
 // Start the connecting process
