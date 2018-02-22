@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/22 21:44:49 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/22 21:48:34 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ const addmusic = async (link, user, channel) => {
                 link: link
             };
             json = json.concat(info);
+            postMessage('Musique ajoutée', channel);
             await fs.writeFile(
                 './music.json',
                 JSON.stringify(json, null, 4),
@@ -75,8 +76,6 @@ const addmusic = async (link, user, channel) => {
                     if (err) throw err;
                 }
             );
-            postMessage('Musique ajoutée', channel);
-            return;
         } else {
             postMessage('Lien déjà enregistré', channel);
         }
