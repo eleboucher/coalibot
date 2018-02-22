@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/22 21:40:04 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/22 21:44:49 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ const addmusic = async (link, user, channel) => {
     let json = await fs.readFileSync('./music.json', 'utf-8');
     json = JSON.parse(json);
     const checker = /(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/g;
-    link = link.replace('<', '').replace('>', '');
     if (checker.test(link) || link.includes('soundcloud')) {
         let username = await getUsername(user);
         if ('user' in username && 'name' in username['user']) {
@@ -68,7 +67,7 @@ const addmusic = async (link, user, channel) => {
                 link: link
             };
             json = json.concat(info);
-            fs.writeFile(
+            await fs.writeFile(
                 './music.json',
                 JSON.stringify(json, null, 4),
                 'utf8',
@@ -83,6 +82,7 @@ const addmusic = async (link, user, channel) => {
         }
     } else postMessage('Lien incorrect', channel);
 };
+
 const music = async channel => {
     let json = await fs.readFileSync('./music.json', 'utf-8');
     json = JSON.parse(json);
