@@ -2,9 +2,9 @@
     "name": "coalibot",
     "version": "1.0.0",
     "description": "Coalibot from 42Born2Code slack",
-    "main": "src/main.js",
+    "main": "src/index.js",
     "scripts": {
-        "start": "node src/slack_rtm.js"
+        "start": "node src/index.js"
     },
     "repository": {
         "type": "git",
