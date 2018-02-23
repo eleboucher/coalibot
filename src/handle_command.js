@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/23 10:33:53 by erwanleboucher   ###   ########.fr       */
+/*   Updated: 2018/02/23 10:44:09 by erwanleboucher   ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ const {
 } = require('./slack_api');
 const { score, alliance, logtime, profil, who, where } = require('./42_api');
 const { citation } = require('./citation');
-const { roll, addmusic, music } = require('./miscs');
+const { roll, addmusic, music, meteo } = require('./miscs');
 const fs = require('fs');
 const { parrot, blExcMark } = require('./const');
 
@@ -81,6 +81,7 @@ functions = {
     addmusic: (message, channel, ts, user) =>
         addmusic(message.split(' ')[2], user, channel),
     music: (message, channel, ts, user) => music(channel),
+    meteo: (message, channel, ts, user) => meteo(channel),
     oss: (message, channel, ts, user) =>
         citation(
             channel,

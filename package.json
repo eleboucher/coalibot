@@ -22,6 +22,7 @@
     "homepage": "https://github.com/genesixx/coalibot#readme",
     "dependencies": {
         "@slack/client": "^3.16.0",
+        "cheerio": "^1.0.0-rc.2",
         "client-oauth2": "^4.1.0",
         "moment": "^2.20.1",
         "nodemon": "^1.15.1",

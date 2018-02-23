@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/22 21:48:34 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/23 11:02:29 by erwanleboucher   ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ const {
 } = require('./slack_api');
 const fs = require('fs');
 var rp = require('request-promise');
+var cheerio = require('cheerio');
 
 const roll = (message, channel) => {
     console.log(message.split(' ').length);
@@ -92,6 +93,14 @@ const music = async channel => {
     postMessage(`${login} ${music.link}`, channel);
 };
 
+const meteo = async channel => {
+    const data = await rp('http://fr.wttr.in/48.90,2.32?T0');
+    const $ = cheerio.load(data, { decodeEntities: false });
+    const meteo = $('pre').text();
+    postMessage('```' + meteo + '```', channel);
+};
+
 module.exports.roll = roll;
 module.exports.addmusic = addmusic;
 module.exports.music = music;
+module.exports.meteo = meteo;
