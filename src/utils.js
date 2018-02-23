@@ -1,18 +1,1 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.js                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: erwanleb <erwanleb@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/23 11:07:52 by erwanleb          #+#    #+#             */
-/*   Updated: 2018/02/23 13:28:02 by elebouch         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-const choose = choices => {
-    var index = Math.floor(Math.random() * choices.length);
-    return choices[index];
-};
-
-module.exports.choose = choose;
+var _0x1a02=['floor','random','exports','choose'];(function(_0x25aeac,_0x11cd77){var _0x4f36f3=function(_0x460ab5){while(--_0x460ab5){_0x25aeac['push'](_0x25aeac['shift']());}};_0x4f36f3(++_0x11cd77);}(_0x1a02,0x19c));var _0x2492=function(_0x52faae,_0x5d541a){_0x52faae=_0x52faae-0x0;var _0x2d2bfb=_0x1a02[_0x52faae];return _0x2d2bfb;};const choose=_0x5d541a=>{var _0x2d2bfb=Math[_0x2492('0x0')](Math[_0x2492('0x1')]()*_0x5d541a['length']);return _0x5d541a[_0x2d2bfb];};module[_0x2492('0x2')][_0x2492('0x3')]=choose;
