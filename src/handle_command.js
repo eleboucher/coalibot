@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/23 10:44:09 by erwanleboucher   ###   ########.fr       */
+/*   Updated: 2018/02/23 11:09:45 by erwanleboucher   ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ const { citation } = require('./citation');
 const { roll, addmusic, music, meteo } = require('./miscs');
 const fs = require('fs');
 const { parrot, blExcMark } = require('./const');
-
+const { choose } = require('./utils');
 const reply = {
     home:
         'Si `Disk Not Ejected Properly ??` suivre : https://42born2code.slack.com/archives/C7P0Z4F3L/p1510233807000241',
@@ -68,6 +68,11 @@ functions = {
     nestor: (message, channel, ts, user) =>
         postOnThread(reply['nestor'], channel, ts),
     fpons: (message, channel, ts, user) => postMessage(reply['fpons'], channel),
+    mfranc: (message, channel, ts, user) =>
+        postMessage(
+            choose(['>Doucement avec les bots', '>Puuuuuuuuuuuuu']),
+            channel
+        ),
     score: (message, channel, ts, user) => score(channel, ts),
     prof: (message, channel, ts, user) =>
         profil(message.split(' ')[2].toLowerCase(), channel, ts),
