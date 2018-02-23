@@ -6,18 +6,11 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/23 11:09:45 by erwanleboucher   ###   ########.fr       */
+/*   Updated: 2018/02/23 13:27:58 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-const {
-    postMessage,
-    postUserMessage,
-    sendReaction,
-    fileUpload,
-    postOnThread,
-    getUsername
-} = require('./slack_api');
+const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, getUsername } = require('./slack_api');
 const { score, alliance, logtime, profil, who, where } = require('./42_api');
 const { citation } = require('./citation');
 const { roll, addmusic, music, meteo } = require('./miscs');
@@ -44,47 +37,29 @@ const reply = {
 
 functions = {
     alliance: (message, channel, ts, user) => alliance(channel),
-    home: (message, channel, ts, user) =>
-        postOnThread(reply['home'], channel, ts),
-    brew: (message, channel, ts, user) =>
-        postOnThread(reply['brew'], channel, ts),
-    halp: (message, channel, ts, user) =>
-        postOnThread(reply['halp'], channel, ts),
-    source: (message, channel, ts, user) =>
-        postOnThread(reply['source'], channel, ts),
+    home: (message, channel, ts, user) => postOnThread(reply['home'], channel, ts),
+    brew: (message, channel, ts, user) => postOnThread(reply['brew'], channel, ts),
+    halp: (message, channel, ts, user) => postOnThread(reply['halp'], channel, ts),
+    source: (message, channel, ts, user) => postOnThread(reply['source'], channel, ts),
     score: (message, channel, ts, user) => score(ts, channel),
-    help: (message, channel, ts, user) =>
-        fileUpload(fs.createReadStream('./featurespic.jpeg'), channel),
-    elebouch: (message, channel, ts, user) =>
-        postMessage(reply['elebouch'], channel),
-    jcharloi: (message, channel, ts, user) =>
-        postMessage(reply['jcharloi'], channel),
-    glegendr: (message, channel, ts, user) =>
-        postMessage(reply['glegendr'], channel),
-    makefile: (message, channel, ts, user) =>
-        postOnThread(reply['makefile'], channel, ts),
-    sygnano: (message, channel, ts, user) =>
-        postMessage(reply['sygnano'], channel),
-    nestor: (message, channel, ts, user) =>
-        postOnThread(reply['nestor'], channel, ts),
+    help: (message, channel, ts, user) => fileUpload(fs.createReadStream('./featurespic.jpeg'), channel),
+    elebouch: (message, channel, ts, user) => postMessage(reply['elebouch'], channel),
+    jcharloi: (message, channel, ts, user) => postMessage(reply['jcharloi'], channel),
+    glegendr: (message, channel, ts, user) => postMessage(reply['glegendr'], channel),
+    makefile: (message, channel, ts, user) => postOnThread(reply['makefile'], channel, ts),
+    sygnano: (message, channel, ts, user) => postMessage(reply['sygnano'], channel),
+    nestor: (message, channel, ts, user) => postOnThread(reply['nestor'], channel, ts),
     fpons: (message, channel, ts, user) => postMessage(reply['fpons'], channel),
     mfranc: (message, channel, ts, user) =>
-        postMessage(
-            choose(['>Doucement avec les bots', '>Puuuuuuuuuuuuu']),
-            channel
-        ),
+        postMessage(choose(['>Doucement avec les bots', '>Puuuuuuuuuuuuu']), channel),
     score: (message, channel, ts, user) => score(channel, ts),
-    prof: (message, channel, ts, user) =>
-        profil(message.split(' ')[2].toLowerCase(), channel, ts),
+    prof: (message, channel, ts, user) => profil(message.split(' ')[2].toLowerCase(), channel, ts),
 
     logtime: (message, channel, ts, user) => logtime(message, channel, ts),
-    who: (message, channel, ts, user) =>
-        who(message.split(' ')[2].toLowerCase(), channel),
+    who: (message, channel, ts, user) => who(message.split(' ')[2].toLowerCase(), channel),
     roll: (message, channel, ts, user) => roll(message, channel),
-    where: (message, channel, ts, user) =>
-        where(message.split(' ')[2].toLowerCase(), channel),
-    addmusic: (message, channel, ts, user) =>
-        addmusic(message.split(' ')[2], user, channel),
+    where: (message, channel, ts, user) => where(message.split(' ')[2].toLowerCase(), channel),
+    addmusic: (message, channel, ts, user) => addmusic(message.split(' ')[2], user, channel),
     music: (message, channel, ts, user) => music(channel),
     meteo: (message, channel, ts, user) => meteo(channel),
     oss: (message, channel, ts, user) =>
@@ -95,50 +70,25 @@ functions = {
             'Hubert Bonisseur de La Bath'
         ),
     parrot: (message, channel, ts, user) =>
-        postMessage(
-            ':' +
-                parrot[
-                    Math.floor(Math.random() * Math.floor(parrot.length - 1))
-                ] +
-                ':',
-            channel
-        ),
+        postMessage(':' + parrot[Math.floor(Math.random() * Math.floor(parrot.length - 1))] + ':', channel),
     kaamelott: (message, channel, ts, user) =>
-        citation(
-            channel,
-            './kaamelott.txt',
-            'https://img15.hostingpics.net/pics/4833663350.jpg',
-            'Perceval'
-        )
+        citation(channel, './kaamelott.txt', 'https://img15.hostingpics.net/pics/4833663350.jpg', 'Perceval')
 };
 
 function handleCommand(msg, channel, ts, user) {
     const message = msg.replace(/\s+/g, ' ').trim();
     if (/\brip\b/.test(message)) sendReaction('rip', channel, ts);
     if (/\bjpp\b/.test(message)) sendReaction('jpp', channel, ts);
-    if (
-        ['coalibot', 'bc', 'cb'].indexOf(message.toLowerCase().split(' ')[0]) >
-        -1
-    ) {
+    if (['coalibot', 'bc', 'cb'].indexOf(message.toLowerCase().split(' ')[0]) > -1) {
         if (message.split(' ')[1].toLowerCase() in functions)
-            functions[message.split(' ')[1].toLowerCase()](
-                message,
-                channel,
-                ts,
-                user
-            );
+            functions[message.split(' ')[1].toLowerCase()](message, channel, ts, user);
     }
     if (
         message.indexOf('!') === 0 &&
         blExcMark.indexOf(message.replace('!', '').split(' ')[0]) === -1 &&
         message.replace('!', '').split(' ')[0] in functions
     ) {
-        functions[message.replace('!', '').split(' ')[0]](
-            message.replace('!', 'bc '),
-            channel,
-            ts,
-            user
-        );
+        functions[message.replace('!', '').split(' ')[0]](message.replace('!', 'bc '), channel, ts, user);
     }
 }
 

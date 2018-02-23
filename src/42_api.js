@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/22 21:20:45 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/23 13:27:56 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,10 @@ const alliance = async channel => {
     while (json[rang]['id'] !== 2) rang += 1;
     if (rang === 0) {
         const diff = json[rang]['score'] - json[1]['score'];
-        postMessage(
-            `Felicitations Nous sommes premiers avec ${rang +
-                1} points d'avance. :the-alliance:`,
-            channel
-        );
+        postMessage(`Felicitations Nous sommes premiers avec ${rang + 1} points d'avance. :the-alliance:`, channel);
     } else {
         const diff = json[0]['score'] - json[rang]['score'];
-        postMessage(
-            `Nous sommes à la ${rang +
-                1}eme place avec ${diff} points de retard. :the-alliance:`,
-            channel
-        );
+        postMessage(`Nous sommes à la ${rang + 1}eme place avec ${diff} points de retard. :the-alliance:`, channel);
     }
 };
 
@@ -97,32 +89,17 @@ const score = async channel => {
                 },
                 {
                     title: json[1]['name'],
-                    value: String(
-                        json[1]['score'] +
-                            ' (' +
-                            Number(json[1]['score'] - json[0]['score']) +
-                            ')'
-                    ),
+                    value: String(json[1]['score'] + ' (' + Number(json[1]['score'] - json[0]['score']) + ')'),
                     short: true
                 },
                 {
                     title: json[2]['name'],
-                    value: String(
-                        json[2]['score'] +
-                            ' (' +
-                            Number(json[2]['score'] - json[0]['score']) +
-                            ')'
-                    ),
+                    value: String(json[2]['score'] + ' (' + Number(json[2]['score'] - json[0]['score']) + ')'),
                     short: true
                 },
                 {
                     title: json[3]['name'],
-                    value: String(
-                        json[3]['score'] +
-                            ' (' +
-                            Number(json[3]['score'] - json[0]['score']) +
-                            ')'
-                    ),
+                    value: String(json[3]['score'] + ' (' + Number(json[3]['score'] - json[0]['score']) + ')'),
                     short: true
                 }
             ],
@@ -235,11 +212,7 @@ const profil = async (user, channel) => {
 
 const logtime = async (message, channel, ts) => {
     if (message.split(' ').length < 4) {
-        postOnThread(
-            'Usage: bc logtime login datedebut datefin (date au format "Y-M-D")',
-            channel,
-            ts
-        );
+        postOnThread('Usage: bc logtime login datedebut datefin (date au format "Y-M-D")', channel, ts);
     } else if (
         message.split(' ').length === 4 &&
         !isNaN(message.split(' ')[3]) &&
@@ -255,60 +228,33 @@ const logtime = async (message, channel, ts) => {
             M: 11,
             d: 31
         });
-        const logtime = await get_range_logtime(
-            message.split(' ')[2],
-            date_begin,
-            date_end
-        );
+        const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end);
         var time = format_output_datetime(logtime);
         postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts);
     } else if (
         message.split(' ')[3].includes('trimestre') &&
-        (message.split(' ').length === 4 ||
-            (message.split(' ').length === 5 &&
-                parseInt(message.split(' ')[4]) > 2012))
+        (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
     ) {
-        let quarter =
-            parseInt(message.split(' ')[3].replace('trimestre', '')) - 1;
+        let quarter = parseInt(message.split(' ')[3].replace('trimestre', '')) - 1;
         let year;
-        if (
-            message.split(' ').length === 5 &&
-            parseInt(message.split(' ')[4]) > 2012
-        )
+        if (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012)
             year = parseInt(message.split(' ')[4]);
         else year = new Date().getFullYear();
         let date_begin = moment(new Date(year, quarter * 3, 1));
         let date_end = moment(new Date(year, date_begin.get('month') + 3, 0));
-        const logtime = await get_range_logtime(
-            message.split(' ')[2],
-            date_begin,
-            date_end
-        );
+        const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end);
         var time = format_output_datetime(logtime);
         postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts);
     } else if (
         message.split(' ')[3] in month &&
-        (message.split(' ').length === 4 ||
-            (message.split(' ').length === 5 &&
-                parseInt(message.split(' ')[4]) > 2012))
+        (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
     ) {
-        if (
-            message.split(' ').length === 5 &&
-            parseInt(message.split(' ')[4]) > 2012
-        )
+        if (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012)
             year = parseInt(message.split(' ')[4]);
         else year = new Date().getFullYear();
-        let date_begin = moment(
-            new Date(year, month[message.split(' ')[3]], 1)
-        );
-        let date_end = moment(
-            new Date(year, month[message.split(' ')[3]] + 1, 0)
-        );
-        const logtime = await get_range_logtime(
-            message.split(' ')[2],
-            date_begin,
-            date_end
-        );
+        let date_begin = moment(new Date(year, month[message.split(' ')[3]], 1));
+        let date_end = moment(new Date(year, month[message.split(' ')[3]] + 1, 0));
+        const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end);
         var time = format_output_datetime(logtime);
         postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts);
     } else if (message.split(' ').length === 5) {
@@ -317,11 +263,7 @@ const logtime = async (message, channel, ts) => {
         else date_end = moment(message.split(' ')[4]);
         let date_begin = moment(message.split(' ')[3]);
         if (date_end.isValid() && date_begin.isValid()) {
-            const logtime = await get_range_logtime(
-                message.split(' ')[2],
-                date_begin,
-                date_end
-            );
+            const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end);
             var time = format_output_datetime(logtime);
             postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts);
         }
@@ -337,20 +279,13 @@ const who = async (place, channel) => {
         return;
     }
     if (data.length === 0) postMessage(`Place *${place}* vide`, channel);
-    else
-        postMessage(
-            `*${data[0]['user']['login']}* est à la place *${place}*`,
-            channel
-        );
+    else postMessage(`*${data[0]['user']['login']}* est à la place *${place}*`, channel);
 };
 
 const where = async (user, channel) => {
     if (!user || user.startsWith('!') || user.startsWith('?')) return;
     if (user === 'queen' || user == 'way') {
-        postMessage(
-            "follow me bruddah\ni'll show you de way :uganda_knuckles:",
-            channel
-        );
+        postMessage("follow me bruddah\ni'll show you de way :uganda_knuckles:", channel);
         return;
     }
     if (user === 'dieu') user = 'elebouch';
@@ -360,8 +295,7 @@ const where = async (user, channel) => {
         postMessage(`login invalide`, channel);
         return;
     }
-    if (data.length === 0 || data[0]['end_at'])
-        postMessage(`*${user}* est hors ligne`, channel);
+    if (data.length === 0 || data[0]['end_at']) postMessage(`*${user}* est hors ligne`, channel);
     else postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel);
 };
 

@@ -6,29 +6,18 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/23 11:02:29 by erwanleboucher   ###   ########.fr       */
+/*   Updated: 2018/02/23 13:27:59 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-const {
-    postMessage,
-    postUserMessage,
-    sendReaction,
-    fileUpload,
-    postOnThread,
-    getUsername
-} = require('./slack_api');
+const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, getUsername } = require('./slack_api');
 const fs = require('fs');
 var rp = require('request-promise');
 var cheerio = require('cheerio');
 
 const roll = (message, channel) => {
     console.log(message.split(' ').length);
-    if (
-        message.split(' ').length !== 4 ||
-        isNaN(message.split(' ')[2]) ||
-        isNaN(message.split(' ')[3])
-    ) {
+    if (message.split(' ').length !== 4 || isNaN(message.split(' ')[2]) || isNaN(message.split(' ')[3])) {
         postMessage('Usage: bc roll nbde tailledude', channel);
         return;
     }
@@ -69,14 +58,9 @@ const addmusic = async (link, user, channel) => {
             };
             json = json.concat(info);
             postMessage('Musique ajoutée', channel);
-            await fs.writeFile(
-                './music.json',
-                JSON.stringify(json, null, 4),
-                'utf8',
-                err => {
-                    if (err) throw err;
-                }
-            );
+            await fs.writeFile('./music.json', JSON.stringify(json, null, 4), 'utf8', err => {
+                if (err) throw err;
+            });
         } else {
             postMessage('Lien déjà enregistré', channel);
         }

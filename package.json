@@ -10,10 +10,7 @@
         "type": "git",
         "url": "git+https://github.com/genesixx/coalibot.git"
     },
-    "keywords": [
-        "slack",
-        "bot"
-    ],
+    "keywords": ["slack", "bot"],
     "author": "elebouch <elebouch@student.42.fr>",
     "license": "GPL-3.0",
     "bugs": {
