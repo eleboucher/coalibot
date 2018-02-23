@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/22 21:28:07 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/23 10:32:18 by erwanleboucher   ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ const { score, alliance, logtime, profil, who, where } = require('./42_api');
 const { citation } = require('./citation');
 const { roll, addmusic, music } = require('./miscs');
 const fs = require('fs');
-const { parrot } = require('./const');
+const { parrot, blExcMark } = require('./const');
 
 const reply = {
     home:
@@ -69,7 +69,7 @@ functions = {
         postOnThread(reply['nestor'], channel, ts),
     fpons: (message, channel, ts, user) => postMessage(reply['fpons'], channel),
     score: (message, channel, ts, user) => score(channel, ts),
-    profil: (message, channel, ts, user) =>
+    prof: (message, channel, ts, user) =>
         profil(message.split(' ')[2].toLowerCase(), channel, ts),
 
     logtime: (message, channel, ts, user) => logtime(message, channel, ts),
@@ -110,7 +110,7 @@ function handleCommand(msg, channel, ts, user) {
     const message = msg.replace(/\s+/g, ' ').trim();
     if (/\brip\b/.test(message)) sendReaction('rip', channel, ts);
     if (/\bjpp\b/.test(message)) sendReaction('jpp', channel, ts);
-    if (message.toLowerCase().startsWith('bc')) {
+    if (message.toLowerCase().split(' ')[0] in ['coalibot', 'bc', 'cb']) {
         if (message.split(' ')[1].toLowerCase() in functions)
             functions[message.split(' ')[1].toLowerCase()](
                 message,
@@ -121,6 +121,7 @@ function handleCommand(msg, channel, ts, user) {
     }
     if (
         message.indexOf('!') === 0 &&
+        blExcMark.indexOf(message.replace('!', '').split(' ')[0]) === -1 &&
         message.replace('!', '').split(' ')[0] in functions
     ) {
         functions[message.replace('!', '').split(' ')[0]](
