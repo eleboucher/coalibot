@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/24 17:40:50 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/24 17:44:23 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ functions = {
     addmusic: (message, channel, ts, user) => addmusic(message.split(" ")[2], user, channel),
     music: (message, channel, ts, user) => music(channel),
     meteo: (message, channel, ts, user) => meteo(channel),
+    randomgif: (message, channel, ts, user) => randomgif(message.split(" ")[2].replace(" ", "+"), channel),
     oss: (message, channel, ts, user) =>
         citation(
             channel,

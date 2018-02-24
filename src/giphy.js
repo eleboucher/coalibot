@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/24 15:03:45 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/24 17:41:28 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/24 17:43:31 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, ge
 const randomgif = async (query, channel) => {
     //not my api key :3:
     const res = await rp(
-        `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=aH0B2QT0mjnLZ7xKvHTwURhIHcIiB4MR&limit=20`,
+        `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=aH0B2QT0mjnLZ7xKvHTwURhIHcIiB4MR&limit=30`,
         { json: true }
     );
     const theOnlyOne = res.data[Math.floor(Math.random() * Math.floor(res.data.length - 1))].url;
