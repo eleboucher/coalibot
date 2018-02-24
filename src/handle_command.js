@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/24 13:43:44 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/24 14:43:21 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ functions = {
 
 function handleCommand(msg, channel, ts, user) {
     const message = msg.replace(/\s+/g, " ").trim();
-    if (/\brip\b/i.test(message)) sendReaction("rip", channel, ts);
-    if (/\bjpp\b/i.test(message)) sendReaction("jpp", channel, ts);
+    if (/(\b|^)rip(\b|$)/i.test(message)) sendReaction("rip", channel, ts);
+    if (/(\b|^)jpp(\b|$)/i.test(message)) sendReaction("jpp", channel, ts);
     if (/(\b|^)(php|Ruby|RoR|mongo|mongodb)(\b|$)/i.test(message)) sendReaction("poop", channel, ts);
     if (["coalibot", "bc", "cb"].indexOf(message.toLowerCase().split(" ")[0]) > -1) {
         if (message.split(" ")[1].toLowerCase() in functions)
