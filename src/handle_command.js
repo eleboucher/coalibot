@@ -6,13 +6,14 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/24 14:43:21 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/24 17:40:50 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, getUsername } = require("./slack_api");
 const { score, alliance, logtime, profil, who, where } = require("./42_api");
 const { citation } = require("./citation");
+const { randomgif } = require("./giphy");
 const { roll, addmusic, music, meteo } = require("./miscs");
 const fs = require("fs");
 const { parrot, blExcMark } = require("./const");
@@ -45,7 +46,7 @@ functions = {
     help: (message, channel, ts, user) => fileUpload(fs.createReadStream("./featurespic.jpeg"), channel),
     elebouch: (message, channel, ts, user) => postMessage(reply["elebouch"], channel),
     jcharloi: (message, channel, ts, user) => postMessage(reply["jcharloi"], channel),
-    glegendr: (message, channel, ts, user) => postMessage(reply["glegendr"], channel),
+    glegendr: (message, channel, ts, user) => randomgif("how about no".replace(" ", "+"), channel),
     makefile: (message, channel, ts, user) => postOnThread(reply["makefile"], channel, ts),
     sygnano: (message, channel, ts, user) => postMessage(reply["sygnano"], channel),
     nestor: (message, channel, ts, user) => postOnThread(reply["nestor"], channel, ts),
