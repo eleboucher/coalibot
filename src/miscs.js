@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/28 18:27:35 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/28 18:31:12 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ const dobby = async (user, channel) => {
     if ('user' in username && 'name' in username['user']) {
         username = username['user']['name'];
     }
-    username in allowedUsers
+    allowedUsers.indexOf(username) > -1
         ? postMessage(`Dobby pret ! <@elebouch>`, channel)
         : postMessage(`Toi pas maitre Dobby`, channel);
 };
