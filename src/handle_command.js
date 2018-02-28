@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/26 18:36:01 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/28 18:28:01 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@ const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, ge
 const { score, alliance, logtime, profil, who, where } = require('./42_api');
 const { citation } = require('./citation');
 const { randomgif } = require('./giphy');
-const { roll, addmusic, music, meteo } = require('./miscs');
+const { roll, addmusic, music, meteo, dobby } = require('./miscs');
 const fs = require('fs');
 const { parrot, blExcMark } = require('./const');
 const { choose } = require('./utils');
@@ -63,6 +63,7 @@ functions = {
     addmusic: (message, channel, ts, user) => addmusic(message, user, channel),
     music: (message, channel, ts, user) => music(channel),
     meteo: (message, channel, ts, user) => meteo(channel),
+    dobby: (message, channel, ts, user) => dobby(user, channel),
     randomgif: (message, channel, ts, user) =>
         randomgif(message.replace('bc randomgif', '').replace(' ', '+'), channel),
     oss: (message, channel, ts, user) =>

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/26 18:32:28 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/28 18:27:35 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,19 @@ const meteo = async channel => {
     postMessage('```' + meteo + '```', channel);
 };
 
+const dobby = async (user, channel) => {
+    const allowedUsers = ['elebouch', 'korlandi', 'ndudnicz', 'jcharloi'];
+    let username = await getUsername(user);
+    if ('user' in username && 'name' in username['user']) {
+        username = username['user']['name'];
+    }
+    username in allowedUsers
+        ? postMessage(`Dobby pret ! <@elebouch>`, channel)
+        : postMessage(`Toi pas maitre Dobby`, channel);
+};
+
 module.exports.roll = roll;
 module.exports.addmusic = addmusic;
 module.exports.music = music;
 module.exports.meteo = meteo;
+module.exports.dobby = dobby;
