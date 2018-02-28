@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/28 18:41:26 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/28 19:27:15 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ const reply = {
     source: '`https://github.com/genesixx/coalibot`',
     elebouch: 'Dodge les BH tel un moine shaolin',
     jcharloi: 'fais tes 9h!',
-    glegendr: '/giphy how about no',
+    dcirlig: 'да',
     makefile: '`https://forum.intra.42.fr/topics/85/messages`',
     sygnano: 'https://youtu.be/V2UGfj2qPCw?t=8s',
     nestor:
@@ -46,6 +46,7 @@ functions = {
     help: (message, channel, ts, user) => fileUpload(fs.createReadStream('./featurespic.jpeg'), channel),
     elebouch: (message, channel, ts, user) => postMessage(reply['elebouch'], channel),
     jcharloi: (message, channel, ts, user) => postMessage(reply['jcharloi'], channel),
+    dcirlig: (message, channel, ts, user) => postMessage(reply['dcirlig'], channel),
     glegendr: (message, channel, ts, user) => randomgif('how about no'.replace(' ', '+'), channel),
     makefile: (message, channel, ts, user) => postOnThread(reply['makefile'], channel, ts),
     sygnano: (message, channel, ts, user) => postMessage(reply['sygnano'], channel),
