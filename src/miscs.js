@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/28 18:34:49 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/28 18:36:32 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ const meteo = async channel => {
 const dobby = async (user, channel) => {
     const allowedUsers = ['elebouch', 'korlandi', 'ndudnicz', 'jcharloi'];
     const linkImg =
-        'https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/01/04/13/harry-potter-dobby.jpg';
+        'http://cdn.playbuzz.com/cdn/66f922e7-af02-4e0c-9005-99f36c6a556b/780b5a18-483a-495a-9209-d9dac17c53c7_560_420.jpg';
     let username = await getUsername(user);
     if ('user' in username && 'name' in username['user']) {
         username = username['user']['name'];
