@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/28 18:28:01 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/28 18:41:26 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,23 @@ function handleCommand(msg, channel, ts, user) {
     }
     if (
         message.indexOf('!') === 0 &&
-        blExcMark.indexOf(message.replace('!', '').split(' ')[0]) === -1 &&
-        message.replace('!', '').split(' ')[0] in functions
+        blExcMark.indexOf(
+            message
+                .replace('!', '')
+                .split(' ')[0]
+                .toLowerCase()
+        ) === -1 &&
+        message
+            .replace('!', '')
+            .split(' ')[0]
+            .toLowerCase() in functions
     ) {
-        functions[message.replace('!', '').split(' ')[0]](message.replace('!', 'bc '), channel, ts, user);
+        functions[
+            message
+                .replace('!', '')
+                .split(' ')[0]
+                .toLowerCase()
+        ](message.replace('!', 'bc '), channel, ts, user);
     }
 }
 
