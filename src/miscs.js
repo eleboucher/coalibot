@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/28 18:31:12 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/02/28 18:34:49 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,15 @@ const meteo = async channel => {
 
 const dobby = async (user, channel) => {
     const allowedUsers = ['elebouch', 'korlandi', 'ndudnicz', 'jcharloi'];
+    const linkImg =
+        'https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/01/04/13/harry-potter-dobby.jpg';
     let username = await getUsername(user);
     if ('user' in username && 'name' in username['user']) {
         username = username['user']['name'];
     }
     allowedUsers.indexOf(username) > -1
-        ? postMessage(`Dobby pret ! <@elebouch>`, channel)
-        : postMessage(`Toi pas maitre Dobby`, channel);
+        ? postUserMessage(`Dobby pret ! <@elebouch>`, channel, linkImg, 'Dobby')
+        : postUserMessage(`Toi pas maitre Dobby`, channel, linkImg, 'Dobby');
 };
 
 module.exports.roll = roll;
