@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/01 13:25:09 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/01 13:26:37 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@ const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, ge
 const fs = require('fs');
 var rp = require('request-promise');
 var cheerio = require('cheerio');
+const { randomgif } = require('./giphy');
 
 const roll = (message, channel) => {
     if (message.split(' ').length !== 4 || isNaN(message.split(' ')[2]) || isNaN(message.split(' ')[3])) {
