@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/28 18:36:32 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/01 13:25:09 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ const dobby = async (user, channel) => {
     let username = await getUsername(user);
     if ('user' in username && 'name' in username['user']) {
         username = username['user']['name'];
+    }
+    if (username == 'anzhan') {
+        randomgif('blackhole', channel);
+        return;
     }
     allowedUsers.indexOf(username) > -1
         ? postUserMessage(`Dobby pret ! <@elebouch>`, channel, linkImg, 'Dobby')
