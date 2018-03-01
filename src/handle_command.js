@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/01 11:38:14 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/01 13:15:57 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ functions = {
 
 function handleCommand(msg, channel, ts, user) {
     const message = msg.replace(/\s+/g, ' ').trim();
-    console.log(message);
+    console.log({ message });
     if (/(\b|^)rip(\b|$)/i.test(message)) sendReaction('rip', channel, ts);
     if (/(\b|^)jpp(\b|$)/i.test(message)) sendReaction('jpp', channel, ts);
     if (/(\b|^)(php|Ruby|RoR|mongo|mongodb)(\b|$)/i.test(message)) sendReaction('poop', channel, ts);
