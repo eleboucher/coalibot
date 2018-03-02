@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/02/26 18:34:16 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/02 14:19:35 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,18 +280,15 @@ const logtime = async (message, channel, ts) => {
     }
 };
 
-const who = async (place, channel) => {
-    if (msg.split(' ').length < 3) {
+const who = async (msg, channel) => {
+    if (msg.split(' ').length > 2) place = msg.split(' ')[2];
+    else {
         postMessage(`prend une place en parametre`, channel);
         return;
     }
     if (!place || place.startsWith('!') || place.startsWith('?')) return;
     const url = `/v2/campus/1/locations/?filter[host]=${place}&filter[active]=true`;
     const data = await request42(url);
-    if (!data) {
-        postMessage(`place invalide`, channel);
-        return;
-    }
     if (data.length === 0) postMessage(`Place *${place}* vide`, channel);
     else postMessage(`*${data[0]['user']['login']}* est à la place *${place}*`, channel);
 };
