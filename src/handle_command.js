@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/02 14:33:40 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/02 15:01:46 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ function handleCommand(msg, channel, ts, user) {
             .split(' ')[1]
             .toLowerCase();
         if (reply(command, channel) == true) return;
-        if (functions[command.split(' ')[1]]) functions[message.split(' ')[1]](command, channel, ts, user);
+        console.log(command);
+        if (functions[command]) functions[command](message.replace('!', 'bc '), channel, ts, user);
     }
 }
 
