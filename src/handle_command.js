@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/02 14:05:43 by elebouch         ###   ########.fr       */
+/*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
+/*   Updated: 2018/03/02 14:33:40 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ const { choose } = require('./utils');
 const reply = async (cmd, channel) => {
     const contents = await fs.readFileSync('./reply.json');
     const json = JSON.parse(contents);
-    console.log(json[cmd]);
     if (json[cmd]) {
         postMessage(json[cmd], channel);
         return true;
@@ -75,7 +74,7 @@ function handleCommand(msg, channel, ts, user) {
 
     if (/(\b|^)rip(\b|$)/i.test(message)) sendReaction('rip', channel, ts);
     if (/(\b|^)jpp(\b|$)/i.test(message)) sendReaction('jpp', channel, ts);
-    if (/(\b|^)(php|Ruby|RoR|mongo|mongodb)(\b|$)/i.test(message)) sendReaction('poop', channel, ts);
+    if (/(\b|^)(php|ruby|ror|mongo|mongodb)(\b|$)/i.test(message)) sendReaction('poop', channel, ts);
 
     if (['coalibot', 'bc', 'cb'].indexOf(message.toLowerCase().split(' ')[0]) > -1) {
         if (reply(message.split(' ')[1].toLowerCase(), channel) == true) return;
@@ -90,30 +89,12 @@ function handleCommand(msg, channel, ts, user) {
                 .toLowerCase()
         ) === -1
     ) {
-        if (
-            reply(
-                message
-                    .replace('!', 'bc ')
-                    .split(' ')[1]
-                    .toLowerCase(),
-                channel
-            ) == true
-        )
-            return;
-        if (
-            functions[
-                message
-                    .replace('!', '')
-                    .split(' ')[0]
-                    .toLowerCase()
-            ]
-        )
-            functions[
-                message
-                    .replace('!', '')
-                    .split(' ')[0]
-                    .toLowerCase()
-            ](message.replace('!', 'bc '), channel, ts, user);
+        const command = message
+            .replace('!', 'bc ')
+            .split(' ')[1]
+            .toLowerCase();
+        if (reply(command, channel) == true) return;
+        if (functions[command.split(' ')[1]]) functions[message.split(' ')[1]](command, channel, ts, user);
     }
 }
 
