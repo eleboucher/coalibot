@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 14:39:11 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/01 13:39:24 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/02 13:24:10 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ const reply = {
     source: '`https://github.com/genesixx/coalibot`',
     elebouch: 'Dodge les BH tel un moine shaolin',
     jcharloi: 'fais tes 9h!',
-    tpayet: 'js > ruby',
+    tpayet: 'JS > Ruby',
     dcirlig: 'да',
     makefile: '`https://forum.intra.42.fr/topics/85/messages`',
     sygnano: 'https://youtu.be/V2UGfj2qPCw?t=8s',
