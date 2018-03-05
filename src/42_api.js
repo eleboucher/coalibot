@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/02 17:33:11 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/05 15:58:33 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,7 @@ const where = async (msg, channel, usr) => {
     postMessage("follow me bruddah\ni'll show you de way :uganda_knuckles:", channel)
     return
   }
-  if (user === 'dieu') user = 'elebouch'
+  if (user === 'dieu' || user === 'dobby') user = 'elebouch'
   url = `/v2/users/${user}/locations`
   const data = await request42(url)
   if (!data) {
