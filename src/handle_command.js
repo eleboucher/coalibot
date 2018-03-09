@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/05 13:31:48 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/09 18:44:54 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,18 @@ const { roll, addmusic, music, meteo, dobby } = require('./miscs')
 const fs = require('fs')
 const { parrot, blExcMark } = require('./const')
 const { choose } = require('./utils')
+const { addCommand } = require('./database')
 
 const reply = async (cmd, channel) => {
-  const contents = await fs.readFileSync('./reply.json')
-  const json = JSON.parse(contents)
-  if (json[cmd]) {
-    postMessage(json[cmd], channel)
-    return true
+  try {
+    const contents = await fs.readFileSync('./reply.json')
+    const json = JSON.parse(contents)
+    if (json[cmd]) {
+      postMessage(json[cmd], channel)
+      return true
+    }
+  } catch (err) {
+    console.log(err)
   }
   return false
 }
@@ -37,7 +42,6 @@ functions = {
   mfranc: (message, channel, ts, user) => postMessage(choose(['>Doucement avec les bots', '>Puuuuuuuuuuuuu']), channel),
   score: (message, channel, ts, user) => score(channel, ts),
   prof: (message, channel, ts, user) => profil(message.toLowerCase(), channel, user),
-
   logtime: (message, channel, ts, user) => logtime(message, channel, ts),
   who: (message, channel, ts, user) => who(message.toLowerCase(), channel),
   roll: (message, channel, ts, user) => roll(message, channel),
@@ -67,18 +71,31 @@ functions = {
     citation(channel, './kaamelott.txt', 'https://img15.hostingpics.net/pics/4833663350.jpg', 'Perceval')
 }
 
-function handleCommand(msg, channel, ts, user) {
+const handleCommand = async (msg, channel, ts, user) => {
   const message = msg.replace(/\s+/g, ' ').trim()
   console.log({ user, message })
-
+  let command
+  let option = null
+  let ifcommand = false
   if (/(\b|^)rip(\b|$)/i.test(message)) sendReaction('rip', channel, ts)
   if (/(\b|^)jpp(\b|$)/i.test(message)) sendReaction('jpp', channel, ts)
   if (/(\b|^)(php|ruby|ror|mongo|mongodb)(\b|$)/i.test(message)) sendReaction('poop', channel, ts)
 
   if (['coalibot', 'bc', 'cb'].indexOf(message.toLowerCase().split(' ')[0]) > -1 && message.split(' ').length > 1) {
-    if (reply(message.split(' ')[1].toLowerCase(), channel) == true) return
-    if (functions[message.split(' ')[1].toLowerCase()])
-      functions[message.split(' ')[1].toLowerCase()](message, channel, ts, user)
+    command = message.split(' ')[1].toLowerCase()
+    option = message
+      .split(' ')
+      .splice(2)
+      .join(' ')
+    const result = await reply(command, channel)
+    if (result === false) {
+      if (functions[message.split(' ')[1].toLowerCase()]) {
+        functions[command](message.split(' ')[1].toLowerCase(), channel, ts, user)
+        ifcommand = true
+      }
+    } else {
+      ifcommand = true
+    }
   } else if (
     message.indexOf('!') === 0 &&
     blExcMark.indexOf(
@@ -88,14 +105,26 @@ function handleCommand(msg, channel, ts, user) {
         .toLowerCase()
     ) === -1
   ) {
-    const command = message
+    command = message
       .replace('!', 'bc ')
       .split(' ')[1]
       .toLowerCase()
-    if (reply(command, channel) == true) return
-    console.log(command)
-    if (functions[command]) functions[command](message.replace('!', 'bc '), channel, ts, user)
+    const result = await reply(command, channel)
+    if (result === false) {
+      if (functions[command]) {
+        functions[command](message.replace('!', 'bc '), channel, ts, user)
+        option = message
+          .replace('!', 'bc ')
+          .split(' ')
+          .splice(2)
+          .join(' ')
+        ifcommand = true
+      }
+    } else {
+      ifcommand = true
+    }
   }
+  if (ifcommand) addCommand(command, option, channel, ts, user)
 }
 
 module.exports.handleCommand = handleCommand
