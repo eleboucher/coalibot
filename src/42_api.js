@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/05 15:58:33 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/09 14:22:22 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ const ClientOAuth2 = require('client-oauth2')
 const { month } = require('./const')
 const moment = require('moment')
 const sprintf = require('sprintf-js').sprintf
+const fs = require('fs')
 
 const forty2auth = new ClientOAuth2({
   clientId: process.env.INTRA_CLIENT_ID,
@@ -33,11 +34,24 @@ const forty2auth = new ClientOAuth2({
 
 const request42 = async url => {
   var url = 'https://api.intra.42.fr' + url
-  const token = await forty2auth.credentials.getToken()
+  let json = await fs.readFileSync('./token.json', 'utf-8')
+  json = JSON.parse(json)
+  let token
+  if (json.length !== 0 && json.expires && moment(json.expires) - moment() > 0) token = json
+  else {
+    token = await forty2auth.credentials.getToken()
+    json = {
+      accessToken: token.accessToken,
+      expires: token.expires
+    }
+    fs.writeFile('./token.json', JSON.stringify(json, null, 4), 'utf8', err => {
+      if (err) throw err
+    })
+  }
   var options = {
     uri: url,
     qs: {
-      access_token: token.data.access_token
+      access_token: token.accessToken
     },
     headers: {
       'User-Agent': 'Request-Promise'
