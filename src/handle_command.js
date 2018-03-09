@@ -44,7 +44,7 @@ functions = {
   where: (message, channel, ts, user) => where(message.toLowerCase(), channel, user),
   addmusic: (message, channel, ts, user) => addmusic(message, user, channel),
   music: (message, channel, ts, user) => music(channel),
-  meteo: (message, channel, ts, user) => meteo(channel),
+  meteo: (message, channel, ts, user) => meteo(message, channel),
   dobby: (message, channel, ts, user) => dobby(user, channel),
   randomgif: (message, channel, ts, user) =>
     randomgif(

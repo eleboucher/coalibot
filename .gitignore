@@ -62,3 +62,7 @@ typings/
 
 # citation txt
 *.txt
+
+# jetbrains IDE
+*.vcs
+*.idea

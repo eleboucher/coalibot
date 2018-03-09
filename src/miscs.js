@@ -78,9 +78,20 @@ const music = async channel => {
   postMessage(`${login} ${music.link}`, channel)
 }
 
-const meteo = async channel => {
-  const data = await rp('http://fr.wttr.in/48.90,2.32?T0')
-  const $ = cheerio.load(data, { decodeEntities: false })
+const meteo = async (message, channel) => {
+  let lat = '48.90'
+  let lon = '2.32'
+  if (message.split(' ').length > 2) {
+    if (message.split(' ').length < 4) postMessage('bc meteo || bc meteo 48.9 2.32', channel)
+    lat = message.split(' ')[2]
+    lon = message.split(' ')[3]
+    if (parseFloat(lat) < -90 || parseFloat(lat) > 90)
+      postMessage('Latitude incorrecte')
+    if (parseFloat(lon) < -180 || parseFloat(lon) > 180)
+      postMessage('Longitude incorrecte')
+  }
+  const data = await rp(`http://fr.wttr.in/${lat},${lon}?T0`)
+  const $ = cheerio.load(data, {decodeEntities: false})
   const meteo = $('pre').text()
   postMessage('```' + meteo + '```', channel)
 }
