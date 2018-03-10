@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/09 18:44:54 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/10 14:03:44 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ const handleCommand = async (msg, channel, ts, user) => {
     const result = await reply(command, channel)
     if (result === false) {
       if (functions[message.split(' ')[1].toLowerCase()]) {
-        functions[command](message.split(' ')[1].toLowerCase(), channel, ts, user)
+        functions[command](message, channel, ts, user)
         ifcommand = true
       }
     } else {
