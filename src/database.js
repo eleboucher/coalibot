@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:47:42 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/10 14:33:44 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/10 14:41:31 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@ const moment = require('moment')
 const { getUsername } = require('./slack_api')
 
 const sequelize = new Sequelize('coalibot', process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD, {
-  host: 'localhost',
+  host: process.env.DB_IP,
   dialect: 'postgres',
 
   pool: {
