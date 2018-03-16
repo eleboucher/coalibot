@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/05 15:58:33 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:11:13 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,12 @@ const profil = async (msg, channel, usr) => {
 
 const logtime = async (message, channel, ts) => {
   if (message.split(' ').length < 4) {
-    postOnThread('Usage: bc logtime login datedebut datefin (date au format "Y-M-D")', channel, ts)
+    postOnThread(
+      'Usage: bc logtime login [datedebut datefin | annee | trimestre [annee]] (date au format "Y-M-D")',
+      channel,
+      ts
+    )
+    return
   } else if (
     message.split(' ').length === 4 &&
     !isNaN(message.split(' ')[3]) &&
@@ -241,32 +246,36 @@ const logtime = async (message, channel, ts) => {
     const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
     const time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
+    return
   } else if (
     message.split(' ')[3].includes('trimestre') &&
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
   ) {
     let quarter = parseInt(message.split(' ')[3].replace('trimestre', '')) - 1
-    let year
-    if (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012)
-      year = parseInt(message.split(' ')[4])
-    else year = new Date().getFullYear()
+    const year =
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012
+        ? parseInt(message.split(' ')[4])
+        : new Date().getFullYear()
     let date_begin = moment(new Date(year, quarter * 3, 1))
     let date_end = moment(new Date(year, date_begin.get('month') + 3, 0))
     const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
     const time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
+    return
   } else if (
     message.split(' ')[3] in month &&
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
   ) {
-    if (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012)
-      year = parseInt(message.split(' ')[4])
-    else year = new Date().getFullYear()
+    const year =
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012
+        ? parseInt(message.split(' ')[4])
+        : new Date().getFullYear()
     let date_begin = moment(new Date(year, month[message.split(' ')[3]], 1))
     let date_end = moment(new Date(year, month[message.split(' ')[3]] + 1, 0))
     const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
     var time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
+    return
   } else if (message.split(' ').length === 5) {
     let date_end
     if (message.split(' ')[4] === 'today') date_end = moment()
@@ -276,8 +285,14 @@ const logtime = async (message, channel, ts) => {
       const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
       const time = format_output_datetime(logtime)
       postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
+      return
     }
   }
+  postOnThread(
+    'Usage: bc logtime login [datedebut datefin | annee | trimestre [annee]] (date au format "Y-M-D")',
+    channel,
+    ts
+  )
 }
 
 const who = async (msg, channel) => {
