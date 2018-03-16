@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/16 16:11:13 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:13:10 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,9 +277,7 @@ const logtime = async (message, channel, ts) => {
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
   } else if (message.split(' ').length === 5) {
-    let date_end
-    if (message.split(' ')[4] === 'today') date_end = moment()
-    else date_end = moment(message.split(' ')[4])
+    let date_end = (date_end = message.split(' ')[4] === 'today' ? moment() : moment(message.split(' ')[4]))
     let date_begin = moment(message.split(' ')[3])
     if (date_end.isValid() && date_begin.isValid()) {
       const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
