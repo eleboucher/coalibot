@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/16 16:51:21 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/23 16:40:26 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,12 +221,12 @@ const profil = async (msg, channel, usr) => {
 }
 
 const logtime = async (message, channel, ts) => {
-  if (message.split(' ').length < 4) {
-    postOnThread(
-      'Usage: bc logtime login [datedebut datefin | annee | trimestre [annee]] (date au format "Y-M-D")',
-      channel,
-      ts
-    )
+  if (message.split(' ').length === 4) {
+    range_end = moment()
+    range_begin = moment().subtract(7, 'days')
+    const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
+    const time = format_output_datetime(logtime)
+    postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
   } else if (
     message.split(' ').length === 4 &&
@@ -287,7 +287,7 @@ const logtime = async (message, channel, ts) => {
     }
   }
   postOnThread(
-    'Usage: bc logtime login [datedebut datefin | annee | trimestre [annee]] (date au format "Y-M-D")',
+    'Usage: bc logtime login (datedebut datefin | annee | trimestre [annee]) (date au format "YYYY-MM-DD")',
     channel,
     ts
   )
