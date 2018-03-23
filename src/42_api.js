@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/23 16:40:26 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/03/23 16:42:52 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ const profil = async (msg, channel, usr) => {
 }
 
 const logtime = async (message, channel, ts) => {
-  if (message.split(' ').length === 4) {
+  if (message.split(' ').length === 3) {
     range_end = moment()
     range_begin = moment().subtract(7, 'days')
     const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
