@@ -14,7 +14,7 @@ const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, ge
 const { score, alliance, logtime, profil, who, where } = require('./42_api')
 const { citation } = require('./citation')
 const { randomgif } = require('./giphy')
-const { roll, addmusic, music, meteo, dobby } = require('./miscs')
+const { roll, addmusic, music, meteo, dobby, php } = require('./miscs')
 const fs = require('fs')
 const { parrot, blExcMark } = require('./const')
 const { choose } = require('./utils')
@@ -50,6 +50,7 @@ functions = {
   music: (message, channel, ts, user) => music(channel),
   meteo: (message, channel, ts, user) => meteo(message, channel),
   dobby: (message, channel, ts, user) => dobby(user, channel),
+  php: (message, channel, ts, user) => php(message, channel),
   randomgif: (message, channel, ts, user) =>
     randomgif(
       message

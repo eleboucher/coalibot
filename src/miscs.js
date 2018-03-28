@@ -113,8 +113,14 @@ const dobby = async (user, channel) => {
     : postUserMessage(`Toi pas maitre Dobby`, channel, linkImg, 'Dobby')
 }
 
+const php = (message, channel) => {
+  const functionphp = message.split(' ')[2]
+  postMessage('`' + `http://php.net/manual/fr/function.${functionphp}.php` + '`', channel)
+}
+
 module.exports.roll = roll
 module.exports.addmusic = addmusic
 module.exports.music = music
 module.exports.meteo = meteo
 module.exports.dobby = dobby
+module.exports.php = php
