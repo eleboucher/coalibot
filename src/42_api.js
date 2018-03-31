@@ -257,7 +257,7 @@ const logtime = async (message, channel, ts) => {
         ? parseInt(message.split(' ')[4])
         : new Date().getFullYear()
     let date_begin = moment(new Date(year, quarter * 3, 1))
-    let date_end = moment(new Date(year, date_begin.get('month') + 3, 0))
+    let date_end = moment(new Date(year, date_begin.get('month') + 3, 0)).add(1, 'days')
     const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
     const time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
