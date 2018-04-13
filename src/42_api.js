@@ -361,6 +361,8 @@ const events = async (msg, channel) => {
       title: event.name,
       title_link: `https://profile.intra.42.fr/events/${event.id}`,
       text: event.description.slice(0,150) + ' ...',
+      footer: `${event.nbr_subscribers}/${event.max_people} Participants`,
+      ts: moment(event.begin_at).format("X"),
       color: '#01babc'
     }]
     postAttachments('', attachments, channel)
