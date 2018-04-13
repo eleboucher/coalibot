@@ -307,6 +307,26 @@ const who = async (msg, channel) => {
 }
 
 const where = async (msg, channel, usr) => {
+  if (msg.split(' ').length === 6 && (msg.indexOf("le branle couille") !== -1 || msg.indexOf("la branle couille") !== -1)){
+    let date_begin = moment().subtract(7, 'days')
+    let date_end = moment().add(1, 'days')
+    const logtime = await get_range_logtime(msg.split(' ')[5], date_begin, date_end)
+    const time = format_output_datetime(logtime)
+    if (time[0] >= 35){
+      postMessage(`*${msg.split(' ')[5]}* is not a branle couille`, channel)
+      return ;
+    }
+    user = msg.split(' ')[5]
+    url = `/v2/users/${user}/locations`
+    const data = await request42(url)
+    if (!data) {
+      postMessage(`login invalide`, channel)
+      return
+    }
+    if (data.length === 0 || data[0]['end_at']) postMessage(`*${user}* est hors ligne`, channel)
+    else postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel)
+    return ;
+  }
   if (msg.split(' ').length > 2) user = msg.split(' ')[2]
   else {
     let username = await getUsername(usr)
