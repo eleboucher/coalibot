@@ -332,9 +332,48 @@ const where = async (msg, channel, usr) => {
   else postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel)
 }
 
+
+const events = async (msg, channel) => {
+  let begin_at
+  let end_at
+  if (msg.split(' ').length === 2){
+    begin_at = moment().format('YYYY-MM-DD')
+    end_at = moment().add(1, 'days').format('YYYY-MM-DD')
+  }
+  else if (msg.split(' ').length === 3){
+    try {
+      begin_at = moment(msg.split(' ')[2]).format('YYYY-MM-DD')
+    }
+    catch (e) {
+      begin_at = moment().format('YYYY-MM-DD')
+    }
+    end_at = moment(begin_at).add(1, 'days').format('YYYY-MM-DD')
+  }
+  else {
+    return ;
+  }
+  url = `/v2/campus/1/events?range[begin_at]=${begin_at},${end_at}`
+  const data = await request42(url)
+ 
+  for (let event of data){
+    attachments = [{
+      fallback: event.name,
+      title: event.name,
+      title_link: `https://profile.intra.42.fr/events/${event.id}`,
+      text: event.description.slice(0,150) + ' ...',
+      color: '#01babc'
+    }]
+    postAttachments('', attachments, channel)
+  }
+  if (data.length == 0){
+    postMessage("Aucun events à cette date!", channel)
+  }
+}
+
 module.exports.alliance = alliance
 module.exports.logtime = logtime
 module.exports.score = score
 module.exports.profil = profil
 module.exports.who = who
 module.exports.where = where
+module.exports.events = events
