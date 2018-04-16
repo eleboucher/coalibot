@@ -343,6 +343,16 @@ const where = async (msg, channel, usr) => {
   }
   if (user === 'dieu' || user === 'dobby') user = 'elebouch'
   if (user === 'manager') user = 'vtennero'
+  if (user === 'guardians' || user === 'gardiens'){
+    guardians = ['dcirlig', 'vtennero', 'elebouch', 'fbabin', 'tbailly-', 'mmerabet', 'aledru']
+    for (let guardian of guardians){
+      url = `/v2/users/${guardian}/locations`
+      const data = await request42(url)
+      if (data.length === 0 || data[0]['end_at']) postMessage(`*${guardian}* est hors ligne`, channel)
+      else postMessage(`*${guardian}* est à la place *${data[0]['host']}*`, channel)
+    }
+    return;
+  }
   url = `/v2/users/${user}/locations`
   const data = await request42(url)
   if (!data) {
