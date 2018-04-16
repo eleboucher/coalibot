@@ -16,5 +16,6 @@
   "nestor":
     "Pour commander sur nestor utilise le code `NESTOR42` ! tu peux utiliser le code de parrainage `cZ44h` pour avoir 5e gratuitement",
   "fpons": "Fais quelque chose !!!",
+  "omz": "`sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`",
   "tet": ":tet:"
 }
