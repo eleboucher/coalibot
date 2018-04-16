@@ -342,6 +342,7 @@ const where = async (msg, channel, usr) => {
     return
   }
   if (user === 'dieu' || user === 'dobby') user = 'elebouch'
+  if (user === 'manager') user = 'vtennero'
   url = `/v2/users/${user}/locations`
   const data = await request42(url)
   if (!data) {
