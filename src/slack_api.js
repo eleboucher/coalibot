@@ -16,16 +16,14 @@ const token = process.env.SLACK_API_TOKEN
 const bot = new Slack({ token })
 
 function postMessage(text, channel) {
-  console.log(
-    bot.chat.postMessage({
+    return bot.chat.postMessage({
       channel: channel,
       text: text
     })
-  )
 }
 
 function postUserMessage(text, channel, image, name) {
-  bot.chat.postMessage({
+  return bot.chat.postMessage({
     channel: channel,
     text: text,
     icon_url: image,
@@ -34,7 +32,7 @@ function postUserMessage(text, channel, image, name) {
 }
 
 function sendReaction(text, channel, ts) {
-  bot.reactions.add({
+  return bot.reactions.add({
     timestamp: ts,
     channel: channel,
     name: text
@@ -42,14 +40,14 @@ function sendReaction(text, channel, ts) {
 }
 
 function fileUpload(fs, channel) {
-  bot.files.upload({
+  return bot.files.upload({
     channels: channel,
     file: fs
   })
 }
 
 function postOnThread(text, channel, ts) {
-  bot.chat.postMessage({
+  return bot.chat.postMessage({
     thread_ts: ts,
     channel: channel,
     text: text
@@ -57,7 +55,7 @@ function postOnThread(text, channel, ts) {
 }
 
 function postAttachments(text, attachments, channel) {
-  bot.chat.postMessage({
+  return bot.chat.postMessage({
     channel: channel,
     text: text,
     attachments: attachments

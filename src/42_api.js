@@ -384,10 +384,11 @@ const events = async (msg, channel) => {
     return ;
   }
   url = `/v2/campus/1/events?range[begin_at]=${begin_at},${end_at}`
-  const data = await request42(url)
-  data.sort(function(a,b){
-    return new Date(b.begin_at) - new Date(a.begin_at);
+  const  data = await request42(url)
+  data.sort(function (a, b) {
+    return moment(a.begin_at) - moment(b.begin_at)
   })
+  
   for (let event of data){
     attachments = [{
       fallback: event.name,
@@ -398,7 +399,7 @@ const events = async (msg, channel) => {
       ts: moment(event.begin_at).format("X"),
       color: '#01babc'
     }]
-    postAttachments('', attachments, channel)
+    await postAttachments('', attachments, channel)
   }
   if (data.length == 0){
     postMessage("Aucun events à cette date!", channel)
