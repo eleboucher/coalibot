@@ -385,7 +385,9 @@ const events = async (msg, channel) => {
   }
   url = `/v2/campus/1/events?range[begin_at]=${begin_at},${end_at}`
   const data = await request42(url)
- 
+  data.sort(function(a,b){
+    return new Date(b.begin_at) - new Date(a.begin_at);
+  })
   for (let event of data){
     attachments = [{
       fallback: event.name,
