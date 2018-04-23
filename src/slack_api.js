@@ -16,10 +16,10 @@ const token = process.env.SLACK_API_TOKEN
 const bot = new Slack({ token })
 
 function postMessage(text, channel) {
-    return bot.chat.postMessage({
-      channel: channel,
-      text: text
-    })
+  return bot.chat.postMessage({
+    channel: channel,
+    text: text
+  })
 }
 
 function postUserMessage(text, channel, image, name) {

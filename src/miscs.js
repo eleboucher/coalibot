@@ -85,21 +85,18 @@ const meteo = async (message, channel) => {
     if (message.split(' ').length < 4) postMessage('bc meteo || bc meteo 48.9 2.32', channel)
     lat = message.split(' ')[2]
     lon = message.split(' ')[3]
-    if (parseFloat(lat) < -90 || parseFloat(lat) > 90)
-      postMessage('Latitude incorrecte')
-    if (parseFloat(lon) < -180 || parseFloat(lon) > 180)
-      postMessage('Longitude incorrecte')
+    if (parseFloat(lat) < -90 || parseFloat(lat) > 90) postMessage('Latitude incorrecte')
+    if (parseFloat(lon) < -180 || parseFloat(lon) > 180) postMessage('Longitude incorrecte')
   }
   const data = await rp(`http://fr.wttr.in/${lat},${lon}?T0`)
-  const $ = cheerio.load(data, {decodeEntities: false})
+  const $ = cheerio.load(data, { decodeEntities: false })
   const meteo = $('pre').text()
   postMessage('```' + meteo + '```', channel)
 }
 
 const dobby = async (user, channel) => {
   const allowedUsers = ['elebouch', 'korlandi', 'ndudnicz', 'jcharloi']
-  const linkImg =
-    'http://cdn.playbuzz.com/cdn/66f922e7-af02-4e0c-9005-99f36c6a556b/780b5a18-483a-495a-9209-d9dac17c53c7_560_420.jpg'
+  const linkImg = 'http://cdn.playbuzz.com/cdn/66f922e7-af02-4e0c-9005-99f36c6a556b/780b5a18-483a-495a-9209-d9dac17c53c7_560_420.jpg'
   let username = await getUsername(user)
   if ('user' in username && 'name' in username['user']) {
     username = username['user']['name']
@@ -118,9 +115,21 @@ const php = (message, channel) => {
   postMessage('`' + `http://php.net/manual/fr/function.${functionphp}.php` + '`', channel)
 }
 
+const roulette = async (channel, user) => {
+  res = Math.floor(Math.random() * Math.floor(6))
+  let username = await getUsername(user)
+  if ('user' in username && 'name' in username['user']) {
+    username = username['user']['name']
+  } else {
+    username = ''
+  }
+  res === 0 ? postMessage(`<@${username}>: Bang`, channel) : postMessage(`<@${username}>: click`, channel)
+}
+
 module.exports.roll = roll
 module.exports.addmusic = addmusic
 module.exports.music = music
 module.exports.meteo = meteo
 module.exports.dobby = dobby
 module.exports.php = php
+module.exports.roulette = roulette

@@ -10,15 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-const {
-  postMessage,
-  postUserMessage,
-  sendReaction,
-  fileUpload,
-  postOnThread,
-  getUsername,
-  postAttachments
-} = require('./slack_api')
+const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, getUsername, postAttachments } = require('./slack_api')
 const rq = require('./request').rq
 const ClientOAuth2 = require('client-oauth2')
 const { month } = require('./const')
@@ -228,11 +220,7 @@ const logtime = async (message, channel, ts) => {
     const time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
-  } else if (
-    message.split(' ').length === 4 &&
-    !isNaN(message.split(' ')[3]) &&
-    parseInt(message.split(' ')[3]) > 2012
-  ) {
+  } else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[3]) && parseInt(message.split(' ')[3]) > 2012) {
     let date_begin = moment({
       y: parseInt(message.split(' ')[3]),
       M: 0,
@@ -253,9 +241,7 @@ const logtime = async (message, channel, ts) => {
   ) {
     let quarter = parseInt(message.split(' ')[3].replace('trimestre', '')) - 1
     const year =
-      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012
-        ? parseInt(message.split(' ')[4])
-        : new Date().getFullYear()
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012 ? parseInt(message.split(' ')[4]) : new Date().getFullYear()
     let date_begin = moment(new Date(year, quarter * 3, 1))
     let date_end = moment(new Date(year, date_begin.get('month') + 3, 0)).add(1, 'days')
     const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
@@ -267,9 +253,7 @@ const logtime = async (message, channel, ts) => {
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
   ) {
     const year =
-      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012
-        ? parseInt(message.split(' ')[4])
-        : new Date().getFullYear()
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012 ? parseInt(message.split(' ')[4]) : new Date().getFullYear()
     let date_begin = moment(new Date(year, month[message.split(' ')[3]], 1))
     let date_end = moment(new Date(year, month[message.split(' ')[3]] + 1, 0))
     const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
@@ -286,11 +270,7 @@ const logtime = async (message, channel, ts) => {
       return
     }
   }
-  postOnThread(
-    'Usage: bc logtime login (datedebut datefin | annee | trimestre [annee]) (date au format "YYYY-MM-DD")',
-    channel,
-    ts
-  )
+  postOnThread('Usage: bc logtime login (datedebut datefin | annee | trimestre [annee]) (date au format "YYYY-MM-DD")', channel, ts)
 }
 
 const who = async (msg, channel) => {
@@ -307,14 +287,14 @@ const who = async (msg, channel) => {
 }
 
 const where = async (msg, channel, usr) => {
-  if (msg.split(' ').length === 6 && (msg.indexOf("le branle couille") !== -1 || msg.indexOf("la branle couille") !== -1)){
+  if (msg.split(' ').length === 6 && (msg.indexOf('le branle couille') !== -1 || msg.indexOf('la branle couille') !== -1)) {
     let date_begin = moment().subtract(7, 'days')
     let date_end = moment().add(1, 'days')
     const logtime = await get_range_logtime(msg.split(' ')[5], date_begin, date_end)
     const time = format_output_datetime(logtime)
-    if (time[0] >= 35){
+    if (time[0] >= 35) {
       postMessage(`*${msg.split(' ')[5]}* is not a branle couille`, channel)
-      return ;
+      return
     }
     user = msg.split(' ')[5]
     url = `/v2/users/${user}/locations`
@@ -325,7 +305,7 @@ const where = async (msg, channel, usr) => {
     }
     if (data.length === 0 || data[0]['end_at']) postMessage(`*${user}* est hors ligne`, channel)
     else postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel)
-    return ;
+    return
   }
   if (msg.split(' ').length > 2) user = msg.split(' ')[2]
   else {
@@ -343,15 +323,15 @@ const where = async (msg, channel, usr) => {
   }
   if (user === 'dieu' || user === 'dobby') user = 'elebouch'
   if (user === 'manager') user = 'vtennero'
-  if (user === 'guardians' || user === 'gardiens'){
+  if (user === 'guardians' || user === 'gardiens') {
     guardians = ['dcirlig', 'vtennero', 'elebouch', 'fbabin', 'tbailly-', 'mmerabet', 'aledru']
-    for (let guardian of guardians){
+    for (let guardian of guardians) {
       url = `/v2/users/${guardian}/locations`
       const data = await request42(url)
       if (data.length === 0 || data[0]['end_at']) postMessage(`*${guardian}* est hors ligne`, channel)
       else postMessage(`*${guardian}* est à la place *${data[0]['host']}*`, channel)
     }
-    return;
+    return
   }
   url = `/v2/users/${user}/locations`
   const data = await request42(url)
@@ -363,46 +343,48 @@ const where = async (msg, channel, usr) => {
   else postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel)
 }
 
-
 const events = async (msg, channel) => {
   let begin_at
   let end_at
-  if (msg.split(' ').length === 2){
+  if (msg.split(' ').length === 2) {
     begin_at = moment().format('YYYY-MM-DD')
-    end_at = moment().add(1, 'days').format('YYYY-MM-DD')
-  }
-  else if (msg.split(' ').length === 3){
+    end_at = moment()
+      .add(1, 'days')
+      .format('YYYY-MM-DD')
+  } else if (msg.split(' ').length === 3) {
     try {
       begin_at = moment(msg.split(' ')[2]).format('YYYY-MM-DD')
-    }
-    catch (e) {
+    } catch (e) {
       begin_at = moment().format('YYYY-MM-DD')
     }
-    end_at = moment(begin_at).add(1, 'days').format('YYYY-MM-DD')
-  }
-  else {
-    return ;
+    end_at = moment(begin_at)
+      .add(1, 'days')
+      .format('YYYY-MM-DD')
+  } else {
+    return
   }
   url = `/v2/campus/1/events?range[begin_at]=${begin_at},${end_at}`
-  const  data = await request42(url)
-  data.sort(function (a, b) {
+  const data = await request42(url)
+  data.sort(function(a, b) {
     return moment(a.begin_at) - moment(b.begin_at)
   })
-  
-  for (let event of data){
-    attachments = [{
-      fallback: event.name,
-      title: event.name,
-      title_link: `https://profile.intra.42.fr/events/${event.id}`,
-      text: event.description.slice(0,150) + ' ...',
-      footer: `${event.nbr_subscribers}/${event.max_people} Participants`,
-      ts: moment(event.begin_at).format("X"),
-      color: '#01babc'
-    }]
+
+  for (let event of data) {
+    attachments = [
+      {
+        fallback: event.name,
+        title: event.name,
+        title_link: `https://profile.intra.42.fr/events/${event.id}`,
+        text: event.description.slice(0, 150) + ' ...',
+        footer: `${event.nbr_subscribers}/${event.max_people} Participants`,
+        ts: moment(event.begin_at).format('X'),
+        color: '#01babc'
+      }
+    ]
     await postAttachments('', attachments, channel)
   }
-  if (data.length == 0){
-    postMessage("Aucun events à cette date!", channel)
+  if (data.length == 0) {
+    postMessage('Aucun events à cette date!', channel)
   }
 }
 

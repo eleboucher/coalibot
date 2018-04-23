@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-const Sequelize = require('sequelize');
-const moment = require('moment');
-const { getUsername } = require('./slack_api');
+const Sequelize = require('sequelize')
+const moment = require('moment')
+const { getUsername } = require('./slack_api')
 
 const sequelize = new Sequelize('coalibot', process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD, {
   host: process.env.DB_IP,
@@ -25,28 +25,28 @@ const sequelize = new Sequelize('coalibot', process.env.POSTGRES_USER, process.e
     acquire: 30000,
     idle: 10000
   }
-});
+})
 
 const Command = sequelize.define('command', {
   command_name: Sequelize.STRING,
   user: Sequelize.STRING,
   option: Sequelize.STRING,
   date: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
-});
+})
 
 const addCommand = async (cmd, message, channel, ts, user) => {
-  await sequelize.sync();
-  let username = await getUsername(user);
+  await sequelize.sync()
+  let username = await getUsername(user)
   if ('user' in username && 'name' in username['user']) {
-    username = username['user']['name'];
+    username = username['user']['name']
   } else {
-    username = '';
+    username = ''
   }
   Command.create({
     command_name: cmd,
     user: username,
     option: message
-  });
-};
+  })
+}
 
-module.exports.addCommand = addCommand;
+module.exports.addCommand = addCommand

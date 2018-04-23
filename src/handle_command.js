@@ -14,7 +14,7 @@ const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, ge
 const { score, alliance, logtime, profil, who, where, events } = require('./42_api')
 const { citation } = require('./citation')
 const { randomgif } = require('./giphy')
-const { roll, addmusic, music, meteo, dobby, php } = require('./miscs')
+const { roll, addmusic, music, meteo, dobby, php, roulette } = require('./miscs')
 const fs = require('fs')
 const { parrot, blExcMark } = require('./const')
 const { choose } = require('./utils')
@@ -52,6 +52,7 @@ functions = {
   meteo: (message, channel, ts, user) => meteo(message, channel),
   dobby: (message, channel, ts, user) => dobby(user, channel),
   php: (message, channel, ts, user) => php(message, channel),
+  roulette: (message, channel, ts, user) => roulette(channel, user),
   randomgif: (message, channel, ts, user) =>
     randomgif(
       message
@@ -61,12 +62,7 @@ functions = {
       channel
     ),
   oss: (message, channel, ts, user) =>
-    citation(
-      channel,
-      './oss.txt',
-      'https://static-cdn.jtvnw.net/emoticons/v1/518312/3.0',
-      'Hubert Bonisseur de La Bath'
-    ),
+    citation(channel, './oss.txt', 'https://static-cdn.jtvnw.net/emoticons/v1/518312/3.0', 'Hubert Bonisseur de La Bath'),
   parrot: (message, channel, ts, user) =>
     postMessage(':' + parrot[Math.floor(Math.random() * Math.floor(parrot.length - 1))] + ':', channel),
   kaamelott: (message, channel, ts, user) =>
