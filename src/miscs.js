@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/05 18:01:51 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/04/24 14:50:04 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,15 +115,26 @@ const php = (message, channel) => {
   postMessage('`' + `http://php.net/manual/fr/function.${functionphp}.php` + '`', channel)
 }
 
+let russiantab = []
+
 const roulette = async (channel, user) => {
-  res = Math.floor(Math.random() * Math.floor(6))
+  if (russiantab.length === 0) {
+    russiantab = Array.apply(null, new Array(6)).map(Number.prototype.valueOf, 0)
+    russiantab[Math.floor(Math.random() * Math.floor(russiantab.length - 1))] = 1
+  }
   let username = await getUsername(user)
   if ('user' in username && 'name' in username['user']) {
     username = username['user']['name']
   } else {
     username = ''
   }
-  res === 0 ? postMessage(`<@${username}>: Bang`, channel) : postMessage(`<@${username}>: click`, channel)
+  if (russiantab[0] === 1) {
+    postMessage(`<@${username}>: Bang`, channel)
+    russiantab = []
+  } else {
+    postMessage(`<@${username}>: click`, channel)
+    russiantab.shift()
+  }
 }
 
 module.exports.roll = roll
