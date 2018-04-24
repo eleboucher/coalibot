@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/04/24 14:50:04 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/04/24 18:29:56 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ const roulette = async (channel, user) => {
   if (russiantab.length === 0) {
     russiantab = Array.apply(null, new Array(6)).map(Number.prototype.valueOf, 0)
     russiantab[Math.floor(Math.random() * Math.floor(russiantab.length - 1))] = 1
+    postMessage(`On recharge le revolver`, channel)
   }
   let username = await getUsername(user)
   if ('user' in username && 'name' in username['user']) {
@@ -129,10 +130,10 @@ const roulette = async (channel, user) => {
     username = ''
   }
   if (russiantab[0] === 1) {
-    postMessage(`<@${username}>: Bang`, channel)
+    postMessage(`<@${username}>: Bang (${6 - russiantab.length} / 6)`, channel)
     russiantab = []
   } else {
-    postMessage(`<@${username}>: click`, channel)
+    postMessage(`<@${username}>: click (${6 - russiantab.length} / 6)`, channel)
     russiantab.shift()
   }
 }
