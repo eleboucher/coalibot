@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/04/24 18:36:48 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/04/24 19:41:35 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ const roll = (message, channel) => {
   let str = ''
   let length = parseInt(message.split(' ')[2])
   let max = parseInt(message.split(' ')[3])
-  if (length > 1000 || max > 1000000 || length < 0 || max < 0) {
+  if (length > 1000 || max > 1000000 || length <= 0 || max <= 0) {
     postMessage('nbde max == 100 et tailledude max == 1000000', channel)
     return
   }
