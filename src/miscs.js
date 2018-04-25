@@ -28,8 +28,8 @@ const roll = (message, channel) => {
     postMessage('nbde max == 100 et tailledude max == 1000000', channel)
     return
   }
-  for (let i = 0; i <= length; i++) {
-    str += ' ' + Math.floor(Math.random() * Math.floor(max))
+  for (let i = 0; i < length; i++) {
+    str += ' ' + Math.floor(Math.random() * Math.floor(max) + 1)
   }
   postMessage(str, channel)
 }
