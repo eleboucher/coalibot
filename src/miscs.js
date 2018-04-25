@@ -24,7 +24,7 @@ const roll = (message, channel) => {
   let str = ''
   let length = parseInt(message.split(' ')[2])
   let max = parseInt(message.split(' ')[3])
-  if (length > 1000 || max > 1000000 || length <= 0 || max <= 0) {
+  if (length > 100 || max > 1000000 || length <= 0 || max <= 0) {
     postMessage('nbde max == 100 et tailledude max == 1000000', channel)
     return
   }
