@@ -29,7 +29,7 @@ const roll = (message, channel) => {
     return
   }
   for (let i = 0; i < length; i++) {
-    str += ' ' + Math.floor(Math.random() * Math.floor(max) + 1)
+    str += ' ' + Math.floor(Math.random() * Math.floor(max + 1))
   }
   postMessage(str, channel)
 }
