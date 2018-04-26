@@ -21,7 +21,7 @@ const roll = (message, channel) => {
     let randthings = message.substring(message.indexOf("[") + 1, message.indexOf("]")).split(",").map(Function.prototype.call, String.prototype.trim).filter(String)
 
     length = parseInt(message.split(" ")[2])
-    if (randthings.length === 0 || randthings.length >= 1000000 || length > 100 || length <= 0) return;
+    if (randthings.length < 2 || randthings.length >= 1000000 || length > 100 || length <= 0) return;
     let str = "";
     for (let i = 0; i < length; i++) {
       str += randthings[Math.floor(Math.random() * Math.floor(randthings.length))]
