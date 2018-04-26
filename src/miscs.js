@@ -17,21 +17,49 @@ var cheerio = require('cheerio')
 const { randomgif } = require('./giphy')
 
 const roll = (message, channel) => {
-  if (message.split(' ').length !== 4 || isNaN(message.split(' ')[2]) || isNaN(message.split(' ')[3])) {
-    postMessage('Usage: bc roll nbde tailledude', channel)
-    return
+  if (message.split(" ").length <= 4 && message.indexOf("[") !== -1 && message.indexOf("]") !== -1 && message.indexOf("[") < message.indexOf("]")) {
+    let randthings = message.substring(message.indexOf("[") + 1, message.indexOf("]")).split(",").map(Function.prototype.call, String.prototype.trim).filter(String)
+
+    length = parseInt(message.split(" ")[2])
+    if (randthings.length === 0 || randthings.length <= 1000000 || length > 100 || length <= 0) return;
+    let str = "";
+    for (let i = 0; i < length; i++) {
+      str += randthings[Math.floor(Math.random() * Math.floor(randthings.length))]
+      str += (i < length - 1) ? " " : "";
+    }
+    postMessage(str, channel)
   }
-  let str = ''
-  let length = parseInt(message.split(' ')[2])
-  let max = parseInt(message.split(' ')[3])
-  if (length > 100 || max > 1000000 || length <= 0 || max <= 0) {
-    postMessage('nbde max == 100 et tailledude max == 1000000', channel)
-    return
+  else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[2]) && !isNaN(message.split(' ')[3])) {
+    let str = ''
+    let length = parseInt(message.split(' ')[2])
+    let max = parseInt(message.split(' ')[3])
+    if (length > 100 || max > 1000000 || length <= 0 || max <= 0) {
+      postMessage('nbde max == 100 et tailledude max == 1000000', channel)
+      return
+    }
+    for (let i = 0; i < length; i++) {
+      str += Math.floor(Math.random() * Math.floor(max + 1))
+      str += (i < length - 1) ? " " : "";
+    }
+    postMessage(str, channel)
   }
-  for (let i = 0; i < length; i++) {
-    str += ' ' + Math.floor(Math.random() * Math.floor(max + 1))
+  else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[2]) && /^\d+-\d+$/g.test(message.split(' ')[3])) {
+    let length = parseInt(message.split(' ')[2])
+    let min = parseInt(message.split(' ')[3].split("-")[0])
+    let max = parseInt(message.split(' ')[3].split("-")[1])
+    let str = ""
+    if (min > max)
+      return;
+    if (length > 100 || max > 1000000 || length <= 0 || max <= 0 || min < 0) {
+      postMessage('taille max == 100 et tailledude max == 1000000', channel)
+      return
+    }
+    for (let i = 0; i < length; i++) {
+      str += Math.floor(Math.random() * (max - min + 1)) + min
+      str += (i < length - 1) ? " " : "";
+    }
+    postMessage(str, channel)
   }
-  postMessage(str, channel)
 }
 
 const addmusic = async (msg, user, channel) => {
