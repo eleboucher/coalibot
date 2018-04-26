@@ -123,17 +123,11 @@ const roulette = async (channel, user) => {
     russiantab[Math.floor(Math.random() * Math.floor(russiantab.length))] = 1
     await postMessage(`On recharge le revolver`, channel)
   }
-  let username = await getUsername(user)
-  if ('user' in username && 'name' in username['user']) {
-    username = username['user']['name']
-  } else {
-    username = ''
-  }
   if (russiantab[0] === 1) {
-    await postMessage(`<@${username}>: Bang ( ${6 - russiantab.length + 1} / 6 )`, channel)
+    await postMessage(`<@${user}>: Bang ( ${6 - russiantab.length + 1} / 6 )`, channel)
     russiantab = []
   } else {
-    await postMessage(`<@${username}>: click ( ${6 - russiantab.length + 1} / 6 )`, channel)
+    await postMessage(`<@${user}>: click ( ${6 - russiantab.length + 1} / 6 )`, channel)
     russiantab.shift()
   }
 }
