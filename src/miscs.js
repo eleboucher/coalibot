@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/04/26 15:25:28 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/04/26 15:32:13 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,10 @@ const roulette = async (channel, user) => {
   }
 }
 
+const coin = (channel, user) => {
+  Math.floor(Math.random() * 2) === 0 ? postMessage(`<@${user}>: Heads`) : postMessage(`<@${user}>: Tails`)
+}
+
 module.exports.roll = roll
 module.exports.addmusic = addmusic
 module.exports.music = music
@@ -140,3 +144,4 @@ module.exports.meteo = meteo
 module.exports.dobby = dobby
 module.exports.php = php
 module.exports.roulette = roulette
+module.exports.coin = coin

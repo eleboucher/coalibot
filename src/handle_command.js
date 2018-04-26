@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/10 14:03:44 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/04/26 15:32:34 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@ const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, ge
 const { score, alliance, logtime, profil, who, where, events } = require('./42_api')
 const { citation } = require('./citation')
 const { randomgif } = require('./giphy')
-const { roll, addmusic, music, meteo, dobby, php, roulette } = require('./miscs')
+const { roll, addmusic, music, meteo, dobby, php, roulette, coin } = require('./miscs')
 const fs = require('fs')
 const { parrot, blExcMark } = require('./const')
 const { choose } = require('./utils')
@@ -53,6 +53,7 @@ functions = {
   dobby: (message, channel, ts, user) => dobby(user, channel),
   php: (message, channel, ts, user) => php(message, channel),
   roulette: (message, channel, ts, user) => roulette(channel, user),
+  coin: (message, channel, ts, user) => coin(channel, user),
   randomgif: (message, channel, ts, user) =>
     randomgif(
       message
