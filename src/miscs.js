@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/04/26 15:32:13 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/04/26 15:33:34 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ const roulette = async (channel, user) => {
 }
 
 const coin = (channel, user) => {
-  Math.floor(Math.random() * 2) === 0 ? postMessage(`<@${user}>: Heads`) : postMessage(`<@${user}>: Tails`)
+  Math.floor(Math.random() * 2) === 0 ? postMessage(`<@${user}>: Heads`, channel) : postMessage(`<@${user}>: Tails`, channel)
 }
 
 module.exports.roll = roll
