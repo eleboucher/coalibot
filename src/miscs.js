@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/04/26 14:28:07 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/04/26 15:20:33 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,10 @@ const roulette = async (channel, user) => {
   const count = 6 - russiantab.length + 1
   if (russiantab[0] === 1) {
     russiantab = []
-    await postMessage(`<@${user}>: Bang ( ${count} / 6 )`, channel)
+    postMessage(`<@${user}>: Bang ( ${count} / 6 )`, channel)
   } else {
     russiantab.shift()
-    await postMessage(`<@${user}>: click ( ${count} / 6 )`, channel)
+    postMessage(`<@${user}>: click ( ${count} / 6 )`, channel)
   }
 }
 
