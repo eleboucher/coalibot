@@ -17,7 +17,7 @@ var cheerio = require('cheerio')
 const { randomgif } = require('./giphy')
 
 const roll = (message, channel) => {
-  if (message.split(" ").length <= 4 && message.indexOf("[") !== -1 && message.indexOf("]") !== -1 && message.indexOf("[") < message.indexOf("]")) {
+  if (message.split(" ").length >= 4 && message.indexOf("[") !== -1 && message.indexOf("]") !== -1 && message.indexOf("[") < message.indexOf("]")) {
     let randthings = message.substring(message.indexOf("[") + 1, message.indexOf("]")).split(",").map(Function.prototype.call, String.prototype.trim).filter(String)
 
     length = parseInt(message.split(" ")[2])
