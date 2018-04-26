@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/04/26 15:59:54 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/04/26 16:04:34 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ const addmusic = async (msg, user, channel) => {
 const music = async channel => {
   let json = await fs.readFileSync('./music.json', 'utf-8')
   json = JSON.parse(json)
-  const music = json[Math.floor(Math.random() * Math.floor(json.length))]
+  const music = json[Math.floor(Math.random() * json.length)]
   let login
   if (music.login === 'pk') login = 'p/k'
   else login = music.login
