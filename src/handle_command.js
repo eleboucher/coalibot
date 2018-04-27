@@ -82,7 +82,7 @@ const handleCommand = async (msg, channel, ts, user) => {
   if (/(\b|^)(php|ruby|ror|mongo|mongodb)(\b|$)/i.test(message)) sendReaction('poop', channel, ts)
 
   if (user === "U2A38LTL1" || user === "U2A4KHZJB"){
-    sendReaction('risistas', channel, ts)
+    sendReaction('risitas', channel, ts)
     return 
   }
 
