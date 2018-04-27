@@ -186,9 +186,9 @@ const roulettestat = async (user, channel) => {
     username = ''
   }
   if (json[username]) {
-    postMessage(`<@${username}>: ${json[username]}`, channel)
+    postMessage(`<@${username}>: ${json[username]} Bang`, channel)
   } else {
-    postMessage(`<@${username}>: 0`, channel)
+    postMessage(`<@${username}>: 0 Bang`, channel)
   }
 }
 
