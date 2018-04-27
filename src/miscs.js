@@ -192,6 +192,23 @@ const roulettestat = async (user, channel) => {
   }
 }
 
+const roulettetop = async (channel)  => {
+  let json
+  try {
+    json = await fs.readFileSync('./roulette.json', 'utf-8')
+    json = JSON.parse(json)
+  } catch (err) {
+    json = {}
+  }
+  sorted = Object.keys(json).sort().reverse().reduce((r, k) => (r[k] = json[k], r), {});
+  i = 1
+  for (let o in sorted){
+      postMessage(`${i} ${o} : ${sorted[o]}`, channel)
+      if (i === 5) break
+      i++
+  }
+}
+
 const coin = (channel, user) => {
   Math.floor(Math.random() * 2) === 0 ? postMessage(`<@${user}>: Heads`, channel) : postMessage(`<@${user}>: Tails`, channel)
 }
@@ -205,3 +222,4 @@ module.exports.php = php
 module.exports.roulette = roulette
 module.exports.coin = coin
 module.exports.roulettestat = roulettestat
+module.exports.roulettetop = roulettetop
