@@ -203,7 +203,7 @@ const roulettetop = async (channel)  => {
   sorted = await Object.keys(json).sort(function(a, b) { return json[a] - json[b] }).reverse().reduce((r, k) => (r[k] = json[k], r), {});
   i = 1
   for (let o in sorted){
-      await postMessage(`${i} <@${o}> : ${sorted[o]}`, channel)
+      await postMessage(`${i} ${o} : ${sorted[o]}`, channel)
       if (i === 5) break
       i++
   }
