@@ -180,8 +180,8 @@ const roulettestat = async (user, channel) => {
     console.log(err)
   }
   let username = await getUsername(user)
-  if ('user' in username && 'name' in username['user']) {
-    username = username['user']['name']
+  if ('user' in username && 'profile' in username['user'] && username['user']['profile']['display_name']) {
+    username = username['user']['profile']['display_name']
   } else {
     username = ''
   }
