@@ -27,6 +27,7 @@ const handlestat = async user => {
   } catch (err) {
     json = {}
   }
+  let username = await getUsername(user)
   if ('user' in username && 'profile' in username['user'] && username['user']['profile']['display_name']) {
     username = username['user']['profile']['display_name']
   } else {
