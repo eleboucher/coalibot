@@ -54,7 +54,7 @@ functions = {
   php: (message, channel, ts, user) => php(message, channel),
   roulette: (message, channel, ts, user) => roulette(channel, user),
   coin: (message, channel, ts, user) => coin(channel, user),
-  roulettestat: (message, channel, ts, user) => roulettestat(user),
+  roulettestat: (message, channel, ts, user) => roulettestat(user, channel),
   randomgif: (message, channel, ts, user) =>
     randomgif(
       message

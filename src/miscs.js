@@ -172,11 +172,12 @@ const roulette = async (channel, user) => {
 }
 
 const roulettestat = async (user, channel) => {
+  let json = {}
   try {
     json = await fs.readFileSync('./roulette.json', 'utf-8')
     json = JSON.parse(json)
   } catch (err) {
-    return ;
+    console.log(err)
   }
   let username = await getUsername(user)
   if ('user' in username && 'name' in username['user']) {
