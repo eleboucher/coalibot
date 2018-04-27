@@ -81,15 +81,6 @@ const handleCommand = async (msg, channel, ts, user) => {
   if (/(\b|^)jpp(\b|$)/i.test(message)) sendReaction('jpp', channel, ts)
   if (/(\b|^)(php|ruby|ror|mongo|mongodb)(\b|$)/i.test(message)) sendReaction('poop', channel, ts)
 
-  if (user === "U2A38LTL1" ){
-    sendReaction('trollface', channel, ts)
-    return 
-  }
-  if ( user === "U2A4KHZJB"){
-    sendReaction('yay', channel, ts)
-    return 
-  }
-
   if (['coalibot', 'bc', 'cb'].indexOf(message.toLowerCase().split(' ')[0]) > -1 && message.split(' ').length > 1) {
     command = message.split(' ')[1].toLowerCase()
     option = message
