@@ -15,7 +15,7 @@ const { postUserMessage } = require('./slack_api')
 
 const citation = async (channel, file, pic, name) => {
   const txt = await fs.readFileSync(file, 'utf-8')
-  const citation = txt.split('\n')
+  const citation = txt.split('\n').filter(String)
   postUserMessage('>' + citation[Math.floor(Math.random() * Math.floor(citation.length))], channel, pic, name) //postUserMessage(text, channel, image, name)
 }
 
