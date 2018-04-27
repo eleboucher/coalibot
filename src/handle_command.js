@@ -14,7 +14,7 @@ const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, ge
 const { score, alliance, logtime, profil, who, where, events } = require('./42_api')
 const { citation } = require('./citation')
 const { randomgif } = require('./giphy')
-const { roll, addmusic, music, meteo, dobby, php, roulette, coin } = require('./miscs')
+const { roll, addmusic, music, meteo, dobby, php, roulette, coin, roulettestat } = require('./miscs')
 const fs = require('fs')
 const { parrot, blExcMark } = require('./const')
 const { choose } = require('./utils')
@@ -54,6 +54,7 @@ functions = {
   php: (message, channel, ts, user) => php(message, channel),
   roulette: (message, channel, ts, user) => roulette(channel, user),
   coin: (message, channel, ts, user) => coin(channel, user),
+  roulettestat: (message, channel, ts, user) => roulettestat(user),
   randomgif: (message, channel, ts, user) =>
     randomgif(
       message

@@ -12,6 +12,7 @@
 
 const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, getUsername } = require('./slack_api')
 const fs = require('fs')
+const { handlestat } = require('./utils')
 var rp = require('request-promise')
 var cheerio = require('cheerio')
 const { randomgif } = require('./giphy')
@@ -63,47 +64,55 @@ const roll = (message, channel, ts) => {
 }
 
 const addmusic = async (msg, user, channel) => {
-  const link = msg.split(' ')[2]
-  let json = await fs.readFileSync('./music.json', 'utf-8')
-  json = JSON.parse(json)
-  const checker = /(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/g
-  if (checker.test(link) || link.includes('soundcloud')) {
-    let username = await getUsername(user)
-    if ('user' in username && 'name' in username['user']) {
-      username = username['user']['name']
-    } else {
-      username = ''
-    }
-    const checkduplicate = (link, json) => {
-      for (let u of json) {
-        if (u['link'] === link) return false
+  try {
+    const link = msg.split(' ')[2]
+    let json = await fs.readFileSync('./music.json', 'utf-8')
+    json = JSON.parse(json)
+    const checker = /(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/g
+    if (checker.test(link) || link.includes('soundcloud')) {
+      let username = await getUsername(user)
+      if ('user' in username && 'name' in username['user']) {
+        username = username['user']['name']
+      } else {
+        username = ''
       }
-      return true
-    }
-    if (checkduplicate(link, json) === true) {
-      const info = {
-        login: username,
-        link: link
+      const checkduplicate = (link, json) => {
+        for (let u of json) {
+          if (u['link'] === link) return false
+        }
+        return true
       }
-      json = json.concat(info)
-      postMessage('Musique ajoutée', channel)
-      fs.writeFile('./music.json', JSON.stringify(json, null, 4), 'utf8', err => {
-        if (err) throw err
-      })
-    } else {
-      postMessage('Lien déjà enregistré', channel)
-    }
-  } else postMessage('Lien incorrect', channel)
+      if (checkduplicate(link, json) === true) {
+        const info = {
+          login: username,
+          link: link
+        }
+        json = json.concat(info)
+        postMessage('Musique ajoutée', channel)
+        fs.writeFile('./music.json', JSON.stringify(json, null, 4), 'utf8', err => {
+          if (err) throw err
+        })
+      } else {
+        postMessage('Lien déjà enregistré', channel)
+      }
+    } else postMessage('Lien incorrect', channel)
+  } catch (err){
+    console.log(err)
+  }
 }
 
 const music = async channel => {
-  let json = await fs.readFileSync('./music.json', 'utf-8')
-  json = JSON.parse(json)
-  const music = json[Math.floor(Math.random() * json.length)]
-  let login
-  if (music.login === 'pk') login = 'p/k'
-  else login = music.login
-  postMessage(`${login} ${music.link}`, channel)
+  try {
+    let json = await fs.readFileSync('./music.json', 'utf-8')
+    json = JSON.parse(json)
+    const music = json[Math.floor(Math.random() * json.length)]
+    let login
+    if (music.login === 'pk') login = 'p/k'
+    else login = music.login
+    postMessage(`${login} ${music.link}`, channel)
+  } catch (err){
+    console.log(err)
+  }
 }
 
 const meteo = async (message, channel) => {
@@ -155,9 +164,30 @@ const roulette = async (channel, user) => {
   if (russiantab[0] === 1) {
     russiantab = []
     postMessage(`<@${user}>: Bang ( ${count} / 6 )`, channel)
+    handlestat(user)
   } else {
     russiantab.shift()
-    postMessage(`<@${user}>: click ( ${count} / 6 )`, channel)
+    postMessage(`<@${user}>: Click ( ${count} / 6 )`, channel)
+  }
+}
+
+const roulettestat = async (user, channel) => {
+  try {
+    json = await fs.readFileSync('./roulette.json', 'utf-8')
+    json = JSON.parse(json)
+  } catch (err) {
+    return ;
+  }
+  let username = await getUsername(user)
+  if ('user' in username && 'name' in username['user']) {
+    username = username['user']['name']
+  } else {
+    username = ''
+  }
+  if (json[username]) {
+    postMessage(`<@${username}>: ${json[username]}`, channel)
+  } else {
+    postMessage(`<@${username}>: 0`, channel)
   }
 }
 
@@ -173,3 +203,4 @@ module.exports.dobby = dobby
 module.exports.php = php
 module.exports.roulette = roulette
 module.exports.coin = coin
+module.exports.roulettestat = roulettestat
