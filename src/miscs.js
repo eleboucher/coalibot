@@ -16,7 +16,7 @@ var rp = require('request-promise')
 var cheerio = require('cheerio')
 const { randomgif } = require('./giphy')
 
-const roll = (message, channel) => {
+const roll = (message, channel, ts) => {
   if (message.split(" ").length >= 4 && message.indexOf("[") !== -1 && message.indexOf("]") !== -1 && message.indexOf("[") < message.indexOf("]")) {
     let randthings = message.substring(message.indexOf("[") + 1, message.indexOf("]")).split(",").map(Function.prototype.call, String.prototype.trim).filter(String)
 
@@ -27,21 +27,21 @@ const roll = (message, channel) => {
       str += randthings[Math.floor(Math.random() * Math.floor(randthings.length))]
       str += (i < length - 1) ? " " : "";
     }
-    postMessage(str, channel)
+    postOnThread(str, channel, ts)
   }
   else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[2]) && !isNaN(message.split(' ')[3])) {
     let str = ''
     let length = parseInt(message.split(' ')[2])
     let max = parseInt(message.split(' ')[3])
     if (length > 100 || max > 1000000 || length <= 0 || max <= 0) {
-      postMessage('nbde max == 100 et tailledude max == 1000000', channel)
+      postOnThread('nbde max == 100 et tailledude max == 1000000', channel, ts)
       return
     }
     for (let i = 0; i < length; i++) {
       str += Math.floor(Math.random() * Math.floor(max + 1))
       str += (i < length - 1) ? " " : "";
     }
-    postMessage(str, channel)
+    postOnThread(str, channel, ts)
   }
   else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[2]) && /^\d+-\d+$/g.test(message.split(' ')[3])) {
     let length = parseInt(message.split(' ')[2])
@@ -51,14 +51,14 @@ const roll = (message, channel) => {
     if (min > max)
       return;
     if (length > 100 || max > 1000000 || length <= 0 || max <= 0 || min < 0) {
-      postMessage('taille max == 100 et tailledude max == 1000000', channel)
+      postOnThread('taille max == 100 et tailledude max == 1000000', channel,ts)
       return
     }
     for (let i = 0; i < length; i++) {
       str += Math.floor(Math.random() * (max - min + 1)) + min
       str += (i < length - 1) ? " " : "";
     }
-    postMessage(str, channel)
+    postOnThread(str, channel, ts)
   }
 }
 
