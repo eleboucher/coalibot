@@ -66,7 +66,7 @@ const score = async channel => {
   })
   var reply = ''
   for (let coa of json) {
-    reply += '${name} ${score}\n'
+    reply += `${name} ${score}\n`
   }
   var attachments = [
     {
