@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 13:39:56 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/04 18:14:32 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/04 19:10:59 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,8 @@ const { BLACKLISTCHAN } = require('./const')
 
 const token = process.env.SLACK_API_TOKEN
 
-// Cache of data
-const appData = {}
+const rtm = new RTMClient(token)
 
-// Initialize the RTM client with the recommended settings. Using the defaults for these
-// settings is deprecated.
-const rtm = new RTMClient(token, {
-  dataStore: false,
-  useRtmConnect: true
-})
-
-// The client will emit an RTM.RTM_CONNECTION_OPEN the connection is ready for
-// sending and recieving messages
 rtm.on('authenticated', () => {
   console.log(`Ready`)
 })
