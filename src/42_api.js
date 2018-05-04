@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/23 16:53:25 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/04 14:11:31 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,8 @@ const profil = async (msg, channel, usr) => {
       in_progress: 'En cours de'
     }
     const u = data.projects_users.find(d => d.project.id === 118)
-    return u ? ret[u['status']] : "N'a pas fait son"
+    const uploaded = data.projects_users.find(d => d.project.id === 119)
+    return u && uploaded && uploaded['status'] === 'finished' ? ret[u['status']] : "N'a pas fait son"
   })(data)
   postMessage(
     sprintf(
