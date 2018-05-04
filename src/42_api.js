@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/04 14:11:31 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/04 17:57:48 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ const profil = async (msg, channel, usr) => {
     return
   }
   let lvlpiscine = 0
-  if (data['pool_year'] === '2013' || data['pool_year'] === '2014') {
+  if (!data['pool_year'] || data['pool_year'] === '2013' || data['pool_year'] === '2014') {
     lvlpiscine = 0
   } else if (data['cursus_users'].length === 1) {
     lvlpiscine = data['cursus_users'][0]['level']
