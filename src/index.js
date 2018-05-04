@@ -6,13 +6,13 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 13:39:56 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/04 15:26:10 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/04 18:10:08 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 const { RTMClient, CLIENT_EVENTS, RTM_EVENTS } = require('@slack/client')
 const { handleCommand } = require('./handle_command')
-const { BLACKLISTCHAN } = require('./blacklist_channel')
+const { BLACKLISTCHAN } = require('./const')
 
 /**
  *  Handle Slack RTM
