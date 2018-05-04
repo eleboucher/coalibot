@@ -6,11 +6,11 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 13:39:56 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/02 17:33:18 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/04 15:26:10 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-const { RtmClient, CLIENT_EVENTS, RTM_EVENTS } = require('@slack/client')
+const { RTMClient, CLIENT_EVENTS, RTM_EVENTS } = require('@slack/client')
 const { handleCommand } = require('./handle_command')
 const { BLACKLISTCHAN } = require('./blacklist_channel')
 
@@ -25,19 +25,19 @@ const appData = {}
 
 // Initialize the RTM client with the recommended settings. Using the defaults for these
 // settings is deprecated.
-const rtm = new RtmClient(token, {
+const rtm = new RTMClient(token, {
   dataStore: false,
   useRtmConnect: true
 })
 
 // The client will emit an RTM.RTM_CONNECTION_OPEN the connection is ready for
 // sending and recieving messages
-rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPEN, () => {
+rtm.on('authenticated', () => {
   console.log(`Ready`)
 })
 
 // Read messages
-rtm.on(RTM_EVENTS.MESSAGE, function(message) {
+rtm.on('message', function(message) {
   var channel = message['channel']
   if (!BLACKLISTCHAN.includes(channel) && message.text) {
     var text = message['text']
