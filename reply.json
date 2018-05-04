@@ -1,6 +1,5 @@
 {
-  "home":
-    "Si `Disk Not Ejected Properly ??` suivre : https://42born2code.slack.com/archives/C7P0Z4F3L/p1510233807000241",
+  "home": "Si `Disk Not Ejected Properly ??` suivre : https://42born2code.slack.com/archives/C7P0Z4F3L/p1510233807000241",
   "brew":
     "```rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc && brew update```",
   "halp":
@@ -18,5 +17,6 @@
   "fpons": "Fais quelque chose !!!",
   "omz": "For Oh-My-Zsh `sh -c \"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)\"`",
   "tet": ":tet:",
-  "ataguiro": "KARMA!"
+  "ataguiro": "KARMA!",
+  "whoami": "Bot slack crée par <@elebouch>"
 }
