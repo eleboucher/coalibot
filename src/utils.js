@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.js                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erwanleb <erwanleb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 11:07:52 by erwanleb          #+#    #+#             */
-/*   Updated: 2018/03/02 17:33:20 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/15 14:20:52 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 const fs = require('fs')
 const { getUsername } = require('./slack_api')
-
 
 const choose = choices => {
   var index = Math.floor(Math.random() * choices.length)
@@ -28,15 +27,14 @@ const handlestat = async user => {
     json = {}
   }
   let username = await getUsername(user)
-  if ('user' in username && 'profile' in username['user'] && username['user']['profile']['display_name']) {
-    username = username['user']['profile']['display_name']
+  if ('user' in username && 'name' in username['user']) {
+    username = username['user']['name']
   } else {
     username = ''
   }
-  if (json[username]){
+  if (json[username]) {
     json[username] += 1
-  }
-  else {
+  } else {
     json[username] = 1
   }
   fs.writeFile('./roulette.json', JSON.stringify(json, null, 4), 'utf8', err => {
