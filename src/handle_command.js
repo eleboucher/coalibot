@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/04/26 16:02:09 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/15 16:41:10 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ const handleCommand = async (msg, channel, ts, user) => {
   if (/(\b|^)rip(\b|$)/i.test(message)) sendReaction('rip', channel, ts)
   if (/(\b|^)jpp(\b|$)/i.test(message)) sendReaction('jpp', channel, ts)
   if (/(\b|^)(php|ruby|ror|mongo|mongodb)(\b|$)/i.test(message)) sendReaction('poop', channel, ts)
+
+  if (user === 'U0GQXP468') {
+    sendReaction('trollface', channel, ts)
+    return
+  }
 
   if (['coalibot', 'bc', 'cb'].indexOf(message.toLowerCase().split(' ')[0]) > -1 && message.split(' ').length > 1) {
     command = message.split(' ')[1].toLowerCase()
