@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/15 16:41:10 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/16 11:26:15 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ const { citation } = require('./citation')
 const { randomgif } = require('./giphy')
 const { roll, addmusic, music, meteo, dobby, php, roulette, coin, roulettestat, roulettetop } = require('./miscs')
 const fs = require('fs')
-const { parrot, blExcMark } = require('./const')
+const { parrot } = require('./const')
 const { choose } = require('./utils')
 const { addCommand } = require('./database')
 
@@ -101,15 +101,7 @@ const handleCommand = async (msg, channel, ts, user) => {
     } else {
       ifcommand = true
     }
-  } else if (
-    message.indexOf('!') === 0 &&
-    blExcMark.indexOf(
-      message
-        .replace('!', '')
-        .split(' ')[0]
-        .toLowerCase()
-    ) === -1
-  ) {
+  } else if (message.indexOf('!') === 0) {
     command = message
       .replace('!', 'bc ')
       .split(' ')[1]
