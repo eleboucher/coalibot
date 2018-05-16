@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 18:07:28 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/04 18:09:27 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/16 11:26:16 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,4 @@ const parrot = [
   'parrothd'
 ]
 
-const blExcMark = ['prof', 'brew', 'alliance', 'who', 'where', 'score', 'meteo', 'help']
-
-module.exports = { month, parrot, blExcMark, BLACKLISTCHAN }
+module.exports = { month, parrot, BLACKLISTCHAN }
