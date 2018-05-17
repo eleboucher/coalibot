@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 15:13:10 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/02 17:33:20 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/17 18:12:18 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@ const token = process.env.SLACK_API_TOKEN
 
 const bot = new Slack({ token })
 
-function postMessage(text, channel) {
+cosnt = postMessage = (text, channel) => {
   return bot.chat.postMessage({
     channel: channel,
     text: text
   })
 }
 
-function postUserMessage(text, channel, image, name) {
+const postUserMessage = (text, channel, image, name) => {
   return bot.chat.postMessage({
     channel: channel,
     text: text,
@@ -31,7 +31,7 @@ function postUserMessage(text, channel, image, name) {
   })
 }
 
-function sendReaction(text, channel, ts) {
+const sendReaction = (text, channel, ts) => {
   return bot.reactions.add({
     timestamp: ts,
     channel: channel,
@@ -39,14 +39,14 @@ function sendReaction(text, channel, ts) {
   })
 }
 
-function fileUpload(fs, channel) {
+const fileUpload = (fs, channel) => {
   return bot.files.upload({
     channels: channel,
     file: fs
   })
 }
 
-function postOnThread(text, channel, ts) {
+const postOnThread = (text, channel, ts) => {
   return bot.chat.postMessage({
     thread_ts: ts,
     channel: channel,
@@ -54,7 +54,7 @@ function postOnThread(text, channel, ts) {
   })
 }
 
-function postAttachments(text, attachments, channel) {
+const postAttachments = (text, attachments, channel) => {
   return bot.chat.postMessage({
     channel: channel,
     text: text,
@@ -62,7 +62,7 @@ function postAttachments(text, attachments, channel) {
   })
 }
 
-function getUsername(user) {
+const getUsername = user => {
   return bot.users.info({
     user: user
   })
