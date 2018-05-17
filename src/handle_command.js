@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/16 14:15:53 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/17 18:33:16 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ const handleCommand = async (msg, channel, ts, user) => {
   console.log({ user, message })
   let command
   let option = null
-  let ifcommand = false
+  let isCommand = false
   if (/(\b|^)rip(\b|$)/i.test(message)) sendReaction('rip', channel, ts)
   if (/(\b|^)jpp(\b|$)/i.test(message)) sendReaction('jpp', channel, ts)
   if (/(\b|^)(php|ruby|ror|mongo|mongodb)(\b|$)/i.test(message)) sendReaction('poop', channel, ts)
@@ -91,10 +91,10 @@ const handleCommand = async (msg, channel, ts, user) => {
     if (result === false) {
       if (functions[message.split(' ')[1].toLowerCase()]) {
         functions[command](message, channel, ts, user)
-        ifcommand = true
+        isCommand = true
       }
     } else {
-      ifcommand = true
+      isCommand = true
     }
   } else if (message.indexOf('!') === 0) {
     command = message
@@ -110,13 +110,13 @@ const handleCommand = async (msg, channel, ts, user) => {
           .split(' ')
           .splice(2)
           .join(' ')
-        ifcommand = true
+        isCommand = true
       }
     } else {
-      ifcommand = true
+      isCommand = true
     }
   }
-  if (ifcommand) addCommand(command, option, channel, ts, user)
+  if (isCommand) addCommand(command, option, channel, ts, user)
 }
 
 module.exports.handleCommand = handleCommand
