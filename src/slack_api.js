@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 15:13:10 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/17 18:12:18 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/17 18:16:14 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@ const token = process.env.SLACK_API_TOKEN
 
 const bot = new Slack({ token })
 
-cosnt = postMessage = (text, channel) => {
+const postMessage = (text, channel) => {
   return bot.chat.postMessage({
     channel: channel,
     text: text
