@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/04 17:59:39 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/17 17:32:28 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,7 +271,7 @@ const logtime = async (message, channel, ts) => {
       return
     }
   }
-  postOnThread('Usage: bc logtime login (datedebut datefin | annee | trimestre [annee]) (date au format "YYYY-MM-DD")', channel, ts)
+  postOnThread('Usage: cb logtime login [datedebut datefin | annee | trimestre [annee]] (date au format "Y-M-D")', channel, ts)
 }
 
 const who = async (msg, channel) => {
