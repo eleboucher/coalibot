@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/17 17:32:28 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/17 17:39:44 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,7 +325,7 @@ const where = async (msg, channel, usr) => {
   if (user === 'dieu' || user === 'dobby') user = 'elebouch'
   if (user === 'manager') user = 'vtennero'
   if (user === 'guardians' || user === 'gardiens') {
-    guardians = ['dcirlig', 'vtennero', 'elebouch', 'fbabin', 'tbailly-', 'mmerabet', 'aledru']
+    guardians = ['dcirlig', 'vtennero', 'elebouch', 'fbabin', 'tbailly-', 'mmerabet', 'aledru', 'dlavaury']
     for (let guardian of guardians) {
       url = `/v2/users/${guardian}/locations`
       const data = await request42(url)
