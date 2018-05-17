@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/04/26 16:04:34 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/17 17:43:21 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,27 @@ var cheerio = require('cheerio')
 const { randomgif } = require('./giphy')
 
 const roll = (message, channel, ts) => {
-  if (message.split(" ").length >= 4 && message.indexOf("[") !== -1 && message.indexOf("]") !== -1 && message.indexOf("[") < message.indexOf("]")) {
-    let randthings = message.substring(message.indexOf("[") + 1, message.indexOf("]")).split(",").map(Function.prototype.call, String.prototype.trim).filter(String)
+  if (
+    message.split(' ').length >= 4 &&
+    message.indexOf('[') !== -1 &&
+    message.indexOf(']') !== -1 &&
+    message.indexOf('[') < message.indexOf(']')
+  ) {
+    let randthings = message
+      .substring(message.indexOf('[') + 1, message.indexOf(']'))
+      .split(',')
+      .map(Function.prototype.call, String.prototype.trim)
+      .filter(String)
 
-    length = parseInt(message.split(" ")[2])
-    if (randthings.length < 2 || randthings.length >= 1000000 || length > 100 || length <= 0) return;
-    let str = "";
+    length = parseInt(message.split(' ')[2])
+    if (randthings.length < 2 || randthings.length >= 1000000 || length > 100 || length <= 0) return
+    let str = ''
     for (let i = 0; i < length; i++) {
       str += randthings[Math.floor(Math.random() * Math.floor(randthings.length))]
-      str += (i < length - 1) ? " " : "";
+      str += i < length - 1 ? ' ' : ''
     }
     postOnThread(str, channel, ts)
-  }
-  else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[2]) && !isNaN(message.split(' ')[3])) {
+  } else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[2]) && !isNaN(message.split(' ')[3])) {
     let str = ''
     let length = parseInt(message.split(' ')[2])
     let max = parseInt(message.split(' ')[3])
@@ -40,24 +48,22 @@ const roll = (message, channel, ts) => {
     }
     for (let i = 0; i < length; i++) {
       str += Math.floor(Math.random() * Math.floor(max + 1))
-      str += (i < length - 1) ? " " : "";
+      str += i < length - 1 ? ' ' : ''
     }
     postOnThread(str, channel, ts)
-  }
-  else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[2]) && /^\d+-\d+$/g.test(message.split(' ')[3])) {
+  } else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[2]) && /^\d+-\d+$/g.test(message.split(' ')[3])) {
     let length = parseInt(message.split(' ')[2])
-    let min = parseInt(message.split(' ')[3].split("-")[0])
-    let max = parseInt(message.split(' ')[3].split("-")[1])
-    let str = ""
-    if (min > max)
-      return;
+    let min = parseInt(message.split(' ')[3].split('-')[0])
+    let max = parseInt(message.split(' ')[3].split('-')[1])
+    let str = ''
+    if (min > max) return
     if (length > 100 || max > 1000000 || length <= 0 || max <= 0 || min < 0) {
-      postOnThread('taille max == 100 et tailledude max == 1000000', channel,ts)
+      postOnThread('taille max == 100 et tailledude max == 1000000', channel, ts)
       return
     }
     for (let i = 0; i < length; i++) {
       str += Math.floor(Math.random() * (max - min + 1)) + min
-      str += (i < length - 1) ? " " : "";
+      str += i < length - 1 ? ' ' : ''
     }
     postOnThread(str, channel, ts)
   }
@@ -96,7 +102,7 @@ const addmusic = async (msg, user, channel) => {
         postMessage('Lien déjà enregistré', channel)
       }
     } else postMessage('Lien incorrect', channel)
-  } catch (err){
+  } catch (err) {
     console.log(err)
   }
 }
@@ -110,7 +116,7 @@ const music = async channel => {
     if (music.login === 'pk') login = 'p/k'
     else login = music.login
     postMessage(`${login} ${music.link}`, channel)
-  } catch (err){
+  } catch (err) {
     console.log(err)
   }
 }
@@ -132,7 +138,7 @@ const meteo = async (message, channel) => {
 }
 
 const dobby = async (user, channel) => {
-  const allowedUsers = ['elebouch', 'korlandi', 'ndudnicz', 'jcharloi']
+  const allowedUsers = ['elebouch', 'korlandi']
   const linkImg = 'http://cdn.playbuzz.com/cdn/66f922e7-af02-4e0c-9005-99f36c6a556b/780b5a18-483a-495a-9209-d9dac17c53c7_560_420.jpg'
   let username = await getUsername(user)
   if ('user' in username && 'name' in username['user']) {
@@ -192,7 +198,7 @@ const roulettestat = async (user, channel) => {
   }
 }
 
-const roulettetop = async (channel)  => {
+const roulettetop = async channel => {
   let json
   try {
     json = await fs.readFileSync('./roulette.json', 'utf-8')
@@ -200,13 +206,18 @@ const roulettetop = async (channel)  => {
   } catch (err) {
     json = {}
   }
-  sorted = await Object.keys(json).sort(function(a, b) { return json[a] - json[b] }).reverse().reduce((r, k) => (r[k] = json[k], r), {});
+  sorted = await Object.keys(json)
+    .sort(function(a, b) {
+      return json[a] - json[b]
+    })
+    .reverse()
+    .reduce((r, k) => ((r[k] = json[k]), r), {})
   i = 1
-  for (let o in sorted){
-      let pos = Math.floor(Math.random() * (o.length - 1)) + 1;
-      await postMessage(`${i} ${o.substr(0, pos) + "." + o.substr(pos)} : ${sorted[o]}`, channel)
-      if (i === 5) break
-      i++
+  for (let o in sorted) {
+    let pos = Math.floor(Math.random() * (o.length - 1)) + 1
+    await postMessage(`${i} ${o.substr(0, pos) + '.' + o.substr(pos)} : ${sorted[o]}`, channel)
+    if (i === 5) break
+    i++
   }
 }
 
