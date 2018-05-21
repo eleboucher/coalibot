@@ -344,7 +344,7 @@ const where = async (msg, channel, usr) => {
   else postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel)
 }
 
-const events = async (msg, channel) => {
+const event = async (msg, channel) => {
   let begin_at
   let end_at
   if (msg.split(' ').length === 2) {
@@ -395,4 +395,4 @@ module.exports.score = score
 module.exports.profil = profil
 module.exports.who = who
 module.exports.where = where
-module.exports.events = events
+module.exports.event = event
