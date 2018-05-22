@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/22 13:28:18 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/22 15:18:19 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,13 +291,13 @@ const where = async (msg, channel, usr) => {
   if (msg.split(' ').length === 6 && (msg.indexOf('le branle couille') !== -1 || msg.indexOf('la branle couille') !== -1)) {
     let date_begin = moment().subtract(7, 'days')
     let date_end = moment().add(1, 'days')
-    const logtime = await get_range_logtime(msg.split(' ')[5], date_begin, date_end)
+    const user = msg.split(' ')[5]
+    const logtime = await get_range_logtime(user, date_begin, date_end)
     const time = format_output_datetime(logtime)
     if (time[0] >= 35) {
-      postMessage(`*${msg.split(' ')[5]}* is not a branle couille`, channel)
+      postMessage(`*${user}* is not a branle couille`, channel)
       return
     }
-    user = msg.split(' ')[5]
     url = `/v2/users/${user}/locations`
     const data = await request42(url)
     if (!data) {
