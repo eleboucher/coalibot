@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 11:07:52 by erwanleb          #+#    #+#             */
-/*   Updated: 2018/05/15 14:20:52 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/22 13:25:10 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@ const fs = require('fs')
 const { getUsername } = require('./slack_api')
 
 const choose = choices => {
-  var index = Math.floor(Math.random() * choices.length)
+  let index = Math.floor(Math.random() * choices.length)
   return choices[index]
 }
 

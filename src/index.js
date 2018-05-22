@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 13:39:56 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/04 19:10:59 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/22 13:24:52 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ rtm.on('authenticated', () => {
 
 // Read messages
 rtm.on('message', function(message) {
-  var channel = message['channel']
+  let channel = message['channel']
   if (!BLACKLISTCHAN.includes(channel) && message.text && message.user) {
-    var text = message['text']
-    var ts = message['ts']
-    var user = message['user']
+    let text = message['text']
+    let ts = message['ts']
+    let user = message['user']
     handleCommand(text, channel, ts, user)
   }
 })

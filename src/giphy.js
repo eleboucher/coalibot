@@ -6,11 +6,11 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/24 15:03:45 by elebouch          #+#    #+#             */
-/*   Updated: 2018/04/26 16:02:44 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/22 13:24:39 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-var rp = require('request-promise')
+let rp = require('request-promise')
 const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, getUsername } = require('./slack_api')
 
 const randomgif = async (query, channel) => {

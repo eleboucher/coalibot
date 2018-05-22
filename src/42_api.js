@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/22 13:06:50 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/22 13:24:20 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ const forty2auth = new ClientOAuth2({
 })
 
 const request42 = async url => {
-  var url = 'https://api.intra.42.fr' + url
+  let url = 'https://api.intra.42.fr' + url
   const token = await forty2auth.credentials.getToken()
-  var options = {
+  let options = {
     uri: url,
     qs: {
       access_token: token.data.access_token
@@ -64,11 +64,11 @@ const score = async channel => {
   json.sort(function(a, b) {
     return a.score < b.score
   })
-  var reply = ''
+  let reply = ''
   for (let coa of json) {
     reply += `${coa.name} ${coa.score}\n`
   }
-  var attachments = [
+  let attachments = [
     {
       fallback: reply,
       color: json[0]['color'],
@@ -258,7 +258,7 @@ const logtime = async (message, channel, ts) => {
     let date_begin = moment(new Date(year, month[message.split(' ')[3]], 1))
     let date_end = moment(new Date(year, month[message.split(' ')[3]] + 1, 0)).add(1, 'days')
     const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
-    var time = format_output_datetime(logtime)
+    let time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
   } else if (message.split(' ').length === 5) {

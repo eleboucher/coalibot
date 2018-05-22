@@ -6,15 +6,15 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/17 17:43:21 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/22 13:24:57 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, getUsername } = require('./slack_api')
 const fs = require('fs')
 const { handlestat } = require('./utils')
-var rp = require('request-promise')
-var cheerio = require('cheerio')
+let rp = require('request-promise')
+let cheerio = require('cheerio')
 const { randomgif } = require('./giphy')
 
 const roll = (message, channel, ts) => {

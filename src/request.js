@@ -6,12 +6,12 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:57:57 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/02 17:33:19 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/22 13:25:01 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 const pThrottle = require('p-throttle')
-var rp = require('request-promise')
+let rp = require('request-promise')
 
 const request = async options => await rp(options)
 
