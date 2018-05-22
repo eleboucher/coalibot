@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/22 23:30:34 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/22 23:35:15 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,10 @@ const get_range_logtime = async (name, start, end) => {
   let logtime = moment.duration(0)
   while (!current.isAfter(end)) {
     try {
-      const data = await fs.readFileSync(`logtime/presence-${current.get('year')}-${current.format('MM')}.csv`, 'utf-8')
+      const data = await fs.readFileSync(
+        `./logtime/presence-${current.get('year')}-${current.format('MM')}.csv`,
+        'utf-8'
+      )
       let thisMonth = getHourByName(
         name,
         parse(data, {
