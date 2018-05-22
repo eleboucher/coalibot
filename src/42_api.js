@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/23 00:05:07 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/23 00:07:35 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ const score = async channel => {
 
 const getHourByName = (name, data) => {
   for (let o of data) {
-    if (dataName.toLowerCase() === o.name.toLowerCase()) {
+    if (name.toLowerCase() === o.name.toLowerCase()) {
       return o.h
     }
   }
@@ -154,7 +154,10 @@ const logtime = async (message, channel, ts) => {
   }
   const intradata = await request42('/v2/users/' + message.split(' ')[2])
   if (intradata && intradata.last_name && intradata.first_name) name = intradata.last_name + ', ' + intradata.first_name
-  else postOnThread('login incorrect', channel, ts)
+  else {
+    postOnThread('login incorrect', channel, ts)
+    return
+  }
   if (message.split(' ').length === 3) {
     const date_begin = moment().subtract(1, 'months')
     let logtime = await get_range_logtime(name, date_begin, date_begin)
