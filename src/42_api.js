@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/23 00:11:06 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/23 00:18:47 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,8 +205,8 @@ const logtime = async (message, channel, ts) => {
       message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012
         ? parseInt(message.split(' ')[4])
         : new Date().getFullYear()
-    let date_begin = moment(new Date(year, month[message.split(' ')[3]], 1))
-    let date_end = moment(new Date(year, month[message.split(' ')[3]], 0))
+    let date_begin = moment({ y: year, M: month[message.split(' ')[3]], d: 1 })
+    let date_end = moment({ y: year, M: month[message.split(' ')[3]], d: 1 })
     const logtime = await get_range_logtime(name, date_begin, date_end)
     postOnThread(logtime + 'h', channel, ts)
   } else postOnThread('usage: cb logtime login [annee | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
