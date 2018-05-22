@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/23 00:18:47 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/23 00:57:18 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,8 @@ const logtime = async (message, channel, ts) => {
     return
   }
   const intradata = await request42('/v2/users/' + message.split(' ')[2])
-  if (intradata && intradata.last_name && intradata.first_name) name = intradata.last_name + ', ' + intradata.first_name
+  if (intradata && intradata.last_name && intradata.first_name)
+    name = (intradata.last_name + ', ' + intradata.first_name).normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   else {
     postOnThread('login incorrect', channel, ts)
     return
