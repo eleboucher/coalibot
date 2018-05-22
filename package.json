@@ -24,6 +24,7 @@
     "@slack/client": "^4.2.0",
     "cheerio": "^1.0.0-rc.2",
     "client-oauth2": "^4.1.0",
+    "csv-parse": "^2.4.0",
     "moment": "^2.20.1",
     "nodemon": "^1.15.1",
     "p-throttle": "^1.1.0",

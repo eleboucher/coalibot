@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/22 23:28:24 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/22 23:30:34 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ const {
 } = require('./slack_api')
 const rq = require('./request').rq
 const ClientOAuth2 = require('client-oauth2')
+const parse = require('csv-parse/lib/sync')
+var fs = require('fs')
 const { month } = require('./const')
 const moment = require('moment')
 const sprintf = require('sprintf-js').sprintf
