@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/22 15:18:19 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/22 15:51:01 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,19 @@ const logtime = async (message, channel, ts) => {
       message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012 ? parseInt(message.split(' ')[4]) : new Date().getFullYear()
     let date_begin = moment(new Date(year, quarter * 3, 1))
     let date_end = moment(new Date(year, date_begin.get('month') + 3, 0)).add(1, 'days')
+    const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
+    const time = format_output_datetime(logtime)
+    postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
+    return
+  } else if (
+    message.split(' ')[3].includes('semestre') &&
+    (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
+  ) {
+    let semestre = parseInt(message.split(' ')[3].replace('semestre', '')) - 1
+    const year =
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012 ? parseInt(message.split(' ')[4]) : new Date().getFullYear()
+    let date_begin = moment(new Date(year, semestre * 6, 1))
+    let date_end = moment(new Date(year, date_begin.get('month') + 6, 0)).add(1, 'days')
     const logtime = await get_range_logtime(message.split(' ')[2], date_begin, date_end)
     const time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
