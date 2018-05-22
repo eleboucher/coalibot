@@ -6,12 +6,12 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/17 18:33:16 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/22 23:23:08 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, getUsername } = require('./slack_api')
-const { score, alliance, logtime, profil, who, where, event } = require('./42_api')
+const { score, alliance, intralogtime, logtime, profil, who, where, event } = require('./42_api')
 const { citation } = require('./citation')
 const { randomgif } = require('./giphy')
 const { roll, addmusic, music, meteo, dobby, php, roulette, coin, roulettestat, roulettetop } = require('./miscs')
@@ -43,6 +43,7 @@ functions = {
   score: (message, channel, ts, user) => score(channel, ts),
   prof: (message, channel, ts, user) => profil(message.toLowerCase(), channel, user),
   logtime: (message, channel, ts, user) => logtime(message, channel, ts),
+  intralogtime: (message, channel, ts, user) => intralogtime(message, channel, ts),
   who: (message, channel, ts, user) => who(message.toLowerCase(), channel),
   event: (message, channel, ts, user) => event(message.toLowerCase(), channel),
   roll: (message, channel, ts, user) => roll(message, channel, ts),
@@ -65,8 +66,14 @@ functions = {
       channel
     ),
   oss: (message, channel, ts, user) =>
-    citation(channel, './oss.txt', 'https://static-cdn.jtvnw.net/emoticons/v1/518312/3.0', 'Hubert Bonisseur de La Bath'),
-  parrot: (message, channel, ts, user) => postMessage(':' + parrot[Math.floor(Math.random() * Math.floor(parrot.length))] + ':', channel),
+    citation(
+      channel,
+      './oss.txt',
+      'https://static-cdn.jtvnw.net/emoticons/v1/518312/3.0',
+      'Hubert Bonisseur de La Bath'
+    ),
+  parrot: (message, channel, ts, user) =>
+    postMessage(':' + parrot[Math.floor(Math.random() * Math.floor(parrot.length))] + ':', channel),
   kaamelott: (message, channel, ts, user) =>
     citation(channel, './kaamelott.txt', 'https://img15.hostingpics.net/pics/4833663350.jpg', 'Perceval')
 }
