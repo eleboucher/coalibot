@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/22 23:35:15 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/23 00:02:16 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ const score = async channel => {
 }
 
 const getHourByName = (name, data) => {
-  const dataName = name.split(' ')[1] + ', ' + name.split(' ')[0]
   for (let o of data) {
     if (dataName.toLowerCase() === o.name.toLowerCase()) {
       return o.h
@@ -149,64 +148,65 @@ const get_range_logtime = async (name, start, end) => {
   return logtime.as('hours')
 }
 const logtime = async (message, channel, ts) => {
-  if (message.split(' ').length < 3) {
-    postOnThread('usage: cb logtime Prenom Nom [annee | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
+  if (message.split(' ').length < 2) {
+    postOnThread('usage: cb logtime login [annee | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
     return
   }
-  const name = [message.split(' ')[2], message.split(' ')[3]].join(' ')
-  if (message.split(' ').length === 4) {
+  const intradata = await request42('/v2/users/' + message.split(' ')[2])
+  if (intra && intradata.last_name && intradata.first_name) name = intradata.last_name + ', ' + intradata.first_name
+  else postOnThread('login incorrect', channel, ts)
+  if (message.split(' ').length === 3) {
     const date_begin = moment().subtract(1, 'months')
     let logtime = await get_range_logtime(name, date_begin, date_begin)
     postOnThread(logtime + 'h', channel, ts)
   } else if (
-    message.split(' ').length === 5 &&
-    !isNaN(message.split(' ')[4]) &&
-    parseInt(message.split(' ')[4]) > 2016
+    message.split(' ').length === 4 &&
+    !isNaN(message.split(' ')[3]) &&
+    parseInt(message.split(' ')[3]) > 2016
   ) {
-    let date_begin = moment({ y: parseInt(message.split(' ')[4]), M: 0, d: 1 })
-    let date_end = moment({ y: parseInt(message.split(' ')[4]), M: 11, d: 1 })
+    let date_begin = moment({ y: parseInt(message.split(' ')[3]), M: 0, d: 1 })
+    let date_end = moment({ y: parseInt(message.split(' ')[3]), M: 11, d: 1 })
     const logtime = await get_range_logtime(name, date_begin, date_end)
     postOnThread(logtime + 'h', channel, ts)
   } else if (
-    message.split(' ')[4].includes('trimestre') &&
-    (message.split(' ').length === 5 || (message.split(' ').length === 6 && parseInt(message.split(' ')[5]) > 2016))
+    message.split(' ')[3].includes('trimestre') &&
+    (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016))
   ) {
-    let quarter = parseInt(message.split(' ')[4].replace('trimestre', '')) - 1
+    let quarter = parseInt(message.split(' ')[3].replace('trimestre', '')) - 1
     const year =
-      message.split(' ').length === 6 && parseInt(message.split(' ')[5]) > 2016
-        ? parseInt(message.split(' ')[5])
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016
+        ? parseInt(message.split(' ')[4])
         : new Date().getFullYear()
     let date_begin = moment(new Date(year, quarter * 3, 1))
     let date_end = moment(new Date(year, date_begin.get('month') + 3, 0))
     const logtime = await get_range_logtime(name, date_begin, date_end)
     postOnThread(logtime + 'h', channel, ts)
   } else if (
-    message.split(' ')[4].includes('semestre') &&
-    (message.split(' ').length === 5 || (message.split(' ').length === 6 && parseInt(message.split(' ')[5]) > 2016))
+    message.split(' ')[3].includes('semestre') &&
+    (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016))
   ) {
-    let semestre = parseInt(message.split(' ')[4].replace('semestre', '')) - 1
+    let semestre = parseInt(message.split(' ')[3].replace('semestre', '')) - 1
     const year =
-      message.split(' ').length === 6 && parseInt(message.split(' ')[5]) > 2016
-        ? parseInt(message.split(' ')[5])
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016
+        ? parseInt(message.split(' ')[4])
         : new Date().getFullYear()
     let date_begin = moment(new Date(year, semestre * 6, 1))
     let date_end = moment(new Date(year, date_begin.get('month') + 6, 0))
     const logtime = await get_range_logtime(name, date_begin, date_end)
     postOnThread(logtime + 'h', channel, ts)
   } else if (
-    message.split(' ')[4] in month &&
-    (message.split(' ').length === 5 || (message.split(' ').length === 6 && parseInt(message.split(' ')[5]) > 2016))
+    message.split(' ')[3] in month &&
+    (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016))
   ) {
     const year =
-      message.split(' ').length === 6 && parseInt(message.split(' ')[5]) > 2012
-        ? parseInt(message.split(' ')[5])
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012
+        ? parseInt(message.split(' ')[4])
         : new Date().getFullYear()
     let date_begin = moment(new Date(year, month[message.split(' ')[3]], 1))
     let date_end = moment(new Date(year, month[message.split(' ')[3]], 0))
     const logtime = await get_range_logtime(name, date_begin, date_end)
     postOnThread(logtime + 'h', channel, ts)
-  } else
-    postOnThread('usage: cb logtime Prenom Nom [annee | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
+  } else postOnThread('usage: cb logtime logtime [annee | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
 }
 
 const get_range_intralogtime = async (user, range_begin, range_end) => {
