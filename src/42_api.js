@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/23 00:02:16 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/23 00:05:07 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ const logtime = async (message, channel, ts) => {
     return
   }
   const intradata = await request42('/v2/users/' + message.split(' ')[2])
-  if (intra && intradata.last_name && intradata.first_name) name = intradata.last_name + ', ' + intradata.first_name
+  if (intradata && intradata.last_name && intradata.first_name) name = intradata.last_name + ', ' + intradata.first_name
   else postOnThread('login incorrect', channel, ts)
   if (message.split(' ').length === 3) {
     const date_begin = moment().subtract(1, 'months')
