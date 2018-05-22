@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, getUsername } = require('./slack_api')
-const { score, alliance, logtime, profil, who, where, events } = require('./42_api')
+const { score, alliance, logtime, profil, who, where, event } = require('./42_api')
 const { citation } = require('./citation')
 const { randomgif } = require('./giphy')
 const { roll, addmusic, music, meteo, dobby, php, roulette, coin, roulettestat, roulettetop } = require('./miscs')
@@ -44,7 +44,7 @@ functions = {
   prof: (message, channel, ts, user) => profil(message.toLowerCase(), channel, user),
   logtime: (message, channel, ts, user) => logtime(message, channel, ts),
   who: (message, channel, ts, user) => who(message.toLowerCase(), channel),
-  events: (message, channel, ts, user) => events(message.toLowerCase(), channel),
+  event: (message, channel, ts, user) => event(message.toLowerCase(), channel),
   roll: (message, channel, ts, user) => roll(message, channel, ts),
   where: (message, channel, ts, user) => where(message.toLowerCase(), channel, user),
   addmusic: (message, channel, ts, user) => addmusic(message, user, channel),
