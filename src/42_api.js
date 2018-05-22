@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/22 13:24:20 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/22 13:28:18 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ const forty2auth = new ClientOAuth2({
 })
 
 const request42 = async url => {
-  let url = 'https://api.intra.42.fr' + url
+  let uri = 'https://api.intra.42.fr' + url
   const token = await forty2auth.credentials.getToken()
   let options = {
-    uri: url,
+    uri: uri,
     qs: {
       access_token: token.data.access_token
     },
