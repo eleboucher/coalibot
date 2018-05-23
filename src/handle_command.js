@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/22 23:23:08 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/23 11:20:48 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ const reply = async (cmd, channel) => {
 functions = {
   alliance: (message, channel, ts, user) => alliance(channel),
   score: (message, channel, ts, user) => score(ts, channel),
-  help: (message, channel, ts, user) => fileUpload(fs.createReadStream('./featurespic.jpeg'), channel),
+  help: (message, channel, ts, user) => fileUpload(fs.createReadStream('./featurespic.png'), channel),
   glegendr: (message, channel, ts, user) => randomgif('how about no'.replace(' ', '+'), channel),
   mfranc: (message, channel, ts, user) => postMessage(choose(['>Doucement avec les bots', '>Puuuuuuuuuuuuu']), channel),
   score: (message, channel, ts, user) => score(channel, ts),
