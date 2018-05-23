@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/23 15:41:57 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/23 15:42:55 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ const logtime = async (message, channel, ts) => {
     const logtime = await get_range_logtime(name, date_begin, date_end)
     postOnThread(logtime + 'h', channel, ts)
   } else if (
-    message.split(' ')[3].includes('trimestre') &&
+    /(\b|^)trimestre[1-4](\b|$)/i.test(message.split(' ')[3]) &&
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016))
   ) {
     let quarter = parseInt(message.split(' ')[3].replace('trimestre', '')) - 1
@@ -197,7 +197,7 @@ const logtime = async (message, channel, ts) => {
     const logtime = await get_range_logtime(name, date_begin, date_end)
     postOnThread(logtime + 'h', channel, ts)
   } else if (
-    message.split(' ')[3].includes('semestre') &&
+    /(\b|^)semestre[1-2](\b|$)/i.test(message.split(' ')[3]) &&
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016))
   ) {
     let semestre = parseInt(message.split(' ')[3].replace('semestre', '')) - 1
@@ -364,7 +364,7 @@ const intralogtime = async (message, channel, ts) => {
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
   } else if (
-    message.split(' ')[3].includes('trimestre') &&
+    /(\b|^)trimestre[1-4](\b|$)/i.test(message.split(' ')[3]) &&
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
   ) {
     let quarter = parseInt(message.split(' ')[3].replace('trimestre', '')) - 1
@@ -379,7 +379,7 @@ const intralogtime = async (message, channel, ts) => {
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
   } else if (
-    message.split(' ')[3].includes('semestre') &&
+    /(\b|^)semestre[1-2](\b|$)/i.test(message.split(' ')[3]) &&
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
   ) {
     let semestre = parseInt(message.split(' ')[3].replace('semestre', '')) - 1
