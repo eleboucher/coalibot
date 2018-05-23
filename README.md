@@ -9,7 +9,7 @@ Bot pour le slack de [42Born2Code](http://www.42.fr/)
 | Alliance     |                Donne les stats de la coalition de l'Alliance                |                                            cb alliance                                             |
 | addmusic     |          Ajoute une musique grâce à un lien youtube ou soundcloud           |                                          cb addmusic lien                                          |
 | brew         |            Donne une commande pour installer brew sur les dumps             |                                              cb brew                                               |
-| event        |               Donne les events à ce jour                                    |                              cb event [date] (date au format \"Y-M-D\")                            |
+| event        |                         Donne les events à ce jour                          |                              cb event [date] (date au format \"Y-M-D\")                            |
 | halp         |           Donne des instructions pour les problèmes liés à iscsi            |                                              cb halp                                               |
 | help         |                   Liste toutes les commandes de Coalibot                    |                                              cb help                                               |
 | intralogtime |           Donne le temps de log de l'intra sur une période donnée           | cb intralogtime login [datedebut datefin \| annee \| trimestre [annee]] (date au format \"Y-M-D\") |
