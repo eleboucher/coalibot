@@ -6,19 +6,11 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/23 10:52:33 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/23 14:24:18 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-const {
-  postMessage,
-  postUserMessage,
-  sendReaction,
-  fileUpload,
-  postOnThread,
-  getUsername,
-  postAttachments
-} = require('./slack_api')
+const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, getUsername, postAttachments } = require('./slack_api')
 const rq = require('./request').rq
 const ClientOAuth2 = require('client-oauth2')
 const parse = require('csv-parse/lib/sync')
@@ -127,10 +119,7 @@ const get_range_logtime = async (name, start, end) => {
   let logtime = moment.duration(0)
   while (!current.isAfter(end)) {
     try {
-      const data = await fs.readFileSync(
-        `./logtime/presence-${current.get('year')}-${current.format('MM')}.csv`,
-        'utf-8'
-      )
+      const data = await fs.readFileSync(`./logtime/presence-${current.get('year')}-${current.format('MM')}.csv`, 'utf-8')
       let thisMonth = getHourByName(
         name,
         parse(data, {
@@ -168,37 +157,29 @@ const logtime = async (message, channel, ts) => {
     const date_begin = moment().subtract(1, 'months')
     let logtime = await get_range_logtime(name, date_begin, date_begin)
     postOnThread(logtime + 'h', channel, ts)
-  } else if (
-    message.split(' ').length === 4 &&
-    !isNaN(message.split(' ')[3]) &&
-    parseInt(message.split(' ')[3]) > 2016
-  ) {
+  } else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[3]) && parseInt(message.split(' ')[3]) > 2016) {
     let date_begin = moment({ y: parseInt(message.split(' ')[3]), M: 0, d: 1 })
     let date_end = moment({ y: parseInt(message.split(' ')[3]), M: 11, d: 1 })
     const logtime = await get_range_logtime(name, date_begin, date_end)
     postOnThread(logtime + 'h', channel, ts)
   } else if (
-    message.split(' ')[3].includes('trimestre') &&
+    /(\b|^)trimestre[1-4](\b|$)/i.test(message.split(' ')[3]) &&
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016))
   ) {
     let quarter = parseInt(message.split(' ')[3].replace('trimestre', '')) - 1
     const year =
-      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016
-        ? parseInt(message.split(' ')[4])
-        : new Date().getFullYear()
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016 ? parseInt(message.split(' ')[4]) : new Date().getFullYear()
     let date_begin = moment(new Date(year, quarter * 3, 1))
     let date_end = moment(new Date(year, date_begin.get('month') + 3, 0))
     const logtime = await get_range_logtime(name, date_begin, date_end)
     postOnThread(logtime + 'h', channel, ts)
   } else if (
-    message.split(' ')[3].includes('semestre') &&
+    /(\b|^)semestre[1-2](\b|$)/i.test(message.split(' ')[3]) &&
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016))
   ) {
     let semestre = parseInt(message.split(' ')[3].replace('semestre', '')) - 1
     const year =
-      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016
-        ? parseInt(message.split(' ')[4])
-        : new Date().getFullYear()
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016 ? parseInt(message.split(' ')[4]) : new Date().getFullYear()
     let date_begin = moment(new Date(year, semestre * 6, 1))
     let date_end = moment(new Date(year, date_begin.get('month') + 6, 0))
     const logtime = await get_range_logtime(name, date_begin, date_end)
@@ -208,9 +189,7 @@ const logtime = async (message, channel, ts) => {
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016))
   ) {
     const year =
-      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012
-        ? parseInt(message.split(' ')[4])
-        : new Date().getFullYear()
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012 ? parseInt(message.split(' ')[4]) : new Date().getFullYear()
     let date_begin = moment({ y: year, M: month[message.split(' ')[3]], d: 1 })
     let date_end = moment({ y: year, M: month[message.split(' ')[3]], d: 1 })
     const logtime = await get_range_logtime(name, date_begin, date_end)
@@ -338,11 +317,7 @@ const intralogtime = async (message, channel, ts) => {
     const time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
-  } else if (
-    message.split(' ').length === 4 &&
-    !isNaN(message.split(' ')[3]) &&
-    parseInt(message.split(' ')[3]) > 2012
-  ) {
+  } else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[3]) && parseInt(message.split(' ')[3]) > 2012) {
     let date_begin = moment({
       y: parseInt(message.split(' ')[3]),
       M: 0,
@@ -358,14 +333,12 @@ const intralogtime = async (message, channel, ts) => {
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
   } else if (
-    message.split(' ')[3].includes('trimestre') &&
+    /(\b|^)trimestre[1-4](\b|$)/i.test(message.split(' ')[3]) &&
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
   ) {
     let quarter = parseInt(message.split(' ')[3].replace('trimestre', '')) - 1
     const year =
-      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012
-        ? parseInt(message.split(' ')[4])
-        : new Date().getFullYear()
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012 ? parseInt(message.split(' ')[4]) : new Date().getFullYear()
     let date_begin = moment(new Date(year, quarter * 3, 1))
     let date_end = moment(new Date(year, date_begin.get('month') + 3, 0)).add(1, 'days')
     const logtime = await get_range_intralogtime(message.split(' ')[2], date_begin, date_end)
@@ -373,14 +346,12 @@ const intralogtime = async (message, channel, ts) => {
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
   } else if (
-    message.split(' ')[3].includes('semestre') &&
+    /(\b|^)semestre[1-2](\b|$)/i.test(message.split(' ')[3]) &&
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
   ) {
     let semestre = parseInt(message.split(' ')[3].replace('semestre', '')) - 1
     const year =
-      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012
-        ? parseInt(message.split(' ')[4])
-        : new Date().getFullYear()
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012 ? parseInt(message.split(' ')[4]) : new Date().getFullYear()
     let date_begin = moment(new Date(year, semestre * 6, 1))
     let date_end = moment(new Date(year, date_begin.get('month') + 6, 0)).add(1, 'days')
     const logtime = await get_range_intralogtime(message.split(' ')[2], date_begin, date_end)
@@ -392,9 +363,7 @@ const intralogtime = async (message, channel, ts) => {
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
   ) {
     const year =
-      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012
-        ? parseInt(message.split(' ')[4])
-        : new Date().getFullYear()
+      message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012 ? parseInt(message.split(' ')[4]) : new Date().getFullYear()
     let date_begin = moment(new Date(year, month[message.split(' ')[3]], 1))
     let date_end = moment(new Date(year, month[message.split(' ')[3]] + 1, 0)).add(1, 'days')
     const logtime = await get_range_intralogtime(message.split(' ')[2], date_begin, date_end)
@@ -411,11 +380,7 @@ const intralogtime = async (message, channel, ts) => {
       return
     }
   }
-  postOnThread(
-    'Usage: cb logtime login [datedebut datefin | annee | trimestre [annee]] (date au format "Y-M-D")',
-    channel,
-    ts
-  )
+  postOnThread('Usage: cb logtime login [datedebut datefin | annee | trimestre [annee]] (date au format "Y-M-D")', channel, ts)
 }
 
 const who = async (msg, channel) => {
@@ -432,10 +397,7 @@ const who = async (msg, channel) => {
 }
 
 const where = async (msg, channel, usr) => {
-  if (
-    msg.split(' ').length === 6 &&
-    (msg.indexOf('le branle couille') !== -1 || msg.indexOf('la branle couille') !== -1)
-  ) {
+  if (msg.split(' ').length === 6 && (msg.indexOf('le branle couille') !== -1 || msg.indexOf('la branle couille') !== -1)) {
     let date_begin = moment().subtract(7, 'days')
     let date_end = moment().add(1, 'days')
     const user = msg.split(' ')[5]
