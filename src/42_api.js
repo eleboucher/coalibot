@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/23 00:57:18 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/23 10:50:09 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,14 @@ const score = async channel => {
 }
 
 const getHourByName = (name, data) => {
+  let h = false
+  const regex = new RegExp('(\\b|^)' + name.last + '(\\d|), ' + name.first + '(\\d|)(\\b|$)', 'i')
   for (let o of data) {
-    if (name.toLowerCase() === o.name.toLowerCase()) {
-      return o.h
+    if (regex.test(o.name)) {
+      h += parseInt(o.h)
     }
   }
-  return false
+  return h
 }
 
 const get_range_logtime = async (name, start, end) => {
@@ -154,7 +156,10 @@ const logtime = async (message, channel, ts) => {
   }
   const intradata = await request42('/v2/users/' + message.split(' ')[2])
   if (intradata && intradata.last_name && intradata.first_name)
-    name = (intradata.last_name + ', ' + intradata.first_name).normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    name = {
+      lastname: intradata.last_name.normalize('NFD').replace(/[\u0300-\u036f]/g, ''),
+      first: intradata.first_name.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    }
   else {
     postOnThread('login incorrect', channel, ts)
     return
