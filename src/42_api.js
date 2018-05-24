@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/23 15:42:55 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/24 19:10:24 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ const get_range_logtime = async (name, start, end) => {
   }
   return logtime.as('hours')
 }
+
 const logtime = async (message, channel, ts) => {
   if (message.split(' ').length < 2) {
     postOnThread('usage: cb logtime login [annee | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
@@ -221,6 +222,13 @@ const logtime = async (message, channel, ts) => {
     let date_end = moment({ y: year, M: month[message.split(' ')[3]], d: 1 })
     const logtime = await get_range_logtime(name, date_begin, date_end)
     postOnThread(logtime + 'h', channel, ts)
+  } else if (message.split(' ').length === 5) {
+    let date_end = message.split(' ')[4] === 'today' ? moment() : moment(message.split(' ')[4])
+    let date_begin = moment(message.split(' ')[3])
+    if (date_end.isValid() && date_begin.isValid()) {
+      const logtime = await get_range_logtime(name, date_begin, date_end)
+      postOnThread(logtime + 'h', channel, ts)
+    }
   } else postOnThread('usage: cb logtime login [annee | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
 }
 
