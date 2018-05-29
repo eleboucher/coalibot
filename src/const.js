@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 18:07:28 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/16 11:26:16 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/29 17:27:52 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ const month = {
 }
 
 const BLACKLISTCHAN = [
+  'G2XKVFENT',
   'C0CPCFLJ1',
   'C7PSZQK7G',
   'C7P52T7U5',
