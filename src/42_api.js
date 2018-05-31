@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 17:01:45 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 17:08:49 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,20 +386,23 @@ const profil = async (msg, channel, usr) => {
       ? ret[u['status']]
       : ':negative_squared_cross_mark:'
   })(data)
+  console.log(coaldata)
   attachments = [
     {
       title: `${data['displayname']} ${coalslug}`,
       title_link: 'https://profile.intra.42.fr/users/' + user,
-      color: coaldata['color'],
+      color: coaldata.color,
       thumb_url: data['image_url'],
       fields: [
         {
           title: 'Niveau',
-          value: `Niveau: ${
-            lvl === 0 ? 0 : data['cursus_users'][0]['level']
-          } Niveau piscine: ${lvlpiscine} ${data['pool_month']} ${
-            data['pool_year']
-          }`
+          value: `${lvl === 0 ? 0 : data['cursus_users'][0]['level']}`,
+          short: true
+        },
+        {
+          title: 'Niveau piscine',
+          value: `${lvlpiscine} ${data['pool_month']} ${data['pool_year']}`,
+          short: true
         },
         {
           title: 'Temps de log cette semaine',
