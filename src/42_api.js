@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 17:13:27 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 21:12:53 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,9 +386,9 @@ const profil = async (msg, channel, usr) => {
       ? ret[u['status']]
       : ':negative_squared_cross_mark:'
   })(data)
-  attachments = [
+  const attachments = [
     {
-      title: `${data['displayname']} ${coalslug}`,
+      title: `${data['displayname']} - ${user} ${coalslug}`,
       title_link: 'https://profile.intra.42.fr/users/' + user,
       color: coaldata[0]['color'],
       thumb_url: data['image_url'],
@@ -408,7 +408,12 @@ const profil = async (msg, channel, usr) => {
           value: `${sprintf('%02d:%02d', time[0], time[1])}`,
           short: true
         },
-        { title: 'Stage', value: stage, short: true }
+        { title: 'Stage', value: stage, short: true },
+        {
+          title: 'Location',
+          value: `${data.location ? data.location : 'Hors ligne'}`,
+          short: true
+        }
       ]
     }
   ]
