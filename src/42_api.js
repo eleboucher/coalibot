@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 10:30:05 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 10:30:38 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,7 +355,7 @@ const profil = async (msg, channel, usr) => {
 const intralogtime = async (message, channel, ts) => {
   if (message.split(' ').length < 2) {
     postOnThread(
-      'Usage: cb intralogtime login[datedebut datefin | annee | mois | trimestre[1-4][annee] | semestre[1-2][annee]](date au format "Y-M-D")',
+      'Usage: cb intralogtime login [datedebut datefin | annee | mois | trimestre[1-4][annee] | semestre[1-2][annee]](date au format "Y-M-D")',
       channel,
       ts
     )
