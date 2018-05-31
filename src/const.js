@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 18:07:28 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 10:14:02 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 10:16:11 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ const month = {
 const helper = [
   {
     color: '#0c87e1',
+    title: 'Coalibot Helper',
     text: "<https://github.com/genesixx/coalibot/blob/master/README.md|Plus d'info>",
     fields: [
       {
