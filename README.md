@@ -4,24 +4,24 @@ Bot pour le slack de [42Born2Code](http://www.42.fr/)
 
 ## Features
 
-| Commandes    |                                  Fonction                                   |                                                             usage                                                              |
-| ------------ | :-------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------: |
-| Alliance     |                Donne les stats de la coalition de l'Alliance                |                                                          cb alliance                                                           |
-| addmusic     |          Ajoute une musique grâce à un lien youtube ou soundcloud           |                                                        cb addmusic lien                                                        |
-| brew         |            Donne une commande pour installer brew sur les dumps             |                                                            cb brew                                                             |
-| event        |                         Donne les events à ce jour                          |                                            cb event [date] (date au format \"Y-M-D\")                                          |
-| halp         |           Donne des instructions pour les problèmes liés à iscsi            |                                                            cb halp                                                             |
-| help         |                   Liste toutes les commandes de Coalibot                    |                                                            cb help                                                             |
-| intralogtime |           Donne le temps de log de l'intra sur une période donnée           | cb intralogtime login [datedebut datefin \| annee \| trimestre[1-4] [annee] \| semestre[1-2] [annee]] (date au format \"Y-M-D\") |
-| logtime      | Donne le temps de log de la badgeuse (mois par mois) sur une période donnée |                           cb logtime login [annee \| trimestre[1-4] [annee] \| semestre[1-2] [annee]]                            |
-| meteo        |                       Donne le temps qu'il fait à 42                        |                                                            cb meteo                                                            |
-| music        |                         Donne une musique aléatoire                         |                                                            cb music                                                            |
-| prof         |                        Donne les infos de l'étudiant                        |                                                         cb prof login                                                          |
-| score        |                        Donne le score des coalitions                        |                                                            cb score                                                            |
-| source       |                          Donne le repo de coalibot                          |                                                           cb source                                                            |
-| stat         |                            Stat du bot en direct                            |                                                            cb stat                                                             |
-| where        |                       Donne la position de l'étudiant                       |                                                        cb where [login]                                                        |
-| who          |                         Donne qui est à cette place                         |                                                         cb who [place]                                                         |
+| Commandes    |                                  Fonction                                   |                                                                usage                                                                |
+| ------------ | :-------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
+| Alliance     |                Donne les stats de la coalition de l'Alliance                |                                                             cb alliance                                                             |
+| addmusic     |          Ajoute une musique grâce à un lien youtube ou soundcloud           |                                                          cb addmusic lien                                                           |
+| brew         |            Donne une commande pour installer brew sur les dumps             |                                                               cb brew                                                               |
+| event        |                         Donne les events à ce jour                          |                                              cb event [date] (date au format \"Y-M-D\")                                             |
+| halp         |           Donne des instructions pour les problèmes liés à iscsi            |                                                               cb halp                                                               |
+| help         |                   Liste toutes les commandes de Coalibot                    |                                                               cb help                                                               |
+| intralogtime |           Donne le temps de log de l'intra sur une période donnée           | cb intralogtime login[datedebut datefin \| annee \| mois \| trimestre[1-4][annee] \| semestre[1-2][annee]] (date au format "Y-M-D") |
+| logtime      | Donne le temps de log de la badgeuse (mois par mois) sur une période donnée |                          cb logtime login [annee \| mois \| trimestre[1-4][annee] \| semestre[1-2][annee]]                          |
+| meteo        |                       Donne le temps qu'il fait à 42                        |                                                              cb meteo                                                               |
+| music        |                         Donne une musique aléatoire                         |                                                              cb music                                                               |
+| prof         |                        Donne les infos de l'étudiant                        |                                                            cb prof login                                                            |
+| score        |                        Donne le score des coalitions                        |                                                              cb score                                                               |
+| source       |                          Donne le repo de coalibot                          |                                                              cb source                                                              |
+| stat         |                            Stat du bot en direct                            |                                                               cb stat                                                               |
+| where        |                       Donne la position de l'étudiant                       |                                                          cb where [login]                                                           |
+| who          |                         Donne qui est à cette place                         |                                                           cb who [place]                                                            |
 
 Bonus
 
