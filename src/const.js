@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 18:07:28 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/29 17:27:52 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 09:57:08 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,89 @@ const month = {
   novembre: 10,
   decembre: 11
 }
+
+const helper = [
+  {
+    fields: [
+      {
+        title: 'alliance',
+        value: "Stats de l'Alliance",
+        short: true
+      },
+      {
+        title: 'addmusic',
+        value: 'ajoute une musique a la playlist',
+        short: true
+      },
+      {
+        title: 'brew',
+        value: 'Commande pour installer brew',
+        short: true
+      },
+      {
+        title: 'event',
+        value: 'Event de ce jour',
+        short: true
+      },
+      {
+        title: 'halp',
+        value: 'Instructions pour les problèmes liés à iscsi',
+        short: true
+      },
+      {
+        title: 'intralogtime',
+        value: "Donne le temps de log de l'intra sur une période donnée",
+        short: true
+      },
+      {
+        title: 'logtime',
+        value: 'Donne le temps de log de la badgeuse sur une période donnée',
+        short: true
+      },
+      {
+        title: 'meteo',
+        value: 'Donne le temps quil fait à 42',
+        short: true
+      },
+      {
+        title: 'music',
+        value: 'Donne une musique aléatoire',
+        short: true
+      },
+      {
+        title: 'prof',
+        value: " Donne les infos de l'étudiant",
+        short: true
+      },
+      {
+        title: 'score',
+        value: 'Donne le score des coalitions',
+        short: true
+      },
+      {
+        title: 'source',
+        value: 'Donne le repo de Coalibot',
+        short: true
+      },
+      {
+        title: 'stat',
+        value: 'Stat du bot en direct',
+        short: true
+      },
+      {
+        title: 'where',
+        value: "Donne la position de l'étudiant",
+        short: true
+      },
+      {
+        title: 'who',
+        value: 'Donne qui est à cette place',
+        short: true
+      }
+    ],
+    footer: 'Powered by Coalibot'
+  }
+]
 
 const BLACKLISTCHAN = [
   'G2XKVFENT',
@@ -246,4 +329,4 @@ const parrot = [
   'parrothd'
 ]
 
-module.exports = { month, parrot, BLACKLISTCHAN }
+module.exports = { month, helper, parrot, BLACKLISTCHAN }

@@ -6,17 +6,25 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 09:32:40 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 09:59:20 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, getUsername } = require('./slack_api')
+const {
+  postMessage,
+  postUserMessage,
+  sendReaction,
+  fileUpload,
+  postOnThread,
+  getUsername,
+  postAttachmentsOnThread
+} = require('./slack_api')
 const { score, alliance, intralogtime, logtime, profil, who, where, event } = require('./42_api')
 const { citation } = require('./citation')
 const { randomgif } = require('./giphy')
 const { roll, addmusic, music, meteo, dobby, php, roulette, coin, roulettestat, roulettetop } = require('./miscs')
 const fs = require('fs')
-const { parrot } = require('./const')
+const { parrot, helper } = require('./const')
 const { choose } = require('./utils')
 const { addCommand } = require('./database')
 
@@ -37,7 +45,7 @@ const reply = async (cmd, channel) => {
 functions = {
   alliance: (message, channel, ts, user) => alliance(channel),
   score: (message, channel, ts, user) => score(ts, channel),
-  help: (message, channel, ts, user) => fileUpload(fs.createReadStream('./featurespic.png'), channel),
+  help: (message, channel, ts, user) => postAttachmentsOnThread('', helper, channel, ts),
   glegendr: (message, channel, ts, user) => randomgif('how about no'.replace(' ', '+'), channel),
   mfranc: (message, channel, ts, user) => postMessage(choose(['>Doucement avec les bots', '>Puuuuuuuuuuuuu']), channel),
   score: (message, channel, ts, user) => score(channel, ts),
