@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 18:07:28 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 09:57:08 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 10:08:51 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ const month = {
 
 const helper = [
   {
+    color: '#0c87e1',
     fields: [
       {
         title: 'alliance',
@@ -101,6 +102,35 @@ const helper = [
       {
         title: 'who',
         value: 'Donne qui est à cette place',
+        short: true
+      },
+      {
+        title: 'Bonus',
+        short: false
+      },
+      {
+        title: 'coin',
+        value: 'pile ou face',
+        short: true
+      },
+      {
+        title: 'kaamelott',
+        value: 'Citation aléatoire de Kaamelott',
+        short: true
+      },
+      {
+        title: 'oss',
+        value: 'Citation aléatoire de OSS 117',
+        short: true
+      },
+      {
+        title: 'roll',
+        value: 'random',
+        short: true
+      },
+      {
+        title: 'roulette',
+        value: 'Roulette Russe',
         short: true
       }
     ],
