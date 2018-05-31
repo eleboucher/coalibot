@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/24 19:10:24 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 08:56:16 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ const get_range_logtime = async (name, start, end) => {
 
 const logtime = async (message, channel, ts) => {
   if (message.split(' ').length < 2) {
-    postOnThread('usage: cb logtime login [annee | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
+    postOnThread('Usage: cb logtime login [annee | mois | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
     return
   }
   const intradata = await request42('/v2/users/' + message.split(' ')[2])
@@ -211,7 +211,10 @@ const logtime = async (message, channel, ts) => {
     const logtime = await get_range_logtime(name, date_begin, date_end)
     postOnThread(logtime + 'h', channel, ts)
   } else if (
-    message.split(' ')[3] in month &&
+    message
+      .split(' ')[3]
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') in month &&
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016))
   ) {
     const year =
@@ -229,7 +232,8 @@ const logtime = async (message, channel, ts) => {
       const logtime = await get_range_logtime(name, date_begin, date_end)
       postOnThread(logtime + 'h', channel, ts)
     }
-  } else postOnThread('usage: cb logtime login [annee | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
+  } else
+    postOnThread('Usage: cb logtime login [annee | mois | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
 }
 
 const get_range_intralogtime = async (user, range_begin, range_end) => {
@@ -345,6 +349,14 @@ const profil = async (msg, channel, usr) => {
 }
 
 const intralogtime = async (message, channel, ts) => {
+  if (message.split(' ').length < 2) {
+    postOnThread(
+      'Usage: cb intralogtime login[datedebut datefin | annee | mois | trimestre[annee]](date au format "Y-M-D")',
+      channel,
+      ts
+    )
+    return
+  }
   if (message.split(' ').length === 3) {
     let date_begin = moment().subtract(7, 'days')
     let date_end = moment().add(1, 'days')
@@ -402,7 +414,10 @@ const intralogtime = async (message, channel, ts) => {
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
   } else if (
-    message.split(' ')[3] in month &&
+    message
+      .split(' ')[3]
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') in month &&
     (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
   ) {
     const year =
@@ -424,12 +439,12 @@ const intralogtime = async (message, channel, ts) => {
       postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
       return
     }
-  }
-  postOnThread(
-    'Usage: cb logtime login [datedebut datefin | annee | trimestre [annee]] (date au format "Y-M-D")',
-    channel,
-    ts
-  )
+  } else
+    postOnThread(
+      'Usage: cb intralogtime login [datedebut datefin | annee | mois | trimestre [annee]] (date au format "Y-M-D")',
+      channel,
+      ts
+    )
 }
 
 const who = async (msg, channel) => {
