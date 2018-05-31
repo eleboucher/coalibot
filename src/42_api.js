@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 10:30:38 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 17:01:45 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,18 @@ const alliance = async channel => {
   while (json[rang]['id'] !== 2) rang += 1
   if (rang === 0) {
     const diff = json[rang]['score'] - json[1]['score']
-    postMessage(`Felicitations Nous sommes premiers avec ${rang + 1} points d'avance. :the-alliance:`, channel)
+    postMessage(
+      `Felicitations Nous sommes premiers avec ${rang +
+        1} points d'avance. :the-alliance:`,
+      channel
+    )
   } else {
     const diff = json[0]['score'] - json[rang]['score']
-    postMessage(`Nous sommes à la ${rang + 1}eme place avec ${diff} points de retard. :the-alliance:`, channel)
+    postMessage(
+      `Nous sommes à la ${rang +
+        1}eme place avec ${diff} points de retard. :the-alliance:`,
+      channel
+    )
   }
 }
 
@@ -91,17 +99,32 @@ const score = async channel => {
         },
         {
           title: json[1]['name'],
-          value: String(json[1]['score'] + ' (' + Number(json[1]['score'] - json[0]['score']) + ')'),
+          value: String(
+            json[1]['score'] +
+              ' (' +
+              Number(json[1]['score'] - json[0]['score']) +
+              ')'
+          ),
           short: true
         },
         {
           title: json[2]['name'],
-          value: String(json[2]['score'] + ' (' + Number(json[2]['score'] - json[0]['score']) + ')'),
+          value: String(
+            json[2]['score'] +
+              ' (' +
+              Number(json[2]['score'] - json[0]['score']) +
+              ')'
+          ),
           short: true
         },
         {
           title: json[3]['name'],
-          value: String(json[3]['score'] + ' (' + Number(json[3]['score'] - json[0]['score']) + ')'),
+          value: String(
+            json[3]['score'] +
+              ' (' +
+              Number(json[3]['score'] - json[0]['score']) +
+              ')'
+          ),
           short: true
         }
       ],
@@ -113,7 +136,10 @@ const score = async channel => {
 
 const getHourByName = (name, data) => {
   let h = false
-  const regex = new RegExp('(\\b|^)' + name.last + '(\\d|), ' + name.first + '(\\d|)(\\b|$)', 'i')
+  const regex = new RegExp(
+    '(\\b|^)' + name.last + '(\\d|), ' + name.first + '(\\d|)(\\b|$)',
+    'i'
+  )
   for (let o of data) {
     if (regex.test(o.name)) {
       h += parseInt(o.h)
@@ -152,7 +178,11 @@ const get_range_logtime = async (name, start, end) => {
 
 const logtime = async (message, channel, ts) => {
   if (message.split(' ').length < 2) {
-    postOnThread('Usage: cb logtime login [annee | mois | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
+    postOnThread(
+      'Usage: cb logtime login [annee | mois | trimestre[1-4] [annee] | semestre[1-2] [annee]]',
+      channel,
+      ts
+    )
     return
   }
   const intradata = await request42('/v2/users/' + message.split(' ')[2])
@@ -186,7 +216,9 @@ const logtime = async (message, channel, ts) => {
     postOnThread(logtime + 'h', channel, ts)
   } else if (
     /(\b|^)trimestre[1-4](\b|$)/i.test(message.split(' ')[3]) &&
-    (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016))
+    (message.split(' ').length === 4 ||
+      (message.split(' ').length === 5 &&
+        parseInt(message.split(' ')[4]) > 2016))
   ) {
     let quarter = parseInt(message.split(' ')[3].replace('trimestre', '')) - 1
     const year =
@@ -199,7 +231,9 @@ const logtime = async (message, channel, ts) => {
     postOnThread(logtime + 'h', channel, ts)
   } else if (
     /(\b|^)semestre[1-2](\b|$)/i.test(message.split(' ')[3]) &&
-    (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016))
+    (message.split(' ').length === 4 ||
+      (message.split(' ').length === 5 &&
+        parseInt(message.split(' ')[4]) > 2016))
   ) {
     let semestre = parseInt(message.split(' ')[3].replace('semestre', '')) - 1
     const year =
@@ -215,7 +249,9 @@ const logtime = async (message, channel, ts) => {
       .split(' ')[3]
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '') in month &&
-    (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2016))
+    (message.split(' ').length === 4 ||
+      (message.split(' ').length === 5 &&
+        parseInt(message.split(' ')[4]) > 2016))
   ) {
     const year =
       message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012
@@ -228,16 +264,24 @@ const logtime = async (message, channel, ts) => {
   } else if (
     message.split(' ').length === 5 &&
     moment(message.split(' ')[3], moment.ISO_8601, true).isValid() &&
-    (message.split(' ')[4] === 'today' || moment(message.split(' ')[4], moment.ISO_8601, true).isValid())
+    (message.split(' ')[4] === 'today' ||
+      moment(message.split(' ')[4], moment.ISO_8601, true).isValid())
   ) {
-    let date_end = message.split(' ')[4] === 'today' ? moment() : moment(message.split(' ')[4])
+    let date_end =
+      message.split(' ')[4] === 'today'
+        ? moment()
+        : moment(message.split(' ')[4])
     let date_begin = moment(message.split(' ')[3])
     if (date_end.isValid() && date_begin.isValid()) {
       const logtime = await get_range_logtime(name, date_begin, date_end)
       postOnThread(logtime + 'h', channel, ts)
     }
   } else
-    postOnThread('Usage: cb logtime login [annee | mois | trimestre[1-4] [annee] | semestre[1-2] [annee]]', channel, ts)
+    postOnThread(
+      'Usage: cb logtime login [annee | mois | trimestre[1-4] [annee] | semestre[1-2] [annee]]',
+      channel,
+      ts
+    )
 }
 
 const get_range_intralogtime = async (user, range_begin, range_end) => {
@@ -296,7 +340,10 @@ const profil = async (msg, channel, usr) => {
   else {
     let username = await getUsername(usr)
     try {
-      user = username['user']['email'].strsub(0, username['user']['email'].indexOf('@'))
+      user = username['user']['email'].strsub(
+        0,
+        username['user']['email'].indexOf('@')
+      )
     } catch (err) {
       user = username['user']['name']
     }
@@ -311,7 +358,11 @@ const profil = async (msg, channel, usr) => {
     return
   }
   let lvlpiscine = 0
-  if (!data['pool_year'] || data['pool_year'] === '2013' || data['pool_year'] === '2014') {
+  if (
+    !data['pool_year'] ||
+    data['pool_year'] === '2013' ||
+    data['pool_year'] === '2014'
+  ) {
     lvlpiscine = 0
   } else if (data['cursus_users'].length === 1) {
     lvlpiscine = data['cursus_users'][0]['level']
@@ -326,30 +377,40 @@ const profil = async (msg, channel, usr) => {
   graph = 'https://projects.intra.42.fr/projects/graph?login=' + user
   const stage = (data => {
     const ret = {
-      finished: 'A fait son',
-      in_progress: 'En cours de'
+      finished: ':white_check_mark:',
+      in_progress: ':clock1:'
     }
     const u = data.projects_users.find(d => d.project.id === 118)
     const uploaded = data.projects_users.find(d => d.project.id === 119)
-    return u && uploaded && uploaded['status'] === 'finished' ? ret[u['status']] : "N'a pas fait son"
+    return u && uploaded && uploaded['status'] === 'finished'
+      ? ret[u['status']]
+      : ':negative_squared_cross_mark:'
   })(data)
-  postMessage(
-    sprintf(
-      '%s %s\nPhoto: `%s`\nTemps de log cette semaine %02d:%02d\nNiveau: %.2f\nNiveau piscine  %.2f %s %s\n%s stage\nGraph: %s',
-      data['displayname'],
-      coalslug,
-      data['image_url'],
-      time[0],
-      time[1],
-      lvl === 0 ? 0 : data['cursus_users'][0]['level'],
-      lvlpiscine,
-      data['pool_month'],
-      data['pool_year'],
-      stage,
-      graph
-    ),
-    channel
-  )
+  attachments = [
+    {
+      title: `${data['displayname']} ${coalslug}`,
+      title_link: 'https://profile.intra.42.fr/users/' + user,
+      color: coaldata['color'],
+      thumb_url: data['image_url'],
+      fields: [
+        {
+          title: 'Niveau',
+          value: `Niveau: ${
+            lvl === 0 ? 0 : data['cursus_users'][0]['level']
+          } Niveau piscine: ${lvlpiscine} ${data['pool_month']} ${
+            data['pool_year']
+          }`
+        },
+        {
+          title: 'Temps de log cette semaine',
+          value: `${sprintf('%02d:%02d', time[0], time[1])}`,
+          short: true
+        },
+        { title: 'stage', value: stage, short: true }
+      ]
+    }
+  ]
+  postAttachments('', attachments, channel)
 }
 
 const intralogtime = async (message, channel, ts) => {
@@ -364,7 +425,11 @@ const intralogtime = async (message, channel, ts) => {
   if (message.split(' ').length === 3) {
     let date_begin = moment().subtract(7, 'days')
     let date_end = moment().add(1, 'days')
-    const logtime = await get_range_intralogtime(message.split(' ')[2], date_begin, date_end)
+    const logtime = await get_range_intralogtime(
+      message.split(' ')[2],
+      date_begin,
+      date_end
+    )
     const time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
@@ -383,13 +448,19 @@ const intralogtime = async (message, channel, ts) => {
       M: 11,
       d: 31
     })
-    const logtime = await get_range_intralogtime(message.split(' ')[2], date_begin, date_end)
+    const logtime = await get_range_intralogtime(
+      message.split(' ')[2],
+      date_begin,
+      date_end
+    )
     const time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
   } else if (
     /(\b|^)trimestre[1-4](\b|$)/i.test(message.split(' ')[3]) &&
-    (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
+    (message.split(' ').length === 4 ||
+      (message.split(' ').length === 5 &&
+        parseInt(message.split(' ')[4]) > 2012))
   ) {
     let quarter = parseInt(message.split(' ')[3].replace('trimestre', '')) - 1
     const year =
@@ -397,14 +468,23 @@ const intralogtime = async (message, channel, ts) => {
         ? parseInt(message.split(' ')[4])
         : new Date().getFullYear()
     let date_begin = moment(new Date(year, quarter * 3, 1))
-    let date_end = moment(new Date(year, date_begin.get('month') + 3, 0)).add(1, 'days')
-    const logtime = await get_range_intralogtime(message.split(' ')[2], date_begin, date_end)
+    let date_end = moment(new Date(year, date_begin.get('month') + 3, 0)).add(
+      1,
+      'days'
+    )
+    const logtime = await get_range_intralogtime(
+      message.split(' ')[2],
+      date_begin,
+      date_end
+    )
     const time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
   } else if (
     /(\b|^)semestre[1-2](\b|$)/i.test(message.split(' ')[3]) &&
-    (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
+    (message.split(' ').length === 4 ||
+      (message.split(' ').length === 5 &&
+        parseInt(message.split(' ')[4]) > 2012))
   ) {
     let semestre = parseInt(message.split(' ')[3].replace('semestre', '')) - 1
     const year =
@@ -412,8 +492,15 @@ const intralogtime = async (message, channel, ts) => {
         ? parseInt(message.split(' ')[4])
         : new Date().getFullYear()
     let date_begin = moment(new Date(year, semestre * 6, 1))
-    let date_end = moment(new Date(year, date_begin.get('month') + 6, 0)).add(1, 'days')
-    const logtime = await get_range_intralogtime(message.split(' ')[2], date_begin, date_end)
+    let date_end = moment(new Date(year, date_begin.get('month') + 6, 0)).add(
+      1,
+      'days'
+    )
+    const logtime = await get_range_intralogtime(
+      message.split(' ')[2],
+      date_begin,
+      date_end
+    )
     const time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
@@ -422,27 +509,43 @@ const intralogtime = async (message, channel, ts) => {
       .split(' ')[3]
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '') in month &&
-    (message.split(' ').length === 4 || (message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012))
+    (message.split(' ').length === 4 ||
+      (message.split(' ').length === 5 &&
+        parseInt(message.split(' ')[4]) > 2012))
   ) {
     const year =
       message.split(' ').length === 5 && parseInt(message.split(' ')[4]) > 2012
         ? parseInt(message.split(' ')[4])
         : new Date().getFullYear()
     let date_begin = moment(new Date(year, month[message.split(' ')[3]], 1))
-    let date_end = moment(new Date(year, month[message.split(' ')[3]] + 1, 0)).add(1, 'days')
-    const logtime = await get_range_intralogtime(message.split(' ')[2], date_begin, date_end)
+    let date_end = moment(
+      new Date(year, month[message.split(' ')[3]] + 1, 0)
+    ).add(1, 'days')
+    const logtime = await get_range_intralogtime(
+      message.split(' ')[2],
+      date_begin,
+      date_end
+    )
     let time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
   } else if (
     message.split(' ').length === 5 &&
     moment(message.split(' ')[3], moment.ISO_8601, true).isValid() &&
-    (message.split(' ')[4] === 'today' || moment(message.split(' ')[4], moment.ISO_8601, true).isValid())
+    (message.split(' ')[4] === 'today' ||
+      moment(message.split(' ')[4], moment.ISO_8601, true).isValid())
   ) {
-    let date_end = message.split(' ')[4] === 'today' ? moment() : moment(message.split(' ')[4])
+    let date_end =
+      message.split(' ')[4] === 'today'
+        ? moment()
+        : moment(message.split(' ')[4])
     let date_begin = moment(message.split(' ')[3])
     if (date_end.isValid() && date_begin.isValid()) {
-      const logtime = await get_range_intralogtime(message.split(' ')[2], date_begin, date_end)
+      const logtime = await get_range_intralogtime(
+        message.split(' ')[2],
+        date_begin,
+        date_end
+      )
       const time = format_output_datetime(logtime)
       postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
       return
@@ -465,13 +568,18 @@ const who = async (msg, channel) => {
   const url = `/v2/campus/1/locations/?filter[host]=${place}&filter[active]=true`
   const data = await request42(url)
   if (data.length === 0) postMessage(`Place *${place}* vide`, channel)
-  else postMessage(`*${data[0]['user']['login']}* est à la place *${place}*`, channel)
+  else
+    postMessage(
+      `*${data[0]['user']['login']}* est à la place *${place}*`,
+      channel
+    )
 }
 
 const where = async (msg, channel, usr) => {
   if (
     msg.split(' ').length === 6 &&
-    (msg.indexOf('le branle couille') !== -1 || msg.indexOf('la branle couille') !== -1)
+    (msg.indexOf('le branle couille') !== -1 ||
+      msg.indexOf('la branle couille') !== -1)
   ) {
     let date_begin = moment().subtract(7, 'days')
     let date_end = moment().add(1, 'days')
@@ -488,7 +596,8 @@ const where = async (msg, channel, usr) => {
       postMessage(`login invalide`, channel)
       return
     }
-    if (data.length === 0 || data[0]['end_at']) postMessage(`*${user}* est hors ligne`, channel)
+    if (data.length === 0 || data[0]['end_at'])
+      postMessage(`*${user}* est hors ligne`, channel)
     else postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel)
     return
   }
@@ -496,25 +605,45 @@ const where = async (msg, channel, usr) => {
   else {
     let username = await getUsername(usr)
     try {
-      user = username['user']['email'].strsub(0, username['user']['email'].indexOf('@'))
+      user = username['user']['email'].strsub(
+        0,
+        username['user']['email'].indexOf('@')
+      )
     } catch (err) {
       user = username['user']['name']
     }
   }
   if (!user || user.startsWith('!') || user.startsWith('?')) return
   if (user === 'queen' || user == 'way') {
-    postMessage("follow me bruddah\ni'll show you de way :uganda_knuckles:", channel)
+    postMessage(
+      "follow me bruddah\ni'll show you de way :uganda_knuckles:",
+      channel
+    )
     return
   }
   if (user === 'dieu' || user === 'dobby') user = 'elebouch'
   if (user === 'manager') user = 'vtennero'
   if (user === 'guardians' || user === 'gardiens') {
-    guardians = ['dcirlig', 'vtennero', 'elebouch', 'fbabin', 'tbailly-', 'mmerabet', 'aledru', 'dlavaury']
+    guardians = [
+      'dcirlig',
+      'vtennero',
+      'elebouch',
+      'fbabin',
+      'tbailly-',
+      'mmerabet',
+      'aledru',
+      'dlavaury'
+    ]
     for (let guardian of guardians) {
       url = `/v2/users/${guardian}/locations`
       const data = await request42(url)
-      if (!data || data.length === 0 || data[0]['end_at']) postMessage(`*${guardian}* est hors ligne`, channel)
-      else postMessage(`*${guardian}* est à la place *${data[0]['host']}*`, channel)
+      if (!data || data.length === 0 || data[0]['end_at'])
+        postMessage(`*${guardian}* est hors ligne`, channel)
+      else
+        postMessage(
+          `*${guardian}* est à la place *${data[0]['host']}*`,
+          channel
+        )
     }
     return
   }
@@ -524,7 +653,8 @@ const where = async (msg, channel, usr) => {
     postMessage(`login invalide`, channel)
     return
   }
-  if (data.length === 0 || data[0]['end_at']) postMessage(`*${user}* est hors ligne`, channel)
+  if (data.length === 0 || data[0]['end_at'])
+    postMessage(`*${user}* est hors ligne`, channel)
   else postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel)
 }
 
