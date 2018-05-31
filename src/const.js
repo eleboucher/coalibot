@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 18:07:28 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 10:20:49 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 17:10:45 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ const helper = [
 ]
 
 const BLACKLISTCHAN = [
+  'CAW4XU70T',
   'G2XKVFENT',
   'C0CPCFLJ1',
   'C7PSZQK7G',

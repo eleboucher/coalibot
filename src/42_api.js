@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 17:08:49 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 17:09:46 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,7 +391,7 @@ const profil = async (msg, channel, usr) => {
     {
       title: `${data['displayname']} ${coalslug}`,
       title_link: 'https://profile.intra.42.fr/users/' + user,
-      color: coaldata.color,
+      color: coaldata[0]['color'],
       thumb_url: data['image_url'],
       fields: [
         {
