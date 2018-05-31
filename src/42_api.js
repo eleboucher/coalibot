@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 09:06:27 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 09:12:49 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,8 +227,8 @@ const logtime = async (message, channel, ts) => {
     postOnThread(logtime + 'h', channel, ts)
   } else if (
     message.split(' ').length === 5 &&
-    moment(message.split(' ')[3]).isValid() &&
-    (message.split(' ')[4] === 'today' || moment(message.split(' ')[4]).isValid())
+    moment(message.split(' ')[3], moment.ISO_8601, true).isValid() &&
+    (message.split(' ')[4] === 'today' || moment(message.split(' ')[4], moment.ISO_8601, true).isValid())
   ) {
     let date_end = message.split(' ')[4] === 'today' ? moment() : moment(message.split(' ')[4])
     let date_begin = moment(message.split(' ')[3])
@@ -436,8 +436,8 @@ const intralogtime = async (message, channel, ts) => {
     return
   } else if (
     message.split(' ').length === 5 &&
-    moment(message.split(' ')[3], true).isValid() &&
-    (message.split(' ')[4] === 'today' || moment(message.split(' ')[4], true).isValid())
+    moment(message.split(' ')[3], moment.ISO_8601, true).isValid() &&
+    (message.split(' ')[4] === 'today' || moment(message.split(' ')[4], moment.ISO_8601, true).isValid())
   ) {
     let date_end = message.split(' ')[4] === 'today' ? moment() : moment(message.split(' ')[4])
     let date_begin = moment(message.split(' ')[3])
