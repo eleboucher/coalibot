@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/23 11:20:48 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 09:32:40 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ functions = {
 
 const handleCommand = async (msg, channel, ts, user) => {
   const message = msg.replace(/\s+/g, ' ').trim()
-  console.log({ user, message })
+  console.log({ channel, user, message })
   let command
   let option = null
   let isCommand = false
