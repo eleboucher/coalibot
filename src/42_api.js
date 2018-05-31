@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 08:56:16 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/05/31 09:03:40 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,11 @@ const logtime = async (message, channel, ts) => {
     let date_end = moment({ y: year, M: month[message.split(' ')[3]], d: 1 })
     const logtime = await get_range_logtime(name, date_begin, date_end)
     postOnThread(logtime + 'h', channel, ts)
-  } else if (message.split(' ').length === 5) {
+  } else if (
+    message.split(' ').length === 5 &&
+    moment(message.split(' ')[3]).isValid() &&
+    (message.split(' ')[4] === 'today' || moment(message.split(' ')[4]).isValid())
+  ) {
     let date_end = message.split(' ')[4] === 'today' ? moment() : moment(message.split(' ')[4])
     let date_begin = moment(message.split(' ')[3])
     if (date_end.isValid() && date_begin.isValid()) {
@@ -430,7 +434,11 @@ const intralogtime = async (message, channel, ts) => {
     let time = format_output_datetime(logtime)
     postOnThread(sprintf(`%02dh%02d`, time[0], time[1]), channel, ts)
     return
-  } else if (message.split(' ').length === 5) {
+  } else if (
+    message.split(' ').length === 5 &&
+    moment(message.split(' ')[3]).isValid() &&
+    (message.split(' ')[4] === 'today' || moment(message.split(' ')[4]).isValid())
+  ) {
     let date_end = message.split(' ')[4] === 'today' ? moment() : moment(message.split(' ')[4])
     let date_begin = moment(message.split(' ')[3])
     if (date_end.isValid() && date_begin.isValid()) {
