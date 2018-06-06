@@ -341,10 +341,9 @@ const profil = async (msg, channel, usr) => {
   else {
     let username = await getUsername(usr)
     try {
-      user = username['user']['profile']['email']
-      user = user.strsub(
+      user = username['user']['profile']['email'].toString().strsub(
         0,
-        username['user']['profile']['email'].indexOf('@')
+        username['user']['profile']['email'].toString().indexOf('@')
       )
     } catch (err) {
       user = username['user']['name']
@@ -614,10 +613,9 @@ const where = async (msg, channel, usr) => {
   else {
     let username = await getUsername(usr)
     try {
-      user = username['user']['profile']['email']
-      user = user.strsub(
+      user = username['user']['profile']['email'].toString().strsub(
         0,
-        username['user']['profile']['email'].indexOf('@')
+        username['user']['profile']['email'].toString().indexOf('@')
       )
     } catch (err) {
       user = username['user']['name']
