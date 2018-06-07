@@ -391,7 +391,7 @@ const profil = async (msg, channel, usr) => {
     {
       title: `${data['displayname']} - ${user} ${coalslug}`,
       title_link: 'https://profile.intra.42.fr/users/' + user,
-      color: (coaldata && coaldata[0]['color']) ? coaldata[0]['color'] : '#D40000',
+      color: (coaldata && coaldata.length !== 0 && coaldata[0]['color']) ? coaldata[0]['color'] : '#D40000',
       thumb_url: data['image_url'],
       fields: [
         {
