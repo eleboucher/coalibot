@@ -7,6 +7,7 @@
   "halp":
     "Bonjour\n Je t'invite à taper `iscsictl list targets` dans ton terminal\n à copier la ligne contenant ton login mais sans la partie entre <>\n puis à taper `iscsictl <la ligne copiée>`",
   "source": "`https://github.com/genesixx/coalibot`",
+  "reset": "Reset : `touch ~/.reset\n` Reset library : `touch ~/.reset_library`\nPense ensuite à te déconnecter puis te reconnecter.",
   "stat": "`http://coalibot.erwanleboucher.fr/`",
   "elebouch": "Dodge les BH tel un moine shaolin",
   "jcharloi": "fais tes 9h!",
