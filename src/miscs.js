@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/22 13:24:57 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/06/16 09:11:25 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ const roll = (message, channel, ts) => {
       str += i < length - 1 ? ' ' : ''
     }
     postOnThread(str, channel, ts)
-  } else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[2]) && /^\d+-\d+$/g.test(message.split(' ')[3])) {
+  } else if (
+    message.split(' ').length === 4 &&
+    !isNaN(message.split(' ')[2]) &&
+    /^\d+-\d+$/g.test(message.split(' ')[3])
+  ) {
     let length = parseInt(message.split(' ')[2])
     let min = parseInt(message.split(' ')[3].split('-')[0])
     let max = parseInt(message.split(' ')[3].split('-')[1])
@@ -138,8 +142,9 @@ const meteo = async (message, channel) => {
 }
 
 const dobby = async (user, channel) => {
-  const allowedUsers = ['elebouch', 'korlandi']
-  const linkImg = 'http://cdn.playbuzz.com/cdn/66f922e7-af02-4e0c-9005-99f36c6a556b/780b5a18-483a-495a-9209-d9dac17c53c7_560_420.jpg'
+  const allowedUsers = ['elebouch', 'korlandi', 'echoison']
+  const linkImg =
+    'http://cdn.playbuzz.com/cdn/66f922e7-af02-4e0c-9005-99f36c6a556b/780b5a18-483a-495a-9209-d9dac17c53c7_560_420.jpg'
   let username = await getUsername(user)
   if ('user' in username && 'name' in username['user']) {
     username = username['user']['name']
@@ -222,7 +227,9 @@ const roulettetop = async channel => {
 }
 
 const coin = (channel, user) => {
-  Math.floor(Math.random() * 2) === 0 ? postMessage(`<@${user}>: Heads`, channel) : postMessage(`<@${user}>: Tails`, channel)
+  Math.floor(Math.random() * 2) === 0
+    ? postMessage(`<@${user}>: Heads`, channel)
+    : postMessage(`<@${user}>: Tails`, channel)
 }
 
 module.exports.roll = roll
