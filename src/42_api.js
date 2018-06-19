@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/06/11 14:16:16 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/06/19 11:24:07 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,7 +369,8 @@ const profil = async (msg, channel, usr) => {
             value: `${data.location ? data.location : 'Hors ligne'}`,
             short: true
           }
-        ]
+        ],
+        footer: 'Powered by Coalibot'
       }
     ]
     postAttachments('', attachments, channel)
