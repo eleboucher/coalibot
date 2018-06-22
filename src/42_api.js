@@ -54,7 +54,7 @@ const request42 = async url => {
 }
 
 const alliance = async channel => {
-  const json = await request42('/v2/coalitions')
+  const json = await request42('/v2/blocs/1/coalitions')
   json.sort(function(a, b) {
     return a.score < b.score
   })
@@ -70,7 +70,7 @@ const alliance = async channel => {
 }
 
 const score = async channel => {
-  const json = await request42('/v2/coalitions')
+  const json = await request42('/v2/blocs/1/coalitions')
   json.sort(function(a, b) {
     return a.score < b.score
   })
