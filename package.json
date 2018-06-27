@@ -21,16 +21,16 @@
   },
   "homepage": "https://github.com/genesixx/coalibot#readme",
   "dependencies": {
-    "@slack/client": "^4.2.2",
+    "@slack/client": "^4.3.1",
     "cheerio": "^1.0.0-rc.2",
     "client-oauth2": "^4.2.1",
-    "csv-parse": "^2.4.0",
-    "moment": "^2.22.1",
+    "csv-parse": "^2.5.0",
+    "moment": "^2.22.2",
     "p-throttle": "^1.1.0",
     "pg": "^7.4.3",
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
-    "sequelize": "^4.37.10",
+    "sequelize": "^4.38.0",
     "slack": "^11.0.0",
     "sprintf-js": "^1.1.1"
   }
