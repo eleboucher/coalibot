@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/07/18 14:37:46 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/07/18 14:42:17 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -589,12 +589,12 @@ const who = async (msg, channel) => {
       channel
     )
   } else if (data[0].end_at !== null) {
-    const diff = moment.duration(moment().diff(moment(data[0].end_at)))
+    const diff = moment(data[0].end_at).fromNow()
     const time = format_output_datetime(diff)
     postMessage(
       `Place *${place}* vide, ancien utilisateur: *${
         data[0]["user"]["login"]
-      }* il y a ` + sprintf(`%02dh%02d`, time[0], time[1]),
+      }*` + sprintf(`%02dh%02d`, time[0], time[1]),
       channel
     )
   }
