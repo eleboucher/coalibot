@@ -363,11 +363,12 @@ const logtime = async (message, user, channel, ts) => {
       : option.logtime + 'h'
     let attachment = [
       {
-        text: `Logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour ${
+        text: `Logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour *${
           option.login
-        } entre ${option.date_begin.format('LL')} et ${option.date_end.format(
+        }* entre *${option.date_begin.format('LL')}* et *${option.date_end.format(
           'LL'
-        )}`,
+        )}*`,
+        title: '',
         fields: [
           {
             title: 'Résultat',
