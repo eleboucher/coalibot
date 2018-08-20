@@ -6,11 +6,15 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 00:50:43 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 00:53:42 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-const { getUsername, postAttachmentsOnThread } = require('./slack_api')
+const {
+  getUsername,
+  postAttachmentsOnThread,
+  postOnThread
+} = require('./slack_api')
 const { request42 } = require('./request')
 const parse = require('csv-parse/lib/sync')
 var fs = require('fs')
@@ -349,13 +353,7 @@ const logtime = async (message, user, channel, ts) => {
   }
   moment.locale('fr')
   if (option.error === true) {
-    let attachment = [
-      {
-        text: usage,
-        color: '#D40000'
-      }
-    ]
-    postAttachmentsOnThread('', attachment, channel, ts)
+    postOnThread(usage, channel, ts)
   }
   if (option.logtime !== '') {
     let logtimeString = option.intra
