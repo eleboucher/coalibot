@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 00:48:18 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 00:50:43 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -372,7 +372,7 @@ const logtime = async (message, user, channel, ts) => {
         )}`,
         fields: [
           {
-            title: 'resultat',
+            title: 'Résultat',
             value: logtimeString
           }
         ],
