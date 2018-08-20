@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 00:53:42 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 00:59:16 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,12 +363,6 @@ const logtime = async (message, user, channel, ts) => {
       : option.logtime + 'h'
     let attachment = [
       {
-        text: `Logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour *${
-          option.login
-        }* entre *${option.date_begin.format('LL')}* et *${option.date_end.format(
-          'LL'
-        )}*`,
-        title: '',
         fields: [
           {
             title: 'Résultat',
@@ -378,7 +372,16 @@ const logtime = async (message, user, channel, ts) => {
         color: 'good'
       }
     ]
-    postAttachmentsOnThread('', attachment, channel, ts)
+    postAttachmentsOnThread(
+      `Logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour *${
+        option.login
+      }* entre *${option.date_begin.format('LL')}* et *${option.date_end.format(
+        'LL'
+      )}*`,
+      attachment,
+      channel,
+      ts
+    )
   }
 }
 
