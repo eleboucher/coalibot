@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 00:11:53 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 00:22:26 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,8 +344,6 @@ const event = async (msg, channel) => {
 }
 
 module.exports.alliance = alliance
-module.exports.logtime = logtime
-module.exports.intralogtime = intralogtime
 module.exports.score = score
 module.exports.profil = profil
 module.exports.who = who
