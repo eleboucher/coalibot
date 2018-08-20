@@ -376,7 +376,7 @@ const logtime = async (message, user, channel, ts) => {
             value: logtimeString
           }
         ],
-        color: '#0000FF'
+        color: 'good'
       }
     ]
     postAttachmentsOnThread('', attachment, channel, ts)
