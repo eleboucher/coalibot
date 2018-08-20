@@ -6,11 +6,11 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 13:39:56 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/22 13:24:52 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/20 23:37:44 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-const { RTMClient, CLIENT_EVENTS, RTM_EVENTS } = require('@slack/client')
+const { RTMClient } = require('@slack/client')
 const { handleCommand } = require('./handle_command')
 const { BLACKLISTCHAN } = require('./const')
 
@@ -27,7 +27,7 @@ rtm.on('authenticated', () => {
 })
 
 // Read messages
-rtm.on('message', function(message) {
+rtm.on('message', function (message) {
   let channel = message['channel']
   if (!BLACKLISTCHAN.includes(channel) && message.text && message.user) {
     let text = message['text']

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 15:13:10 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 09:58:39 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 00:18:04 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,12 @@ const postAttachments = (text, attachments, channel) => {
 }
 
 const postAttachmentsOnThread = (text, attachments, channel, ts) => {
-  return bot.chat.postMessage({ thread_ts: ts, channel: channel, text: text, attachments: attachments })
+  return bot.chat.postMessage({
+    thread_ts: ts,
+    channel: channel,
+    text: text,
+    attachments: attachments
+  })
 }
 
 const getUsername = user => {

@@ -6,11 +6,16 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/06/16 09:11:25 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/20 23:42:55 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-const { postMessage, postUserMessage, sendReaction, fileUpload, postOnThread, getUsername } = require('./slack_api')
+const {
+  postMessage,
+  postUserMessage,
+  postOnThread,
+  getUsername
+} = require('./slack_api')
 const fs = require('fs')
 const { handlestat } = require('./utils')
 let rp = require('request-promise')
@@ -30,15 +35,27 @@ const roll = (message, channel, ts) => {
       .map(Function.prototype.call, String.prototype.trim)
       .filter(String)
 
-    length = parseInt(message.split(' ')[2])
-    if (randthings.length < 2 || randthings.length >= 1000000 || length > 100 || length <= 0) return
+    let length = parseInt(message.split(' ')[2])
+    if (
+      randthings.length < 2 ||
+      randthings.length >= 1000000 ||
+      length > 100 ||
+      length <= 0
+    ) {
+      return
+    }
     let str = ''
     for (let i = 0; i < length; i++) {
-      str += randthings[Math.floor(Math.random() * Math.floor(randthings.length))]
+      str +=
+        randthings[Math.floor(Math.random() * Math.floor(randthings.length))]
       str += i < length - 1 ? ' ' : ''
     }
     postOnThread(str, channel, ts)
-  } else if (message.split(' ').length === 4 && !isNaN(message.split(' ')[2]) && !isNaN(message.split(' ')[3])) {
+  } else if (
+    message.split(' ').length === 4 &&
+    !isNaN(message.split(' ')[2]) &&
+    !isNaN(message.split(' ')[3])
+  ) {
     let str = ''
     let length = parseInt(message.split(' ')[2])
     let max = parseInt(message.split(' ')[3])
@@ -62,7 +79,11 @@ const roll = (message, channel, ts) => {
     let str = ''
     if (min > max) return
     if (length > 100 || max > 1000000 || length <= 0 || max <= 0 || min < 0) {
-      postOnThread('taille max == 100 et tailledude max == 1000000', channel, ts)
+      postOnThread(
+        'taille max == 100 et tailledude max == 1000000',
+        channel,
+        ts
+      )
       return
     }
     for (let i = 0; i < length; i++) {
@@ -78,7 +99,7 @@ const addmusic = async (msg, user, channel) => {
     const link = msg.split(' ')[2]
     let json = await fs.readFileSync('./music.json', 'utf-8')
     json = JSON.parse(json)
-    const checker = /(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/g
+    const checker = /(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/g
     if (checker.test(link) || link.includes('soundcloud')) {
       let username = await getUsername(user)
       if ('user' in username && 'name' in username['user']) {
@@ -99,9 +120,14 @@ const addmusic = async (msg, user, channel) => {
         }
         json = json.concat(info)
         postMessage('Musique ajoutée', channel)
-        fs.writeFile('./music.json', JSON.stringify(json, null, 4), 'utf8', err => {
-          if (err) throw err
-        })
+        fs.writeFile(
+          './music.json',
+          JSON.stringify(json, null, 4),
+          'utf8',
+          err => {
+            if (err) throw err
+          }
+        )
       } else {
         postMessage('Lien déjà enregistré', channel)
       }
@@ -129,11 +155,17 @@ const meteo = async (message, channel) => {
   let lat = '48.90'
   let lon = '2.32'
   if (message.split(' ').length > 2) {
-    if (message.split(' ').length < 4) postMessage('bc meteo || bc meteo 48.9 2.32', channel)
+    if (message.split(' ').length < 4) {
+      postMessage('bc meteo || bc meteo 48.9 2.32', channel)
+    }
     lat = message.split(' ')[2]
     lon = message.split(' ')[3]
-    if (parseFloat(lat) < -90 || parseFloat(lat) > 90) postMessage('Latitude incorrecte')
-    if (parseFloat(lon) < -180 || parseFloat(lon) > 180) postMessage('Longitude incorrecte')
+    if (parseFloat(lat) < -90 || parseFloat(lat) > 90) {
+      postMessage('Latitude incorrecte')
+    }
+    if (parseFloat(lon) < -180 || parseFloat(lon) > 180) {
+      postMessage('Longitude incorrecte')
+    }
   }
   const data = await rp(`http://fr.wttr.in/${lat},${lon}?T0`)
   const $ = cheerio.load(data, { decodeEntities: false })
@@ -149,7 +181,7 @@ const dobby = async (user, channel) => {
   if ('user' in username && 'name' in username['user']) {
     username = username['user']['name']
   }
-  if (username == 'anzhan') {
+  if (username === 'anzhan') {
     randomgif('blackhole', channel)
     return
   }
@@ -160,14 +192,20 @@ const dobby = async (user, channel) => {
 
 const php = (message, channel) => {
   const functionphp = message.split(' ')[2]
-  postMessage('`' + `http://php.net/manual/fr/function.${functionphp}.php` + '`', channel)
+  postMessage(
+    '`' + `http://php.net/manual/fr/function.${functionphp}.php` + '`',
+    channel
+  )
 }
 
 let russiantab = []
 
 const roulette = async (channel, user) => {
   if (russiantab.length === 0) {
-    russiantab = Array.apply(null, new Array(6)).map(Number.prototype.valueOf, 0)
+    russiantab = Array.apply(null, new Array(6)).map(
+      Number.prototype.valueOf,
+      0
+    )
     russiantab[Math.floor(Math.random() * russiantab.length)] = 1
     await postMessage(`On recharge le revolver`, channel)
   }
@@ -211,16 +249,19 @@ const roulettetop = async channel => {
   } catch (err) {
     json = {}
   }
-  sorted = await Object.keys(json)
-    .sort(function(a, b) {
+  let sorted = await Object.keys(json)
+    .sort(function (a, b) {
       return json[a] - json[b]
     })
     .reverse()
-    .reduce((r, k) => ((r[k] = json[k]), r), {})
-  i = 1
+    .reduce((r, k) => (r[k] = json[k]), {})
+  let i = 1
   for (let o in sorted) {
     let pos = Math.floor(Math.random() * (o.length - 1)) + 1
-    await postMessage(`${i} ${o.substr(0, pos) + '.' + o.substr(pos)} : ${sorted[o]}`, channel)
+    await postMessage(
+      `${i} ${o.substr(0, pos) + '.' + o.substr(pos)} : ${sorted[o]}`,
+      channel
+    )
     if (i === 5) break
     i++
   }

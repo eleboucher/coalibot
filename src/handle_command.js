@@ -6,23 +6,31 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/05/31 09:59:20 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/20 23:37:25 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 const {
   postMessage,
-  postUserMessage,
   sendReaction,
-  fileUpload,
-  postOnThread,
-  getUsername,
   postAttachmentsOnThread
 } = require('./slack_api')
-const { score, alliance, intralogtime, logtime, profil, who, where, event } = require('./42_api')
+const { score, alliance, profil, who, where, event } = require('./42_api')
+const { logtime } = require('./logtime')
 const { citation } = require('./citation')
 const { randomgif } = require('./giphy')
-const { roll, addmusic, music, meteo, dobby, php, roulette, coin, roulettestat, roulettetop } = require('./miscs')
+const {
+  roll,
+  addmusic,
+  music,
+  meteo,
+  dobby,
+  php,
+  roulette,
+  coin,
+  roulettestat,
+  roulettetop
+} = require('./miscs')
 const fs = require('fs')
 const { parrot, helper } = require('./const')
 const { choose } = require('./utils')
@@ -42,20 +50,26 @@ const reply = async (cmd, channel) => {
   return false
 }
 
-functions = {
+const functions = {
   alliance: (message, channel, ts, user) => alliance(channel),
   score: (message, channel, ts, user) => score(ts, channel),
-  help: (message, channel, ts, user) => postAttachmentsOnThread('', helper, channel, ts),
-  glegendr: (message, channel, ts, user) => randomgif('how about no'.replace(' ', '+'), channel),
-  mfranc: (message, channel, ts, user) => postMessage(choose(['>Doucement avec les bots', '>Puuuuuuuuuuuuu']), channel),
-  score: (message, channel, ts, user) => score(channel, ts),
-  prof: (message, channel, ts, user) => profil(message.toLowerCase(), channel, user),
-  logtime: (message, channel, ts, user) => logtime(message, channel, ts),
-  intralogtime: (message, channel, ts, user) => intralogtime(message, channel, ts),
+  help: (message, channel, ts, user) =>
+    postAttachmentsOnThread('', helper, channel, ts),
+  glegendr: (message, channel, ts, user) =>
+    randomgif('how about no'.replace(' ', '+'), channel),
+  mfranc: (message, channel, ts, user) =>
+    postMessage(
+      choose(['>Doucement avec les bots', '>Puuuuuuuuuuuuu']),
+      channel
+    ),
+  prof: (message, channel, ts, user) =>
+    profil(message.toLowerCase(), channel, user),
+  logtime: (message, channel, ts, user) => logtime(message, user, channel, ts),
   who: (message, channel, ts, user) => who(message.toLowerCase(), channel),
   event: (message, channel, ts, user) => event(message.toLowerCase(), channel),
   roll: (message, channel, ts, user) => roll(message, channel, ts),
-  where: (message, channel, ts, user) => where(message.toLowerCase(), channel, user),
+  where: (message, channel, ts, user) =>
+    where(message.toLowerCase(), channel, user),
   addmusic: (message, channel, ts, user) => addmusic(message, user, channel),
   music: (message, channel, ts, user) => music(channel),
   meteo: (message, channel, ts, user) => meteo(message, channel),
@@ -81,9 +95,17 @@ functions = {
       'Hubert Bonisseur de La Bath'
     ),
   parrot: (message, channel, ts, user) =>
-    postMessage(':' + parrot[Math.floor(Math.random() * Math.floor(parrot.length))] + ':', channel),
+    postMessage(
+      ':' + parrot[Math.floor(Math.random() * Math.floor(parrot.length))] + ':',
+      channel
+    ),
   kaamelott: (message, channel, ts, user) =>
-    citation(channel, './kaamelott.txt', 'https://img15.hostingpics.net/pics/4833663350.jpg', 'Perceval')
+    citation(
+      channel,
+      './kaamelott.txt',
+      'https://img15.hostingpics.net/pics/4833663350.jpg',
+      'Perceval'
+    )
 }
 
 const handleCommand = async (msg, channel, ts, user) => {
@@ -94,9 +116,15 @@ const handleCommand = async (msg, channel, ts, user) => {
   let isCommand = false
   if (/(\b|^)rip(\b|$)/i.test(message)) sendReaction('rip', channel, ts)
   if (/(\b|^)jpp(\b|$)/i.test(message)) sendReaction('jpp', channel, ts)
-  if (/(\b|^)(php|ruby|ror|mongo|mongodb)(\b|$)/i.test(message)) sendReaction('poop', channel, ts)
+  if (/(\b|^)(php|ruby|ror|mongo|mongodb)(\b|$)/i.test(message)) {
+    sendReaction('poop', channel, ts)
+  }
 
-  if (['coalibot', 'bc', 'cb'].indexOf(message.toLowerCase().split(' ')[0]) > -1 && message.split(' ').length > 1) {
+  if (
+    ['coalibot', 'bc', 'cb'].indexOf(message.toLowerCase().split(' ')[0]) >
+      -1 &&
+    message.split(' ').length > 1
+  ) {
     command = message.split(' ')[1].toLowerCase()
     option = message
       .split(' ')

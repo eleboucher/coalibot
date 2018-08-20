@@ -6,26 +6,30 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/09 16:47:42 by elebouch          #+#    #+#             */
-/*   Updated: 2018/03/11 18:46:56 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/20 23:37:12 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 const Sequelize = require('sequelize')
-const moment = require('moment')
 const { getUsername } = require('./slack_api')
 
-const sequelize = new Sequelize('coalibot', process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD, {
-  host: process.env.DB_IP,
-  dialect: 'postgres',
-  logging: false,
-  operatorsAliases: false,
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
+const sequelize = new Sequelize(
+  'coalibot',
+  process.env.POSTGRES_USER,
+  process.env.POSTGRES_PASSWORD,
+  {
+    host: process.env.DB_IP,
+    dialect: 'postgres',
+    logging: false,
+    operatorsAliases: false,
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
   }
-})
+)
 
 const Command = sequelize.define('command', {
   command_name: Sequelize.STRING,

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 11:07:52 by erwanleb          #+#    #+#             */
-/*   Updated: 2018/05/22 13:25:10 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/20 23:40:27 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,14 @@ const handlestat = async user => {
   } else {
     json[username] = 1
   }
-  fs.writeFile('./roulette.json', JSON.stringify(json, null, 4), 'utf8', err => {
-    if (err) throw err
-  })
+  fs.writeFile(
+    './roulette.json',
+    JSON.stringify(json, null, 4),
+    'utf8',
+    err => {
+      if (err) throw err
+    }
+  )
 }
 
 module.exports.choose = choose
