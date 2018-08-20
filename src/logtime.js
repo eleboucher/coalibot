@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 00:18:51 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 00:37:07 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,16 +347,14 @@ const logtime = async (message, user, channel, ts) => {
         )
     }
   }
-  if (option.error !== '') {
-    postAttachmentsOnThread(
-      '',
+  if (option.error === true) {
+    let attachment = [
       {
         text: usage,
         color: '#D40000'
-      },
-      channel,
-      ts
-    )
+      }
+    ]
+    postAttachmentsOnThread('', attachment, channel, ts)
   }
   if (option.logtime !== '') {
     let logtimeString = option.intra
@@ -364,7 +362,7 @@ const logtime = async (message, user, channel, ts) => {
         'h' +
         formatOutputDatetime(option.logtime)[1]
       : option.logtime + 'h'
-    let attachment = {
+    let attachment = [{
       pretext: `logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour ${
         option.login
       } entre ${option.date_begin.format('LL')} et ${option.date_end.format(
@@ -372,7 +370,7 @@ const logtime = async (message, user, channel, ts) => {
       )}`,
       title: logtimeString,
       color: 'blue'
-    }
+    }]
     postAttachmentsOnThread('', attachment, channel, ts)
   }
 }
