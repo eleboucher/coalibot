@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 01:24:18 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 01:35:55 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,9 +389,9 @@ const logtime = async (message, user, channel, ts) => {
     postAttachmentsOnThread(
       `Logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour *${
         option.login
-      }* entre *${option.date_begin.format('LL')}* et *${option.date_end.format(
-        'LL'
-      )}*`,
+      }* entre *${moment(option.date_begin).format('LL')}* et *${moment(
+        option.date_end
+      ).format('LL')}*`,
       attachment,
       channel,
       ts
