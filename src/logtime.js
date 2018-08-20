@@ -232,14 +232,14 @@ const handleSemester = (message, option) => {
 }
 
 const logtime = async (message, user, channel, ts) => {
-  const usage = ```Usage:  bc logtime [OPTION] [login]
+  const usage = `\`\`\`Usage:  bc logtime [OPTION] [login]
       Les temps par defaut sont ceux de la badgeuse.
       -option.count                   temps de l'intra,
       -d debut fin         donne le logtime dans la periode des dates données. format DD/MM/YYYY
       -y année             donne le logtime durant l'année donnée.
       -m mois [année]      donne le logtime durant le mois donné.
       -t trimestre [année] donne le logtime durant le trimestre donné.
-      -s semestre [année]  donne le logtime durant le semestre donné.```
+      -s semestre [année]  donne le logtime durant le semestre donné.\`\`\``
   let option = {
     count: 2,
     intra: false,
