@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 00:40:32 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 00:48:18 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,13 @@ const handleSemester = (message, option) => {
   return option
 }
 
+const formatOutputDatetime = time => {
+  const timem = Number(time.as('minutes'))
+  const hours = Math.floor(timem / 60)
+  const min = Math.floor(timem % 60)
+  return [hours, min]
+}
+
 const logtime = async (message, user, channel, ts) => {
   const usage = `\`\`\`Usage:  bc logtime [OPTION] [login]
       Les temps par defaut sont ceux de la badgeuse.
@@ -306,13 +313,6 @@ const logtime = async (message, user, channel, ts) => {
     }
   }
 
-  const formatOutputDatetime = time => {
-    const timem = Number(time.as('minutes'))
-    const hours = Math.floor(timem / 60)
-    const min = Math.floor(timem % 60)
-    return [hours, min]
-  }
-
   if (option.date_begin !== '' && option.date_end !== '' && !option.error) {
     switch (option.intra) {
       case false:
@@ -347,6 +347,7 @@ const logtime = async (message, user, channel, ts) => {
         )
     }
   }
+  moment.locale('fr')
   if (option.error === true) {
     let attachment = [
       {
@@ -364,13 +365,18 @@ const logtime = async (message, user, channel, ts) => {
       : option.logtime + 'h'
     let attachment = [
       {
-        title: `Logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour ${
+        text: `Logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour ${
           option.login
         } entre ${option.date_begin.format('LL')} et ${option.date_end.format(
           'LL'
         )}`,
-        text: logtimeString,
-        color: 'blue'
+        fields: [
+          {
+            title: 'resultat',
+            value: logtimeString
+          }
+        ],
+        color: '#0000FF'
       }
     ]
     postAttachmentsOnThread('', attachment, channel, ts)
