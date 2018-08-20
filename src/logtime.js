@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 01:03:58 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 01:24:18 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ const parse = require('csv-parse/lib/sync')
 var fs = require('fs')
 const { month } = require('./const')
 const moment = require('moment')
+const sprintf = require('sprintf-js').sprintf
 
 moment.locale('fr')
 
@@ -138,21 +139,29 @@ const handleDate = async (message, option) => {
   if (
     (moment(
       message.split(' ')[option.count],
-      [moment.HTML5_FMT.DATE, 'YYYY', 'DD-MM-YYYY'],
+      [moment.ISO_8601, 'YYYY', 'DD-MM-YYYY'],
       true
     ).isValid() &&
       message.split(' ')[option.count + 1] === 'today') ||
     moment(
       message.split(' ')[option.count + 1],
-      [moment.HTML5_FMT.DATE, 'YYYY', 'DD-MM-YYYY'],
+      [moment.ISO_8601, 'YYYY', 'DD-MM-YYYY'],
       true
     ).isValid()
   ) {
     option.date_end =
       message.split(' ')[option.count + 1] === 'today'
         ? moment()
-        : moment(message.split(' ')[option.count + 1])
-    option.date_begin = moment(message.split(' ')[option.count])
+        : moment(
+          message.split(' ')[option.count + 1][
+            (moment.ISO_8601, 'YYYY', 'DD-MM-YYYY')
+          ]
+        )
+    option.date_begin = moment(message.split(' ')[option.count], [
+      moment.ISO_8601,
+      'YYYY',
+      'DD-MM-YYYY'
+    ])
   } else option.error = true
   option.count += 1
   return option
@@ -355,12 +364,16 @@ const logtime = async (message, user, channel, ts) => {
   }
   if (option.error === true) {
     postOnThread(usage, channel, ts)
+    return
   }
+
   if (option.logtime !== '') {
     let logtimeString = option.intra
-      ? formatOutputDatetime(option.logtime)[0] +
-        'h' +
+      ? sprintf(
+        '%02d:%02d',
+        formatOutputDatetime(option.logtime)[0],
         formatOutputDatetime(option.logtime)[1]
+      )
       : option.logtime + 'h'
     let attachment = [
       {
@@ -386,4 +399,4 @@ const logtime = async (message, user, channel, ts) => {
   }
 }
 
-module.exports = { logtime }
+module.exports = { logtime, getRangeIntralogtime, formatOutputDatetime }

@@ -6,11 +6,12 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 00:22:26 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 01:12:39 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 const { postMessage, getUsername, postAttachments } = require('./slack_api')
+const { getRangeIntralogtime, formatOutputDatetime } = require('./logtime')
 const { request42 } = require('./request')
 const moment = require('moment')
 const sprintf = require('sprintf-js').sprintf
@@ -134,8 +135,8 @@ const profil = async (msg, channel, usr) => {
   if (coaldata.length) coalslug = ':' + coaldata[0]['slug'] + ':'
   range_end = moment()
   range_begin = moment().subtract(7, 'days')
-  const logtime = await get_range_intralogtime(user, range_begin, range_end)
-  const time = format_output_datetime(logtime)
+  const logtime = await getRangeIntralogtime(user, range_begin, range_end)
+  const time = formatOutputDatetime(logtime)
   graph = 'https://projects.intra.42.fr/projects/graph?login=' + user
   const stage = (data => {
     const ret = {
@@ -190,6 +191,7 @@ const profil = async (msg, channel, usr) => {
 }
 
 const who = async (msg, channel) => {
+  let place = ''
   if (msg.split(' ').length > 2) place = msg.split(' ')[2]
   else {
     postMessage(`prend une place en parametre`, channel)
@@ -224,8 +226,8 @@ const where = async (msg, channel, usr) => {
     let date_begin = moment().subtract(7, 'days')
     let date_end = moment().add(1, 'days')
     const user = msg.split(' ')[5]
-    const logtime = await get_range_intralogtime(user, date_begin, date_end)
-    const time = format_output_datetime(logtime)
+    const logtime = await getRangeIntralogtime(user, date_begin, date_end)
+    const time = formatOutputDatetime(logtime)
     if (time[0] >= 35) {
       postMessage(`*${user}* is not a branle couille`, channel)
       return
