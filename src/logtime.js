@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 00:59:16 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 01:01:29 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ const formatOutputDatetime = time => {
 const logtime = async (message, user, channel, ts) => {
   const usage = `\`\`\`Usage:  bc logtime [OPTION] [login]
       Les temps par defaut sont ceux de la badgeuse.
-      -option.count                   temps de l'intra,
+      -i                   temps de l'intra,
       -d debut fin         donne le logtime dans la periode des dates données. format DD/MM/YYYY
       -y année             donne le logtime durant l'année donnée.
       -m mois [année]      donne le logtime durant le mois donné.
