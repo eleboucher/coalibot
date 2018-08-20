@@ -21,6 +21,8 @@ var fs = require('fs')
 const { month } = require('./const')
 const moment = require('moment')
 
+moment.locale('fr')
+
 const getHourByName = (name, data) => {
   let h = false
   const regex = new RegExp(
@@ -351,7 +353,6 @@ const logtime = async (message, user, channel, ts) => {
         )
     }
   }
-  moment.locale('fr')
   if (option.error === true) {
     postOnThread(usage, channel, ts)
   }
