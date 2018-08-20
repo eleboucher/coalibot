@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 00:37:07 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 00:40:32 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,14 +232,14 @@ const handleSemester = (message, option) => {
 }
 
 const logtime = async (message, user, channel, ts) => {
-  const usage = `Usage:  bc logtime [OPTION] [login]
+  const usage = ```Usage:  bc logtime [OPTION] [login]
       Les temps par defaut sont ceux de la badgeuse.
       -option.count                   temps de l'intra,
       -d debut fin         donne le logtime dans la periode des dates données. format DD/MM/YYYY
       -y année             donne le logtime durant l'année donnée.
       -m mois [année]      donne le logtime durant le mois donné.
       -t trimestre [année] donne le logtime durant le trimestre donné.
-      -s semestre [année]  donne le logtime durant le semestre donné.`
+      -s semestre [année]  donne le logtime durant le semestre donné.```
   let option = {
     count: 2,
     intra: false,
@@ -362,15 +362,17 @@ const logtime = async (message, user, channel, ts) => {
         'h' +
         formatOutputDatetime(option.logtime)[1]
       : option.logtime + 'h'
-    let attachment = [{
-      pretext: `logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour ${
-        option.login
-      } entre ${option.date_begin.format('LL')} et ${option.date_end.format(
-        'LL'
-      )}`,
-      title: logtimeString,
-      color: 'blue'
-    }]
+    let attachment = [
+      {
+        title: `Logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour ${
+          option.login
+        } entre ${option.date_begin.format('LL')} et ${option.date_end.format(
+          'LL'
+        )}`,
+        text: logtimeString,
+        color: 'blue'
+      }
+    ]
     postAttachmentsOnThread('', attachment, channel, ts)
   }
 }
