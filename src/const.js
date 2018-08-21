@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 18:07:28 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/20 23:37:05 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 02:30:08 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,8 @@ const helper = [
         short: true
       },
       {
-        title: 'intralogtime',
-        value: "Donne le temps de log de l'intra sur une période donnée",
-        short: true
-      },
-      {
         title: 'logtime',
-        value: 'Donne le temps de log de la badgeuse sur une période donnée',
+        value: "Pour plus d'info `bc logtime --help`",
         short: true
       },
       {

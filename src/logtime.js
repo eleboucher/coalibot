@@ -292,7 +292,7 @@ const logtime = async (message, user, channel, ts) => {
     case '-s':
       option = handleSemester(message, option)
       break
-    case '-help':
+    case '-h':
     case '--help':
       option.error = true
       break
