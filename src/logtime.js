@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 02:15:38 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 02:24:46 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ const handleYear = (message, option) => {
   return option
 }
 
-const handleDate = async (message, option) => {
+const handleDate = (message, option) => {
   option.count += 1
   if (
     moment(message.split(' ')[option.count], [
@@ -389,9 +389,9 @@ const logtime = async (message, user, channel, ts) => {
     postAttachmentsOnThread(
       `Logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour *${
         option.login
-      }* entre *${moment(option.date_begin).format('LL')}* et *${moment(
-        option.date_end
-      ).format('LL')}*`,
+      }* entre *${option.date_begin.format('LL')}* et *${option.date_end.format(
+        'LL'
+      )}*`,
       attachment,
       channel,
       ts
