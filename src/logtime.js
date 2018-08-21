@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 18:41:56 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 18:59:47 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,6 +317,7 @@ const logtime = async (message, user, channel, ts) => {
 
   if (message.split(' ')[option.count] && !option.error) {
     option.login = message.split(' ')[option.count]
+    option.count += 1
   } else {
     let username = await getUsername(user)
     try {
