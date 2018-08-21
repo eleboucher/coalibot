@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 01:35:55 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 02:15:38 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,33 +137,33 @@ const handleYear = (message, option) => {
 const handleDate = async (message, option) => {
   option.count += 1
   if (
-    (moment(
-      message.split(' ')[option.count],
-      [moment.ISO_8601, 'YYYY', 'DD-MM-YYYY'],
-      true
-    ).isValid() &&
-      message.split(' ')[option.count + 1] === 'today') ||
-    moment(
-      message.split(' ')[option.count + 1],
-      [moment.ISO_8601, 'YYYY', 'DD-MM-YYYY'],
-      true
-    ).isValid()
+    moment(message.split(' ')[option.count], [
+      'DD-MM-YYYY',
+      moment.ISO_8601,
+      'YYYY'
+    ]).isValid() &&
+    (message.split(' ')[option.count + 1] === 'today' ||
+      moment(message.split(' ')[option.count + 1], [
+        'DD-MM-YYYY',
+        moment.ISO_8601,
+        'YYYY'
+      ]).isValid())
   ) {
     option.date_end =
       message.split(' ')[option.count + 1] === 'today'
         ? moment()
-        : moment(
-          message.split(' ')[option.count + 1][
-            (moment.ISO_8601, 'YYYY', 'DD-MM-YYYY')
-          ]
-        )
+        : moment(message.split(' ')[option.count + 1], [
+          'DD-MM-YYYY',
+          moment.ISO_8601,
+          'YYYY'
+        ])
     option.date_begin = moment(message.split(' ')[option.count], [
+      'DD-MM-YYYY',
       moment.ISO_8601,
-      'YYYY',
-      'DD-MM-YYYY'
+      'YYYY'
     ])
   } else option.error = true
-  option.count += 1
+  option.count += 2
   return option
 }
 
@@ -315,7 +315,7 @@ const logtime = async (message, user, channel, ts) => {
     option.count += 1
   }
 
-  if (message.split(' ')[option.count]) {
+  if (message.split(' ')[option.count] && !option.error) {
     option.login = message.split(' ')[option.count]
   } else {
     let username = await getUsername(user)
