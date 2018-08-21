@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 18:28:43 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/20 23:37:01 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 10:49:00 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,4 @@ const citation = async (channel, file, pic, name) => {
   )
 }
 
-module.exports.citation = citation
+module.exports = { citation }

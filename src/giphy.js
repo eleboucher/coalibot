@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/24 15:03:45 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/20 23:37:20 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 10:49:02 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ const randomgif = async (query, channel) => {
       `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=aH0B2QT0mjnLZ7xKvHTwURhIHcIiB4MR&limit=15`,
       { json: true }
     )
-    const theOnlyOne = res.data[Math.floor(Math.random() * res.data.length)].url
+    const theOnlyOne =
+      res.data[Math.floor(Math.random() * res.data.length)].url
     postMessage(theOnlyOne, channel)
   } catch (err) {
     postMessage('Aucun gif trouvé', channel)
   }
 }
 
-module.exports.randomgif = randomgif
+module.exports = { randomgif }

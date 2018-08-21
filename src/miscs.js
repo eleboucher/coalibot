@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/20 23:42:55 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 10:49:10 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,13 +273,15 @@ const coin = (channel, user) => {
     : postMessage(`<@${user}>: Tails`, channel)
 }
 
-module.exports.roll = roll
-module.exports.addmusic = addmusic
-module.exports.music = music
-module.exports.meteo = meteo
-module.exports.dobby = dobby
-module.exports.php = php
-module.exports.roulette = roulette
-module.exports.coin = coin
-module.exports.roulettestat = roulettestat
-module.exports.roulettetop = roulettetop
+module.exports = {
+  roll,
+  addmusic,
+  music,
+  meteo,
+  dobby,
+  roulette,
+  php,
+  coin,
+  roulettestat,
+  roulettetop
+}

@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 11:07:52 by erwanleb          #+#    #+#             */
-/*   Updated: 2018/08/20 23:40:27 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 10:46:13 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,4 @@ const handlestat = async user => {
   )
 }
 
-module.exports.choose = choose
-module.exports.handlestat = handlestat
+module.exports = { choose, handlestat }

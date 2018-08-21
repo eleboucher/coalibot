@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 15:13:10 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 00:18:04 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 10:45:55 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,13 @@ const getUsername = user => {
   })
 }
 
-module.exports.postMessage = postMessage
-module.exports.postUserMessage = postUserMessage
-module.exports.sendReaction = sendReaction
-module.exports.fileUpload = fileUpload
-module.exports.postOnThread = postOnThread
-module.exports.getUsername = getUsername
-module.exports.postAttachments = postAttachments
-module.exports.postAttachmentsOnThread = postAttachmentsOnThread
+module.exports = {
+  postAttachments,
+  postAttachmentsOnThread,
+  postMessage,
+  postOnThread,
+  postUserMessage,
+  fileUpload,
+  sendReaction,
+  getUsername
+}

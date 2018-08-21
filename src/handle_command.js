@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/20 23:37:25 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 10:49:05 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,4 +162,4 @@ const handleCommand = async (msg, channel, ts, user) => {
   if (isCommand) addCommand(command, option, channel, ts, user)
 }
 
-module.exports.handleCommand = handleCommand
+module.exports = { handleCommand }

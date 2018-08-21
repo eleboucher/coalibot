@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 01:12:39 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 10:48:57 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ const alliance = async channel => {
   let rang = 0
   while (json[rang]['id'] !== 2) rang += 1
   if (rang === 0) {
-    const diff = json[rang]['score'] - json[1]['score']
     postMessage(
       `Felicitations Nous sommes premiers avec ${rang +
         1} points d'avance. :the-alliance:`,
@@ -111,8 +110,8 @@ const profil = async (msg, channel, usr) => {
       user = username['user']['name']
     }
   }
-  url = '/v2/users/' + user
-  urlcoal = url + '/coalitions/'
+  let url = '/v2/users/' + user
+  let urlcoal = url + '/coalitions/'
   const data = await request42(url)
   let lvl = 1
   const coaldata = await request42(urlcoal)
@@ -133,11 +132,10 @@ const profil = async (msg, channel, usr) => {
   } else lvlpiscine = data['cursus_users'][1]['level']
   let coalslug = ''
   if (coaldata.length) coalslug = ':' + coaldata[0]['slug'] + ':'
-  range_end = moment()
-  range_begin = moment().subtract(7, 'days')
-  const logtime = await getRangeIntralogtime(user, range_begin, range_end)
+  let rangeEnd = moment()
+  let rangeBegin = moment().subtract(7, 'days')
+  const logtime = await getRangeIntralogtime(user, rangeBegin, rangeEnd)
   const time = formatOutputDatetime(logtime)
-  graph = 'https://projects.intra.42.fr/projects/graph?login=' + user
   const stage = (data => {
     const ret = {
       finished: ':white_check_mark:',
@@ -201,13 +199,13 @@ const who = async (msg, channel) => {
   const url = `/v2/campus/1/locations/?filter[host]=${place}`
   const data = await request42(url)
   if (data.length === 0) postMessage(`Place *${place}* vide`, channel)
-  if (data[0].end_at === null) {
+  if (data[0].endAt === null) {
     postMessage(
       `*${data[0]['user']['login']}* est à la place *${place}*`,
       channel
     )
-  } else if (data[0].end_at !== null) {
-    const diff = moment(data[0].end_at).fromNow()
+  } else if (data[0].endAt !== null) {
+    const diff = moment(data[0].endAt).fromNow()
     postMessage(
       `Place *${place}* vide, ancien utilisateur: *${
         data[0]['user']['login']
@@ -218,29 +216,30 @@ const who = async (msg, channel) => {
 }
 
 const where = async (msg, channel, usr) => {
+  let user = ''
   if (
     msg.split(' ').length === 6 &&
     (msg.indexOf('le branle couille') !== -1 ||
       msg.indexOf('la branle couille') !== -1)
   ) {
-    let date_begin = moment().subtract(7, 'days')
-    let date_end = moment().add(1, 'days')
-    const user = msg.split(' ')[5]
-    const logtime = await getRangeIntralogtime(user, date_begin, date_end)
+    let dateBegin = moment().subtract(7, 'days')
+    let dateEnd = moment().add(1, 'days')
+    user = msg.split(' ')[5]
+    const logtime = await getRangeIntralogtime(user, dateBegin, dateEnd)
     const time = formatOutputDatetime(logtime)
     if (time[0] >= 35) {
       postMessage(`*${user}* is not a branle couille`, channel)
       return
     }
-    url = `/v2/users/${user}/locations`
+    let url = `/v2/users/${user}/locations`
     const data = await request42(url)
     if (!data) {
       postMessage(`login invalide`, channel)
       return
     }
-    if (data.length === 0 || data[0]['end_at']) {
+    if (data.length === 0 || data[0]['endAt']) {
       postMessage(`*${user}* est hors ligne`, channel)
-    } else postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel)
+    } else { postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel) }
     return
   }
   if (msg.split(' ').length > 2) user = msg.split(' ')[2]
@@ -249,13 +248,16 @@ const where = async (msg, channel, usr) => {
     try {
       user = username['user']['profile']['email']
         .toString()
-        .substr(0, username['user']['profile']['email'].toString().indexOf('@'))
+        .substr(
+          0,
+          username['user']['profile']['email'].toString().indexOf('@')
+        )
     } catch (err) {
       user = username['user']['name']
     }
   }
   if (!user || user.startsWith('!') || user.startsWith('?')) return
-  if (user === 'queen' || user == 'way') {
+  if (user === 'queen' || user === 'way') {
     postMessage(
       "follow me bruddah\ni'll show you de way :uganda_knuckles:",
       channel
@@ -276,9 +278,9 @@ const where = async (msg, channel, usr) => {
       'dlavaury'
     ]
     for (let guardian of guardians) {
-      url = `/v2/users/${guardian}/locations`
+      let url = `/v2/users/${guardian}/locations`
       const data = await request42(url)
-      if (!data || data.length === 0 || data[0]['end_at']) {
+      if (!data || data.length === 0 || data[0]['endAt']) {
         postMessage(`*${guardian}* est hors ligne`, channel)
       } else {
         postMessage(
@@ -289,65 +291,60 @@ const where = async (msg, channel, usr) => {
     }
     return
   }
-  url = `/v2/users/${user}/locations`
+  let url = `/v2/users/${user}/locations`
   const data = await request42(url)
   if (!data) {
     postMessage(`login invalide`, channel)
     return
   }
-  if (data.length === 0 || data[0]['end_at']) {
+  if (data.length === 0 || data[0]['endAt']) {
     postMessage(`*${user}* est hors ligne`, channel)
   } else postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel)
 }
 
 const event = async (msg, channel) => {
-  let begin_at
-  let end_at
+  let beginAt
+  let endAt
   if (msg.split(' ').length === 2) {
-    begin_at = moment().format('YYYY-MM-DD')
-    end_at = moment()
+    beginAt = moment().format('YYYY-MM-DD')
+    endAt = moment()
       .add(1, 'days')
       .format('YYYY-MM-DD')
   } else if (msg.split(' ').length === 3) {
     try {
-      begin_at = moment(msg.split(' ')[2]).format('YYYY-MM-DD')
+      beginAt = moment(msg.split(' ')[2]).format('YYYY-MM-DD')
     } catch (e) {
-      begin_at = moment().format('YYYY-MM-DD')
+      beginAt = moment().format('YYYY-MM-DD')
     }
-    end_at = moment(begin_at)
+    endAt = moment(beginAt)
       .add(1, 'days')
       .format('YYYY-MM-DD')
   } else {
     return
   }
-  url = `/v2/campus/1/events?range[begin_at]=${begin_at},${end_at}`
+  let url = `/v2/campus/1/events?range[beginAt]=${beginAt},${endAt}`
   const data = await request42(url)
   data.sort(function (a, b) {
-    return moment(a.begin_at) - moment(b.begin_at)
+    return moment(a.beginAt) - moment(b.beginAt)
   })
 
   for (let event of data) {
-    attachments = [
+    let attachments = [
       {
         fallback: event.name,
         title: event.name,
         title_link: `https://profile.intra.42.fr/events/${event.id}`,
         text: event.description.slice(0, 150) + ' ...',
         footer: `${event.nbr_subscribers}/${event.max_people} Participants`,
-        ts: moment(event.begin_at).format('X'),
+        ts: moment(event.beginAt).format('X'),
         color: '#01babc'
       }
     ]
     await postAttachments('', attachments, channel)
   }
-  if (data.length == 0) {
+  if (data.length === 0) {
     postMessage('Aucun events à cette date!', channel)
   }
 }
 
-module.exports.alliance = alliance
-module.exports.score = score
-module.exports.profil = profil
-module.exports.who = who
-module.exports.where = where
-module.exports.event = event
+module.exports = { alliance, score, profil, who, event, where }
