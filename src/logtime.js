@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 11:00:29 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 18:41:56 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,6 +328,9 @@ const logtime = async (message, user, channel, ts) => {
     }
   }
 
+  if (option.count !== message.split(' ').length) {
+    option.error = true
+  }
   if (option.date_begin !== '' && option.date_end !== '' && !option.error) {
     switch (option.intra) {
       case false:
@@ -345,8 +348,7 @@ const logtime = async (message, user, channel, ts) => {
               .replace(/[\u0300-\u036f]/g, '')
           }
         } else {
-          // display wrong user
-          return
+          option.error = true
         }
         option.logtime = await getRangeLogtime(
           name,
