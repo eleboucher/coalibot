@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 10:49:10 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 12:53:44 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ const roulettetop = async channel => {
       return json[a] - json[b]
     })
     .reverse()
-    .reduce((r, k) => (r[k] = json[k]), {})
+    .reduce((r, k) => ((r[k] = json[k]), r), {})
   let i = 1
   for (let o in sorted) {
     let pos = Math.floor(Math.random() * (o.length - 1)) + 1
