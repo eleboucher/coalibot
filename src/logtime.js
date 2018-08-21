@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 02:24:46 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/21 02:26:50 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,7 +370,7 @@ const logtime = async (message, user, channel, ts) => {
   if (option.logtime !== '') {
     let logtimeString = option.intra
       ? sprintf(
-        '%02d:%02d',
+        '%02dh%02d',
         formatOutputDatetime(option.logtime)[0],
         formatOutputDatetime(option.logtime)[1]
       )
