@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/22 21:58:23 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/22 22:02:18 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,11 +272,11 @@ const logtime = async (message, user, channel, ts) => {
     error: false
   }
 
-  if (message.split(' ')[option.count] === '-i') {
-    option.intra = true
-    option.count += 1
-  }
   switch (message.split(' ')[option.count]) {
+    case '--intra':
+    case '-i':
+      option.intra = true
+      option.count += 1
     case '--date':
     case '-d':
       option = handleDate(message, option)
@@ -315,7 +315,10 @@ const logtime = async (message, user, channel, ts) => {
       break
   }
 
-  if (message.split(' ')[option.count] === '-i') {
+  if (
+    message.split(' ')[option.count] === '-i' ||
+    message.split(' ')[option.count] === '--intra'
+  ) {
     option.intra = true
     option.count += 1
   }
