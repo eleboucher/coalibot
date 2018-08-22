@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 18:59:47 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/22 21:58:23 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,18 +277,23 @@ const logtime = async (message, user, channel, ts) => {
     option.count += 1
   }
   switch (message.split(' ')[option.count]) {
+    case '--date':
     case '-d':
       option = handleDate(message, option)
       break
+    case '--year':
     case '-y':
       option = handleYear(message, option)
       break
+    case '--month':
     case '-m':
       option = handleMonth(message, option)
       break
+    case '--trimestre':
     case '-t':
       option = handleQuarter(message, option)
       break
+    case '--semestre':
     case '-s':
       option = handleSemester(message, option)
       break
