@@ -6,10 +6,11 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 15:13:10 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 10:45:55 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/22 15:38:07 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+require('dotenv').config()
 const Slack = require('slack')
 const token = process.env.SLACK_API_TOKEN
 

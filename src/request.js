@@ -6,10 +6,11 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 14:57:57 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 10:47:39 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/22 15:38:12 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+require('dotenv').config()
 const pThrottle = require('p-throttle')
 let rp = require('request-promise')
 const ClientOAuth2 = require('client-oauth2')

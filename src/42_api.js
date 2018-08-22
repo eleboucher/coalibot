@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 10:48:57 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/22 15:37:56 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,9 @@ const where = async (msg, channel, usr) => {
     }
     if (data.length === 0 || data[0]['endAt']) {
       postMessage(`*${user}* est hors ligne`, channel)
-    } else { postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel) }
+    } else {
+      postMessage(`*${user}* est à la place *${data[0]['host']}*`, channel)
+    }
     return
   }
   if (msg.split(' ').length > 2) user = msg.split(' ')[2]
@@ -248,10 +250,7 @@ const where = async (msg, channel, usr) => {
     try {
       user = username['user']['profile']['email']
         .toString()
-        .substr(
-          0,
-          username['user']['profile']['email'].toString().indexOf('@')
-        )
+        .substr(0, username['user']['profile']['email'].toString().indexOf('@'))
     } catch (err) {
       user = username['user']['name']
     }

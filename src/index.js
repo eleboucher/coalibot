@@ -6,10 +6,11 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 13:39:56 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 10:49:04 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/22 15:37:45 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+require('dotenv').config()
 const { RTMClient } = require('@slack/client')
 const { handleCommand } = require('./handle_command')
 const { BLACKLISTCHAN } = require('./const')

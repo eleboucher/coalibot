@@ -25,6 +25,7 @@
     "cheerio": "^1.0.0-rc.2",
     "client-oauth2": "^4.2.1",
     "csv-parse": "^2.5.0",
+    "dotenv": "^6.0.0",
     "moment": "^2.22.2",
     "p-throttle": "^1.1.0",
     "pg": "^7.4.3",
