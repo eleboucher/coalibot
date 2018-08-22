@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 12:53:44 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/22 22:07:02 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,14 +190,6 @@ const dobby = async (user, channel) => {
     : postUserMessage(`Toi pas maitre Dobby`, channel, linkImg, 'Dobby')
 }
 
-const php = (message, channel) => {
-  const functionphp = message.split(' ')[2]
-  postMessage(
-    '`' + `http://php.net/manual/fr/function.${functionphp}.php` + '`',
-    channel
-  )
-}
-
 let russiantab = []
 
 const roulette = async (channel, user) => {
@@ -280,7 +272,6 @@ module.exports = {
   meteo,
   dobby,
   roulette,
-  php,
   coin,
   roulettestat,
   roulettetop
