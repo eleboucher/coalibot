@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 18:07:28 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 10:49:01 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/22 22:11:42 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ const helper = [
       },
       {
         title: 'meteo',
-        value: 'Donne le temps quil fait à 42',
+        value: "Donne le temps qu'il fait à 42",
         short: true
       },
       {
