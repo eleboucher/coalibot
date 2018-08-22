@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/22 22:07:02 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/22 22:15:03 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ const addmusic = async (msg, user, channel) => {
       }
     } else postMessage('Lien incorrect', channel)
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -147,7 +147,7 @@ const music = async channel => {
     else login = music.login
     postMessage(`${login} ${music.link}`, channel)
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -218,7 +218,7 @@ const roulettestat = async (user, channel) => {
     json = await fs.readFileSync('./roulette.json', 'utf-8')
     json = JSON.parse(json)
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
   let username = await getUsername(user)
   if ('user' in username && 'name' in username['user']) {

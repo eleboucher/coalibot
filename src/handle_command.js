@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/22 22:07:17 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/22 22:16:04 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ const reply = async (cmd, channel) => {
       return true
     }
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
   return false
 }
