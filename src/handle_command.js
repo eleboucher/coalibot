@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/21 10:49:05 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/22 14:37:51 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ const reply = async (cmd, channel) => {
 
 const functions = {
   alliance: (message, channel, ts, user) => alliance(channel),
-  score: (message, channel, ts, user) => score(ts, channel),
+  score: (message, channel, ts, user) => score(channel),
   help: (message, channel, ts, user) =>
     postAttachmentsOnThread('', helper, channel, ts),
   glegendr: (message, channel, ts, user) =>
