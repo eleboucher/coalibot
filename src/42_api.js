@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/22 15:37:56 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/23 21:22:50 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,7 @@ const where = async (msg, channel, usr) => {
       'dlavaury'
     ]
     for (let guardian of guardians) {
-      let url = `/v2/users/${guardian}/locations`
+      let url = `/v2/users/${guardian}/locations?filter[active]=true`
       const data = await request42(url)
       if (!data || data.length === 0 || data[0]['endAt']) {
         postMessage(`*${guardian}* est hors ligne`, channel)
@@ -290,7 +290,7 @@ const where = async (msg, channel, usr) => {
     }
     return
   }
-  let url = `/v2/users/${user}/locations`
+  let url = `/v2/users/${user}/locations?filter[active]=true`
   const data = await request42(url)
   if (!data) {
     postMessage(`login invalide`, channel)
