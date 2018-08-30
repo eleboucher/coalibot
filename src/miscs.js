@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/30 15:53:19 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/30 15:55:39 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ const vdm = async (channel) => {
   const data = await rp(`https://www.viedemerde.fr/aleatoire`)
   const $ = cheerio.load(data, { decodeEntities: false })
   const vdm = $('.block').has('a').text().trim().replace(/\n+/g, "\n").split('\n')
-  postUserMessage('>' + vdm[0], channel, 'http://www.betacie.com/img/logo-vdm.png', 'Vie De Merde')
+  postUserMessage('>' + vdm[0], channel, 'http://golem13.fr/wp-content/uploads/2012/10/vdm.gif', 'Vie De Merde')
 }
 
 const meteo = async (message, channel) => {
