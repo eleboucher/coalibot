@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/22 22:16:04 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/30 15:44:03 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ const {
   roulette,
   coin,
   roulettestat,
+  vdm,
   roulettetop
 } = require('./miscs')
 const fs = require('fs')
@@ -72,6 +73,7 @@ const functions = {
   addmusic: (message, channel, ts, user) => addmusic(message, user, channel),
   music: (message, channel, ts, user) => music(channel),
   meteo: (message, channel, ts, user) => meteo(message, channel),
+  vdm: (message, channel, ts, user) => vdm(channel),
   dobby: (message, channel, ts, user) => dobby(user, channel),
   roulette: (message, channel, ts, user) => roulette(channel, user),
   coin: (message, channel, ts, user) => coin(channel, user),
@@ -120,7 +122,7 @@ const handleCommand = async (msg, channel, ts, user) => {
 
   if (
     ['coalibot', 'bc', 'cb'].indexOf(message.toLowerCase().split(' ')[0]) >
-      -1 &&
+    -1 &&
     message.split(' ').length > 1
   ) {
     command = message.split(' ')[1].toLowerCase()
