@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/31 11:21:38 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/31 11:27:38 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ const getRangeIntralogtime = async (user, rangeBegin, rangeEnd) => {
     return moment.duration(0)
   }
   try {
-    async function getMoreData (data) {
+    async function getMoreData(data) {
       let tmp
       let i = 2
       let ret = data
@@ -191,7 +191,7 @@ const handleMonth = (message, option) => {
       M: month[message.split(' ')[option.count - 1]],
       d: 31
     }).endOf('day')
-  } else if (/(\b|^)([1-9]|1[012])(\b|$)/i.test(message
+  } else if (/(\b|^)(0[1-9]|[1-9]|1[012])(\b|$)/i.test(message
     .split(' ')[option.count])) {
     let year = ''
     if (
@@ -417,7 +417,7 @@ const logtime = async (message, user, channel, ts) => {
     ]
     postAttachmentsOnThread(
       `Logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour *${
-        option.login
+      option.login
       }* entre *${option.date_begin.format('LL')}* et *${option.date_end.format(
         'LL'
       )}*`,
