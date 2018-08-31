@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/22 22:02:18 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/08/31 11:21:38 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,9 +170,7 @@ const handleDate = (message, option) => {
 const handleMonth = (message, option) => {
   option.count += 1
   if (
-    message
-      .split(' ')
-      [option.count].normalize('NFD')
+    message.split(' ')[option.count].normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '') in month
   ) {
     let year = ''
@@ -191,6 +189,26 @@ const handleMonth = (message, option) => {
     option.date_end = moment({
       y: year,
       M: month[message.split(' ')[option.count - 1]],
+      d: 31
+    }).endOf('day')
+  } else if (/(\b|^)([1-9]|1[012])(\b|$)/i.test(message
+    .split(' ')[option.count])) {
+    let year = ''
+    if (
+      message.split(' ')[option.count + 1] &&
+      parseInt(message.split(' ')[option.count + 1]) > 2000
+    ) {
+      year = parseInt(message.split(' ')[option.count + 1])
+      option.count += 1
+    } else year = new Date().getFullYear()
+    option.date_begin = moment({
+      y: year,
+      M: parseInt(message.split(' ')[option.count]) - 1,
+      d: 1
+    })
+    option.date_end = moment({
+      y: year,
+      M: parseInt(message.split(' ')[option.count]) - 1,
       d: 31
     }).endOf('day')
   } else option.error = true
