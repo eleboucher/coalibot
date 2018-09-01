@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/31 22:58:22 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/09/01 16:49:09 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@ const {
   postMessage,
   sendReaction,
   postAttachmentsOnThread
-} = require("./slack_api");
-const { score, alliance, profil, who, where, event } = require("./42_api");
-const { logtime } = require("./logtime");
-const { citation } = require("./citation");
-const { randomgif } = require("./giphy");
+} = require('./slack_api')
+const { score, alliance, profil, who, where, event } = require('./42_api')
+const { logtime } = require('./logtime')
+const { citation } = require('./citation')
+const { randomgif } = require('./giphy')
 const {
   roll,
   addmusic,
@@ -30,37 +30,36 @@ const {
   roulettestat,
   vdm,
   roulettetop
-} = require("./miscs");
-const fs = require("fs");
-const { parrot, helper } = require("./const");
-const { choose } = require("./utils");
-const { addCommand } = require("./database");
+} = require('./miscs')
+const fs = require('fs')
+const { parrot, helper } = require('./const')
+const { choose } = require('./utils')
+const { addCommand } = require('./database')
 
 const reply = async (cmd, channel) => {
   try {
-    const contents = await fs.readFileSync("./reply.json");
-    const json = JSON.parse(contents);
+    const contents = await fs.readFileSync('./reply.json')
+    const json = JSON.parse(contents)
     if (json[cmd]) {
-      sendReaction("robot_face", channel, ts);
-      postMessage(json[cmd], channel);
-      return true;
+      postMessage(json[cmd], channel)
+      return true
     }
   } catch (err) {
-    console.error(err);
+    console.error(err)
   }
-  return false;
-};
+  return false
+}
 
 const functions = {
   alliance: (message, channel, ts, user) => alliance(channel),
   score: (message, channel, ts, user) => score(channel),
   help: (message, channel, ts, user) =>
-    postAttachmentsOnThread("", helper, channel, ts),
+    postAttachmentsOnThread('', helper, channel, ts),
   glegendr: (message, channel, ts, user) =>
-    randomgif("how about no".replace(" ", "+"), channel),
+    randomgif('how about no'.replace(' ', '+'), channel),
   mfranc: (message, channel, ts, user) =>
     postMessage(
-      choose([">Doucement avec les bots", ">Puuuuuuuuuuuuu"]),
+      choose(['>Doucement avec les bots', '>Puuuuuuuuuuuuu']),
       channel
     ),
   prof: (message, channel, ts, user) =>
@@ -83,7 +82,7 @@ const functions = {
   randomgif: (message, channel, ts, user) =>
     randomgif(
       message
-        .split(" ")
+        .split(' ')
         .slice(2)
         .join(),
       channel
@@ -91,74 +90,74 @@ const functions = {
   oss: (message, channel, ts, user) =>
     citation(
       channel,
-      "./oss.txt",
-      "https://static-cdn.jtvnw.net/emoticons/v1/518312/3.0",
-      "Hubert Bonisseur de La Bath"
+      './oss.txt',
+      'https://static-cdn.jtvnw.net/emoticons/v1/518312/3.0',
+      'Hubert Bonisseur de La Bath'
     ),
   parrot: (message, channel, ts, user) =>
     postMessage(
-      ":" + parrot[Math.floor(Math.random() * Math.floor(parrot.length))] + ":",
+      ':' + parrot[Math.floor(Math.random() * Math.floor(parrot.length))] + ':',
       channel
     ),
   kaamelott: (message, channel, ts, user) =>
     citation(
       channel,
-      "./kaamelott.txt",
-      "https://img15.hostingpics.net/pics/4833663350.jpg",
-      "Perceval"
+      './kaamelott.txt',
+      'https://img15.hostingpics.net/pics/4833663350.jpg',
+      'Perceval'
     )
-};
+}
 
 const handleCommand = async (msg, channel, ts, user) => {
-  const message = msg.replace(/\s+/g, " ").trim();
-  console.log({ channel, user, message });
-  let command;
-  let option = null;
-  let isCommand = false;
+  const message = msg.replace(/\s+/g, ' ').trim()
+  console.log({ channel, user, message })
+  let command
+  let option = null
+  let isCommand = false
 
   if (
-    ["coalibot", "bc", "cb"].indexOf(message.toLowerCase().split(" ")[0]) >
+    ['coalibot', 'bc', 'cb'].indexOf(message.toLowerCase().split(' ')[0]) >
       -1 &&
-    message.split(" ").length > 1
+    message.split(' ').length > 1
   ) {
-    sendReaction("robot_face", channel, ts);
-    command = message.split(" ")[1].toLowerCase();
+    command = message.split(' ')[1].toLowerCase()
     option = message
-      .split(" ")
+      .split(' ')
       .splice(2)
-      .join(" ");
-    const result = await reply(command, channel);
+      .join(' ')
+    const result = await reply(command, channel)
     if (result === false) {
-      if (functions[message.split(" ")[1].toLowerCase()]) {
-        functions[command](message, channel, ts, user);
-        isCommand = true;
+      if (functions[message.split(' ')[1].toLowerCase()]) {
+        functions[command](message, channel, ts, user)
+        isCommand = true
       }
     } else {
-      isCommand = true;
+      isCommand = true
     }
-  } else if (message.indexOf("!") === 0) {
-    sendReaction("robot_face", channel, ts);
-
+  } else if (message.indexOf('!') === 0) {
     command = message
-      .replace("!", "bc ")
-      .split(" ")[1]
-      .toLowerCase();
-    const result = await reply(command, channel);
+      .replace('!', 'bc ')
+      .split(' ')[1]
+      .toLowerCase()
+    const result = await reply(command, channel)
     if (result === false) {
       if (functions[command]) {
-        functions[command](message.replace("!", "bc "), channel, ts, user);
+        functions[command](message.replace('!', 'bc '), channel, ts, user)
         option = message
-          .replace("!", "bc ")
-          .split(" ")
+          .replace('!', 'bc ')
+          .split(' ')
           .splice(2)
-          .join(" ");
-        isCommand = true;
+          .join(' ')
+        isCommand = true
       }
     } else {
-      isCommand = true;
+      isCommand = true
     }
   }
-  if (isCommand) addCommand(command, option, channel, ts, user);
-};
+  if (isCommand) {
+    sendReaction('robot_face', channel, ts)
+    addCommand(command, option, channel, ts, user)
+  }
+}
 
-module.exports = { handleCommand };
+module.exports = { handleCommand }
