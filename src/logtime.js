@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/31 11:27:38 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/09/04 00:06:52 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ const getRangeIntralogtime = async (user, rangeBegin, rangeEnd) => {
     return moment.duration(0)
   }
   try {
-    async function getMoreData(data) {
+    async function getMoreData (data) {
       let tmp
       let i = 2
       let ret = data
@@ -170,7 +170,9 @@ const handleDate = (message, option) => {
 const handleMonth = (message, option) => {
   option.count += 1
   if (
-    message.split(' ')[option.count].normalize('NFD')
+    message
+      .split(' ')
+      [option.count].normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '') in month
   ) {
     let year = ''
@@ -191,8 +193,9 @@ const handleMonth = (message, option) => {
       M: month[message.split(' ')[option.count - 1]],
       d: 31
     }).endOf('day')
-  } else if (/(\b|^)(0[1-9]|[1-9]|1[012])(\b|$)/i.test(message
-    .split(' ')[option.count])) {
+  } else if (
+    /(\b|^)(0[1-9]|[1-9]|1[012])(\b|$)/i.test(message.split(' ')[option.count])
+  ) {
     let year = ''
     if (
       message.split(' ')[option.count + 1] &&
@@ -290,11 +293,15 @@ const logtime = async (message, user, channel, ts) => {
     error: false
   }
 
+  if (
+    message.split(' ')[option.count] === '-i' ||
+    message.split(' ')[option.count] === '--intra'
+  ) {
+    option.intra = true
+    option.count += 1
+  }
+
   switch (message.split(' ')[option.count]) {
-    case '--intra':
-    case '-i':
-      option.intra = true
-      option.count += 1
     case '--date':
     case '-d':
       option = handleDate(message, option)
@@ -417,7 +424,7 @@ const logtime = async (message, user, channel, ts) => {
     ]
     postAttachmentsOnThread(
       `Logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour *${
-      option.login
+        option.login
       }* entre *${option.date_begin.format('LL')}* et *${option.date_end.format(
         'LL'
       )}*`,
