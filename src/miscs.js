@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/30 16:00:31 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/09/03 09:43:15 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,11 +151,22 @@ const music = async channel => {
   }
 }
 
-const vdm = async (channel) => {
+const vdm = async channel => {
   const data = await rp(`https://www.viedemerde.fr/aleatoire`)
   const $ = cheerio.load(data, { decodeEntities: false })
-  const vdm = $('.panel-content').children('.block').has('a').text().trim().replace(/\n+/g, "\n").split('\n')
-  postUserMessage('>' + vdm[0], channel, 'http://golem13.fr/wp-content/uploads/2012/10/vdm.gif', 'Vie De Merde')
+  const vdm = $('.panel-content')
+    .children('.block')
+    .has('a')
+    .text()
+    .trim()
+    .replace(/\n+/g, '\n')
+    .split('\n')
+  postUserMessage(
+    '>' + vdm[0],
+    channel,
+    'http://golem13.fr/wp-content/uploads/2012/10/vdm.gif',
+    'Vie De Merde'
+  )
 }
 
 const meteo = async (message, channel) => {
@@ -272,6 +283,10 @@ const coin = (channel, user) => {
     : postMessage(`<@${user}>: Tails`, channel)
 }
 
+const hello = (user, channel) => {
+  postMessage(`bonjour <@${user}>`, channel)
+}
+
 module.exports = {
   roll,
   addmusic,
@@ -282,5 +297,6 @@ module.exports = {
   coin,
   roulettestat,
   roulettetop,
-  vdm
+  vdm,
+  hello
 }

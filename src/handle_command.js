@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 14:30:21 by elebouch          #+#    #+#             */
-/*   Updated: 2018/09/01 16:49:09 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/09/03 09:42:00 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ const {
   music,
   meteo,
   dobby,
+  hello,
   roulette,
   coin,
   roulettestat,
@@ -68,6 +69,7 @@ const functions = {
   who: (message, channel, ts, user) => who(message.toLowerCase(), channel),
   event: (message, channel, ts, user) => event(message.toLowerCase(), channel),
   roll: (message, channel, ts, user) => roll(message, channel, ts),
+  hello: (message, channel, ts, user) => hello(user, channel),
   where: (message, channel, ts, user) =>
     where(message.toLowerCase(), channel, user),
   addmusic: (message, channel, ts, user) => addmusic(message, user, channel),
