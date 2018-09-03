@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/09/03 09:43:15 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/09/03 09:44:32 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,7 @@ const coin = (channel, user) => {
 }
 
 const hello = (user, channel) => {
-  postMessage(`bonjour <@${user}>`, channel)
+  postMessage(`Bonjour <@${user}>`, channel)
 }
 
 module.exports = {
