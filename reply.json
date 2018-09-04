@@ -1,7 +1,7 @@
 {
   "home": "Si `Disk Not Ejected Properly ??` suivre : https://42born2code.slack.com/archives/C7P0Z4F3L/p1510233807000241",
   "brew": "`rm -rf $HOME/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME/.brew && echo 'export PATH=$HOME/.brew/bin:$PATH' >> $HOME/.zshrc && source $HOME/.zshrc && brew update`",
-  "clean": "`rm -rf ~/Library/**.42_cache_bak; rm -rf ~/**.42_cache_bak; brew cleanup`",
+  "clean": "`rm -rf ~/Library/**.42_cache_bak*; rm -rf ~/**.42_cache_bak; brew cleanup`",
   "bug": "`it's not a bug, It's a feature`\nFaites un ticket ici `https://github.com/genesixx/coalibot/issues` et/ou mp <@elebouch>",
   "halp": "Bonjour\n Je t'invite à taper `iscsictl list targets` dans ton terminal\n à copier la ligne contenant ton login mais sans la partie entre <>\n puis à taper `iscsictl <la ligne copiée>`",
   "source": "`https://github.com/genesixx/coalibot`",
