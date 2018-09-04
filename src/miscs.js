@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 14:27:58 by elebouch          #+#    #+#             */
-/*   Updated: 2018/09/03 09:44:32 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/09/04 14:44:03 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ const roll = (message, channel, ts) => {
       str += i < length - 1 ? ' ' : ''
     }
     postOnThread(str, channel, ts)
+  } else {
+    let str = '```bc roll nbResultat [option1, option2, ...]\nbc roll nbResultat min-max\nbc roll nbResultat max```'
+    postOnThread(str, channel, ts)
   }
 }
 
@@ -145,7 +148,7 @@ const music = async channel => {
     let login
     if (music.login === 'pk') login = 'p/k'
     else login = music.login
-    postMessage(`${login} ${music.link}`, channel)
+    postMessage(`${login} ${music.link} `, channel)
   } catch (err) {
     console.error(err)
   }
