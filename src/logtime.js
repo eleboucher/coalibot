@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/09/04 17:39:06 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/09/04 17:41:31 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ const handleDate = (message, option) => {
 }
 
 const handleMonth = (message, option) => {
+  let hasYear = false
   option.count += 1
   if (
     message.split(' ')[option.count].normalize('NFD').replace(/[\u0300-\u036f]/g, '') in month
@@ -178,11 +179,11 @@ const handleMonth = (message, option) => {
       parseInt(message.split(' ')[option.count + 1]) > 2000
     ) {
       year = parseInt(message.split(' ')[option.count + 1])
-      option.month += 1
+      hasYear = true
     } else year = new Date().getFullYear()
     option.date_begin = moment({
       y: year,
-      M: month[message.split(' ')[option.count - 1]],
+      M: month[message.split(' ')[option.count]],
       d: 1
     })
     option.date_end = moment({
@@ -212,7 +213,7 @@ const handleMonth = (message, option) => {
       d: 31
     }).endOf('day')
   } else option.error = true
-  option.count += 1
+  option.count += (hasYear) ? 2 : 1
   return option
 }
 
