@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 21:07:36 by elebouch          #+#    #+#             */
-/*   Updated: 2018/08/23 21:22:50 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/09/05 15:55:08 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ const alliance = async channel => {
   if (rang === 0) {
     postMessage(
       `Felicitations Nous sommes premiers avec ${rang +
-        1} points d'avance. :the-alliance:`,
+      1} points d'avance. :the-alliance:`,
       channel
     )
   } else {
     const diff = json[0]['score'] - json[rang]['score']
     postMessage(
       `Nous sommes à la ${rang +
-        1}eme place avec ${diff} points de retard. :the-alliance:`,
+      1}eme place avec ${diff} points de retard. :the-alliance:`,
       channel
     )
   }
@@ -63,9 +63,9 @@ const score = async channel => {
           title: json[1]['name'],
           value: String(
             json[1]['score'] +
-              ' (' +
-              Number(json[1]['score'] - json[0]['score']) +
-              ')'
+            ' (' +
+            Number(json[1]['score'] - json[0]['score']) +
+            ')'
           ),
           short: true
         },
@@ -73,9 +73,9 @@ const score = async channel => {
           title: json[2]['name'],
           value: String(
             json[2]['score'] +
-              ' (' +
-              Number(json[2]['score'] - json[0]['score']) +
-              ')'
+            ' (' +
+            Number(json[2]['score'] - json[0]['score']) +
+            ')'
           ),
           short: true
         },
@@ -83,9 +83,9 @@ const score = async channel => {
           title: json[3]['name'],
           value: String(
             json[3]['score'] +
-              ' (' +
-              Number(json[3]['score'] - json[0]['score']) +
-              ')'
+            ' (' +
+            Number(json[3]['score'] - json[0]['score']) +
+            ')'
           ),
           short: true
         }
@@ -143,7 +143,7 @@ const profil = async (msg, channel, usr) => {
     }
     const u = data.projects_users.find(d => d.project.id === 118)
     const uploaded = data.projects_users.find(d => d.project.id === 119)
-    return u && uploaded && uploaded['status'] === 'finished'
+    return u && uploaded && uploaded['status'] === 'finished' && u['final_mark'] > 0
       ? ret[u['status']]
       : ':negative_squared_cross_mark:'
   })(data)
@@ -161,14 +161,14 @@ const profil = async (msg, channel, usr) => {
           title: 'Niveau',
           value: `${
             lvl === 0 ? 0 : sprintf('%.2f', data['cursus_users'][0]['level'])
-          }`,
+            }`,
           short: true
         },
         {
           title: 'Niveau piscine',
           value: `${sprintf('%.2f', lvlpiscine)} ${data['pool_month']} ${
             data['pool_year']
-          }`,
+            }`,
           short: true
         },
         {
@@ -208,7 +208,7 @@ const who = async (msg, channel) => {
     const diff = moment(data[0].endAt).fromNow()
     postMessage(
       `Place *${place}* vide, ancien utilisateur: *${
-        data[0]['user']['login']
+      data[0]['user']['login']
       }* ${diff}`,
       channel
     )
