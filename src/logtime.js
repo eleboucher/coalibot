@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/09/05 09:52:14 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/09/05 09:56:41 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,10 @@ const handleMonth = (message, option) => {
   let hasYear = false
   option.count += 1
   if (
-    message.split(' ')[option.count].normalize('NFD').replace(/[\u0300-\u036f]/g, '') in month
+    message
+      .split(' ')
+      [option.count].normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') in month
   ) {
     let year = ''
     if (
@@ -189,7 +192,7 @@ const handleMonth = (message, option) => {
     option.date_end = moment({
       y: year,
       M: month[message.split(' ')[option.count]],
-      d: 31
+      d: option.date_begin.daysInMonth()
     }).endOf('day')
   } else if (
     /(\b|^)(0[1-9]|[1-9]|1[012])(\b|$)/i.test(message.split(' ')[option.count])
@@ -207,9 +210,13 @@ const handleMonth = (message, option) => {
       M: parseInt(message.split(' ')[option.count]) - 1,
       d: 1
     })
-    option.date_end = option.date_begin.endOf('month').endOf('day')
+    option.date_end = moment({
+      y: year,
+      M: month[message.split(' ')[option.count]],
+      d: option.date_begin.daysInMonth()
+    }).endOf('day')
   } else option.error = true
-  option.count += (hasYear) ? 2 : 1
+  option.count += hasYear ? 2 : 1
   return option
 }
 
