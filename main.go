@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 
 	"github.com/joho/godotenv"
 	"github.com/nlopes/slack"
@@ -33,7 +34,12 @@ func main() {
 			fmt.Println("Ready")
 		case *slack.MessageEvent:
 			var message = Message{Message: ev.Msg.Text, Channel: ev.Msg.Channel, User: ev.Msg.User, Timestamp: ev.Msg.Timestamp, API: api}
-			go handleCommand(&message)
+			sort.Strings(BlackList)
+			i := sort.Search(len(BlackList),
+				func(i int) bool { return BlackList[i] >= message.Channel })
+			if message.User != "" && !(i < len(BlackList) && BlackList[i] == message.Channel) {
+				go handleCommand(&message)
+			}
 		case *slack.RTMError:
 			fmt.Printf("Error: %s\n", ev.Error())
 		case *slack.InvalidAuthEvent:
