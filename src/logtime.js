@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/09/06 18:53:28 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/09/06 18:57:29 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ const handleMonth = (message, option) => {
     })
     option.date_end = moment({
       y: year,
-      M: month[message.split(' ')[option.count]] - 1,
+      M: parseInt(message.split(' ')[option.count]) - 1,
       d: option.date_begin.daysInMonth()
     }).endOf('day')
   } else option.error = true
