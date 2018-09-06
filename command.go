@@ -63,16 +63,18 @@ func handleCommand(event *Message) {
 	splited := strings.Split(event.Message, " ")
 	if indexOf(splited[0], []string{"coalibot", "bc", "cb"}) > -1 && len(splited) > 1 {
 		command = splited[1]
-		option = strings.Join(splited[1:], " ")
+		option = strings.Join(splited[2:], " ")
 		isCommand = reply(command, event)
-		if !isCommand {
-			if isCommand, err := commands[command](option, event); ok {
-
-			}
+		if !isCommand && commands[command] != nil {
+			isCommand = commands[command](option, event)
 		}
 	} else if splited[0][0] == '!' && len(splited[0]) > 1 {
-
-		fmt.Printf("Coalibot command\n")
+		command = splited[0][1:]
+		option = strings.Join(splited[1:], " ")
+		isCommand = reply(command, event)
+		if !isCommand && commands[command] != nil {
+			isCommand = commands[command](option, event)
+		}
 	}
-
+	fmt.Printf("command %s option %s\n", command, option)
 }
