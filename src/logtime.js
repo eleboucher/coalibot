@@ -6,7 +6,7 @@
 /*   By: elebouch <elebouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/20 23:24:22 by elebouch          #+#    #+#             */
-/*   Updated: 2018/09/05 09:56:41 by elebouch         ###   ########.fr       */
+/*   Updated: 2018/09/06 18:53:28 by elebouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ const getRangeIntralogtime = async (user, rangeBegin, rangeEnd) => {
     return moment.duration(0)
   }
   try {
-    async function getMoreData (data) {
+    async function getMoreData(data) {
       let tmp
       let i = 2
       let ret = data
@@ -173,7 +173,7 @@ const handleMonth = (message, option) => {
   if (
     message
       .split(' ')
-      [option.count].normalize('NFD')
+    [option.count].normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '') in month
   ) {
     let year = ''
@@ -203,7 +203,7 @@ const handleMonth = (message, option) => {
       parseInt(message.split(' ')[option.count + 1]) > 2000
     ) {
       year = parseInt(message.split(' ')[option.count + 1])
-      option.count += 1
+      hasYear = true
     } else year = new Date().getFullYear()
     option.date_begin = moment({
       y: year,
@@ -212,7 +212,7 @@ const handleMonth = (message, option) => {
     })
     option.date_end = moment({
       y: year,
-      M: month[message.split(' ')[option.count]],
+      M: month[message.split(' ')[option.count]] - 1,
       d: option.date_begin.daysInMonth()
     }).endOf('day')
   } else option.error = true
@@ -425,7 +425,7 @@ const logtime = async (message, user, channel, ts) => {
     ]
     postAttachmentsOnThread(
       `Logtime ${option.intra === true ? 'intra' : 'badgeuse'} pour *${
-        option.login
+      option.login
       }* entre *${option.date_begin.format('LL')}* et *${option.date_end.format(
         'LL'
       )}*`,
