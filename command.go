@@ -7,6 +7,9 @@ import (
 	"os"
 	"strings"
 
+	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/miscs"
+
 	"github.com/nlopes/slack"
 )
 
@@ -19,7 +22,7 @@ func indexOf(word string, data []string) int {
 	return -1
 }
 
-func reply(command string, event *Message) bool {
+func reply(command string, event *Struct.Message) bool {
 	// Open our jsonFile
 	jsonFile, err := os.Open("reply.json")
 	// if we os.Open returns an error then handle it
@@ -44,16 +47,11 @@ func reply(command string, event *Message) bool {
 	return true
 }
 
-func hello(option string, event *Message) bool {
-	event.API.PostMessage(event.Channel, "Hello <@"+event.User+"> ! powered by go", slack.PostMessageParameters{})
-	return true
+var commands = map[string]func(string, *Struct.Message) bool{
+	"hello": miscs.Hello,
 }
 
-var commands = map[string]func(string, *Message) bool{
-	"hello": hello,
-}
-
-func handleCommand(event *Message) {
+func handleCommand(event *Struct.Message) {
 	var isCommand = false
 	var option = ""
 	var command = ""
