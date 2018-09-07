@@ -16,16 +16,16 @@ func Roulette(option string, event *Struct.Message) bool {
 			tab = append(tab, 0)
 		}
 		tab[rand.Intn(6)] = 1
-		event.API.PostMessage(event.Channel, "On recharge le revolver!", slack.PostMessageParameters{})
+		event.API.PostMessage(event.Channel, "On recharge le revolver!", slack.NewPostMessageParameters())
 	}
 	var count = 6 - len(tab) + 1
 	if tab[0] == 1 {
 		tab = nil
-		event.API.PostMessage(event.Channel, "<@"+event.User+">: Bang ( "+strconv.Itoa(count)+" / 6 )", slack.PostMessageParameters{})
+		event.API.PostMessage(event.Channel, "<@"+event.User+">: Bang ( "+strconv.Itoa(count)+" / 6 )", slack.NewPostMessageParameters())
 		// handlestat(user)
 	} else {
 		tab = tab[1:]
-		event.API.PostMessage(event.Channel, "<@"+event.User+">: Click ( "+strconv.Itoa(count)+" / 6 )", slack.PostMessageParameters{})
+		event.API.PostMessage(event.Channel, "<@"+event.User+">: Click ( "+strconv.Itoa(count)+" / 6 )", slack.NewPostMessageParameters())
 	}
 	return true
 }
