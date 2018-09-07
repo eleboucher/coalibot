@@ -1,4 +1,4 @@
-package miscs
+package Miscs
 
 import (
 	"github.com/genesixx/coalibot/Struct"

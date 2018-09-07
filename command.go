@@ -7,19 +7,41 @@ import (
 	"os"
 	"strings"
 
+	"github.com/genesixx/coalibot/Miscs"
 	"github.com/genesixx/coalibot/Struct"
-	"github.com/genesixx/coalibot/miscs"
 
 	"github.com/nlopes/slack"
 )
 
-func indexOf(word string, data []string) int {
-	for k, v := range data {
-		if word == v {
-			return k
+var commands = map[string]func(string, *Struct.Message) bool{
+	"hello": Miscs.Hello,
+	"vdm":   Miscs.Vdm,
+}
+
+func handleCommand(event *Struct.Message) {
+	var isCommand = false
+	var option = ""
+	var command = ""
+
+	event.Message = strings.Join(strings.Fields(event.Message), " ")
+	fmt.Printf("<#%s> @%s: %s\n", event.Channel, event.User, event.Message)
+	splited := strings.Split(event.Message, " ")
+	if indexOf(splited[0], []string{"coalibot", "bc", "cb"}) > -1 && len(splited) > 1 {
+		command = splited[1]
+		option = strings.Join(splited[2:], " ")
+		isCommand = reply(command, event)
+		if !isCommand && commands[command] != nil {
+			isCommand = commands[command](option, event)
+		}
+	} else if splited[0][0] == '!' && len(splited[0]) > 1 {
+		command = splited[0][1:]
+		option = strings.Join(splited[1:], " ")
+		isCommand = reply(command, event)
+		if !isCommand && commands[command] != nil {
+			isCommand = commands[command](option, event)
 		}
 	}
-	return -1
+	fmt.Printf("command %s option %s\n", command, option)
 }
 
 func reply(command string, event *Struct.Message) bool {
@@ -47,32 +69,11 @@ func reply(command string, event *Struct.Message) bool {
 	return true
 }
 
-var commands = map[string]func(string, *Struct.Message) bool{
-	"hello": miscs.Hello,
-}
-
-func handleCommand(event *Struct.Message) {
-	var isCommand = false
-	var option = ""
-	var command = ""
-
-	event.Message = strings.Join(strings.Fields(event.Message), " ")
-	fmt.Printf("<#%s> @%s: %s\n", event.Channel, event.User, event.Message)
-	splited := strings.Split(event.Message, " ")
-	if indexOf(splited[0], []string{"coalibot", "bc", "cb"}) > -1 && len(splited) > 1 {
-		command = splited[1]
-		option = strings.Join(splited[2:], " ")
-		isCommand = reply(command, event)
-		if !isCommand && commands[command] != nil {
-			isCommand = commands[command](option, event)
-		}
-	} else if splited[0][0] == '!' && len(splited[0]) > 1 {
-		command = splited[0][1:]
-		option = strings.Join(splited[1:], " ")
-		isCommand = reply(command, event)
-		if !isCommand && commands[command] != nil {
-			isCommand = commands[command](option, event)
+func indexOf(word string, data []string) int {
+	for k, v := range data {
+		if word == v {
+			return k
 		}
 	}
-	fmt.Printf("command %s option %s\n", command, option)
+	return -1
 }
