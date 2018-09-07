@@ -14,8 +14,10 @@ import (
 )
 
 var commands = map[string]func(string, *Struct.Message) bool{
-	"hello": Miscs.Hello,
-	"vdm":   Miscs.Vdm,
+	"hello":    Miscs.Hello,
+	"vdm":      Miscs.Vdm,
+	"roulette": Miscs.Roulette,
+	"coin":     Miscs.Coin,
 }
 
 func handleCommand(event *Struct.Message) {
@@ -31,14 +33,14 @@ func handleCommand(event *Struct.Message) {
 		option = strings.Join(splited[2:], " ")
 		isCommand = reply(command, event)
 		if !isCommand && commands[command] != nil {
-			isCommand = commands[command](option, event)
+			isCommand = commands[strings.ToLower(command)](option, event)
 		}
 	} else if splited[0][0] == '!' && len(splited[0]) > 1 {
 		command = splited[0][1:]
 		option = strings.Join(splited[1:], " ")
 		isCommand = reply(command, event)
 		if !isCommand && commands[command] != nil {
-			isCommand = commands[command](option, event)
+			isCommand = commands[strings.ToLower(command)](option, event)
 		}
 	}
 	fmt.Printf("command %s option %s\n", command, option)
