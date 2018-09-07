@@ -6,6 +6,6 @@ import (
 )
 
 func Hello(option string, event *Struct.Message) bool {
-	event.API.PostMessage(event.Channel, "Hello <@"+event.User+"> ! powered by go", slack.PostMessageParameters{})
+	event.API.PostMessage(event.Channel, "Hello <@"+event.User+"> ! powered by go", slack.NewPostMessageParameters())
 	return true
 }
