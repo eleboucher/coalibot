@@ -1,38 +1,40 @@
-package Utils
+package Miscs
 
 import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strconv"
 
 	"github.com/genesixx/coalibot/Struct"
 )
 
-func HandleRouletteStat(event *Struct.Message) {
+func RouletteStat(option string, event *Struct.Message) bool {
+	fmt.Println("allo")
+	
 	user, err := event.API.GetUserInfo(event.User)
 	if err != nil {
 		fmt.Println(err)
-		return
+		return false
 	}
-	// Open our jsonFile
 	file, err := os.OpenFile("rouletteStat.json", os.O_WRONLY|os.O_CREATE, 0660)
 	if err != nil {
 		fmt.Println(err)
-		return
+		return false
 	}
 	defer file.Close()
 	byteValue, _ := ioutil.ReadFile("rouletteStat.json")
-	// a map container to decode the JSON structure into
 	c := make(map[string]int)
 
 	// unmarschal JSON
-	json.Unmarshal(byteValue, &c) // these lines to see the difference
+	json.Unmarshal(byteValue, &c)
+
+	var count = 0
 	if c[user.Name] != 0 {
-		c[user.Name] = c[user.Name] + 1
-	} else {
-		c[user.Name] = 1
+		count = c[user.Name]
 	}
-	toJson, _ := json.Marshal(c)
-	file.Write(toJson)
+	countstr := strconv.Itoa(count)
+	event.API.PostMessage(event.Channel, "<@"+event.User+">: "+countstr+" Bang!", Struct.SlackParams)
+	return true
 }
