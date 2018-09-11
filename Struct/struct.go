@@ -9,3 +9,5 @@ type Message struct {
 	Timestamp string
 	API       *slack.Client
 }
+
+var SlackParams = slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true}
