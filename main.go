@@ -9,6 +9,7 @@ import (
 	"github.com/genesixx/coalibot/Struct"
 	"github.com/joho/godotenv"
 	"github.com/nlopes/slack"
+	"gitlab.com/clafoutis/api42"
 )
 
 func main() {
@@ -19,14 +20,14 @@ func main() {
 	api := slack.New(os.Getenv("SLACK_API_TOKEN"))
 	rtm := api.NewRTM()
 	// api.SetDebug(true)
-
+	client, err := api42.NewAPI(os.Getenv("INTRA_CLIENT_ID"), os.Getenv("INTRA_SECRET"))
 	go rtm.ManageConnection()
 	for msg := range rtm.IncomingEvents {
 		switch ev := msg.Data.(type) {
 		case *slack.ConnectedEvent:
 			fmt.Println("Ready")
 		case *slack.MessageEvent:
-			var message = Struct.Message{Message: ev.Msg.Text, Channel: ev.Msg.Channel, User: ev.Msg.User, Timestamp: ev.Msg.Timestamp, API: api}
+			var message = Struct.Message{Message: ev.Msg.Text, Channel: ev.Msg.Channel, User: ev.Msg.User, Timestamp: ev.Msg.Timestamp, API: api, FortyTwo: client}
 			sort.Strings(BlackList)
 			i := sort.Search(len(BlackList),
 				func(i int) bool { return BlackList[i] >= message.Channel })
