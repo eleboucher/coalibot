@@ -6,12 +6,10 @@ import (
 
 	"github.com/genesixx/coalibot/Struct"
 	"github.com/nlopes/slack"
-	"gitlab.com/clafoutis/api42"
 )
 
 func Score(option string, event *Struct.Message) bool {
-	var coalitions []api42.Coalition42
-	_, err := event.FortyTwo.Get("/v2/blocs/1/coalitions", nil, &coalitions)
+	coalitions, err := event.FortyTwo.GetCoalitionsByBloc(1, nil)
 	if err != nil {
 		return false
 	}
