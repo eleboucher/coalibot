@@ -22,6 +22,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"roulettestat": Miscs.RouletteStat,
 	"score":        FortyTwo.Score,
 	"alliance":     FortyTwo.Alliance,
+	"prof":         FortyTwo.Prof,
 }
 
 func handleCommand(event *Struct.Message) {
