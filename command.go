@@ -10,7 +10,6 @@ import (
 	"github.com/genesixx/coalibot/FortyTwo"
 	"github.com/genesixx/coalibot/Miscs"
 	"github.com/genesixx/coalibot/Struct"
-	"github.com/nlopes/slack"
 )
 
 var commands = map[string]func(string, *Struct.Message) bool{
@@ -22,6 +21,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"roll":         Miscs.Roll,
 	"roulettestat": Miscs.RouletteStat,
 	"score":        FortyTwo.Score,
+	"alliance":     FortyTwo.Alliance,
 }
 
 func handleCommand(event *Struct.Message) {
@@ -71,7 +71,7 @@ func reply(command string, event *Struct.Message) bool {
 
 	// output result to STDOUT
 	fmt.Printf("reply %s\n", c[command].(string))
-	event.API.PostMessage(event.Channel, c[command].(string), slack.PostMessageParameters{})
+	event.API.PostMessage(event.Channel, c[command].(string), Struct.SlackParams)
 	return true
 }
 

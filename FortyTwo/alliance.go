@@ -15,17 +15,20 @@ func Alliance(option string, event *Struct.Message) bool {
 	sort.Slice(coalitions, func(i, j int) bool {
 		return coalitions[i].Score > coalitions[j].Score
 	})
-	for index, elem := range coalitions {
-		if elem.id == 2 {
+	var i int
+	for i = 0; i < len(coalitions); i++ {
+		if coalitions[i].ID == 2 {
 			break
 		}
 	}
-	rank, _ := strconv.Itoa(index + 1)
-	if index == 0 {
-		event.API.PostMessage(event.Channel, "Felicitations Nous sommes premiers avec "+rank+" points d'avance. :the-alliance:", Struct.SlackParams)
+	rank := strconv.Itoa(i + 1)
+
+	if i == 0 {
+		diff := strconv.Itoa(coalitions[0].Score - coalitions[1].Score)
+		event.API.PostMessage(event.Channel, "Felicitations Nous sommes premiers avec "+diff+" points d'avance. :the-alliance:", Struct.SlackParams)
+	} else {
+		diff := strconv.Itoa(coalitions[0].Score - coalitions[i].Score)
+		event.API.PostMessage(event.Channel, "Nous sommes à la "+rank+" eme place avec "+diff+" points de retard. :the-alliance:", Struct.SlackParams)
 	}
-	else {
-		diff,_  := strconv.Itoa(coalitions[0] - coalitions[index])
-		event.API.PostMessage(event.Channel, "Nous sommes à la "+rank+" eme place avec " + diff + " points de retard. :the-alliance:", Struct.SlackParams)
-	}
+	return true
 }
