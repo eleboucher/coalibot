@@ -25,8 +25,7 @@ const alliance = async channel => {
   while (json[rang]['id'] !== 2) rang += 1
   if (rang === 0) {
     postMessage(
-      `Felicitations Nous sommes premiers avec ${rang +
-      1} points d'avance. :the-alliance:`,
+      `Felicitations Nous sommes premiers avec ${json[0]['score'] - json[1]['score']} points d'avance. :the-alliance:`,
       channel
     )
   } else {
