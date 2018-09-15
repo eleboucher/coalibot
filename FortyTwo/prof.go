@@ -22,10 +22,9 @@ func Prof(option string, event *Struct.Message) bool {
 	}
 	data, err := event.FortyTwo.GetUser(user)
 	if err != nil {
-		fmt.Println(err)
 		return false
 	}
-	fmt.Println(data)
+
 	coaldata, _ := event.FortyTwo.GetCoalitionUser(user)
 	var lvlPiscine string
 	if data.PoolYear == "2013" || data.PoolYear == "2014" {

@@ -172,6 +172,8 @@ func handleYear(splited []string, logtimeOpt *logopt) {
 	year, _ := strconv.Atoi(splited[logtimeOpt.count])
 	(*logtimeOpt).dateBegin = time.Date(year, time.January, 1, 0, 0, 0, 0, now.Location())
 	(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(1, 0, 0).Add(-time.Nanosecond)
+	(*logtimeOpt).count++
+
 }
 
 func handleQuarter(splited []string, logtimeOpt *logopt) {
@@ -189,7 +191,8 @@ func handleQuarter(splited []string, logtimeOpt *logopt) {
 		(*logtimeOpt).count++
 	}
 	(*logtimeOpt).dateBegin = time.Date(year, time.Month((quarter-1)*3+1), 1, 0, 0, 0, 0, now.Location())
-	(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(0, 3, -1)
+	(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(0, 3, 0).Add(-time.Nanosecond)
+	fmt.Println((*logtimeOpt).dateEnd)
 	(*logtimeOpt).count++
 }
 
@@ -208,7 +211,7 @@ func handleSemester(splited []string, logtimeOpt *logopt) {
 		(*logtimeOpt).count++
 	}
 	(*logtimeOpt).dateBegin = time.Date(year, time.Month((semestre-1)*6+1), 1, 0, 0, 0, 0, now.Location())
-	(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(0, 6, -1)
+	(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(0, 6, 0).Add(-time.Nanosecond)
 	(*logtimeOpt).count++
 }
 
@@ -230,11 +233,11 @@ func handleMonth(splited []string, logtimeOpt *logopt) {
 	}
 	if value, ok := monthL[month]; ok {
 		(*logtimeOpt).dateBegin = time.Date(year, time.Month(value), 1, 0, 0, 0, 0, now.Location())
-		(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(0, 1, -1)
+		(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(0, 1, 0).Add(-time.Nanosecond)
 	} else if monthReg.MatchString(month) {
 		monthInt, _ := strconv.Atoi(splited[logtimeOpt.count])
 		(*logtimeOpt).dateBegin = time.Date(year, time.Month(monthInt), 1, 0, 0, 0, 0, now.Location())
-		(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(0, 1, -1)
+		(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(0, 1, 0).Add(-time.Nanosecond)
 	} else {
 		(*logtimeOpt).error = true
 	}

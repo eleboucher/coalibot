@@ -40,7 +40,8 @@ func Logtime(user string, rangeBegin time.Time, rangeEnd time.Time, client *api4
 
 		csvFile.Close()
 		if err != nil {
-			return 0
+			ret, _ := time.ParseDuration(strconv.Itoa(duration) + "h")
+			return ret
 		}
 		duration += getHourByName(name, rows)
 		current = current.AddDate(0, 1, 0)
@@ -54,7 +55,7 @@ func getHourByName(name name, data [][]string) int {
 	var duration = 0
 	for i := 0; i < len(data); i++ {
 		if nameReg.MatchString(data[i][0]) {
-			tmp, _ := strconv.Atoi(data[i][2][:len(data[i])-1])
+			tmp, _ := strconv.Atoi(data[i][2][:len(data[i][2])-1])
 			duration += tmp
 		}
 	}
