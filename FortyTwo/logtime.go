@@ -109,8 +109,7 @@ func Logtime(option string, event *Struct.Message) bool {
 	if logtimeOpt.dateBegin != zeroDate && logtimeOpt.dateEnd != zeroDate {
 		switch logtimeOpt.intra {
 		case false:
-			//todo
-			break
+			logtimeOpt.logtime = Utils.Logtime(logtimeOpt.login, logtimeOpt.dateBegin, logtimeOpt.dateEnd, event.FortyTwo)
 		case true:
 			logtimeOpt.logtime = Utils.IntraLogtime(logtimeOpt.login, logtimeOpt.dateBegin, logtimeOpt.dateEnd, event.FortyTwo)
 		}
@@ -160,7 +159,6 @@ func handleDate(splited []string, logtimeOpt *logopt) {
 	}
 	y, m, d := dateEnd.Date()
 	(*logtimeOpt).dateEnd = time.Date(y, m, d, 23, 59, 59, int(-time.Nanosecond), dateEnd.Location())
-	fmt.Println((*logtimeOpt).dateBegin)
 	(*logtimeOpt).count += 2
 }
 
@@ -181,14 +179,12 @@ func handleQuarter(splited []string, logtimeOpt *logopt) {
 	quartReg, _ := regexp.Compile(`^[1-4]$`)
 	if len(splited) < logtimeOpt.count || !quartReg.MatchString(splited[logtimeOpt.count]) {
 		(*logtimeOpt).error = true
-		fmt.Println("asdfasdf")
 		return
 	}
 	quarter, _ := strconv.Atoi(splited[logtimeOpt.count])
 	year := time.Now().Year()
 	yearReg, _ := regexp.Compile(`(\b|^)20\d{2}(\b|$)`)
-	fmt.Println(splited[(*logtimeOpt).count+1])
-	if len(splited) >= (*logtimeOpt).count+1 && yearReg.MatchString(splited[logtimeOpt.count+1]) {
+	if len(splited) > (*logtimeOpt).count+1 && yearReg.MatchString(splited[logtimeOpt.count+1]) {
 		year, _ = strconv.Atoi(splited[logtimeOpt.count+1])
 		(*logtimeOpt).count++
 	}
@@ -228,7 +224,7 @@ func handleMonth(splited []string, logtimeOpt *logopt) {
 	monthReg, _ := regexp.Compile(`(\b|^)(0[1-9]|[1-9]|1[012])(\b|$)`)
 	year := time.Now().Year()
 	yearReg, _ := regexp.Compile(`(\b|^)20\d{2}(\b|$)`)
-	if len(splited) >= (*logtimeOpt).count+1 && yearReg.MatchString(splited[logtimeOpt.count+1]) {
+	if len(splited) > (*logtimeOpt).count+1 && yearReg.MatchString(splited[logtimeOpt.count+1]) {
 		year, _ = strconv.Atoi(splited[logtimeOpt.count+1])
 		hasYear = true
 	}
