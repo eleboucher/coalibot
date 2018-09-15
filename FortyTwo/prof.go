@@ -12,7 +12,6 @@ func Prof(option string, event *Struct.Message) bool {
 
 	if len(option) > 0 {
 		user = strings.Split(option, " ")[0]
-		fmt.Println("pouet")
 	} else {
 		u, err := event.API.GetUserInfo(event.User)
 		if err != nil {
@@ -28,13 +27,13 @@ func Prof(option string, event *Struct.Message) bool {
 	}
 	fmt.Println(data)
 	coaldata, _ := event.FortyTwo.GetCoalitionUser(user)
-	var lvlPiscine string = "0"
+	var lvlPiscine string
 	if data.PoolYear == "2013" || data.PoolYear == "2014" {
-		lvlPiscine = fmt.Sprintf("%.6f", 0)
+		lvlPiscine = fmt.Sprintf("%2.6d", 0)
 	} else if len(data.CursusUsers) == 1 {
-		lvlPiscine = fmt.Sprintf("%.6f", data.CursusUsers[0].Level)
+		lvlPiscine = fmt.Sprintf("%2.6f", data.CursusUsers[0].Level)
 	} else {
-		lvlPiscine = fmt.Sprintf("%.6f", data.CursusUsers[1].Level)
+		lvlPiscine = fmt.Sprintf("%2.6f", data.CursusUsers[1].Level)
 	}
 	fmt.Println(coaldata, lvlPiscine)
 	return true
