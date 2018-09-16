@@ -1,6 +1,7 @@
 package FortyTwo
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
@@ -35,12 +36,9 @@ func Where(option string, event *Struct.Message) bool {
 		}
 		return true
 	}
-	if len(strings.Split(option, " ")) > 1 {
-		event.API.PostMessage(event.Channel, "Prend une login en parametre", Struct.SlackParams)
-		return false
-	}
 	var user string
-	if len(strings.Split(option, " ")) == 1 {
+
+	if option != "" && len(strings.Split(option, " ")) == 1 {
 		user = strings.Split(option, " ")[0]
 	} else {
 		u, err := event.API.GetUserInfo(event.User)
@@ -49,6 +47,8 @@ func Where(option string, event *Struct.Message) bool {
 		}
 		user = u.Profile.Email[0:strings.IndexAny(u.Profile.Email, "@")]
 	}
+	fmt.Println(user)
+
 	if user[0] == '!' || user[0] == '?' {
 		return false
 	}
