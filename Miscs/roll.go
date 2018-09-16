@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/genesixx/coalibot/Struct"
-	"github.com/nlopes/slack"
 )
 
 func Roll(option string, event *Struct.Message) bool {
@@ -18,8 +17,8 @@ func Roll(option string, event *Struct.Message) bool {
 	if err != nil {
 		return false
 	}
-	params := slack.PostMessageParameters{ThreadTimestamp: event.Timestamp}
-
+	params := Struct.SlackParams
+	params.ThreadTimestamp = event.Timestamp
 	if len(splited) >= 2 && strings.IndexAny(option, "[") != -1 &&
 		strings.IndexAny(option, "]") != -1 &&
 		strings.IndexAny(option, "[") < strings.IndexAny(option, "]") {

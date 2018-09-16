@@ -6,7 +6,7 @@ import (
 )
 
 func Help(option string, event *Struct.Message) bool {
-	params := slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true, IconURL: "https://img15.hostingpics.net/pics/4833663350.jpg", Username: "Perceval"}
+	params := Struct.SlackParams
 	attachment := slack.Attachment{
 		Title:     "Coalibot Helper",
 		TitleLink: "https://github.com/genesixx/coalibot",

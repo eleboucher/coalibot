@@ -25,7 +25,7 @@ func Score(option string, event *Struct.Message) bool {
 			Short: true,
 		})
 	}
-	params := slack.PostMessageParameters{}
+	params := Struct.SlackParams
 	attachment := slack.Attachment{
 		Color:      coalitions[0].Color,
 		AuthorLink: "https://profile.intra.42.fr/blocs/1/coalitions",
