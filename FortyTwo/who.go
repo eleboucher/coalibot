@@ -11,7 +11,7 @@ import (
 )
 
 func Who(option string, event *Struct.Message) bool {
-	if len(strings.Split(option, " ")) > 1 || len(strings.Split(option, " ")) == 0 {
+	if option == "" || len(strings.Split(option, " ")) > 1 || len(strings.Split(option, " ")) == 0 {
 		event.API.PostMessage(event.Channel, "Prend une place en parametre", Struct.SlackParams)
 		return false
 	}
