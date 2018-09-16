@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/genesixx/coalibot/Database"
 	"github.com/genesixx/coalibot/FortyTwo"
 	"github.com/genesixx/coalibot/Miscs"
 	"github.com/genesixx/coalibot/Struct"
@@ -29,6 +30,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"where":        FortyTwo.Where,
 	"oss":          Miscs.Oss,
 	"kaamelott":    Miscs.Kaamelott,
+	"help":         Miscs.Help,
 }
 
 func handleCommand(event *Struct.Message) {
@@ -53,6 +55,9 @@ func handleCommand(event *Struct.Message) {
 		if !isCommand && commands[command] != nil {
 			isCommand = commands[strings.ToLower(command)](option, event)
 		}
+	}
+	if isCommand {
+		go Database.AddCommand(event, command, option)
 	}
 	fmt.Printf("command %s option %s\n", command, option)
 }

@@ -16,6 +16,7 @@ func main() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
+		return
 	}
 	api := slack.New(os.Getenv("SLACK_API_TOKEN"))
 	rtm := api.NewRTM()
