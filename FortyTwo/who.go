@@ -26,13 +26,13 @@ func Who(option string, event *Struct.Message) bool {
 		return false
 	}
 	if len(data) == 0 {
-		event.API.PostMessage(event.Channel, "Place "+place+" vide.", Struct.SlackParams)
+		event.API.PostMessage(event.Channel, "Place *"+place+"* vide.", Struct.SlackParams)
 	} else if data[0].EndAt == nil {
-		event.API.PostMessage(event.Channel, data[0].User.Login+" est à la place "+place, Struct.SlackParams)
+		event.API.PostMessage(event.Channel, "*"+data[0].User.Login+"* est à la place *"+place+"*", Struct.SlackParams)
 
 	} else {
 		var diff = time.Now().Sub(*data[0].EndAt)
-		event.API.PostMessage(event.Channel, "Place "+place+" vide, ancien utilisateur "+data[0].User.Login+" deconnecté depuis "+Utils.FmtDuration(diff), Struct.SlackParams)
+		event.API.PostMessage(event.Channel, "Place *"+place+"* vide, ancien utilisateur *"+data[0].User.Login+"* deconnecté depuis *"+Utils.FmtDuration(diff)+"*", Struct.SlackParams)
 	}
 	return true
 }
