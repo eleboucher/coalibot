@@ -26,6 +26,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"prof":         FortyTwo.Prof,
 	"logtime":      FortyTwo.Logtime,
 	"who":          FortyTwo.Who,
+	"where":        FortyTwo.Where,
 }
 
 func handleCommand(event *Struct.Message) {

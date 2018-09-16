@@ -46,7 +46,6 @@ func Prof(option string, event *Struct.Message) bool {
 	y, m, d := time.Now().Date()
 	rangeBegin := time.Date(y, m, d, 0, 0, 0, 0, time.Now().Location())
 	rangeEnd := rangeBegin.AddDate(0, 0, -7)
-	fmt.Println(rangeBegin, rangeEnd)
 	logtime := Utils.IntraLogtime(user, rangeEnd, rangeBegin, event.FortyTwo)
 	stage := hasDoneIntership(data)
 	color := "#D40000"
