@@ -10,6 +10,7 @@ import (
 	"github.com/genesixx/coalibot/FortyTwo"
 	"github.com/genesixx/coalibot/Miscs"
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
 )
 
 var commands = map[string]func(string, *Struct.Message) bool{
@@ -34,7 +35,7 @@ func handleCommand(event *Struct.Message) {
 	event.Message = strings.Join(strings.Fields(event.Message), " ")
 	fmt.Printf("<#%s> @%s: %s\n", event.Channel, event.User, event.Message)
 	splited := strings.Split(event.Message, " ")
-	if indexOf(splited[0], []string{"coalibot", "bc", "cb"}) > -1 && len(splited) > 1 {
+	if Utils.IndexOf(splited[0], []string{"coalibot", "bc", "cb"}) > -1 && len(splited) > 1 {
 		command = strings.ToLower(splited[1])
 		option = strings.Join(splited[2:], " ")
 		isCommand = reply(command, event)
@@ -75,13 +76,4 @@ func reply(command string, event *Struct.Message) bool {
 	fmt.Printf("reply %s\n", c[command].(string))
 	event.API.PostMessage(event.Channel, c[command].(string), Struct.SlackParams)
 	return true
-}
-
-func indexOf(word string, data []string) int {
-	for k, v := range data {
-		if word == v {
-			return k
-		}
-	}
-	return -1
 }

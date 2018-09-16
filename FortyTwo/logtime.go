@@ -116,7 +116,7 @@ func Logtime(option string, event *Struct.Message) bool {
 	}
 
 	if logtimeOpt.logtime != -1 {
-		var logtimeStr = fmtDuration(logtimeOpt.logtime)
+		var logtimeStr = Utils.FmtDuration(logtimeOpt.logtime)
 		params := Struct.SlackParams
 		params.ThreadTimestamp = event.Timestamp
 		attachment := slack.Attachment{
@@ -251,12 +251,4 @@ func handleMonth(splited []string, logtimeOpt *logopt) {
 
 func isMn(r rune) bool {
 	return unicode.Is(unicode.Mn, r) // Mn: nonspacing marks
-}
-
-func fmtDuration(d time.Duration) string {
-	d = d.Round(time.Minute)
-	h := d / time.Hour
-	d -= h * time.Hour
-	m := d / time.Minute
-	return fmt.Sprintf("%02dh%02d", h, m)
 }
