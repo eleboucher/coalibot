@@ -30,7 +30,12 @@ func Where(option string, event *Struct.Message) bool {
 		}
 
 		if len(data) == 0 || data[0].EndAt != nil {
-			event.API.PostMessage(event.Channel, "*"+user+"* est hors-ligne", Struct.SlackParams)
+			if len(data) > 1 && data[1].EndAt != nil {
+				var diff = time.Now().Sub(*data[1].EndAt)
+				event.API.PostMessage(event.Channel, "*"+user+"* est hors-ligne depuis "+Utils.FmtDuration(diff), Struct.SlackParams)
+			} else {
+				event.API.PostMessage(event.Channel, "*"+user+"* est hors-ligne", Struct.SlackParams)
+			}
 		} else {
 			event.API.PostMessage(event.Channel, "*"+user+"* est à la place "+data[0].Host+"*", Struct.SlackParams)
 		}
