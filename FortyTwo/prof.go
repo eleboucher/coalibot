@@ -47,6 +47,7 @@ func Prof(option string, event *Struct.Message) bool {
 	rangeBegin := time.Date(y, m, d, 0, 0, 0, 0, time.Now().Location())
 	rangeEnd := rangeBegin.AddDate(0, 0, -7)
 	logtime := Utils.IntraLogtime(user, rangeEnd, rangeBegin, event.FortyTwo)
+	fmt.Println(data.Projects)
 	stage := hasDoneIntership(data)
 	color := "#D40000"
 	slug := ""
@@ -60,7 +61,7 @@ func Prof(option string, event *Struct.Message) bool {
 	}
 	params := Struct.SlackParams
 	attachment := slack.Attachment{
-		Title:     data.Displayname + " - " + user + slug,
+		Title:     data.Displayname + " - " + user + " " + slug,
 		TitleLink: "https://profile.intra.42.fr/users/" + user,
 		ThumbURL:  data.ImageURL,
 		Color:     color,
@@ -104,15 +105,17 @@ func hasDoneIntership(user *api42.User42) string {
 	var indexInternProject = -1
 	var indexContractProject = -1
 	for k, v := range user.Projects {
-		if v.ID == 118 {
+		if v.Project.ID == 118 {
+			fmt.Println(v)
 			indexInternProject = k
-		} else if v.ID == 119 {
+		} else if v.Project.ID == 119 {
 			indexContractProject = k
 		}
 	}
 	if indexInternProject != -1 && indexContractProject != -1 &&
 		user.Projects[indexContractProject].Status == "finished" &&
 		*user.Projects[indexInternProject].FinalMark > 0 {
+
 		switch user.Projects[indexInternProject].Status {
 		case "finished":
 			stage = ":white_check_mark:"
