@@ -104,12 +104,12 @@ func hasDoneIntership(user *api42.User42) string {
 	}
 	if indexInternProject != -1 && indexContractProject != -1 &&
 		user.Projects[indexContractProject].Status == "finished" &&
-		*user.Projects[indexInternProject].FinalMark > 0 {
+		(user.Projects[indexInternProject].FinalMark == nil || *user.Projects[indexInternProject].FinalMark > 0) {
 		switch user.Projects[indexInternProject].Status {
 		case "finished":
 			stage = ":white_check_mark:"
 		case "in_progress":
-			stage = "clock1"
+			stage = ":clock1:"
 		}
 	}
 	return stage
