@@ -33,6 +33,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"help":         Miscs.Help,
 	"music":        Miscs.Music,
 	"addmusic":     Miscs.AddMusic,
+	"dtc":          Miscs.Dtc,
 }
 
 func handleCommand(event *Struct.Message) {
