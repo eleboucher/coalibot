@@ -14,4 +14,9 @@ type Message struct {
 	FortyTwo  *api42.Client42
 }
 
+type Music struct {
+	Login string `json:"login"`
+	Link  string `json:"link"`
+}
+
 var SlackParams = slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true, Username: "Goalibot", IconURL: "https://raw.githubusercontent.com/hybridgroup/gobot-site/master/source/images/elements/gobot-logo-small.png"}
