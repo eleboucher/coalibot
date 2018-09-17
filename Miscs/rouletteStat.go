@@ -11,8 +11,6 @@ import (
 )
 
 func RouletteStat(option string, event *Struct.Message) bool {
-	fmt.Println("allo")
-	
 	user, err := event.API.GetUserInfo(event.User)
 	if err != nil {
 		fmt.Println(err)

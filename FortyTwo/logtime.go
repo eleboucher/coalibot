@@ -146,13 +146,13 @@ func handleDate(splited []string, logtimeOpt *logopt) {
 		(*logtimeOpt).error = true
 		return
 	}
-	dateBegin, err := time.Parse("2006-01-02", splited[logtimeOpt.count])
+	dateBegin, err := time.Parse("02/01/2006", splited[logtimeOpt.count])
 	if err != nil {
 		(*logtimeOpt).error = true
 		return
 	}
 	(*logtimeOpt).dateBegin = dateBegin
-	dateEnd, err := time.Parse("2006-01-02", splited[logtimeOpt.count+1])
+	dateEnd, err := time.Parse("02/01/2006", splited[logtimeOpt.count+1])
 	if err != nil {
 		(*logtimeOpt).error = true
 		return
