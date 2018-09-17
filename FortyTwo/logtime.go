@@ -87,16 +87,9 @@ func Logtime(option string, event *Struct.Message) bool {
 		logtimeOpt.intra = true
 		logtimeOpt.count++
 	}
+	logtimeOpt.login, logtimeOpt.error = Utils.GetLogin(option[logtimeOpt.count:], event)
 	if len(splited) > logtimeOpt.count && !logtimeOpt.error {
-		logtimeOpt.login = splited[logtimeOpt.count]
 		logtimeOpt.count++
-	} else {
-		u, err := event.API.GetUserInfo(event.User)
-		if err != nil {
-			logtimeOpt.error = true
-			return false
-		}
-		logtimeOpt.login = u.Profile.Email[0:strings.IndexAny(u.Profile.Email, "@")]
 	}
 	if len(splited) > logtimeOpt.count {
 		logtimeOpt.error = true
@@ -135,7 +128,7 @@ func Logtime(option string, event *Struct.Message) bool {
 		if !logtimeOpt.intra {
 			intra = "badgeuse"
 		}
-		event.API.PostMessage(event.Channel, "Logtime *"+intra+"* pour *"+logtimeOpt.login+"* entre *"+logtimeOpt.dateBegin.Format("2006-01-02")+"* et *"+logtimeOpt.dateEnd.Format("2006-01-02")+"*", params)
+		event.API.PostMessage(event.Channel, "asdfLogtime *"+intra+"* pour *"+logtimeOpt.login+"* entre *"+logtimeOpt.dateBegin.Format("2006-01-02")+"* et *"+logtimeOpt.dateEnd.Format("2006-01-02")+"*", params)
 	}
 	return true
 }

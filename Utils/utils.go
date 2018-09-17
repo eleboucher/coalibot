@@ -2,7 +2,10 @@ package Utils
 
 import (
 	"fmt"
+	"strings"
 	"time"
+
+	"github.com/genesixx/coalibot/Struct"
 )
 
 func IndexOf(word string, data []string) int {
@@ -20,4 +23,25 @@ func FmtDuration(d time.Duration) string {
 	d -= h * time.Hour
 	m := d / time.Minute
 	return fmt.Sprintf("%02dh%02d", h, m)
+}
+
+func GetLogin(option string, event *Struct.Message) (string, bool) {
+	var user string
+	if option != "" && len(strings.Split(option, " ")) == 1 {
+		user = strings.Split(option, " ")[0]
+		if user[0] == '<' && user[len(user)-1] == '>' && user[1] == '@' {
+			u, err := event.API.GetUserInfo(user[2 : len(user)-1])
+			if err != nil {
+				return "", true
+			}
+			user = u.Profile.Email[0:strings.IndexAny(u.Profile.Email, "@")]
+		}
+	} else {
+		u, err := event.API.GetUserInfo(event.User)
+		if err != nil {
+			return "", true
+		}
+		user = u.Profile.Email[0:strings.IndexAny(u.Profile.Email, "@")]
+	}
+	return user, false
 }

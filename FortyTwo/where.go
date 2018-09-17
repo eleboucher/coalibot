@@ -35,23 +35,9 @@ func Where(option string, event *Struct.Message) bool {
 		}
 		return true
 	}
-	var user string
-
-	if option != "" && len(strings.Split(option, " ")) == 1 {
-		user = strings.Split(option, " ")[0]
-		if user[0] == '<' && user[len(user)-1] == '>' && user[1] == '@' {
-			u, err := event.API.GetUserInfo(user[2 : len(user)-1])
-			if err != nil {
-				return false
-			}
-			user = u.Profile.Email[0:strings.IndexAny(u.Profile.Email, "@")]
-		}
-	} else {
-		u, err := event.API.GetUserInfo(event.User)
-		if err != nil {
-			return false
-		}
-		user = u.Profile.Email[0:strings.IndexAny(u.Profile.Email, "@")]
+	user, error := Utils.GetLogin(option, event)
+	if error == true {
+		return false
 	}
 
 	if user[0] == '!' || user[0] == '?' {

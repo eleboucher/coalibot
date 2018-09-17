@@ -32,7 +32,6 @@ func AddMusic(option string, event *Struct.Message) bool {
 	login := u.Name
 	link := strings.Split(option, " ")[0]
 	isCorrect, _ := regexp.Compile(`(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})`)
-	fmt.Println(link)
 	if checkDuplicate(musics, link) && (isCorrect.MatchString(link) || strings.IndexAny(link, "soundcloud") != -1) {
 		newLink := Struct.Music{Link: link, Login: login}
 		musics = append(musics, newLink)

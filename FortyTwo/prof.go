@@ -2,7 +2,6 @@ package FortyTwo
 
 import (
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/genesixx/coalibot/Struct"
@@ -12,17 +11,10 @@ import (
 )
 
 func Prof(option string, event *Struct.Message) bool {
-	var user string
-
-	if len(option) > 0 {
-		fmt.Println(strings.Split(option, " ")[0])
-		user = strings.Split(option, " ")[0]
-	} else {
-		u, err := event.API.GetUserInfo(event.User)
-		if err != nil {
-			return false
-		}
-		user = u.Profile.Email[0:strings.IndexAny(u.Profile.Email, "@")]
+	user, error := Utils.GetLogin(option, event)
+	if error != false {
+		event.API.PostMessage(event.Channel, "invalid login", Struct.SlackParams)
+		return false
 	}
 	data, err := event.FortyTwo.GetUser(user)
 	if err != nil {
@@ -47,7 +39,6 @@ func Prof(option string, event *Struct.Message) bool {
 	rangeBegin := time.Date(y, m, d, 0, 0, 0, 0, time.Now().Location())
 	rangeEnd := rangeBegin.AddDate(0, 0, -7)
 	logtime := Utils.IntraLogtime(user, rangeEnd, rangeBegin, event.FortyTwo)
-	fmt.Println(data.Projects)
 	stage := hasDoneIntership(data)
 	color := "#D40000"
 	slug := ""
@@ -106,7 +97,6 @@ func hasDoneIntership(user *api42.User42) string {
 	var indexContractProject = -1
 	for k, v := range user.Projects {
 		if v.Project.ID == 118 {
-			fmt.Println(v)
 			indexInternProject = k
 		} else if v.Project.ID == 119 {
 			indexContractProject = k
@@ -115,7 +105,6 @@ func hasDoneIntership(user *api42.User42) string {
 	if indexInternProject != -1 && indexContractProject != -1 &&
 		user.Projects[indexContractProject].Status == "finished" &&
 		*user.Projects[indexInternProject].FinalMark > 0 {
-
 		switch user.Projects[indexInternProject].Status {
 		case "finished":
 			stage = ":white_check_mark:"
