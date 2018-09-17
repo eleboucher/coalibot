@@ -142,11 +142,13 @@ func Logtime(option string, event *Struct.Message) bool {
 
 func handleDate(splited []string, logtimeOpt *logopt) {
 	(*logtimeOpt).count++
-	if len(splited) > (*logtimeOpt).count {
+
+	if len(splited) < (*logtimeOpt).count {
 		(*logtimeOpt).error = true
 		return
 	}
 	dateBegin, err := time.Parse("02/01/2006", splited[logtimeOpt.count])
+
 	if err != nil {
 		(*logtimeOpt).error = true
 		return
