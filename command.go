@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/genesixx/coalibot/Citation"
 	"github.com/genesixx/coalibot/Database"
 	"github.com/genesixx/coalibot/FortyTwo"
 	"github.com/genesixx/coalibot/Miscs"
@@ -28,8 +29,8 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"logtime":      FortyTwo.Logtime,
 	"who":          FortyTwo.Who,
 	"where":        FortyTwo.Where,
-	"oss":          Miscs.Oss,
-	"kaamelott":    Miscs.Kaamelott,
+	"oss":          Citation.Oss,
+	"kaamelott":    Citation.Kaamelott,
 	"help":         Miscs.Help,
 	"music":        Miscs.Music,
 	"addmusic":     Miscs.AddMusic,
