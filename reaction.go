@@ -30,7 +30,7 @@ func InitReaction() []Struct.React {
 func React(event Struct.Message, reactions []Struct.React) {
 	msgRef := slack.NewRefToMessage(event.Channel, event.Timestamp)
 	for i := 0; i < len(reactions); i++ {
-		if reactions[i].Compiled.MatchString(event.Message) {
+		if reactions[i].Compiled.FindStringIndex(event.Message) {
 			event.API.AddReaction(reactions[i].Reaction, msgRef)
 		}
 	}
