@@ -1,0 +1,27 @@
+[
+  {
+    "name": "jpp",
+    "match": "(?i)(\b|^)jpp(\b|$)",
+    "reaction": "jpp"
+  },
+  {
+    "name": "elebouch",
+    "match": "(?i)(\b|^)elebouch|U761RAFS5(\b|$)",
+    "reaction": "developers"
+  },
+  {
+    "name": "rip",
+    "match": "(?i)(\b|^)rip(\b|$)",
+    "reaction": "rip"
+  },
+  {
+    "name": "kappa",
+    "match": "(?i)(\b|^)kappa(\b|$)",
+    "reaction": "kappa"
+  },
+  {
+    "name": "guardians",
+    "match": "(?i)(\b|^)guardians|guardian|gardien|gardiens(\b|$)",
+    "reaction": "guardsman"
+  }
+]
