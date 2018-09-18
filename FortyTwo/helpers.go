@@ -9,6 +9,7 @@ import (
 	"gitlab.com/clafoutis/api42"
 )
 
+// getNumber returns the user's number, or "hidden" if it is.
 func getNumber(user *api42.User42) string {
 	switch user.Phone {
 	case "":
@@ -18,6 +19,8 @@ func getNumber(user *api42.User42) string {
 	return user.Phone
 }
 
+// getMainCampus returns the primary campus' name of the user.
+// If the campus can't be found, "Unknown Campus" is returned.
 func getMainCampus(user *api42.User42) string {
 	selected := -1
 	for _, campus := range user.CampusUsers {
@@ -33,6 +36,8 @@ func getMainCampus(user *api42.User42) string {
 	return "Unknown Campus"
 }
 
+// getTitle returns the formated selected title of the User.
+// If no title is selected, or if the selected title can't be found, this simply returns the user's login.
 func getTitle(user *api42.User42) string {
 	selected := -1
 	for _, title := range user.TitleUsers {
@@ -48,6 +53,7 @@ func getTitle(user *api42.User42) string {
 	return user.Login
 }
 
+// getLogtime returns the logtime of the user within the last seven days.
 func getLogtime(user string, client *api42.Client42) time.Duration {
 	y, m, d := time.Now().Date()
 	rangeBegin := time.Date(y, m, d, 0, 0, 0, 0, time.Now().Location())
@@ -55,6 +61,7 @@ func getLogtime(user string, client *api42.Client42) time.Duration {
 	return Utils.IntraLogtime(user, rangeEnd, rangeBegin, client)
 }
 
+// getCoasRepr returns the user's coaltion's slug and color.
 func getCoasRepr(user string, client *api42.Client42, blocs []api42.Bloc42, coalitions []api42.Coalition42) (string, string) {
 	coaData := getCoalition(1, blocs, coalitions)
 	color := "#D40000"
@@ -68,6 +75,7 @@ func getCoasRepr(user string, client *api42.Client42, blocs []api42.Bloc42, coal
 	return color, slug
 }
 
+// getCoalition returns the coalition corresponding to a cursus
 func getCoalition(cursusID int, blocs []api42.Bloc42, coas []api42.Coalition42) *api42.Coalition42 {
 	for _, bloc := range blocs {
 		if bloc.CursusID != cursusID {
@@ -84,6 +92,7 @@ func getCoalition(cursusID int, blocs []api42.Bloc42, coas []api42.Coalition42) 
 	return nil
 }
 
+// getNameCoa returns the slig of the coalition corresponding to a cursus.
 func getNameCoa(cursusID int, blocs []api42.Bloc42, coas []api42.Coalition42) string {
 	if coa := getCoalition(cursusID, blocs, coas); coa != nil {
 		return coa.Slug
@@ -91,6 +100,7 @@ func getNameCoa(cursusID int, blocs []api42.Bloc42, coas []api42.Coalition42) st
 	return ""
 }
 
+// cusrusLevels returns the string representation of all the cursuses of the user.
 func cursusLevels(cursus []api42.CursusUser42, blocs []api42.Bloc42, coas []api42.Coalition42, client *api42.Client42) string {
 	var builder strings.Builder
 	for _, c := range cursus {
@@ -107,6 +117,7 @@ func cursusLevels(cursus []api42.CursusUser42, blocs []api42.Bloc42, coas []api4
 	return builder.String()
 }
 
+// hasDoneIntership returns an emoticon corresponding to the Internship status.
 func hasDoneIntership(user *api42.User42) string {
 	var stage = ":negative_squared_cross_mark:"
 	var indexInternProject = -1

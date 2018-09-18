@@ -33,8 +33,8 @@ func Prof(option string, event *Struct.Message) bool {
 	params := Struct.SlackParams
 	attachment := slack.Attachment{
 		AuthorName: fmt.Sprintf("%s <%s|%s - %s>", slug, data.URL, data.Displayname, user),
-		ThumbURL:  data.ImageURL,
-		Color:     color,
+		ThumbURL:   data.ImageURL,
+		Color:      color,
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
 				Title: "Cursus",
@@ -61,7 +61,7 @@ func Prof(option string, event *Struct.Message) bool {
 				Value: getMainCampus(data),
 				Short: true,
 			},
-			slack.AttachmentField {
+			slack.AttachmentField{
 				Title: "Contact",
 				Value: fmt.Sprintf("_%s_ • %s", getNumber(data), data.Email),
 				Short: false,
