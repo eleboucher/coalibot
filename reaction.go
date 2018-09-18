@@ -29,7 +29,7 @@ func InitReaction() []Struct.React {
 
 func reacts(event Struct.Message, reaction Struct.React, msgRef slack.ItemRef) {
 	for i := 0; i < len(reaction.Reactions); i++ {
-		go event.API.AddReaction(reaction.Reactions[i], msgRef)
+		event.API.AddReaction(reaction.Reactions[i], msgRef)
 	}
 }
 
