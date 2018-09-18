@@ -22,16 +22,26 @@ func InitReaction() []Struct.React {
 	var reactions []Struct.React
 	json.Unmarshal(byteValue, &reactions)
 	for i := 0; i < len(reactions); i++ {
-		reactions[i].Compiled, _ = regexp.Compile(fmt.Sprintf("(?i)(^|[^a-zA-Z0-9])(%s)($|[^a-zA-Z0-9])", reactions[i].Match))
+		reactions[i].Compiled, _ = regexp.Compile(fmt.Sprintf("(?i)(^|[^a-zA-Z0-9])%s($|[^a-zA-Z0-9])", reactions[i].Match))
 	}
 	return reactions
+}
+
+func reacts(event Struct.Message, reaction Struct.React, msgRef slack.ItemRef) {
+	for i := 0; i < len(reaction.Reactions); i++ {
+		go event.API.AddReaction(reaction.Reactions[i], msgRef)
+	}
 }
 
 func React(event Struct.Message, reactions []Struct.React) {
 	msgRef := slack.NewRefToMessage(event.Channel, event.Timestamp)
 	for i := 0; i < len(reactions); i++ {
 		if reactions[i].Compiled.FindStringIndex(event.Message) != nil {
-			event.API.AddReaction(reactions[i].Reaction, msgRef)
+			if reactions[i].Reaction != "" {
+				go event.API.AddReaction(reactions[i].Reaction, msgRef)
+			} else {
+				go reacts(event, reactions[i], msgRef)
+			}
 		}
 	}
 }

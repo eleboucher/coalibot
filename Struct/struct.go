@@ -18,10 +18,11 @@ type Message struct {
 }
 
 type React struct {
-	Name     string `json:"name"`
-	Reaction string `json:"reaction"`
-	Match    string `json:"match"`
-	Compiled *regexp.Regexp
+	Name      string   `json:"name"`
+	Reaction  string   `json:"reaction"`
+	Reactions []string `json:"reactions"`
+	Match     string   `json:"match"`
+	Compiled  *regexp.Regexp
 }
 type Music struct {
 	Login string `json:"login"`

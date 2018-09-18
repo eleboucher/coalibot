@@ -23,5 +23,15 @@
     "name": "guardians",
     "match": "guardians|guardian|gardien|gardiens",
     "reaction": "guardsman"
+  },
+  {
+    "name": "branle-couille",
+    "match": "branle(.)couille|branles(.)couilles",
+    "reactions": ["hand", "couilles"]
+  },
+  {
+    "name": "balais couille",
+    "match": "balai(.)couille|ballek",
+    "reactions": ["balai", "couilles"]
   }
 ]
