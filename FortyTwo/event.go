@@ -1,0 +1,56 @@
+package FortyTwo
+
+import (
+	"encoding/json"
+	"fmt"
+	"sort"
+	"strconv"
+	"strings"
+	"time"
+
+	"github.com/genesixx/coalibot/Struct"
+	"github.com/nlopes/slack"
+	"gitlab.com/clafoutis/api42"
+)
+
+func Event(option string, event *Struct.Message) bool {
+	var beginAt, endAt string
+	if option == "" {
+		y, m, d := time.Now().Date()
+		rangeBegin := time.Date(y, m, d, 0, 0, 0, 0, time.Now().Location())
+		endAt = rangeBegin.AddDate(0, 0, 1).Format("2006-01-02")
+		beginAt = rangeBegin.Format("2006-01-02")
+	} else if len(strings.Split(option, " ")) == 1 {
+		rangeBegin, _ := time.Parse("2006-01-02", strings.Split(option, " ")[0])
+		endAt = rangeBegin.AddDate(0, 0, 1).Format("2006-01-02")
+		beginAt = rangeBegin.Format("2006-01-02")
+	} else {
+		return false
+	}
+	params := api42.NewParameter()
+	params.AddRange("begin_at", beginAt, endAt)
+	data, err := event.FortyTwo.GetEventsByCampus("1", params)
+	if err != nil {
+		return false
+	}
+	fmt.Println(data)
+	sort.Slice(data, func(i, j int) bool { return data[i].BeginAt.Before(*data[j].BeginAt) })
+	for i := 0; i < len(data); i++ {
+		var desc = data[i].Description
+		if len(data[i].Description) > 150 {
+			desc = data[i].Description[:150]
+		}
+		params := Struct.SlackParams
+		attachments := slack.Attachment{
+			Title:     data[i].Name,
+			TitleLink: "https://profile.intra.42.fr/events/" + strconv.Itoa(data[i].ID),
+			Text:      desc + "...",
+			Footer:    strconv.Itoa(data[i].NbrSubscribers) + "/" + strconv.Itoa(data[i].MaxPeople) + " Participants",
+			Ts:        json.Number(int32(data[i].BeginAt.Unix())),
+			Color:     "#01babc",
+		}
+		params.Attachments = []slack.Attachment{attachments}
+		event.API.PostMessage(event.Channel, "", params)
+	}
+	return true
+}
