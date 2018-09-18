@@ -22,7 +22,7 @@ func InitReaction() []Struct.React {
 	var reactions []Struct.React
 	json.Unmarshal(byteValue, &reactions)
 	for i := 0; i < len(reactions); i++ {
-		reactions[i].Compiled, _ = regexp.Compile(reactions[i].Match)
+		reactions[i].Compiled, _ = regexp.Compile(fmt.Sprintf("(?i)(^|[^a-zA-Z0-9])(%s)($|[^a-zA-Z0-9])", reactions[i].Match))
 	}
 	return reactions
 }
