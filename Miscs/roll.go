@@ -22,7 +22,6 @@ func Roll(option string, event *Struct.Message) bool {
 	if len(splited) >= 2 && strings.IndexAny(option, "[") != -1 &&
 		strings.IndexAny(option, "]") != -1 &&
 		strings.IndexAny(option, "[") < strings.IndexAny(option, "]") {
-		fmt.Println("asdfs")
 		ranthings := strings.Split(
 			strings.TrimSpace(
 				option[strings.IndexAny(option, "[")+1:strings.IndexAny(option, "]")]),

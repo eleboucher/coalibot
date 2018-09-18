@@ -46,7 +46,7 @@ func Event(option string, event *Struct.Message) bool {
 			TitleLink: "https://profile.intra.42.fr/events/" + strconv.Itoa(data[i].ID),
 			Text:      desc + "...",
 			Footer:    strconv.Itoa(data[i].NbrSubscribers) + "/" + strconv.Itoa(data[i].MaxPeople) + " Participants",
-			Ts:        json.Number(int32(data[i].BeginAt.Unix())),
+			Ts:        json.Number(strconv.FormatInt(int64(data[i].BeginAt.Unix()), 10)),
 			Color:     "#01babc",
 		}
 		params.Attachments = []slack.Attachment{attachments}

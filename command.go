@@ -45,6 +45,9 @@ func handleCommand(event *Struct.Message) {
 	event.Message = strings.Join(strings.Fields(event.Message), " ")
 	fmt.Printf("<#%s> @%s: %s\n", event.Channel, event.User, event.Message)
 	splited := strings.Split(event.Message, " ")
+	if event.Message == "" {
+		return
+	}
 	if Utils.IndexOf(strings.ToLower(splited[0]), []string{"coalibot", "bc", "cb"}) > -1 && len(splited) > 1 {
 		command = strings.ToLower(splited[1])
 		option = strings.Join(splited[2:], " ")
