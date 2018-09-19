@@ -34,7 +34,7 @@ func RouletteTop(option string, event *Struct.Message) bool {
 	sort.Slice(roulette, func(i, j int) bool {
 		return roulette[i].bang > roulette[j].bang
 	})
-	var ret = "Score Coalibot\n"
+	var ret = "Score Roulette:\n"
 	for i := 0; i < 5; i++ {
 		if i < len(roulette) {
 			ret += fmt.Sprintf("*%s*: %d Bangs\n", roulette[i].user, roulette[i].bang)
