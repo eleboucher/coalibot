@@ -32,12 +32,12 @@ func RouletteTop(option string, event *Struct.Message) bool {
 		roulette = append(roulette, s_roulette{k, v})
 	}
 	sort.Slice(roulette, func(i, j int) bool {
-		return roulette[i].bang < roulette[j].bang
+		return roulette[i].bang > roulette[j].bang
 	})
 	var ret = "Score Coalibot\n"
 	for i := 0; i < 5; i++ {
 		if i < len(roulette) {
-			ret += fmt.Sprintf("%s: %d Bangs", roulette[i].user, roulette[i].bang)
+			ret += fmt.Sprintf("*%s*: %d Bangs\n", roulette[i].user, roulette[i].bang)
 		}
 	}
 	event.API.PostMessage(event.Channel, ret, Struct.SlackParams)
