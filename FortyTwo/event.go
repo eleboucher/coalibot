@@ -2,7 +2,6 @@ package FortyTwo
 
 import (
 	"encoding/json"
-	"fmt"
 	"sort"
 	"strconv"
 	"strings"
@@ -33,7 +32,6 @@ func Event(option string, event *Struct.Message) bool {
 	if err != nil {
 		return false
 	}
-	fmt.Println(data)
 	sort.Slice(data, func(i, j int) bool { return data[i].BeginAt.Before(*data[j].BeginAt) })
 	for i := 0; i < len(data); i++ {
 		var desc = data[i].Description
