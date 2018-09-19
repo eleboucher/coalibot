@@ -11,7 +11,7 @@ import (
 )
 
 func Kaamelott(option string, event *Struct.Message) bool {
-	bytes, err := ioutil.ReadFile("Citation/oss.txt")
+	bytes, err := ioutil.ReadFile("Citation/kaamelott.txt")
 
 	if err != nil {
 		fmt.Println(err)
