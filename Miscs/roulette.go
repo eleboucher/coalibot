@@ -20,7 +20,7 @@ func Roulette(option string, event *Struct.Message) bool {
 	}
 	var count = 6 - len(tab[event.Channel]) + 1
 	if tab[event.Channel][0] == 1 {
-		tab = nil
+		tab[event.Channel] = nil
 		event.API.PostMessage(event.Channel, "<@"+event.User+">: Bang ( "+strconv.Itoa(count)+" / 6 )", Struct.SlackParams)
 		Utils.HandleRouletteStat(event)
 	} else {
