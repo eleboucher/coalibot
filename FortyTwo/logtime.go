@@ -219,7 +219,7 @@ func handleMonth(splited []string, logtimeOpt *logopt) {
 		return
 	}
 	t := transform.Chain(norm.NFD, transform.RemoveFunc(isMn), norm.NFC)
-	month, _, _ := transform.String(t, splited[logtimeOpt.count])
+	month, _, _ := transform.String(t, strings.ToLower(splited[logtimeOpt.count]))
 	monthReg, _ := regexp.Compile(`(\b|^)(0[1-9]|[1-9]|1[012])(\b|$)`)
 	year := time.Now().Year()
 	yearReg, _ := regexp.Compile(`(\b|^)20\d{2}(\b|$)`)
