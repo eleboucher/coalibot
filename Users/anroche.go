@@ -24,6 +24,6 @@ func Anroche(option string, event *Struct.Message) bool {
 	m := ts / time.Minute
 	ts = ts % time.Minute
 	s := ts / time.Second
-	event.API.PostMessage(event.Channel, fmt.Sprintf("Fin du stage dans %02d days, %02d hours %02d minutes %02d seconds", d, h, m, s), Struct.SlackParams)
+	event.API.PostMessage(event.Channel, fmt.Sprintf("Fin du stage dans %02d jours, %02d heures %02d minutes %02d secondes :e2r5:", d, h, m, s), Struct.SlackParams)
 	return true
 }
