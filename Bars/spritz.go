@@ -9,17 +9,6 @@ import (
 )
 
 func Spritz(option string, event *Struct.Message) bool {
-	// if option == "" {
-	// 	// isOpen(event)
-	// 	return true
-	// }
-	fmt.Println("hello")
-	isOpen(event)
-	return true
-}
-
-func isOpen(event *Struct.Message) {
-	fmt.Println("goody")
 	now := time.Now()
 	open := "Fermé !"
 	color := "danger"
@@ -59,4 +48,5 @@ func isOpen(event *Struct.Message) {
 	}
 	params.Attachments = []slack.Attachment{attachment}
 	event.API.PostMessage(event.Channel, "", params)
+	return true
 }
