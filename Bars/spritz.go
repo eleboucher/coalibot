@@ -24,22 +24,22 @@ func Spritz(option string, event *Struct.Message) bool {
 		Text:  open + "\n*Horaire:* 11-22h tous les jours sauf weekend et jours fériés!",
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
-				Title: "Ricard",
+				Title: "Ricard :ensoleillé:",
 				Value: "2.70e",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Kronenbourg",
+				Title: "Kronenbourg :bière:",
 				Value: "Demi: 2.70e Pinte: 5.00e",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Carlsberg/Grimbergen",
+				Title: "Carlsberg/Grimbergen :bière:",
 				Value: "Demi: 3.70e Pinte: 7.00e",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Liqueur/Shot",
+				Title: "Liqueur/Shot :tumbler_glass:",
 				Value: "2.00e",
 				Short: true,
 			},
