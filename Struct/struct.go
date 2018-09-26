@@ -29,4 +29,4 @@ type Music struct {
 	Link  string `json:"link"`
 }
 
-var SlackParams = slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true, Username: "Goalibot", IconURL: "https://raw.githubusercontent.com/hybridgroup/gobot-site/master/source/images/elements/gobot-logo-small.png"}
+var SlackParams = slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true}
