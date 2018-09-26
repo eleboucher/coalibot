@@ -21,8 +21,12 @@ func Spritz(option string, event *Struct.Message) bool {
 	attachment := slack.Attachment{
 		Color: color,
 		Title: "Spritz",
-		Text:  open + "\n*Horaire:* 11-22h tous les jours sauf weekend et jours fériés!",
+		Text:  open,
 		Fields: []slack.AttachmentField{
+			slack.AttachmentField{
+				Title: "Horaire",
+				Value: "11-22h tous les jours sauf weekend et jours fériés!",
+			},
 			slack.AttachmentField{
 				Title: "Ricard :sunny:",
 				Value: "2.70e",
