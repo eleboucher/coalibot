@@ -13,7 +13,8 @@ const (
 )
 
 func Anroche(option string, event *Struct.Message) bool {
-	stage, _ := time.Parse("2006-01-02 15:04", "2018-11-02 18:00")
+	loc, _ := time.LoadLocation("Europe/Paris")
+	stage, _ := time.ParseInLocation("2006-01-02 15:04", "2018-11-02 18:00", loc)
 	ts := -time.Since(stage)
 
 	ts += +Decisecond / 2
