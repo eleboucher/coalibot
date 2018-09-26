@@ -25,7 +25,7 @@ func Score(option string, event *Struct.Message) bool {
 			score = strconv.Itoa(coalitions[i].Score)
 		}
 		fields = append(fields, slack.AttachmentField{
-			Title: coalitions[i].Name,
+			Title: strconv.Itoa(i+1) + "# " + coalitions[i].Name,
 			Value: score,
 			Short: true,
 		})

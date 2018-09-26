@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/genesixx/coalibot/Bars"
 	"github.com/genesixx/coalibot/Citation"
 	"github.com/genesixx/coalibot/Database"
 	"github.com/genesixx/coalibot/FortyTwo"
@@ -39,6 +40,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"event":        FortyTwo.Event,
 	"roulettetop":  Miscs.RouletteTop,
 	"anroche":      Users.Anroche,
+	"spritz":       Bars.Spritz,
 }
 
 func handleCommand(event *Struct.Message) {
