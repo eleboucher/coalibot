@@ -12,8 +12,8 @@ func Spritz(option string, event *Struct.Message) bool {
 	now := time.Now()
 	open := "Fermé !"
 	color := "danger"
-	fmt.Println(int(now.Weekday()), now.Hour())
-	if int(now.Weekday()) > 0 && int(now.Weekday()) < 6 && now.Hour() >= 11 && now.Hour() <= 22 {
+	fmt.Println(now)
+	if int(now.Weekday()) > 0 && int(now.Weekday()) < 6 && now.Hour() >= 11 && now.Hour() < 22 {
 		open = "Ouvert !"
 		color = "good"
 	}
