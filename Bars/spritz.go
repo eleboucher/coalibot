@@ -29,22 +29,42 @@ func Spritz(option string, event *Struct.Message) bool {
 			},
 			slack.AttachmentField{
 				Title: "Ricard :sunny:",
-				Value: "2.70e",
+				Value: "2.70€",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "Kronenbourg :beer:",
-				Value: "Demi: 2.70e Pinte: 5.00e",
+				Value: "Demi: 2.70€ Pinte: 5.00€",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "Carlsberg/Grimbergen :beer:",
-				Value: "Demi: 3.70e Pinte: 7.00e",
+				Value: "Demi: 3.70€ Pinte: 7.00€",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "La Chouffe :beer:",
+				Value: "Demi: 3.70€ Pinte: 6.50€",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "Liqueur/Shot :tumbler_glass:",
-				Value: "2.00e",
+				Value: "2.00€",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Cocktail :cocktail: ",
+				Value: "6.50€",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Vin :wine_glass:",
+				Value: "2.70€",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Alcool fort :whiskey2:",
+				Value: "5.00€",
 				Short: true,
 			},
 		},
