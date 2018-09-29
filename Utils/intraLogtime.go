@@ -27,7 +27,6 @@ func IntraLogtime(user string, rangeBegin time.Time, rangeEnd time.Time, client 
 			params.Page = page
 			data, err := client.GetUserLocations(user, params)
 			if err != nil {
-				println("test")
 				return 0
 			}
 			locations = append(locations, data...)

@@ -67,6 +67,11 @@ func Spritz(option string, event *Struct.Message) bool {
 				Value: "5.00€",
 				Short: true,
 			},
+			slack.AttachmentField{
+				Title: "Suze :whiskey2:",
+				Value: "3.00€",
+				Short: true,
+			},
 		},
 		Footer: "Powered by Coalibot",
 	}
