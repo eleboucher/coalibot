@@ -87,9 +87,12 @@ func Logtime(option string, event *Struct.Message) bool {
 		logtimeOpt.intra = true
 		logtimeOpt.count++
 	}
-	if len(splited) > logtimeOpt.count && !logtimeOpt.error {
-		logtimeOpt.login, logtimeOpt.error = Utils.GetLogin(splited[logtimeOpt.count], event)
-		logtimeOpt.count++
+	if !logtimeOpt.error {
+		if len(splited) > logtimeOpt.count {
+			logtimeOpt.login, logtimeOpt.error = Utils.GetLogin(splited[logtimeOpt.count], event)
+		} else {
+			logtimeOpt.login, logtimeOpt.error = Utils.GetLogin("", event)
+		}
 	}
 	if len(splited) > logtimeOpt.count && !logtimeOpt.error {
 		logtimeOpt.count++
