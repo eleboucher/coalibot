@@ -39,12 +39,10 @@ func Logtime(user string, rangeBegin time.Time, rangeEnd time.Time, client *api4
 		rows, err := reader.ReadAll()
 
 		csvFile.Close()
-		if err != nil {
-			ret, _ := time.ParseDuration(strconv.Itoa(duration) + "h")
-			return ret
+		if err == nil {
+			duration += getHourByName(name, rows)
+			current = current.AddDate(0, 1, 0)
 		}
-		duration += getHourByName(name, rows)
-		current = current.AddDate(0, 1, 0)
 	}
 	ret, _ := time.ParseDuration(strconv.Itoa(duration) + "h")
 	return ret
