@@ -2,8 +2,11 @@ package Miscs
 
 import (
 	"fmt"
+	"net/http"
+	"strings"
 	"time"
 
+	"github.com/PuerkitoBio/goquery"
 	"github.com/genesixx/coalibot/Struct"
 )
 
@@ -37,15 +40,20 @@ func Gfaim(option string, event *Struct.Message) bool {
 }
 
 func Apero(option string, event *Struct.Message) bool {
-	now := time.Now()
-	switch {
-	case (now.Hour() == 18 && now.Minute() < 30) || now.Hour() < 19:
-		event.API.PostMessage(event.Channel, "Il est presque l'heure de l'apéro.", Struct.SlackParams)
-	case (now.Hour() >= 18 && now.Minute() > 30) || (now.Hour() >= 19 && now.Hour() < 20):
-		event.API.PostMessage(event.Channel, "C'est l'heure de l'apero!", Struct.SlackParams)
-	case now.Hour() >= 20:
-		event.API.PostMessage(event.Channel, "Attend demain!", Struct.SlackParams)
+	res, err := http.Get("http://estcequecestbientotlapero.fr/")
+	if err != nil {
+		fmt.Println(err)
+		return false
 	}
+	defer res.Body.Close()
+	// Load the HTML document
+	doc, err := goquery.NewDocumentFromReader(res.Body)
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
+	apero := strings.Join(strings.Fields(doc.Find("h2").First().Text()), " ")
+	event.API.PostMessage(event.Channel, apero, Struct.SlackParams)
 	return true
 }
 
