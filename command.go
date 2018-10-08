@@ -33,6 +33,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"where":        FortyTwo.Where,
 	"oss":          Citation.Oss,
 	"kaamelott":    Citation.Kaamelott,
+	"mhenni":       Citation.Mhenni,
 	"help":         Miscs.Help,
 	"music":        Miscs.Music,
 	"addmusic":     Miscs.AddMusic,
