@@ -1,7 +1,6 @@
 package Bars
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/genesixx/coalibot/Struct"
@@ -9,11 +8,10 @@ import (
 )
 
 func Spritz(option string, event *Struct.Message) bool {
-	now := time.Now()
+
 	open := "Fermé !"
 	color := "danger"
-	fmt.Println(now)
-	if int(now.Weekday()) > 0 && int(now.Weekday()) < 6 && now.Hour() >= 11 && now.Hour() < 22 {
+	if IsSpritzOpen() {
 		open = "Ouvert !"
 		color = "good"
 	}
@@ -78,4 +76,12 @@ func Spritz(option string, event *Struct.Message) bool {
 	params.Attachments = []slack.Attachment{attachment}
 	event.API.PostMessage(event.Channel, "", params)
 	return true
+}
+
+func IsSpritzOpen() bool {
+	now := time.Now()
+	if int(now.Weekday()) > 0 && int(now.Weekday()) < 6 && now.Hour() >= 11 && now.Hour() < 22 {
+		return true
+	}
+	return false
 }
