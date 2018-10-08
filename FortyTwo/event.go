@@ -20,7 +20,7 @@ func Event(option string, event *Struct.Message) bool {
 		endAt = rangeBegin.AddDate(0, 0, 1).Format("2006-01-02")
 		beginAt = rangeBegin.Format("2006-01-02")
 	} else if len(strings.Split(option, " ")) == 1 {
-		rangeBegin, _ := time.Parse("2006-01-02", strings.Split(option, " ")[0])
+		rangeBegin, _ := time.Parse("02-01-2006", strings.Split(option, " ")[0])
 		endAt = rangeBegin.AddDate(0, 0, 1).Format("2006-01-02")
 		beginAt = rangeBegin.Format("2006-01-02")
 	} else {
