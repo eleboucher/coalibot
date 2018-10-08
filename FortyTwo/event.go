@@ -30,6 +30,7 @@ func Event(option string, event *Struct.Message) bool {
 	params.AddRange("begin_at", beginAt, endAt)
 	data, err := event.FortyTwo.GetEventsByCampus("1", params)
 	if err != nil {
+		event.API.PostMessage(event.Channel, "Pas d'event ce jour!", Struct.SlackParams)
 		return false
 	}
 	sort.Slice(data, func(i, j int) bool { return data[i].BeginAt.Before(*data[j].BeginAt) })
