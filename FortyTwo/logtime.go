@@ -32,7 +32,7 @@ logtime displays the total school presence logtime
 									 date format: %dd/%MM/%yyyy
 -y YEAR             displays logtime during the given year
 -m MONTH [YEAR]      displays logtime during the given month
--t TRIMESETER [YEAR] displays logtime during the given trimester
+-t TRIMESTER [YEAR] displays logtime during the given trimester
 -s SEMESTER [YEAR]  displays logtime during the given semester
 
 NOTE: school presence of the month is only updated at the end of the month.
