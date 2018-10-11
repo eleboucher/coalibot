@@ -16,14 +16,27 @@ import (
 )
 
 var now = time.Now()
-var usage = "```Usage:  bc logtime [OPTION] [login]\n" +
-	"Les temps par defaut sont ceux de la badgeuse.\n" +
-	"-i                   temps de l'intra,\n" +
-	"-d debut fin         donne le logtime dans la periode des dates données. format DD/MM/YYYY\n" +
-	"-y année             donne le logtime durant l'année donnée.\n" +
-	"-m mois [année]      donne le logtime durant le mois donné.\n" +
-	"-t trimestre [année] donne le logtime durant le trimestre donné.\n" +
-	"-s semestre [année]  donne le logtime durant le semestre donné.```"
+var usage = "```" + `Usage: 
+bc logtime [-i] [LOGIN]
+bc logtime [-i] -d BEGIN END [LOGIN]
+bc logtime [-i] -y YEAR [LOGIN]
+bc logtime [-i] -m MONTH [YEAR] [LOGIN]
+bc logtime [-i] -t TRIMESTER [YEAR] [LOGIN]
+bc logtime [-i] -s SEMESTER [YEAR] [LOGIN]
+
+logtime displays the total school presence logtime
+
+-i                   displays cluster logtime instead of school presence
+
+-d BEGIN END displays logtime between begin_date and end_date
+									 date format: %dd/%MM/%yyyy
+-y YEAR             displays logtime during the given year
+-m MONTH [YEAR]      displays logtime during the given month
+-t TRIMESETER [YEAR] displays logtime during the given trimester
+-s SEMESTER [YEAR]  displays logtime during the given semester
+
+NOTE: school presence of the month is only updated at the end of the month.
+School presence is only stored since Nov 2017.` + "```"
 
 type logopt struct {
 	count     int
