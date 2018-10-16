@@ -2,6 +2,7 @@ package Utils
 
 import (
 	"fmt"
+	"math/rand"
 	"strings"
 	"time"
 
@@ -44,4 +45,8 @@ func GetLogin(option string, event *Struct.Message) (string, bool) {
 		user = u.Profile.Email[0:strings.IndexAny(u.Profile.Email, "@")]
 	}
 	return user, false
+}
+
+func Choice(option []string) string {
+	return option[rand.Int()%len(option)]
 }

@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
 )
 
@@ -56,7 +57,7 @@ func Spritz(option string, event *Struct.Message) bool {
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Cocktail :cocktail: ",
+				Title: "Cocktail " + Utils.Choice([]string{":cocktail2:", ":cocktail:"}),
 				Value: "7.00€",
 				Short: true,
 			},

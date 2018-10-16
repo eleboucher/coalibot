@@ -12,6 +12,7 @@ func Help(option string, event *Struct.Message) bool {
 		Title:     "Coalibot Helper",
 		TitleLink: "https://github.com/genesixx/coalibot",
 		Footer:    "Powered by Coalibot",
+		Color:     "info",
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
 				Title: "alliance",
