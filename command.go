@@ -34,6 +34,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"oss":          Citation.Oss,
 	"kaamelott":    Citation.Kaamelott,
 	"mhenni":       Citation.Mhenni,
+	"glados":	Citation.GLaDOS,
 	"help":         Miscs.Help,
 	"music":        Miscs.Music,
 	"addmusic":     Miscs.AddMusic,
