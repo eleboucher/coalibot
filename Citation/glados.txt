@@ -1,10 +1,10 @@
-"Bonjour et bienvenue au centre d'enrichissement assisté par ordinateur d'Aperture Science."
-"Nous espérons que votre détention dans le caisson de relaxation s'est bien passée."
-"Votre échantillon a été traité ; nous pouvons maintenant procéder aux tests."
-"Avant de commencer, vous devez savoir que même si le divertissement et l'apprentissage sont au coeur des activités du centre, vous risquez de subir des lésions irréversibles."
-"Pour votre sécurité et pour la sécurité d'autrui, veuillez ne toucher [bzzzzzt]"
-"Por favor bordón de fallar de muchas gracias de fallar gracias" (phrase en espagnol approximatif dénuée de sens)
-"reculez. Le portail s'ouvrira dans trois, deux, un."
-"Parfait. Veuillez retourner dans le sas après avoir complété chaque test."
-"J'attire votre attention sur le champ de particules incandescentes situé devant la sortie."
-"La Grille d'émancipation matérielle d'Aperture Science vaporisera tout matériel non autorisé la traversant. Prenons comme exemple le Cube de stockage lesté d'Aperture Science."
+Bonjour et bienvenue au centre d'enrichissement assisté par ordinateur d'Aperture Science.
+Nous espérons que votre détention dans le caisson de relaxation s'est bien passée.
+Votre échantillon a été traité ; nous pouvons maintenant procéder aux tests.
+Avant de commencer, vous devez savoir que même si le divertissement et l'apprentissage sont au coeur des activités du centre, vous risquez de subir des lésions irréversibles.
+Pour votre sécurité et pour la sécurité d'autrui, veuillez ne toucher [bzzzzzt]
+Por favor bordón de fallar de muchas gracias de fallar gracias (phrase en espagnol approximatif dénuée de sens)
+reculez. Le portail s'ouvrira dans trois, deux, un.
+Parfait. Veuillez retourner dans le sas après avoir complété chaque test.
+J'attire votre attention sur le champ de particules incandescentes situé devant la sortie.
+La Grille d'émancipation matérielle d'Aperture Science vaporisera tout matériel non autorisé la traversant. Prenons comme exemple le Cube de stockage lesté d'Aperture Science.
