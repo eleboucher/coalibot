@@ -41,12 +41,12 @@ func Spritz(option string, event *Struct.Message) bool {
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "La Chouffe :beer:",
+				Title: "La Chouffe :beer: :gnome:",
 				Value: "Demi: 3.70€ Pinte: 6.50€",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Gallia :beer:",
+				Title: "Gallia :beer: :cucco:",
 				Value: "Demi: 3.50€ Pinte: 6.00€",
 				Short: true,
 			},
