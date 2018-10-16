@@ -7,7 +7,7 @@ import (
 )
 
 func Skin(option string, event *Struct.Message) bool {
-	switch strings.ToLower(option) {
+	switch strings.ToLower(strings.Split(option, " ")[0]) {
 	case "alliance":
 		event.API.PostMessage(event.Channel, "#1e2124,#2C3849,#33c47f,#ffffff,#1d3b2f,#ffffff,#33c47f,#c90828", Struct.SlackParams)
 		return true
