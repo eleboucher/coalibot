@@ -11,7 +11,7 @@ import (
 )
 
 func GLaDOS(option string, event *Struct.Message) bool {
-	bytes, err := ioutil.ReadFile("Citation/mhenni.txt")
+	bytes, err := ioutil.ReadFile("Citation/glados.txt")
 
 	if err != nil {
 		fmt.Println(err)
