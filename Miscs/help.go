@@ -107,6 +107,12 @@ func Help(option string, event *Struct.Message) bool {
 				Value: "Citation aléatoire de Mohammed Henni",
 				Short: true,
 			},
+			
+			slack.AttachmentField{
+				Title: "glados",
+				Value: "Citation aléatoire de GLaDOS",
+				Short: true,
+			},
 			slack.AttachmentField{
 				Title: "roll",
 				Value: "random",
