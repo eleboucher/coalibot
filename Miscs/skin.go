@@ -8,6 +8,9 @@ import (
 
 func Skin(option string, event *Struct.Message) bool {
 	switch strings.ToLower(strings.Split(option, " ")[0]) {
+	case "":
+		event.API.PostMessage(event.Channel, "!skin [alliance | assembly | order | federation | 42 | ricard]", Struct.SlackParams)
+		return true
 	case "alliance":
 		event.API.PostMessage(event.Channel, "#1e2124,#2C3849,#33c47f,#ffffff,#1d3b2f,#ffffff,#33c47f,#c90828", Struct.SlackParams)
 		return true
@@ -22,6 +25,9 @@ func Skin(option string, event *Struct.Message) bool {
 		return true
 	case "ricard":
 		event.API.PostMessage(event.Channel, "#004684,#395882,#FFD300,#000000,#594e14,#ffffff,#FFD300,#c90828", Struct.SlackParams)
+		return true
+	case "42":
+		event.API.PostMessage(event.Channel, "#1e2124,#2C3849,#00BABC,#ffffff,#4A5664,#e3e3e3,#00ffc4,#c90828", Struct.SlackParams)
 		return true
 	}
 	return false
