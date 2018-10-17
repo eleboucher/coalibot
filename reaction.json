@@ -15,6 +15,11 @@
     "reaction": "motherofgod"
   },
   {
+    "name": "alliance",
+    "match": "alliance",
+    "reaction": "the-alliance"
+  },
+  {
     "name": "rip",
     "match": "rip",
     "reaction": "rip"
