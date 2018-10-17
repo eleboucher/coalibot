@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/genesixx/coalibot/BDE"
 	"github.com/genesixx/coalibot/Bars"
 	"github.com/genesixx/coalibot/Citation"
 	"github.com/genesixx/coalibot/Database"
@@ -47,6 +48,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"gfaim":        Miscs.Gfaim,
 	"apero":        Miscs.Apero,
 	"skin":         Miscs.Skin,
+	"shop":         BDE.Shop,
 }
 
 func handleCommand(event *Struct.Message) {
