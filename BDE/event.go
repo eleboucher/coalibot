@@ -15,7 +15,7 @@ func Event(option string, event *Struct.Message) bool {
 		Text:      "Le BDE Undefined vous prépare une soirée d'Halloween à 42 organisée avec le BDE Wolf (de l'IDRAC) ainsi que le BDE Wastis (de l'école W).",
 		Footer:    "Powered by Coalibot",
 		ThumbURL:  "https://www.helloasso.com/assets/img/photos/evenements/42%20blood%20horror%20party-min%201%20-71313069e2e74a1ebe82780b6b06663a.png",
-		Color:     "info",
+		Color:     "#000000",
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
 				Title: "Date",

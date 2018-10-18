@@ -12,7 +12,7 @@ func Help(option string, event *Struct.Message) bool {
 		Title:     "Coalibot Helper",
 		TitleLink: "https://github.com/genesixx/coalibot",
 		Footer:    "Powered by Coalibot",
-		Color:     "info",
+		Color:     "good",
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
 				Title: "alliance",
@@ -108,7 +108,7 @@ func Help(option string, event *Struct.Message) bool {
 				Value: "Citation aléatoire de Mohammed Henni",
 				Short: true,
 			},
-			
+
 			slack.AttachmentField{
 				Title: "glados",
 				Value: "Citation aléatoire de GLaDOS",
