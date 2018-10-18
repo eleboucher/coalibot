@@ -9,6 +9,11 @@
     "match": "elebouch|U761RAFS5",
     "reaction": "developers"
   },
+    {
+    "name": "poro",
+    "match": "poro",
+    "reaction": "command"
+  },
   {
     "name": "mmerabet",
     "match": "mmerabet|momo|U2A3EEKC7|mohammed",
@@ -18,6 +23,11 @@
     "name": "alliance",
     "match": "alliance",
     "reaction": "the-alliance"
+  },
+    {
+    "name": "assembly",
+    "match": "assembly",
+    "reaction": "the-assembly"
   },
   {
     "name": "rip",
