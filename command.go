@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"sort"
 	"strings"
 
 	"github.com/genesixx/coalibot/BDE"
@@ -56,6 +57,13 @@ func handleCommand(event *Struct.Message) {
 	var isCommand = false
 	var option = ""
 	var command = ""
+
+	sort.Strings(BlackList)
+	i := sort.Search(len(BlackList),
+		func(i int) bool { return BlackList[i] >= event.Channel })
+	if !(i < len(BlackList) && BlackList[i] == event.Channel) && !(strings.IndexAny(event.Message, "bde") != -1 && event.Channel == "C04GT8U3Y") {
+		return
+	}
 
 	event.Message = strings.Join(strings.Fields(event.Message), " ")
 	fmt.Printf("<#%s> @%s: %s\n", event.Channel, event.User, event.Message)

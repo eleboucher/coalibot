@@ -31,10 +31,8 @@ func main() {
 		case *slack.MessageEvent:
 			var message = Struct.Message{Message: ev.Msg.Text, Channel: ev.Msg.Channel, User: ev.Msg.User, Timestamp: ev.Msg.Timestamp, API: api, FortyTwo: client}
 			go React(message, reactions)
-			sort.Strings(BlackList)
-			i := sort.Search(len(BlackList),
-				func(i int) bool { return BlackList[i] >= message.Channel })
-			if message.User != "" && !(i < len(BlackList) && BlackList[i] == message.Channel) {
+			
+			if message.User != "" {
 				go handleCommand(&message)
 			}
 		case *slack.RTMError:
