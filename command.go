@@ -49,6 +49,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"apero":        Miscs.Apero,
 	"skin":         Miscs.Skin,
 	"shop":         BDE.Shop,
+	"bde":          BDE.Bde,
 }
 
 func handleCommand(event *Struct.Message) {
