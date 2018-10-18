@@ -33,22 +33,22 @@ func Event(option string, event *Struct.Message) bool {
 				Short: false,
 			},
 			slack.AttachmentField{
-				Title: "Bière",
+				Title: "Bière :beer:",
 				Value: "Demi 2 token/Pinte 3 token",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Alcool fort",
+				Title: "Alcool fort :whiskey2:",
 				Value: "3 token",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Shot",
+				Title: "Shot :tumbler_glass:",
 				Value: "2 token",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Teq Paf",
+				Title: "Teq Paf :whiskey2:",
 				Value: "2 token",
 				Short: true,
 			},
