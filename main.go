@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"sort"
 
 	"github.com/genesixx/coalibot/Struct"
 	"github.com/joho/godotenv"
@@ -31,7 +30,7 @@ func main() {
 		case *slack.MessageEvent:
 			var message = Struct.Message{Message: ev.Msg.Text, Channel: ev.Msg.Channel, User: ev.Msg.User, Timestamp: ev.Msg.Timestamp, API: api, FortyTwo: client}
 			go React(message, reactions)
-			
+
 			if message.User != "" {
 				go handleCommand(&message)
 			}
