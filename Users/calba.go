@@ -25,6 +25,6 @@ func Calba(option string, event *Struct.Message) bool {
 	m := ts / time.Minute
 	ts = ts % time.Minute
 	s := ts / time.Second
-	event.API.PostMessage(event.Channel, fmt.Sprintf("Libération dans %02d jours, %02d heures %02d minutes %02d secondes, d, h, m, s), Struct.SlackParams)
+	event.API.PostMessage(event.Channel, fmt.Sprintf("Libération dans %02d jours, %02d heures %02d minutes %02d secondes", d, h, m, s), Struct.SlackParams)
 	return true
 }
