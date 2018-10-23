@@ -7,11 +7,6 @@ import (
 	"github.com/genesixx/coalibot/Struct"
 )
 
-const (
-	Decisecond = 100 * time.Millisecond
-	Day        = 24 * time.Hour
-)
-
 func Calba(option string, event *Struct.Message) bool {
 	loc, _ := time.LoadLocation("Europe/Paris")
 	stage, _ := time.ParseInLocation("2006-01-02 15:04", "2018-12-03 17:15", loc)
