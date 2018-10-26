@@ -23,6 +23,11 @@ func Event(option string, event *Struct.Message) bool {
 				Short: false,
 			},
 			slack.AttachmentField{
+				Title: "Entrée",
+				Value: "10€ pour les students, 12€ pour les externes",
+				Short: false,
+			},
+			slack.AttachmentField{
 				Title: "Vestiaire",
 				Value: "Vestiaire gratuit pour les personnes déguisées, 1€ sinon.",
 				Short: false,
@@ -34,7 +39,7 @@ func Event(option string, event *Struct.Message) bool {
 			},
 			slack.AttachmentField{
 				Title: "Bière :beer:",
-				Value: "Demi 1 token/Pinte 2 token",
+				Value: "Demi 2 token/Pinte 3 token",
 				Short: true,
 			},
 			slack.AttachmentField{
@@ -58,6 +63,11 @@ func Event(option string, event *Struct.Message) bool {
 			},
 			slack.AttachmentField{
 				Title: "Soft Gratuit",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Happy Hour jusqu'a 23h",
+				Value: "-1 token sur les Bières",
 				Short: true,
 			},
 		},
