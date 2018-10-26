@@ -25,6 +25,11 @@ func Cdt(option string, event *Struct.Message) bool {
 				Value: "8-00h tous les jours!",
 			},
 			slack.AttachmentField{
+				Title: "Ricard :sunny:",
+				Value: "3.00€",
+				Short: true,
+			},
+			slack.AttachmentField{
 				Title: "Mell's Brau :beer:",
 				Value: "Pinte: 4.50€",
 				Short: true,
