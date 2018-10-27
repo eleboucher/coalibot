@@ -23,7 +23,7 @@ func Moty(option string, event *Struct.Message) bool {
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
 				Title: "Horaire",
-				Value: "lundi-vendredi: 7h30 - 2h, weekend: 10h - 2h",
+				Value: "Lundi-Vendredi: 7h30 - 2h, Weekend: 10h - 2h",
 			},
 			slack.AttachmentField{
 				Title: "Ricard :sunny:",
