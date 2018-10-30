@@ -10,6 +10,11 @@
     "reaction": "developers"
   },
   {
+   "name": "henni",
+    "match": "henni|mohamed|mhenni",
+    "reaction": ["tv", "cricket_bat_and_ball"]
+  },
+  {
     "name": "poop",
     "match": "php|ruby|ror|mongo|mongodb",
     "reaction": "poop"
