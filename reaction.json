@@ -10,9 +10,9 @@
     "reaction": "developers"
   },
   {
-   "name": "henni",
+    "name": "henni",
     "match": "henni|mohamed|mhenni",
-    "reaction": ["tv", "cricket_bat_and_ball"]
+    "reactions": ["tv", "cricket_bat_and_ball"]
   },
   {
     "name": "poop",
