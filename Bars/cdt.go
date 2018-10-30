@@ -51,7 +51,7 @@ func Cdt(option string, event *Struct.Message) bool {
 			},
 			slack.AttachmentField{
 				Title: "Vin :wine_glass:",
-				Value: "4.80€",
+				Value: "3.00€",
 				Short: true,
 			},
 		},
