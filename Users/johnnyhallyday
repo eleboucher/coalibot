@@ -1,0 +1,13 @@
+package Users
+
+import (
+	"fmt"
+	"time"
+
+	"github.com/genesixx/coalibot/Struct"
+)
+
+func Hallyday(option string, event *Struct.Message) bool {
+	event.API.PostMessage(event.Channel, fmt.Sprintf("Update sur l'état de santé de papa Johnny: Il est encore décédé."), Struct.SlackParams)
+	return true
+}
