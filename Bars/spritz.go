@@ -1,7 +1,6 @@
 package Bars
 
 import (
-	"strings"
 	"time"
 
 	"github.com/genesixx/coalibot/Struct"
@@ -11,10 +10,10 @@ import (
 
 func Spritz(option string, event *Struct.Message) bool {
 
-	if strings.ToLower(strings.Split(option, " ")[0]) == "event" {
-		eventBDE(event)
-		return true
-	}
+	// if strings.ToLower(strings.Split(option, " ")[0]) == "event" {
+	// 	eventBDE(event)
+	// 	return true
+	// }
 	open := "Fermé !"
 	color := "danger"
 	if IsSpritzOpen() {
