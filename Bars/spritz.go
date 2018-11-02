@@ -115,7 +115,7 @@ func eventBDE(event *Struct.Message) {
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
 				Title: "Event Blood Horror Party",
-				Value: "Prix reduit sous presentation de billet de la soirée",
+				Value: "Prix reduit sous presentation de billet de la soirée de 18h a 21h30",
 			},
 			slack.AttachmentField{
 				Title: "Ricard :sunny:",
