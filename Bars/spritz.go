@@ -143,7 +143,7 @@ func eventBDE(event *Struct.Message) {
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Whisky Coca / Pomme :whiskey2:",
+				Title: "Whisky Coca / Vodka Pomme :whiskey2:",
 				Value: "5.00€",
 				Short: true,
 			},
