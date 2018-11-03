@@ -1,6 +1,7 @@
 package FortyTwo
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
@@ -63,6 +64,7 @@ func Where(option string, event *Struct.Message) bool {
 		for i := 0; i < len(guardians); i++ {
 			data, err := event.FortyTwo.GetUserLocations(guardians[i], params)
 			if err != nil {
+				fmt.Println(err)
 				event.API.PostMessage(event.Channel, "login invalide", Struct.SlackParams)
 				return false
 			}
