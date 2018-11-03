@@ -200,18 +200,13 @@ func handleQuarter(splited []string, logtimeOpt *logopt) {
 	}
 	var quarter int
 	switch strings.ToLower(splited[logtimeOpt.count]) {
-	case "hiver":
-	case "winter":
+	case "hiver", "winter":
 		quarter = 1
-	case "printemps":
-	case "spring":
+	case "printemps", "spring":
 		quarter = 2
-	case "ete":
-	case "été":
-	case "summer":
+	case "ete", "été", "summer":
 		quarter = 3
-	case "fall":
-	case "automne":
+	case "fall", "automne":
 		quarter = 4
 	default:
 		quarter, _ = strconv.Atoi(splited[logtimeOpt.count])
