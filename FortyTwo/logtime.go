@@ -198,22 +198,23 @@ func handleQuarter(splited []string, logtimeOpt *logopt) {
 		(*logtimeOpt).error = true
 		return
 	}
+	var quarter int
 	switch strings.ToLower(splited[logtimeOpt.count]) {
 	case "hiver":
 	case "winter":
-		quarter := 1
+		quarter = 1
 	case "printemps":
 	case "spring":
-		quarter := 2
+		quarter = 2
 	case "ete":
 	case "été":
 	case "summer":
-		quarter := 3
+		quarter = 3
 	case "fall":
 	case "automne":
-		quarter := 4
+		quarter = 4
 	default:
-		quarter, _ := strconv.Atoi(splited[logtimeOpt.count])
+		quarter, _ = strconv.Atoi(splited[logtimeOpt.count])
 	}
 	year := time.Now().Year()
 	yearReg, _ := regexp.Compile(`(\b|^)20\d{2}(\b|$)`)
