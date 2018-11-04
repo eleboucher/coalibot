@@ -35,4 +35,5 @@ func HandleRouletteStat(event *Struct.Message) {
 	}
 	toJson, _ := json.Marshal(c)
 	file.Write(toJson)
+	file.Sync()
 }
