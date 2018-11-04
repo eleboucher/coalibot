@@ -37,6 +37,7 @@ func AddMusic(option string, event *Struct.Message) bool {
 		musics = append(musics, newLink)
 		toJson, _ := json.Marshal(musics)
 		file.Write(toJson)
+		file.Sync()
 		event.API.PostMessage(event.Channel, "Musique ajoutée", Struct.SlackParams)
 	} else {
 		event.API.PostMessage(event.Channel, "Lien incorrect ou déjà enregistré", Struct.SlackParams)
