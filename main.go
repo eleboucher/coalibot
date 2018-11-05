@@ -22,6 +22,10 @@ func main() {
 	reactions := InitReaction()
 	// api.SetDebug(true)
 	client, err := api42.NewAPI(os.Getenv("INTRA_CLIENT_ID"), os.Getenv("INTRA_SECRET"))
+	if err != nil {
+		log.Panic("Error with the api")
+		return
+	}
 	go rtm.ManageConnection()
 	for msg := range rtm.IncomingEvents {
 		switch ev := msg.Data.(type) {
