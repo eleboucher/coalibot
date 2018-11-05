@@ -72,6 +72,6 @@ func Event(option string, event *Struct.Message) bool {
 	// 	},
 	// }
 	// params.Attachments = []slack.Attachment{attachment}
-	event.API.PostMessage(event.Channel, "Comming soon!", params)
+	event.API.PostMessage(event.Channel, "Coming soon!", params)
 	return true
 }
