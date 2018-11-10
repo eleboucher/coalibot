@@ -10,6 +10,8 @@ import (
 
 func Score(option string, event *Struct.Message) bool {
 	coalitions, err := event.FortyTwo.GetCoalitionsByBloc(1, nil)
+	msgRef := slack.NewRefToMessage(event.Channel, event.Timestamp)
+	go event.API.AddReaction(":the-alliance:", msgRef)
 	if err != nil {
 		return false
 	}

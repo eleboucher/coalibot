@@ -1,13 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"log"
 	"os"
 
 	"github.com/genesixx/coalibot/Struct"
 	"github.com/joho/godotenv"
 	"github.com/nlopes/slack"
+	log "github.com/sirupsen/logrus"
 	"gitlab.com/clafoutis/api42"
 )
 
@@ -23,14 +22,14 @@ func main() {
 	// api.SetDebug(true)
 	client, err := api42.NewAPI(os.Getenv("INTRA_CLIENT_ID"), os.Getenv("INTRA_SECRET"))
 	if err != nil {
-		log.Panic("Error with the api")
+		log.Fatal("Error with the api")
 		return
 	}
 	go rtm.ManageConnection()
 	for msg := range rtm.IncomingEvents {
 		switch ev := msg.Data.(type) {
 		case *slack.ConnectedEvent:
-			fmt.Println("Ready")
+			log.Fatal("Ready")
 		case *slack.MessageEvent:
 			var message = Struct.Message{Message: ev.Msg.Text, Channel: ev.Msg.Channel, User: ev.Msg.User, Timestamp: ev.Msg.Timestamp, API: api, FortyTwo: client}
 			go React(message, reactions)
@@ -39,9 +38,9 @@ func main() {
 				go handleCommand(&message)
 			}
 		case *slack.RTMError:
-			fmt.Printf("Error: %s\n", ev.Error())
+			log.Fatal(ev.Error())
 		case *slack.InvalidAuthEvent:
-			fmt.Printf("Invalid credentials")
+			log.Fatal("Invalid credentials")
 			return
 		}
 	}

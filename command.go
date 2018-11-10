@@ -18,6 +18,7 @@ import (
 	"github.com/genesixx/coalibot/Users"
 	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
+	log "github.com/sirupsen/logrus"
 )
 
 var commands = map[string]func(string, *Struct.Message) bool{
@@ -71,7 +72,7 @@ func handleCommand(event *Struct.Message) {
 	}
 
 	event.Message = strings.Join(strings.Fields(event.Message), " ")
-	fmt.Printf("<#%s> @%s: %s\n", event.Channel, event.User, event.Message)
+	log.WithFields(log.Fields{"Channel": event.Channel, "User": event.User, "Message": event.Message}).Info()
 	splited := strings.Split(event.Message, " ")
 	if event.Message == "" {
 		return
@@ -94,7 +95,6 @@ func handleCommand(event *Struct.Message) {
 	if isCommand {
 		go Database.AddCommand(event, command, option)
 	}
-	fmt.Printf("command %s option %s\n", command, option)
 }
 
 func reply(command string, event *Struct.Message) bool {
