@@ -142,8 +142,6 @@ func Logtime(option string, event *Struct.Message) bool {
 
 	if logtimeOpt.logtime != -1 {
 		var logtimeStr = Utils.FmtDuration(logtimeOpt.logtime)
-		params := Struct.SlackParams
-		params.ThreadTimestamp = event.Timestamp
 		attachment := slack.Attachment{
 			Color: "good",
 			Fields: []slack.AttachmentField{
@@ -155,12 +153,11 @@ func Logtime(option string, event *Struct.Message) bool {
 			},
 			Footer: "Powered by Coalibot",
 		}
-		params.Attachments = []slack.Attachment{attachment}
 		var intra = "intra"
 		if !logtimeOpt.intra {
 			intra = "badgeuse"
 		}
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("Logtime *"+intra+"* pour *"+logtimeOpt.login+"* entre *"+logtimeOpt.dateBegin.Format("2006-01-02")+"* et *"+logtimeOpt.dateEnd.Format("2006-01-02")+"*", false), slack.MsgOptionPostMessageParameters(params))
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("Logtime *"+intra+"* pour *"+logtimeOpt.login+"* entre *"+logtimeOpt.dateBegin.Format("2006-01-02")+"* et *"+logtimeOpt.dateEnd.Format("2006-01-02")+"*", false), slack.MsgOptionAttachments(attachment), slack.MsgOptionTS(event.Timestamp))
 	}
 	return true
 }
