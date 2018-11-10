@@ -8,6 +8,7 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/nlopes/slack"
 )
 
 const (
@@ -17,25 +18,28 @@ const (
 
 func Gfaim(option string, event *Struct.Message) bool {
 	now := time.Now()
+	var str string
 	switch {
 	case now.Hour() >= 12 && now.Hour() < 13:
-		event.API.PostMessage(event.Channel, "C'est l'heure du dejeuner!", Struct.SlackParams)
+		str = "C'est l'heure du dejeuner!"
 	case now.Hour() < 12:
 		d := time.Date(now.Year(), now.Month(), now.Day(), 12, 0, 0, 0, now.Location()).Sub(now)
-		event.API.PostMessage(event.Channel, "Dejeuner dans "+FormatCountdown(d), Struct.SlackParams)
+		str = "Dejeuner dans " + FormatCountdown(d)
 	case now.Hour() >= 16 && now.Hour() < 17:
-		event.API.PostMessage(event.Channel, "C'est l'heure du gouter!", Struct.SlackParams)
+		str = "C'est l'heure du gouter!"
 	case now.Hour() >= 13 && now.Hour() < 16:
 		d := time.Date(now.Year(), now.Month(), now.Day(), 16, 0, 0, 0, now.Location()).Sub(now)
-		event.API.PostMessage(event.Channel, "Gouter dans "+FormatCountdown(d), Struct.SlackParams)
+		str = "Gouter dans " + FormatCountdown(d)
 	case now.Hour() >= 19 && now.Hour() < 20:
-		event.API.PostMessage(event.Channel, "C'est l'heure du diner!", Struct.SlackParams)
+		str = "C'est l'heure du diner!"
 	case now.Hour() >= 17 && now.Hour() < 19:
 		d := time.Date(now.Year(), now.Month(), now.Day(), 19, 0, 0, 0, now.Location()).Sub(now)
-		event.API.PostMessage(event.Channel, "Diner dans "+FormatCountdown(d), Struct.SlackParams)
+		str = "Diner dans " + FormatCountdown(d)
 	case now.Hour() > 20:
-		event.API.PostMessage(event.Channel, "C' est plus l'heure de manger", Struct.SlackParams)
+		str = "C' est plus l'heure de manger"
 	}
+	event.API.PostMessage(event.Channel, slack.MsgOptionText(str, false))
+
 	return true
 }
 
@@ -53,7 +57,7 @@ func Apero(option string, event *Struct.Message) bool {
 		return false
 	}
 	apero := strings.Join(strings.Fields(doc.Find("h2").First().Text()), " ")
-	event.API.PostMessage(event.Channel, apero, Struct.SlackParams)
+	event.API.PostMessage(event.Channel, slack.MsgOptionText(apero, false))
 	return true
 }
 

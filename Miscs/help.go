@@ -6,8 +6,6 @@ import (
 )
 
 func Help(option string, event *Struct.Message) bool {
-	params := Struct.SlackParams
-	params.ThreadTimestamp = event.Timestamp
 	attachment := slack.Attachment{
 		Title:     "Coalibot Helper",
 		TitleLink: "https://github.com/genesixx/coalibot",
@@ -126,7 +124,6 @@ func Help(option string, event *Struct.Message) bool {
 			},
 		},
 	}
-	params.Attachments = []slack.Attachment{attachment}
-	event.API.PostMessage(event.Channel, "", params)
+	event.API.PostMessage(event.Channel, slack.MsgOptionAttachments(attachment))
 	return true
 }

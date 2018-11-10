@@ -7,6 +7,7 @@ import (
 
 	"github.com/genesixx/coalibot/Struct"
 	"github.com/genesixx/coalibot/Utils"
+	"github.com/nlopes/slack"
 	"gitlab.com/clafoutis/api42"
 )
 
@@ -20,19 +21,19 @@ func Where(option string, event *Struct.Message) bool {
 		user := strings.Split(option, " ")[3]
 		logtime := Utils.IntraLogtime(user, rangeEnd, rangeBegin, event.FortyTwo)
 		if logtime.Hours() >= 35 {
-			event.API.PostMessage(event.Channel, "*"+user+"* is not a branle couille", Struct.SlackParams)
+			event.API.PostMessage(event.Channel, slack.MsgOptionText("*"+user+"* is not a branle couille", false))
 			return true
 		}
 		data, err := event.FortyTwo.GetUserLocations(user, params)
 		if err != nil {
-			event.API.PostMessage(event.Channel, "login invalide", Struct.SlackParams)
+			event.API.PostMessage(event.Channel, slack.MsgOptionText("login invalide", false))
 			return false
 		}
 
 		if len(data) == 0 || data[0].EndAt != nil {
-			event.API.PostMessage(event.Channel, "*"+user+"* est hors-ligne", Struct.SlackParams)
+			event.API.PostMessage(event.Channel, slack.MsgOptionText("*"+user+"* est hors-ligne", false))
 		} else {
-			event.API.PostMessage(event.Channel, "*"+user+"* est à la place "+data[0].Host+"*", Struct.SlackParams)
+			event.API.PostMessage(event.Channel, slack.MsgOptionText("*"+user+"* est à la place "+data[0].Host+"*", false))
 		}
 		return true
 	}
@@ -77,20 +78,20 @@ func Where(option string, event *Struct.Message) bool {
 				str += "*" + guardians[i] + "* est à la place *" + data[0].Host + "*\n"
 			}
 		}
-		event.API.PostMessage(event.Channel, str, Struct.SlackParams)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText(str, false))
 
 		return true
 	}
 	data, err := event.FortyTwo.GetUserLocations(user, params)
 	if err != nil {
-		event.API.PostMessage(event.Channel, "login invalide", Struct.SlackParams)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("login invalide", false))
 		return false
 	}
 
 	if len(data) == 0 || data[0].EndAt != nil {
-		event.API.PostMessage(event.Channel, "*"+user+"* est hors-ligne", Struct.SlackParams)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("*"+user+"* est hors-ligne", false))
 	} else {
-		event.API.PostMessage(event.Channel, "*"+user+"* est à la place *"+data[0].Host+"*", Struct.SlackParams)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("*"+user+"* est à la place "+data[0].Host+"*", false))
 	}
 	return true
 }

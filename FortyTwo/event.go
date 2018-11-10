@@ -34,7 +34,7 @@ func Event(option string, event *Struct.Message) bool {
 	}
 	sort.Slice(data, func(i, j int) bool { return data[i].BeginAt.Before(*data[j].BeginAt) })
 	if len(data) == 0 {
-		event.API.PostMessage(event.Channel, "Pas d'event ce jour!", Struct.SlackParams)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("Pas d'event ce jour!", false))
 		return true
 	}
 	for i := 0; i < len(data); i++ {
@@ -42,7 +42,6 @@ func Event(option string, event *Struct.Message) bool {
 		if len(data[i].Description) > 150 {
 			desc = data[i].Description[:150]
 		}
-		params := Struct.SlackParams
 		attachments := slack.Attachment{
 			Title:     data[i].Name,
 			TitleLink: "https://profile.intra.42.fr/events/" + strconv.Itoa(data[i].ID),
@@ -51,8 +50,7 @@ func Event(option string, event *Struct.Message) bool {
 			Ts:        json.Number(strconv.FormatInt(int64(data[i].BeginAt.Unix()), 10)),
 			Color:     "#01babc",
 		}
-		params.Attachments = []slack.Attachment{attachments}
-		event.API.PostMessage(event.Channel, "", params)
+		event.API.PostMessage(event.Channel, slack.MsgOptionAttachments(attachments))
 	}
 	return true
 }

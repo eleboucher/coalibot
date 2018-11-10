@@ -8,6 +8,7 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/nlopes/slack"
 )
 
 func Meteo(option string, event *Struct.Message) bool {
@@ -15,18 +16,18 @@ func Meteo(option string, event *Struct.Message) bool {
 	var lon = "2.32"
 	if option != "" && len(strings.Split(option, " ")) > 0 {
 		if len(strings.Split(option, " ")) > 2 {
-			event.API.PostMessage(event.Channel, "`bc meteo || bc meteo 48.9 2.32`", Struct.SlackParams)
+			event.API.PostMessage(event.Channel, slack.MsgOptionText("`bc meteo || bc meteo 48.9 2.32`", false))
 			return false
 		}
 		lat = strings.Split(option, " ")[0]
 		lon = strings.Split(option, " ")[1]
 
 		if a, _ := strconv.ParseFloat(lat, 64); a > 90 || a < -90 {
-			event.API.PostMessage(event.Channel, "`Latitude incorrecte`", Struct.SlackParams)
+			event.API.PostMessage(event.Channel, slack.MsgOptionText("`Latitude incorrecte`", false))
 			return false
 		}
 		if b, _ := strconv.ParseFloat(lon, 64); b > 90 || b < -90 {
-			event.API.PostMessage(event.Channel, "`Longitude incorrecte`", Struct.SlackParams)
+			event.API.PostMessage(event.Channel, slack.MsgOptionText("`Longitude incorrecte`", false))
 			return false
 		}
 	}
@@ -43,6 +44,7 @@ func Meteo(option string, event *Struct.Message) bool {
 		return false
 	}
 	meteo := doc.Find("pre").Text()
-	event.API.PostMessage(event.Channel, "```"+meteo+"```", Struct.SlackParams)
+
+	event.API.PostMessage(event.Channel, slack.MsgOptionText("```"+meteo+"```", false))
 	return true
 }

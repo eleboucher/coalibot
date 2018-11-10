@@ -6,6 +6,7 @@ import (
 
 	"github.com/genesixx/coalibot/Struct"
 	"github.com/genesixx/coalibot/Utils"
+	"github.com/nlopes/slack"
 )
 
 var tab = make(map[string][]int)
@@ -16,16 +17,16 @@ func Roulette(option string, event *Struct.Message) bool {
 			tab[event.Channel] = append(tab[event.Channel], 0)
 		}
 		tab[event.Channel][rand.Intn(6)] = 1
-		event.API.PostMessage(event.Channel, "On recharge le revolver!", Struct.SlackParams)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("On recharge le revolver!", false))
 	}
 	var count = 6 - len(tab[event.Channel]) + 1
 	if tab[event.Channel][0] == 1 {
 		tab[event.Channel] = nil
-		event.API.PostMessage(event.Channel, "<@"+event.User+">: Bang ( "+strconv.Itoa(count)+" / 6 )", Struct.SlackParams)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("<@"+event.User+">: Bang ( "+strconv.Itoa(count)+" / 6 )", false))
 		Utils.HandleRouletteStat(event)
 	} else {
 		tab[event.Channel] = tab[event.Channel][1:]
-		event.API.PostMessage(event.Channel, "<@"+event.User+">: Click ( "+strconv.Itoa(count)+" / 6 )", Struct.SlackParams)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("<@"+event.User+">: Click ( "+strconv.Itoa(count)+" / 6 )", false))
 	}
 	return true
 }

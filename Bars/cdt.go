@@ -14,7 +14,6 @@ func Cdt(option string, event *Struct.Message) bool {
 		open = "Ouvert !"
 		color = "good"
 	}
-	params := Struct.SlackParams
 	attachment := slack.Attachment{
 		Color: color,
 		Title: "Café du Théatre",
@@ -57,8 +56,7 @@ func Cdt(option string, event *Struct.Message) bool {
 		},
 		Footer: "Powered by Coalibot",
 	}
-	params.Attachments = []slack.Attachment{attachment}
-	event.API.PostMessage(event.Channel, "", params)
+	event.API.PostMessage(event.Channel, slack.MsgOptionAttachments(attachment))
 	return true
 }
 

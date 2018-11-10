@@ -17,6 +17,7 @@ import (
 	"github.com/genesixx/coalibot/Struct"
 	"github.com/genesixx/coalibot/Users"
 	"github.com/genesixx/coalibot/Utils"
+	"github.com/nlopes/slack"
 )
 
 var commands = map[string]func(string, *Struct.Message) bool{
@@ -117,6 +118,6 @@ func reply(command string, event *Struct.Message) bool {
 
 	// output result to STDOUT
 	fmt.Printf("reply %s\n", c[command].(string))
-	event.API.PostMessage(event.Channel, c[command].(string), Struct.SlackParams)
+	event.API.PostMessage(event.Channel, slack.MsgOptionText(c[command].(string), false))
 	return true
 }

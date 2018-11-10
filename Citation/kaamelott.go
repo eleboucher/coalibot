@@ -19,7 +19,7 @@ func Kaamelott(option string, event *Struct.Message) bool {
 	}
 	splited := strings.Split(string(bytes), "\n")
 	citation := splited[rand.Int()%len(splited)]
-	params := slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true, IconURL: "https://img15.hostingpics.net/pics/4833663350.jpg", Username: "Perceval"}
-	event.API.PostMessage(event.Channel, "> "+citation, params)
+	params := slack.PostMessageParameters{IconURL: "https://img15.hostingpics.net/pics/4833663350.jpg", Username: "Perceval"}
+	event.API.PostMessage(event.Channel, slack.MsgOptionText("> "+citation, false), slack.MsgOptionPostMessageParameters(params))
 	return true
 }

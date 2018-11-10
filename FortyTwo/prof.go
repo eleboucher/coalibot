@@ -11,12 +11,12 @@ import (
 func Prof(option string, event *Struct.Message) bool {
 	user, not_valid := Utils.GetLogin(option, event)
 	if not_valid {
-		event.API.PostMessage(event.Channel, "invalid login", Struct.SlackParams)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("invalid login", false))
 		return false
 	}
 	data, err := event.FortyTwo.GetUser(user)
 	if err != nil {
-		event.API.PostMessage(event.Channel, "invalid login", Struct.SlackParams)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("invalid login", false))
 		return false
 	}
 
@@ -30,7 +30,6 @@ func Prof(option string, event *Struct.Message) bool {
 		location = data.Location
 	}
 	user = getTitle(data)
-	params := Struct.SlackParams
 	attachment := slack.Attachment{
 		AuthorName: fmt.Sprintf("%s <%s|%s - %s>", slug, "https://profile.intra.42.fr/users/"+user, data.Displayname, user),
 		ThumbURL:   data.ImageURL,
@@ -69,8 +68,7 @@ func Prof(option string, event *Struct.Message) bool {
 		},
 		Footer: "Powered by Coalibot",
 	}
-	params.Attachments = []slack.Attachment{attachment}
-	event.API.PostMessage(event.Channel, "", params)
+	event.API.PostMessage(event.Channel, slack.MsgOptionAttachments(attachment))
 
 	return true
 }

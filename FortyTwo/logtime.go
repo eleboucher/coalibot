@@ -128,7 +128,7 @@ func Logtime(option string, event *Struct.Message) bool {
 	if logtimeOpt.error {
 		params := Struct.SlackParams
 		params.ThreadTimestamp = event.Timestamp
-		event.API.PostMessage(event.Channel, usage, params)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText(usage, false))
 		return false
 	}
 	if logtimeOpt.dateBegin != zeroDate && logtimeOpt.dateEnd != zeroDate {
@@ -160,7 +160,7 @@ func Logtime(option string, event *Struct.Message) bool {
 		if !logtimeOpt.intra {
 			intra = "badgeuse"
 		}
-		event.API.PostMessage(event.Channel, "Logtime *"+intra+"* pour *"+logtimeOpt.login+"* entre *"+logtimeOpt.dateBegin.Format("2006-01-02")+"* et *"+logtimeOpt.dateEnd.Format("2006-01-02")+"*", params)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("Logtime *"+intra+"* pour *"+logtimeOpt.login+"* entre *"+logtimeOpt.dateBegin.Format("2006-01-02")+"* et *"+logtimeOpt.dateEnd.Format("2006-01-02")+"*", false))
 	}
 	return true
 }

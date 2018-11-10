@@ -19,7 +19,7 @@ func GLaDOS(option string, event *Struct.Message) bool {
 	}
 	splited := strings.Split(string(bytes), "\n")
 	citation := splited[rand.Int()%len(splited)]
-	params := slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true, IconURL: "https://vignette.wikia.nocookie.net/deathbattlefanon/images/e/e0/GLaDOS.png", Username: "GLaDOS"}
-	event.API.PostMessage(event.Channel, "> "+citation, params)
+	params := slack.PostMessageParameters{IconURL: "https://vignette.wikia.nocookie.net/deathbattlefanon/images/e/e0/GLaDOS.png", Username: "GLaDOS"}
+	event.API.PostMessage(event.Channel, slack.MsgOptionText("> "+citation, false), slack.MsgOptionPostMessageParameters(params))
 	return true
 }

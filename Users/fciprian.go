@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/nlopes/slack"
 )
 
 func Fciprian(option string, event *Struct.Message) bool {
@@ -20,6 +21,6 @@ func Fciprian(option string, event *Struct.Message) bool {
 	m := ts / time.Minute
 	ts = ts % time.Minute
 	s := ts / time.Second
-	event.API.PostMessage(event.Channel, fmt.Sprintf("Délivrance dans %02d jours, %02d heures %02d minutes %02d secondes", d, h, m, s), Struct.SlackParams)
+	event.API.PostMessage(event.Channel, slack.MsgOptionText(fmt.Sprintf("Délivrance dans %02d jours, %02d heures %02d minutes %02d secondes", d, h, m, s), false))
 	return true
 }

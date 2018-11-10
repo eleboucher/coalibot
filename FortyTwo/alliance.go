@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/nlopes/slack"
 )
 
 func Alliance(option string, event *Struct.Message) bool {
@@ -25,10 +26,10 @@ func Alliance(option string, event *Struct.Message) bool {
 
 	if i == 0 {
 		diff := strconv.Itoa(coalitions[0].Score - coalitions[1].Score)
-		event.API.PostMessage(event.Channel, "Felicitations Nous sommes premiers avec "+diff+" points d'avance. :the-alliance:", Struct.SlackParams)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("Felicitations Nous sommes premiers avec "+diff+" points d'avance. :the-alliance:", false))
 	} else {
 		diff := strconv.Itoa(coalitions[0].Score - coalitions[i].Score)
-		event.API.PostMessage(event.Channel, "Nous sommes à la "+rank+" eme place avec "+diff+" points de retard. :the-alliance:", Struct.SlackParams)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("Nous sommes à la "+rank+" eme place avec "+diff+" points de retard. :the-alliance:", false))
 	}
 	return true
 }

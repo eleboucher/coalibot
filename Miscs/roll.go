@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/nlopes/slack"
 )
 
 func Roll(option string, event *Struct.Message) bool {
@@ -36,7 +37,7 @@ func Roll(option string, event *Struct.Message) bool {
 				str += " "
 			}
 		}
-		event.API.PostMessage(event.Channel, str, params)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText(str, false))
 		return true
 	} else if matched := regexp.MustCompile(`^\d+-\d+$`); len(splited) == 2 && matched.MatchString(splited[1]) == true {
 		fmt.Println(strings.Split(splited[1], "-")[0])
@@ -46,7 +47,7 @@ func Roll(option string, event *Struct.Message) bool {
 			return false
 		}
 		if length > 100 || max > 1000000 || length <= 0 || max <= 0 || min < 0 {
-			event.API.PostMessage(event.Channel, "taille max == 100 et tailledude max == 1000000", params)
+			event.API.PostMessage(event.Channel, slack.MsgOptionText("taille max == 100 et tailledude max == 1000000", false))
 			return false
 		}
 		var str string
@@ -56,12 +57,12 @@ func Roll(option string, event *Struct.Message) bool {
 				str += " "
 			}
 		}
-		event.API.PostMessage(event.Channel, str, params)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText(str, false))
 		return true
 	} else if max, err := strconv.Atoi(splited[1]); err == nil {
 
 		if length > 100 || max > 1000000 || length <= 0 || max <= 0 {
-			event.API.PostMessage(event.Channel, "taille max == 100 et tailledude max == 1000000", params)
+			event.API.PostMessage(event.Channel, slack.MsgOptionText("taille max == 100 et tailledude max == 1000000", false))
 			return false
 		}
 		var str string
@@ -71,7 +72,7 @@ func Roll(option string, event *Struct.Message) bool {
 				str += " "
 			}
 		}
-		event.API.PostMessage(event.Channel, str, params)
+		event.API.PostMessage(event.Channel, slack.MsgOptionText(str, false))
 		return true
 	}
 	return false
