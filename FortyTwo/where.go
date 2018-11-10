@@ -60,6 +60,8 @@ func Where(option string, event *Struct.Message) bool {
 			"mmerabet",
 			"aledru",
 			"dlavaury",
+			"jauplat",
+			"jraymond",
 		}
 		var str string
 		for i := 0; i < len(guardians); i++ {
