@@ -61,19 +61,22 @@ func Where(option string, event *Struct.Message) bool {
 			"aledru",
 			"dlavaury",
 		}
+		var str string
 		for i := 0; i < len(guardians); i++ {
 			data, err := event.FortyTwo.GetUserLocations(guardians[i], params)
 			if err != nil {
 				fmt.Println(err)
-				event.API.PostMessage(event.Channel, "login invalide", Struct.SlackParams)
+				str += "login invalide\n"
 				return false
 			}
 			if len(data) == 0 || data[0].EndAt != nil {
-				event.API.PostMessage(event.Channel, "*"+guardians[i]+"* est hors-ligne", Struct.SlackParams)
+				str += "*" + guardians[i] + "* est hors-ligne\n"
 			} else {
-				event.API.PostMessage(event.Channel, "*"+guardians[i]+"* est à la place *"+data[0].Host+"*", Struct.SlackParams)
+				str += "*" + guardians[i] + "* est à la place *" + data[0].Host + "*\n"
 			}
 		}
+		event.API.PostMessage(event.Channel, str, Struct.SlackParams)
+
 		return true
 	}
 	data, err := event.FortyTwo.GetUserLocations(user, params)
