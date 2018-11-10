@@ -124,6 +124,6 @@ func Help(option string, event *Struct.Message) bool {
 			},
 		},
 	}
-	event.API.PostMessage(event.Channel, slack.MsgOptionAttachments(attachment))
+	event.API.PostMessage(event.Channel, slack.MsgOptionAttachments(attachment), slack.MsgOptionTS(event.Timestamp))
 	return true
 }
