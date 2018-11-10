@@ -29,7 +29,7 @@ func main() {
 	for msg := range rtm.IncomingEvents {
 		switch ev := msg.Data.(type) {
 		case *slack.ConnectedEvent:
-			log.Fatal("Ready")
+			log.Info("Ready")
 		case *slack.MessageEvent:
 			var message = Struct.Message{Message: ev.Msg.Text, Channel: ev.Msg.Channel, User: ev.Msg.User, Timestamp: ev.Msg.Timestamp, API: api, FortyTwo: client}
 			go React(message, reactions)
