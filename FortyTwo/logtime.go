@@ -128,7 +128,7 @@ func Logtime(option string, event *Struct.Message) bool {
 	if logtimeOpt.error {
 		params := Struct.SlackParams
 		params.ThreadTimestamp = event.Timestamp
-		event.API.PostMessage(event.Channel, slack.MsgOptionText(usage, false))
+		event.API.PostMessage(event.Channel, slack.MsgOptionText(usage, false), slack.MsgOptionTS(event.Timestamp))
 		return false
 	}
 	if logtimeOpt.dateBegin != zeroDate && logtimeOpt.dateEnd != zeroDate {
