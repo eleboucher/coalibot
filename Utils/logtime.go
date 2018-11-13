@@ -6,6 +6,7 @@ import (
 	"os"
 	"regexp"
 	"strconv"
+	"strings"
 	"time"
 	"unicode"
 
@@ -25,8 +26,8 @@ func Logtime(user string, rangeBegin time.Time, rangeEnd time.Time, client *api4
 		return 0
 	}
 	t := transform.Chain(norm.NFD, transform.RemoveFunc(isMn), norm.NFC)
-	firstName, _, _ := transform.String(t, data.FirstName)
-	lastName, _, _ := transform.String(t, data.LastName)
+	firstName, _, _ := transform.String(t, strings.TrimSpace(data.FirstName))
+	lastName, _, _ := transform.String(t, strings.TrimSpace(data.LastName))
 	var name = name{firstName: firstName, lastName: lastName}
 	var current = rangeBegin
 	var duration int
@@ -58,6 +59,10 @@ func getHourByName(name name, data [][]string) int {
 		}
 	}
 	return duration
+}
+
+func getRegexForComposedName(name string) string {
+	name
 }
 
 func isMn(r rune) bool {
