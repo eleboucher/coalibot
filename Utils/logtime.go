@@ -61,10 +61,6 @@ func getHourByName(name name, data [][]string) int {
 	return duration
 }
 
-func getRegexForComposedName(name string) string {
-	name
-}
-
 func isMn(r rune) bool {
 	return unicode.Is(unicode.Mn, r) // Mn: nonspacing marks
 }
