@@ -31,7 +31,7 @@ func Dtc(option string, event *Struct.Message) bool {
 		dtc += sentence + "\n"
 	})
 	params := slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true, ThreadTimestamp: event.Timestamp, IconURL: "https://danstonchat.com/icache/size/300c300/themes/danstonchat2016/images/logo-og.png", Username: "Dans Ton Chat"}
-	event.API.PostMessage(event.Channel, slack.MsgOptionText(">"+dtc, false), slack.MsgOptionPostMessageParameters(params))
+	event.API.PostMessage(event.Channel, slack.MsgOptionText("> ```"+dtc+"```", false), slack.MsgOptionPostMessageParameters(params))
 
 	return true
 }
