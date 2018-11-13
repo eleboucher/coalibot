@@ -1,4 +1,4 @@
-package BDE
+package Assos
 
 import (
 	"strings"
