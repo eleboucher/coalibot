@@ -165,7 +165,7 @@ func Logtime(option string, event *Struct.Message) bool {
 func handleDate(splited []string, logtimeOpt *logopt) {
 	(*logtimeOpt).count++
 
-	if len(splited) < (*logtimeOpt).count {
+	if len(splited) < (*logtimeOpt).count+2 {
 		(*logtimeOpt).error = true
 		return
 	}
