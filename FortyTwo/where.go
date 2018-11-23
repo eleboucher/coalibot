@@ -58,6 +58,7 @@ func Where(option string, event *Struct.Message) bool {
 			"elebouch",
 			"fbabin",
 			"tbailly-",
+			"bsiguret",
 			"mmerabet",
 			"aledru",
 			"dlavaury",
