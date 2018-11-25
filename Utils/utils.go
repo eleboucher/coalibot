@@ -23,7 +23,7 @@ func FmtDuration(d time.Duration) string {
 	h := d / time.Hour
 	d -= h * time.Hour
 	m := d / time.Minute
-	return fmt.Sprintf("%02dh%02d", h, m)
+	return fmt.Sprintf("%02dh%02dm", h, m)
 }
 
 func GetLogin(option string, event *Struct.Message) (string, bool) {
