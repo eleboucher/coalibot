@@ -1,12 +1,12 @@
 package Utils
 
 import (
-	"fmt"
 	"math/rand"
 	"strings"
 	"time"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/hako/durafmt"
 )
 
 func IndexOf(word string, data []string) int {
@@ -20,10 +20,18 @@ func IndexOf(word string, data []string) int {
 
 func FmtDuration(d time.Duration) string {
 	d = d.Round(time.Minute)
-	h := d / time.Hour
-	d -= h * time.Hour
-	m := d / time.Minute
-	return fmt.Sprintf("%02dh%02dm", h, m)
+	if d.Hours() > 168 {
+		return durafmt.ParseShort(d).String()
+	}
+	return durafmt.Parse(d).String()
+}
+
+func PrettyDurationPrinting(d time.Duration) string {
+	d = d.Round(time.Minute)
+	if d.Hours() > 168 {
+		return durafmt.ParseShort(d).String()
+	}
+	return durafmt.Parse(d).String()
 }
 
 func GetLogin(option string, event *Struct.Message) (string, bool) {

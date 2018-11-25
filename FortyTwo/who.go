@@ -33,7 +33,7 @@ func Who(option string, event *Struct.Message) bool {
 
 	} else {
 		var diff = time.Now().Sub(*data[0].EndAt)
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("Place *"+place+"* vide, ancien utilisateur *"+data[0].User.Login+"* deconnecté depuis *"+Utils.FmtDuration(diff)+"*", false))
+		event.API.PostMessage(event.Channel, slack.MsgOptionText("Place *"+place+"* vide, ancien utilisateur *"+data[0].User.Login+"* deconnecté depuis *"+Utils.PrettyDurationPrinting(diff)+"*", false))
 	}
 	return true
 }
