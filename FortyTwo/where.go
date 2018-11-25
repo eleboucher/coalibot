@@ -13,7 +13,6 @@ import (
 
 func Where(option string, event *Struct.Message) bool {
 	params := api42.NewParameter()
-	params.AddFilter("active", true)
 	if len(strings.Split(option, " ")) == 4 && (strings.IndexAny(option, "le branle couille") != -1 || strings.IndexAny(option, "la branle couille") != -1) {
 		y, m, d := time.Now().Date()
 		rangeBegin := time.Date(y, m, d, 0, 0, 0, 0, time.Now().Location())
