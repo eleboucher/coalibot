@@ -76,7 +76,7 @@ func Where(option string, event *Struct.Message) bool {
 			if len(data) == 0 || data[0].EndAt != nil {
 				var diff = time.Now().Sub(*data[0].EndAt)
 
-				str += "*" + guardians[i] + "* est hors-ligne depuis *" + Utils.PrettyDurationPrinting(diff) + "*\n"
+				str += "*" + guardians[i] + "* est hors-ligne depuis " + Utils.PrettyDurationPrinting(diff) + "\n"
 			} else {
 				str += "*" + guardians[i] + "* est à la place *" + data[0].Host + "*\n"
 			}
