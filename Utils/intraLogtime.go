@@ -23,7 +23,8 @@ func IntraLogtime(user string, rangeBegin time.Time, rangeEnd time.Time, client 
 	var page = 2
 	for {
 		lastlocation := locations[len(locations)-1].EndAt
-		if rangeBegin.Before(*lastlocation) {
+
+		if lastlocation != nil && rangeBegin.Before(*lastlocation) {
 			params.Page = page
 			data, err := client.GetUserLocations(user, params)
 			if err != nil {
