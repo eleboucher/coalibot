@@ -28,7 +28,7 @@ func Vdm(option string, event *Struct.Message) bool {
 		nb = 1
 	}
 	if nb > 10 {
-		Utils.PostMsg(event, slack.MsgOptionText("only 10 request max is allowed", false), slack.MsgOptionPostMessageParameters(params))
+		Utils.PostMsg(event, slack.MsgOptionText("max 10 requests", false), slack.MsgOptionPostMessageParameters(params))
 		return true
 	}
 	// Load the HTML document
