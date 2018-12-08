@@ -27,6 +27,9 @@ func Vdm(option string, event *Struct.Message) bool {
 	}
 	vdm := strings.Join(strings.Fields(doc.Find(".panel-content").ChildrenFiltered(".block").Has("a").First().Text()), " ")
 	params := slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true, IconURL: "http://golem13.fr/wp-content/uploads/2012/10/vdm.gif", Username: "Vie De Merde"}
+	if vdm == "" {
+		return false
+	}
 	Utils.PostMsg(event, slack.MsgOptionText(">"+vdm, false), slack.MsgOptionPostMessageParameters(params))
 
 	return true
