@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
 )
 
@@ -20,6 +21,6 @@ func Oss(option string, event *Struct.Message) bool {
 	splited := strings.Split(string(bytes), "\n")
 	citation := splited[rand.Int()%len(splited)]
 	params := slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true, IconURL: "https://static-cdn.jtvnw.net/emoticons/v1/518312/3.0", Username: "Hubert Bonisseur de La Bath"}
-	event.API.PostMessage(event.Channel, slack.MsgOptionText("> "+citation, false), slack.MsgOptionPostMessageParameters(params))
+	Utils.PostMsg(event, slack.MsgOptionText("> "+citation, false), slack.MsgOptionPostMessageParameters(params))
 	return true
 }

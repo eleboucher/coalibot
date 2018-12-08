@@ -8,6 +8,7 @@ import (
 	"sort"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
 )
 
@@ -41,6 +42,6 @@ func RouletteTop(option string, event *Struct.Message) bool {
 			ret += fmt.Sprintf("*%s*: %d Bangs\n", roulette[i].user, roulette[i].bang)
 		}
 	}
-	event.API.PostMessage(event.Channel, slack.MsgOptionText(ret, false))
+	Utils.PostMsg(event, slack.MsgOptionText(ret, false))
 	return true
 }

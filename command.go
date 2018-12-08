@@ -119,6 +119,6 @@ func reply(command string, event *Struct.Message) bool {
 
 	// output result to STDOUT
 	fmt.Printf("reply %s\n", c[command].(string))
-	event.API.PostMessage(event.Channel, slack.MsgOptionText(c[command].(string), false))
+	Utils.PostMsg(event, slack.MsgOptionText(c[command].(string), false))
 	return true
 }

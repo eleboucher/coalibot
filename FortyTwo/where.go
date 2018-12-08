@@ -20,21 +20,21 @@ func Where(option string, event *Struct.Message) bool {
 		user := strings.Split(option, " ")[3]
 		logtime := Utils.IntraLogtime(user, rangeEnd, rangeBegin, event.FortyTwo)
 		if logtime.Hours() >= 35 {
-			event.API.PostMessage(event.Channel, slack.MsgOptionText("*"+user+"* is not a branle couille", false))
+			Utils.PostMsg(event, slack.MsgOptionText("*"+user+"* is not a branle couille", false))
 			return true
 		}
 		data, err := event.FortyTwo.GetUserLocations(user, params)
 		if err != nil {
-			event.API.PostMessage(event.Channel, slack.MsgOptionText("login invalide", false))
+			Utils.PostMsg(event, slack.MsgOptionText("login invalide", false))
 			return false
 		}
 
 		if len(data) == 0 || data[0].EndAt != nil {
 			var diff = time.Now().Sub(*data[0].EndAt)
 
-			event.API.PostMessage(event.Channel, slack.MsgOptionText("*"+user+"* est hors-ligne depuis *"+Utils.FmtDuration(diff)+"*", false))
+			Utils.PostMsg(event, slack.MsgOptionText("*"+user+"* est hors-ligne depuis *"+Utils.FmtDuration(diff)+"*", false))
 		} else {
-			event.API.PostMessage(event.Channel, slack.MsgOptionText("*"+user+"* est à la place *"+data[0].Host+"*", false))
+			Utils.PostMsg(event, slack.MsgOptionText("*"+user+"* est à la place *"+data[0].Host+"*", false))
 		}
 		return true
 	}
@@ -81,22 +81,22 @@ func Where(option string, event *Struct.Message) bool {
 				str += "*" + guardians[i] + "* est à la place *" + data[0].Host + "*\n"
 			}
 		}
-		event.API.PostMessage(event.Channel, slack.MsgOptionText(str, false))
+		Utils.PostMsg(event, slack.MsgOptionText(str, false))
 
 		return true
 	}
 	data, err := event.FortyTwo.GetUserLocations(user, params)
 	if err != nil {
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("login invalide", false))
+		Utils.PostMsg(event, slack.MsgOptionText("login invalide", false))
 		return false
 	}
 
 	if len(data) == 0 || data[0].EndAt != nil {
 		var diff = time.Now().Sub(*data[0].EndAt)
 
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("*"+user+"* est hors-ligne depuis *"+Utils.PrettyDurationPrinting(diff)+"*", false))
+		Utils.PostMsg(event, slack.MsgOptionText("*"+user+"* est hors-ligne depuis *"+Utils.PrettyDurationPrinting(diff)+"*", false))
 	} else {
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("*"+user+"* est à la place *"+data[0].Host+"*", false))
+		Utils.PostMsg(event, slack.MsgOptionText("*"+user+"* est à la place *"+data[0].Host+"*", false))
 	}
 	return true
 }

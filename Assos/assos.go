@@ -2,6 +2,7 @@ package Assos
 
 import (
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
 )
 
@@ -17,6 +18,6 @@ func Assos(option string, event *Struct.Message) bool {
 <#C7X7V8HV5|airsoft42>  :ak-42:
 <#C4W29G7N2|code_her>  :codeher:
 <#C8U8Z88TB|42zen>`
-	event.API.PostMessage(event.Channel, slack.MsgOptionText(assos, false))
+	Utils.PostMsg(event, slack.MsgOptionText(assos, false))
 	return true
 }

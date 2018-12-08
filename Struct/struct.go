@@ -8,13 +8,14 @@ import (
 )
 
 type Message struct {
-	Message   string
-	Channel   string
-	User      string
-	Timestamp string
-	API       *slack.Client
-	FortyTwo  *api42.Client42
-	React     []React
+	Message         string
+	Channel         string
+	User            string
+	Timestamp       string
+	ThreadTimestamp string
+	API             *slack.Client
+	FortyTwo        *api42.Client42
+	React           []React
 }
 
 type React struct {

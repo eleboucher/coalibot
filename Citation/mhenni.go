@@ -7,6 +7,8 @@ import (
 	"strings"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
+
 	"github.com/nlopes/slack"
 )
 
@@ -20,6 +22,6 @@ func Mhenni(option string, event *Struct.Message) bool {
 	splited := strings.Split(string(bytes), "\n")
 	citation := splited[rand.Int()%len(splited)]
 	params := slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true, IconURL: "https://risibank.fr/cache/stickers/d656/65606-full.png", Username: "Mohammed Henni"}
-	event.API.PostMessage(event.Channel, slack.MsgOptionText("> "+citation, false), slack.MsgOptionPostMessageParameters(params))
+	Utils.PostMsg(event, slack.MsgOptionText("> "+citation, false), slack.MsgOptionPostMessageParameters(params))
 	return true
 }

@@ -11,12 +11,12 @@ import (
 func Prof(option string, event *Struct.Message) bool {
 	user, not_valid := Utils.GetLogin(option, event)
 	if not_valid {
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("invalid login", false))
+		Utils.PostMsg(event, slack.MsgOptionText("invalid login", false))
 		return false
 	}
 	data, err := event.FortyTwo.GetUser(user)
 	if err != nil {
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("invalid login", false))
+		Utils.PostMsg(event, slack.MsgOptionText("invalid login", false))
 		return false
 	}
 
@@ -68,7 +68,7 @@ func Prof(option string, event *Struct.Message) bool {
 		},
 		Footer: "Powered by Coalibot",
 	}
-	event.API.PostMessage(event.Channel, slack.MsgOptionAttachments(attachment))
+	Utils.PostMsg(event, slack.MsgOptionAttachments(attachment))
 
 	return true
 }

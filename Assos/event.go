@@ -2,6 +2,7 @@ package Assos
 
 import (
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
 )
 
@@ -73,6 +74,6 @@ func Event(option string, event *Struct.Message) bool {
 	// 	},
 	// }
 	// params.Attachments = []slack.Attachment{attachment}
-	event.API.PostMessage(event.Channel, slack.MsgOptionText("Coming soon!", false), slack.MsgOptionPostMessageParameters(params))
+	Utils.PostMsg(event, slack.MsgOptionText("Coming soon!", false), slack.MsgOptionPostMessageParameters(params))
 	return true
 }

@@ -8,6 +8,7 @@ import (
 
 	"github.com/genesixx/coalibot/Struct"
 	"github.com/hako/durafmt"
+	"github.com/nlopes/slack"
 )
 
 func IndexOf(word string, data []string) int {
@@ -58,4 +59,13 @@ func GetLogin(option string, event *Struct.Message) (string, bool) {
 
 func Choice(option []string) string {
 	return option[rand.Int()%len(option)]
+}
+
+func PostMsg(event *Struct.Message, options ...slack.MsgOption) {
+	channel := event.Channel
+
+	if event.ThreadTimestamp != "" {
+		options = append(options, slack.MsgOptionTS(event.Timestamp))
+	}
+	event.API.PostMessage(channel, options...)
 }

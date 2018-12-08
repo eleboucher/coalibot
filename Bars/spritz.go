@@ -82,7 +82,7 @@ func Spritz(option string, event *Struct.Message) bool {
 		},
 		Footer: "Powered by Coalibot",
 	}
-	event.API.PostMessage(event.Channel, slack.MsgOptionAttachments(attachment))
+	Utils.PostMsg(event, slack.MsgOptionAttachments(attachment))
 	return true
 }
 
@@ -146,5 +146,5 @@ func eventBDE(event *Struct.Message) {
 		},
 		Footer: "Powered by Coalibot",
 	}
-	event.API.PostMessage(event.Channel, slack.MsgOptionAttachments(attachment))
+	Utils.PostMsg(event, slack.MsgOptionAttachments(attachment))
 }

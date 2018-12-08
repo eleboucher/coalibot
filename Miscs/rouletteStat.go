@@ -7,6 +7,8 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/genesixx/coalibot/Utils"
+
 	"github.com/genesixx/coalibot/Struct"
 	"github.com/nlopes/slack"
 )
@@ -34,6 +36,6 @@ func RouletteStat(option string, event *Struct.Message) bool {
 		count = c[user.Name]
 	}
 	countstr := strconv.Itoa(count)
-	event.API.PostMessage(event.Channel, slack.MsgOptionText("<@"+event.User+">: "+countstr+" Bang!", false))
+	Utils.PostMsg(event, slack.MsgOptionText("<@"+event.User+">: "+countstr+" Bang!", false))
 	return true
 }

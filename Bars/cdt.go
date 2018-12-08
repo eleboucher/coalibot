@@ -4,6 +4,8 @@ import (
 	"time"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
+
 	"github.com/nlopes/slack"
 )
 
@@ -56,7 +58,7 @@ func Cdt(option string, event *Struct.Message) bool {
 		},
 		Footer: "Powered by Coalibot",
 	}
-	event.API.PostMessage(event.Channel, slack.MsgOptionAttachments(attachment))
+	Utils.PostMsg(event, slack.MsgOptionAttachments(attachment))
 	return true
 }
 

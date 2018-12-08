@@ -13,7 +13,7 @@ import (
 
 func Who(option string, event *Struct.Message) bool {
 	if option == "" || len(strings.Split(option, " ")) > 1 || len(strings.Split(option, " ")) == 0 {
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("Prend une place en parametre", false))
+		Utils.PostMsg(event, slack.MsgOptionText("Prend une place en parametre", false))
 		return false
 	}
 	var place = strings.Split(option, " ")[0]
@@ -27,13 +27,13 @@ func Who(option string, event *Struct.Message) bool {
 		return false
 	}
 	if len(data) == 0 {
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("Place *"+place+"* vide.", false))
+		Utils.PostMsg(event, slack.MsgOptionText("Place *"+place+"* vide.", false))
 	} else if data[0].EndAt == nil {
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("*"+data[0].User.Login+"* est à la place *"+place+"*", false))
+		Utils.PostMsg(event, slack.MsgOptionText("*"+data[0].User.Login+"* est à la place *"+place+"*", false))
 
 	} else {
 		var diff = time.Now().Sub(*data[0].EndAt)
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("Place *"+place+"* vide, ancien utilisateur *"+data[0].User.Login+"* deconnecté depuis *"+Utils.PrettyDurationPrinting(diff)+"*", false))
+		Utils.PostMsg(event, slack.MsgOptionText("Place *"+place+"* vide, ancien utilisateur *"+data[0].User.Login+"* deconnecté depuis *"+Utils.PrettyDurationPrinting(diff)+"*", false))
 	}
 	return true
 }

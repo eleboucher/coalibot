@@ -2,6 +2,7 @@ package Miscs
 
 import (
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
 )
 
@@ -124,6 +125,6 @@ func Help(option string, event *Struct.Message) bool {
 			},
 		},
 	}
-	event.API.PostMessage(event.Channel, slack.MsgOptionAttachments(attachment), slack.MsgOptionTS(event.Timestamp))
+	Utils.PostMsg(event, slack.MsgOptionAttachments(attachment), slack.MsgOptionTS(event.Timestamp))
 	return true
 }

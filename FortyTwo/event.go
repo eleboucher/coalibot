@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
 	"gitlab.com/clafoutis/api42"
 )
@@ -34,7 +35,7 @@ func Event(option string, event *Struct.Message) bool {
 	}
 	sort.Slice(data, func(i, j int) bool { return data[i].BeginAt.Before(*data[j].BeginAt) })
 	if len(data) == 0 {
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("Pas d'event ce jour!", false))
+		Utils.PostMsg(event, slack.MsgOptionText("Pas d'event ce jour!", false))
 		return true
 	}
 	for i := 0; i < len(data); i++ {
@@ -50,7 +51,7 @@ func Event(option string, event *Struct.Message) bool {
 			Ts:        json.Number(strconv.FormatInt(int64(data[i].BeginAt.Unix()), 10)),
 			Color:     "#01babc",
 		}
-		event.API.PostMessage(event.Channel, slack.MsgOptionAttachments(attachments))
+		Utils.PostMsg(event, slack.MsgOptionAttachments(attachments))
 	}
 	return true
 }

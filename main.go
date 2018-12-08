@@ -31,7 +31,7 @@ func main() {
 		case *slack.ConnectedEvent:
 			log.Info("Ready")
 		case *slack.MessageEvent:
-			var message = Struct.Message{Message: ev.Msg.Text, Channel: ev.Msg.Channel, User: ev.Msg.User, Timestamp: ev.Msg.Timestamp, API: api, FortyTwo: client}
+			var message = Struct.Message{Message: ev.Msg.Text, Channel: ev.Msg.Channel, User: ev.Msg.User, Timestamp: ev.Msg.Timestamp, ThreadTimestamp: ev.Msg.ThreadTimestamp, API: api, FortyTwo: client}
 			go React(message, reactions)
 
 			if message.User != "" {

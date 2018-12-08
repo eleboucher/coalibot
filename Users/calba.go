@@ -5,6 +5,8 @@ import (
 	"time"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
+
 	"github.com/nlopes/slack"
 )
 
@@ -21,6 +23,6 @@ func Calba(option string, event *Struct.Message) bool {
 	m := ts / time.Minute
 	ts = ts % time.Minute
 	s := ts / time.Second
-	event.API.PostMessage(event.Channel, slack.MsgOptionText(fmt.Sprintf("Libération dans %02d jours, %02d heures %02d minutes %02d secondes", d, h, m, s), false))
+	Utils.PostMsg(event, slack.MsgOptionText(fmt.Sprintf("Libération dans %02d jours, %02d heures %02d minutes %02d secondes", d, h, m, s), false))
 	return true
 }

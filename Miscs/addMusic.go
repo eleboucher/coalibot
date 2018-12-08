@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
 )
 
@@ -39,9 +40,9 @@ func AddMusic(option string, event *Struct.Message) bool {
 		toJson, _ := json.Marshal(musics)
 		file.Write(toJson)
 		file.Sync()
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("Musique ajoutée", false))
+		Utils.PostMsg(event, slack.MsgOptionText("Musique ajoutée", false))
 	} else {
-		event.API.PostMessage(event.Channel, slack.MsgOptionText("Lien incorrect ou déjà enregistré", false))
+		Utils.PostMsg(event, slack.MsgOptionText("Lien incorrect ou déjà enregistré", false))
 		return false
 	}
 	return true

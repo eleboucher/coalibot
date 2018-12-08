@@ -8,6 +8,8 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
+
 	"github.com/nlopes/slack"
 )
 
@@ -38,7 +40,7 @@ func Gfaim(option string, event *Struct.Message) bool {
 	case now.Hour() > 20:
 		str = "C' est plus l'heure de manger"
 	}
-	event.API.PostMessage(event.Channel, slack.MsgOptionText(str, false))
+	Utils.PostMsg(event, slack.MsgOptionText(str, false))
 
 	return true
 }
@@ -57,7 +59,7 @@ func Apero(option string, event *Struct.Message) bool {
 		return false
 	}
 	apero := strings.Join(strings.Fields(doc.Find("h2").First().Text()), " ")
-	event.API.PostMessage(event.Channel, slack.MsgOptionText(apero, false))
+	Utils.PostMsg(event, slack.MsgOptionText(apero, false))
 	return true
 }
 

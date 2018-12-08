@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
 )
 
@@ -29,6 +30,6 @@ func Music(option string, event *Struct.Message) bool {
 	if music.Login == "pk" {
 		music.Login = "p/k"
 	}
-	event.API.PostMessage(event.Channel, slack.MsgOptionText(music.Login+" "+music.Link, false))
+	Utils.PostMsg(event, slack.MsgOptionText(music.Login+" "+music.Link, false))
 	return true
 }

@@ -9,6 +9,7 @@ import (
 	"github.com/nlopes/slack"
 
 	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/Utils"
 )
 
 func Vdm(option string, event *Struct.Message) bool {
@@ -26,7 +27,7 @@ func Vdm(option string, event *Struct.Message) bool {
 	}
 	vdm := strings.Join(strings.Fields(doc.Find(".panel-content").ChildrenFiltered(".block").Has("a").First().Text()), " ")
 	params := slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true, IconURL: "http://golem13.fr/wp-content/uploads/2012/10/vdm.gif", Username: "Vie De Merde"}
-	event.API.PostMessage(event.Channel, slack.MsgOptionText(">"+vdm, false), slack.MsgOptionPostMessageParameters(params))
+	Utils.PostMsg(event, slack.MsgOptionText(">"+vdm, false), slack.MsgOptionPostMessageParameters(params))
 
 	return true
 }
