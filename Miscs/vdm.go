@@ -46,7 +46,11 @@ func Vdm(option string, event *Struct.Message) bool {
 		}
 	}
 	if vdms != "" {
-		Utils.PostMsg(event, slack.MsgOptionText(vdms, false), slack.MsgOptionPostMessageParameters(params))
+		if nb > 1 {
+			Utils.PostMsg(event, slack.MsgOptionText(vdms, false), slack.MsgOptionPostMessageParameters(params))
+		} else {
+			Utils.PostMsg(event, slack.MsgOptionText(vdms, false), slack.MsgOptionPostMessageParameters(params), slack.MsgOptionTS(event.Timestamp))
+		}
 	}
 	return true
 }
