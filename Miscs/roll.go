@@ -19,8 +19,6 @@ func Roll(option string, event *Struct.Message) bool {
 	if err != nil {
 		return false
 	}
-	params := Struct.SlackParams
-	params.ThreadTimestamp = event.Timestamp
 	if len(splited) >= 2 && strings.IndexAny(option, "[") != -1 &&
 		strings.IndexAny(option, "]") != -1 &&
 		strings.IndexAny(option, "[") < strings.IndexAny(option, "]") {
@@ -38,7 +36,7 @@ func Roll(option string, event *Struct.Message) bool {
 				str += " "
 			}
 		}
-		Utils.PostMsg(event, slack.MsgOptionText(str, false))
+		Utils.PostMsg(event, slack.MsgOptionText(str, false), slack.MsgOptionTS(event.Timestamp))
 		return true
 	} else if matched := regexp.MustCompile(`^\d+-\d+$`); len(splited) == 2 && matched.MatchString(splited[1]) == true {
 		fmt.Println(strings.Split(splited[1], "-")[0])
@@ -48,7 +46,7 @@ func Roll(option string, event *Struct.Message) bool {
 			return false
 		}
 		if length > 100 || max > 1000000 || length <= 0 || max <= 0 || min < 0 {
-			Utils.PostMsg(event, slack.MsgOptionText("taille max == 100 et tailledude max == 1000000", false))
+			Utils.PostMsg(event, slack.MsgOptionText("taille max == 100 et tailledude max == 1000000", false), slack.MsgOptionTS(event.Timestamp))
 			return false
 		}
 		var str string
@@ -63,17 +61,17 @@ func Roll(option string, event *Struct.Message) bool {
 	} else if max, err := strconv.Atoi(splited[1]); err == nil {
 
 		if length > 100 || max > 1000000 || length <= 0 || max <= 0 {
-			Utils.PostMsg(event, slack.MsgOptionText("taille max == 100 et tailledude max == 1000000", false))
+			Utils.PostMsg(event, slack.MsgOptionText("taille max == 100 et tailledude max == 1000000", false), slack.MsgOptionTS(event.Timestamp))
 			return false
 		}
 		var str string
 		for i := 0; i < length; i++ {
-			str += strconv.Itoa(rand.Intn(max + 1))
+			str += strconv.Itoa(rand.Intn(max))
 			if i < length-1 {
 				str += " "
 			}
 		}
-		Utils.PostMsg(event, slack.MsgOptionText(str, false))
+		Utils.PostMsg(event, slack.MsgOptionText(str, false), slack.MsgOptionTS(event.Timestamp))
 		return true
 	}
 	return false
