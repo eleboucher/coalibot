@@ -34,7 +34,6 @@ func Event(option string, event *Struct.Message) bool {
 			},
 		},
 	}
-	params.Attachments = []slack.Attachment{attachment}
-	Utils.PostMsg(event, slack.MsgOptionPostMessageParameters(params))
+	Utils.PostMsg(event, slack.MsgOptionAttachments(attachment), slack.MsgOptionPostMessageParameters(params))
 	return true
 }
