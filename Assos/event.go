@@ -19,7 +19,7 @@ func Event(option string, event *Struct.Message) bool {
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
 				Title: "Date",
-				Value: "Vendredi 20 decembre 2018 de 16:00 à 23:00.",
+				Value: "Jeudi 20 decembre 2018 de 16:00 à 23:00.",
 				Short: false,
 			},
 			slack.AttachmentField{
