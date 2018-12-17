@@ -10,70 +10,31 @@ func Event(option string, event *Struct.Message) bool {
 	params := Struct.SlackParams
 	params.IconURL = "https://bde.student42.fr/img/bde42-logo-1538664197.jpg"
 	params.Username = "Undefined Bot"
-	// attachment := slack.Attachment{
-	// 	Title:     "Blood Horror Party",
-	// 	TitleLink: "https://bde.student42.fr",
-	// 	Text:      "Le BDE Undefined vous prépare une soirée d'Halloween à 42 organisée avec le BDE Wolf (de l'IDRAC) ainsi que le BDE Wastis (de l'école W).",
-	// 	Footer:    "Powered by Coalibot",
-	// 	ThumbURL:  "https://www.helloasso.com/assets/img/photos/evenements/42%20blood%20horror%20party-min%201%20-71313069e2e74a1ebe82780b6b06663a.png",
-	// 	Color:     "#000000",
-	// 	Fields: []slack.AttachmentField{
-	// 		slack.AttachmentField{
-	// 			Title: "Date",
-	// 			Value: "Vendredi 2 novembre 2018 de 21:00 à 05:00, Entrée jusqu'à 1h.",
-	// 			Short: false,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Entrée",
-	// 			Value: "10€ pour les students, 12€ pour les externes",
-	// 			Short: false,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Vestiaire",
-	// 			Value: "Vestiaire gratuit pour les personnes déguisées, 1€ sinon.",
-	// 			Short: false,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Tarifs des boissons:",
-	// 			Value: "1 Token = 1€",
-	// 			Short: false,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Bière :beer:",
-	// 			Value: "Demi 2 token/Pinte 3 token",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Alcool fort :whiskey2:",
-	// 			Value: "3 token",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Shot :tumbler_glass:",
-	// 			Value: "2 token",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Teq Paf :whiskey2:",
-	// 			Value: "2 token",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "+1 Token pour l'Energy Drink",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Soft Gratuit",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Happy Hour jusqu'a 23h",
-	// 			Value: "-1 token sur les Bières",
-	// 			Short: true,
-	// 		},
-	// 	},
-	// }
-	// params.Attachments = []slack.Attachment{attachment}
-	Utils.PostMsg(event, slack.MsgOptionText("Coming soon!", false), slack.MsgOptionPostMessageParameters(params))
+	attachment := slack.Attachment{
+		Title:     "Apéro de Noël",
+		TitleLink: "https://www.facebook.com/events/591779434601258/",
+		Text:      "Pour finir cette année en mode chill, le BDE vous propose un apéro en e0 le jeudi 20 décembre de 16h à 23h.",
+		Footer:    "Powered by Coalibot",
+		Color:     "#d42426",
+		Fields: []slack.AttachmentField{
+			slack.AttachmentField{
+				Title: "Date",
+				Value: "Vendredi 20 decembre 2018 de 16:00 à 23:00.",
+				Short: false,
+			},
+			slack.AttachmentField{
+				Title: "Bière :beer:",
+				Value: "Pinte 3 Euro",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Vin Chaud :wine_glass:",
+				Value: "1  Euro",
+				Short: true,
+			},
+		},
+	}
+	params.Attachments = []slack.Attachment{attachment}
+	Utils.PostMsg(event, slack.MsgOptionPostMessageParameters(params))
 	return true
 }
