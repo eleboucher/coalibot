@@ -32,6 +32,10 @@ func Event(option string, event *Struct.Message) bool {
 				Value: "1  Euro",
 				Short: true,
 			},
+			slack.AttachmentField{
+				Title: "Beaucoup de choses à grignoter [GRATUIT]",
+				Short: false,
+			},
 		},
 	}
 	Utils.PostMsg(event, slack.MsgOptionAttachments(attachment), slack.MsgOptionPostMessageParameters(params))

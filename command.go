@@ -68,7 +68,7 @@ func handleCommand(event *Struct.Message) {
 	sort.Strings(BlackList)
 	i := sort.Search(len(BlackList),
 		func(i int) bool { return BlackList[i] >= event.Channel })
-	if (i < len(BlackList) && BlackList[i] == event.Channel) && !(strings.Index(event.Message, "bde") != -1 && event.Channel == "C04GT8U3Y") {
+	if (i < len(BlackList) && BlackList[i] == event.Channel) && !(strings.Index(strings.ToLower(event.Message), "bde") != -1 && event.Channel == "C04GT8U3Y") {
 		return
 	}
 
