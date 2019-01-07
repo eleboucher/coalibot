@@ -39,6 +39,11 @@ func Help(option string, event *Struct.Message) bool {
 				Short: true,
 			},
 			slack.AttachmentField{
+				Title: "intra-slack",
+				Value: "Instructions pour connecter slack à l'intra",
+				Short: true,
+			},
+			slack.AttachmentField{
 				Title: "logtime",
 				Value: "Pour plus d'info `bc logtime --help`",
 				Short: true,
