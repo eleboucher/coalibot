@@ -10,36 +10,37 @@ func Event(option string, event *Struct.Message) bool {
 	params := Struct.SlackParams
 	params.IconURL = "https://bde.student42.fr/img/bde42-logo-1538664197.jpg"
 	params.Username = "Undefined Bot"
-	// attachment := slack.Attachment{
-	// 	Title:     "Apéro de Noël",
-	// 	TitleLink: "https://www.facebook.com/events/591779434601258/",
-	// 	Text:      "Pour finir cette année en mode chill, le BDE vous propose un apéro en e0 le jeudi 20 décembre de 16h à 23h.",
-	// 	Footer:    "Powered by Coalibot",
-	// 	Color:     "#d42426",
-	// 	Fields: []slack.AttachmentField{
-	// 		slack.AttachmentField{
-	// 			Title: "Date",
-	// 			Value: "Jeudi 20 decembre 2018 de 16:00 à 23:00.",
-	// 			Short: false,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Bière :beer:",
-	// 			Value: "Pinte 3 Euro",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Vin Chaud :wine_glass:",
-	// 			Value: "1  Euro",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Beaucoup de choses à grignoter [GRATUIT]",
-	// 			Short: false,
-	// 		},
-	// 	},
-	// }
-	// Utils.PostMsg(event, slack.MsgOptionAttachments(attachment), slack.MsgOptionPostMessageParameters(params))
-	Utils.PostMsg(event, slack.MsgOptionText("Coming soon!", false), slack.MsgOptionPostMessageParameters(params))
+	attachment := slack.Attachment{
+		Title:     "Galette Des Reines",
+		TitleLink: "https://www.facebook.com/events/2634975786518016",
+		Text:      "Le BDE vous invite à la galette des reines en cantina le 17 janvier de 16h à 23h. Il y aura de la galette, du cidre ainsi que de la bière.",
+		Footer:    "Powered by Coalibot",
+		Color:     "#FFD700",
+		Fields: []slack.AttachmentField{
+			slack.AttachmentField{
+				Title: "Date",
+				Value: " le 17 janvier de 16h à 23h.",
+				Short: false,
+			},
+			slack.AttachmentField{
+				Title: "Pinte :beer:",
+				Value: "3 Euro",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Demi :wine_glass:",
+				Value: "2 Euro",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Part de galette",
+				Value: "1 Euro",
+				Short: true,
+			},
+		},
+	}
+	Utils.PostMsg(event, slack.MsgOptionAttachments(attachment), slack.MsgOptionPostMessageParameters(params))
+	// Utils.PostMsg(event, slack.MsgOptionText("Coming soon!", false), slack.MsgOptionPostMessageParameters(params))
 
 	return true
 }
