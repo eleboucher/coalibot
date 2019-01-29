@@ -10,79 +10,80 @@ import (
 
 func Spritz(option string, event *Struct.Message) bool {
 
-	// if strings.ToLower(strings.Split(option, " ")[0]) == "event" {
-	// 	eventBDE(event)
-	// 	return true
+	// // if strings.ToLower(strings.Split(option, " ")[0]) == "event" {
+	// // 	eventBDE(event)
+	// // 	return true
+	// // }
+	// open := "Fermé !"
+	// color := "danger"
+	// if IsSpritzOpen() {
+	// 	open = "Ouvert !"
+	// 	color = "good"
 	// }
-	open := "Fermé !"
-	color := "danger"
-	if IsSpritzOpen() {
-		open = "Ouvert !"
-		color = "good"
-	}
-	attachment := slack.Attachment{
-		Color: color,
-		Title: "Spritz",
-		Text:  open,
-		Fields: []slack.AttachmentField{
-			slack.AttachmentField{
-				Title: "Horaire",
-				Value: "11-22h tous les jours sauf weekend et jours fériés!",
-			},
-			slack.AttachmentField{
-				Title: "Ricard :sunny:",
-				Value: "2.70€",
-				Short: true,
-			},
-			slack.AttachmentField{
-				Title: "Kronenbourg :beer:",
-				Value: "Demi: 2.70€ Pinte: 5.00€",
-				Short: true,
-			},
-			slack.AttachmentField{
-				Title: "Carlsberg/Grimbergen :beer:",
-				Value: "Demi: 3.70€ Pinte: 7.00€",
-				Short: true,
-			},
-			slack.AttachmentField{
-				Title: "La Chouffe :beer: :gnome:",
-				Value: "Demi: 3.70€ Pinte: 6.50€",
-				Short: true,
-			},
-			slack.AttachmentField{
-				Title: "Gallia :beer: :cucco:",
-				Value: "Demi: 3.50€ Pinte: 6.00€",
-				Short: true,
-			},
-			slack.AttachmentField{
-				Title: "Liqueur/Shot :tumbler_glass:",
-				Value: "2.00€",
-				Short: true,
-			},
-			slack.AttachmentField{
-				Title: "Cocktail " + Utils.Choice([]string{":cocktail2:", ":cocktail:"}),
-				Value: "7.00€",
-				Short: true,
-			},
-			slack.AttachmentField{
-				Title: "Vin :wine_glass:",
-				Value: "3.00€",
-				Short: true,
-			},
-			slack.AttachmentField{
-				Title: "Alcool fort :whiskey2:",
-				Value: "6.00€",
-				Short: true,
-			},
-			slack.AttachmentField{
-				Title: "Suze :whiskey2:",
-				Value: "3.00€",
-				Short: true,
-			},
-		},
-		Footer: "Powered by Coalibot",
-	}
-	Utils.PostMsg(event, slack.MsgOptionAttachments(attachment))
+	// attachment := slack.Attachment{
+	// 	Color: color,
+	// 	Title: "Spritz",
+	// 	Text:  open,
+	// 	Fields: []slack.AttachmentField{
+	// 		slack.AttachmentField{
+	// 			Title: "Horaire",
+	// 			Value: "11-22h tous les jours sauf weekend et jours fériés!",
+	// 		},
+	// 		slack.AttachmentField{
+	// 			Title: "Ricard :sunny:",
+	// 			Value: "2.70€",
+	// 			Short: true,
+	// 		},
+	// 		slack.AttachmentField{
+	// 			Title: "Kronenbourg :beer:",
+	// 			Value: "Demi: 2.70€ Pinte: 5.00€",
+	// 			Short: true,
+	// 		},
+	// 		slack.AttachmentField{
+	// 			Title: "Carlsberg/Grimbergen :beer:",
+	// 			Value: "Demi: 3.70€ Pinte: 7.00€",
+	// 			Short: true,
+	// 		},
+	// 		slack.AttachmentField{
+	// 			Title: "La Chouffe :beer: :gnome:",
+	// 			Value: "Demi: 3.70€ Pinte: 6.50€",
+	// 			Short: true,
+	// 		},
+	// 		slack.AttachmentField{
+	// 			Title: "Gallia :beer: :cucco:",
+	// 			Value: "Demi: 3.50€ Pinte: 6.00€",
+	// 			Short: true,
+	// 		},
+	// 		slack.AttachmentField{
+	// 			Title: "Liqueur/Shot :tumbler_glass:",
+	// 			Value: "2.00€",
+	// 			Short: true,
+	// 		},
+	// 		slack.AttachmentField{
+	// 			Title: "Cocktail " + Utils.Choice([]string{":cocktail2:", ":cocktail:"}),
+	// 			Value: "7.00€",
+	// 			Short: true,
+	// 		},
+	// 		slack.AttachmentField{
+	// 			Title: "Vin :wine_glass:",
+	// 			Value: "3.00€",
+	// 			Short: true,
+	// 		},
+	// 		slack.AttachmentField{
+	// 			Title: "Alcool fort :whiskey2:",
+	// 			Value: "6.00€",
+	// 			Short: true,
+	// 		},
+	// 		slack.AttachmentField{
+	// 			Title: "Suze :whiskey2:",
+	// 			Value: "3.00€",
+	// 			Short: true,
+	// 		},
+	// 	},
+	// 	Footer: "Powered by Coalibot",
+	// }
+	// Utils.PostMsg(event, slack.MsgOptionAttachments(attachment))
+	// Utils.
 	return true
 }
 
