@@ -10,17 +10,13 @@ import (
 	"github.com/sirupsen/logrus"
 	"gitlab.com/clafoutis/api42"
 	"github.com/bshuster-repo/logrus-logstash-hook"
-
 )
 
 func main() {
 	err := godotenv.Load()
 	log := logrus.New()
 	conn, err := net.Dial("tcp", os.Getenv("LOGSTASH_URL"))
-	if err != nil {
-		log.Fatal("Error loading .env file")
-		return
-	}
+
 	hook := logrustash.New(conn, logrustash.DefaultFormatter(logrus.Fields{"type": "myappName"}))
 	log.Hooks.Add(hook)
 
