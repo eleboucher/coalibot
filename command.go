@@ -7,7 +7,6 @@ import (
 	"os"
 	"sort"
 	"strings"
-
 	"github.com/genesixx/coalibot/Assos"
 	"github.com/genesixx/coalibot/Bars"
 	"github.com/genesixx/coalibot/Citation"
@@ -18,7 +17,8 @@ import (
 	"github.com/genesixx/coalibot/Users"
 	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
-	log "github.com/sirupsen/logrus"
+	 "github.com/sirupsen/logrus"
+
 )
 
 var commands = map[string]func(string, *Struct.Message) bool{
@@ -60,7 +60,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"asso":         Assos.Assos,
 }
 
-func handleCommand(event *Struct.Message) {
+func handleCommand(event *Struct.Message, log *logrus.Logger) {
 	var isCommand = false
 	var option = ""
 	var command = ""
@@ -73,7 +73,7 @@ func handleCommand(event *Struct.Message) {
 	}
 
 	event.Message = strings.Join(strings.Fields(event.Message), " ")
-	log.WithFields(log.Fields{"Channel": event.Channel, "User": event.User, "Message": event.Message}).Info()
+	log.WithFields(logrus.Fields{"Channel": event.Channel, "User": event.User, "Message": event.Message}).Info()
 	splited := strings.Split(event.Message, " ")
 	if event.Message == "" {
 		return
