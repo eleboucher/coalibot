@@ -73,7 +73,7 @@ func handleCommand(event *Struct.Message, log *logrus.Logger) {
 	}
 
 	event.Message = strings.Join(strings.Fields(event.Message), " ")
-	log.WithFields(logrus.Fields{"Channel": event.Channel, "User": event.User, "Message": event.Message}).Info()
+	
 	splited := strings.Split(event.Message, " ")
 	if event.Message == "" {
 		return
@@ -94,6 +94,7 @@ func handleCommand(event *Struct.Message, log *logrus.Logger) {
 		}
 	}
 	if isCommand {
+		log.WithFields(logrus.Fields{"Channel": event.Channel, "User": event.User, "command": event.Message}).Info()
 		go Database.AddCommand(event, command, option)
 	}
 }

@@ -36,6 +36,7 @@ func main() {
 			log.Info("Ready")
 		case *slack.MessageEvent:
 			var message = Struct.Message{Message: ev.Msg.Text, Channel: ev.Msg.Channel, User: ev.Msg.User, Timestamp: ev.Msg.Timestamp, ThreadTimestamp: ev.Msg.ThreadTimestamp, API: api, FortyTwo: client}
+			log.WithFields(logrus.Fields{"Channel": message.Channel, "User": message.User, "Text": message.Message}).Info()
 			go React(message, reactions)
 
 			if message.User != "" {
