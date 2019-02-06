@@ -69,6 +69,11 @@ func Help(option string, event *Struct.Message) bool {
 				Short: true,
 			},
 			slack.AttachmentField{
+				Title: "skin",
+				Value: "Donne les différents skins slack",
+				Short: true,
+			},
+			slack.AttachmentField{
 				Title: "source",
 				Value: "Donne le repo de Coalibot",
 				Short: true,
