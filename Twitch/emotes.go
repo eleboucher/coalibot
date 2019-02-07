@@ -10,7 +10,8 @@ import (
 func Emotes(option string, event *Struct.Message) bool {
 	params := slack.FileUploadParameters{
 		File: "emotes/" + option + ".png",
+		Channels: [event.Channel]
 	}
-	Utils.PostMsg(event, slack.MsgOptionPostMessageParameters(params))
+	event.API.UploadFile(params)
 	return true
 }
