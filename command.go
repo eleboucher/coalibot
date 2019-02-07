@@ -7,6 +7,7 @@ import (
 	"os"
 	"sort"
 	"strings"
+
 	"github.com/genesixx/coalibot/Assos"
 	"github.com/genesixx/coalibot/Bars"
 	"github.com/genesixx/coalibot/Citation"
@@ -14,12 +15,11 @@ import (
 	"github.com/genesixx/coalibot/FortyTwo"
 	"github.com/genesixx/coalibot/Miscs"
 	"github.com/genesixx/coalibot/Struct"
-	"github.com/genesixx/coalibot/Users"
 	"github.com/genesixx/coalibot/Twitch"
+	"github.com/genesixx/coalibot/Users"
 	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
-	 "github.com/sirupsen/logrus"
-
+	"github.com/sirupsen/logrus"
 )
 
 var commands = map[string]func(string, *Struct.Message) bool{
@@ -59,7 +59,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"shop":         Assos.Shop,
 	"bde":          Assos.Bde,
 	"asso":         Assos.Assos,
-	"emote"			Twitch.Emotes
+	"emote":        Twitch.Emotes,
 }
 
 func handleCommand(event *Struct.Message, log *logrus.Logger) {
@@ -75,7 +75,7 @@ func handleCommand(event *Struct.Message, log *logrus.Logger) {
 	}
 
 	event.Message = strings.Join(strings.Fields(event.Message), " ")
-	
+
 	splited := strings.Split(event.Message, " ")
 	if event.Message == "" {
 		return
