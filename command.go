@@ -15,6 +15,7 @@ import (
 	"github.com/genesixx/coalibot/Miscs"
 	"github.com/genesixx/coalibot/Struct"
 	"github.com/genesixx/coalibot/Users"
+	"github.com/genesixx/coalibot/Twitch"
 	"github.com/genesixx/coalibot/Utils"
 	"github.com/nlopes/slack"
 	 "github.com/sirupsen/logrus"
@@ -58,6 +59,7 @@ var commands = map[string]func(string, *Struct.Message) bool{
 	"shop":         Assos.Shop,
 	"bde":          Assos.Bde,
 	"asso":         Assos.Assos,
+	"emote"			Twitch.Emotes
 }
 
 func handleCommand(event *Struct.Message, log *logrus.Logger) {
