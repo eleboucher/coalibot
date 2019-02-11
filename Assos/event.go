@@ -11,11 +11,11 @@ func Event(option string, event *Struct.Message) bool {
 	params.IconURL = "https://bde.student42.fr/img/bde42-logo-1538664197.jpg"
 	params.Username = "Undefined Bot"
 	attachment := slack.Attachment{
-		Title: "Soirée de la Saint Valentin",
-		// TitleLink: "https://www.facebook.com/events/2634975786518016",
-		Text:   "Le BDE vous invite à la Saint-Valentin le 14 février de 18h à 23h.Au programme vente de barbe à papa, de pommes d'amour faites maison, de bières ainsi que de cocktails avec et sans alcool. Comme d'habitude les softs seront gratuits !",
-		Footer: "Powered by Coalibot",
-		Color:  "#FF69B4",
+		Title:     "Soirée de la Saint Valentin",
+		TitleLink: "https://www.facebook.com/events/807785939582095",
+		Text:      "Le BDE vous invite à la Saint-Valentin le 14 février de 18h à 23h. Au programme vente de barbe à papa, de pommes d'amour faites maison, de bières ainsi que de cocktails avec et sans alcool. Comme d'habitude les softs seront gratuits !",
+		Footer:    "Powered by Coalibot",
+		Color:     "#FF69B4",
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
 				Title: "Date",
