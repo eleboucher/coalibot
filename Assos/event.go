@@ -28,7 +28,7 @@ func Event(option string, event *Struct.Message) bool {
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Pinte :beer: ou Cocktail sans-alcool :cocktail:",
+				Title: "Demi :beer: ou Cocktail sans-alcool :cocktail:",
 				Value: "2 Euro",
 				Short: true,
 			},
