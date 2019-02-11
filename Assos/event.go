@@ -13,7 +13,7 @@ func Event(option string, event *Struct.Message) bool {
 	attachment := slack.Attachment{
 		Title: "Soirée de la Saint Valentin",
 		// TitleLink: "https://www.facebook.com/events/2634975786518016",
-		Text:   "Le BDE vous invite à la Saint-Valentin le 14 février de 18h à 23h. Il y aura de la bière, des cocktails, des pommes d'amour, du karaoké et d'autres surprises...",
+		Text:   "Le BDE vous invite à la Saint-Valentin le 14 février de 18h à 23h.Au programme vente de barbe à papa, de pommes d'amour faites maison, de bières ainsi que de cocktails avec et sans alcool. Comme d'habitude les softs seront gratuits !",
 		Footer: "Powered by Coalibot",
 		Color:  "#FF69B4",
 		Fields: []slack.AttachmentField{
@@ -23,13 +23,13 @@ func Event(option string, event *Struct.Message) bool {
 				Short: false,
 			},
 			slack.AttachmentField{
-				Title: "Pinte :beer:",
+				Title: "Pinte :beer: ou Cocktail avec-alcool :cocktail:",
 				Value: "3 Euro",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Cocktail :cocktail:",
-				Value: "5 Euro",
+				Title: "Pinte :beer: ou Cocktail sans-alcool :cocktail:",
+				Value: "2 Euro",
 				Short: true,
 			},
 			slack.AttachmentField{
