@@ -26,8 +26,7 @@ func main() {
 	// api.SetDebug(true)
 	client, err := api42.NewAPI(os.Getenv("INTRA_CLIENT_ID"), os.Getenv("INTRA_SECRET"))
 	if err != nil {
-		log.Fatal("Error with the api")
-		return
+		log.Error("Error with the api")
 	}
 	go rtm.ManageConnection()
 	for msg := range rtm.IncomingEvents {
