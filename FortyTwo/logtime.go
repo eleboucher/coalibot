@@ -189,7 +189,7 @@ func handleDate(splited []string, logtimeOpt *logopt) {
 func handleYear(splited []string, logtimeOpt *logopt) {
 	(*logtimeOpt).count++
 	yearReg, _ := regexp.Compile(`(\b|^)20\d{2}(\b|$)`)
-	if len(splited) < (*logtimeOpt).count || !yearReg.MatchString(splited[logtimeOpt.count]) {
+	if len(splited) <= (*logtimeOpt).count || !yearReg.MatchString(splited[logtimeOpt.count]) {
 		(*logtimeOpt).error = true
 		return
 	}
@@ -203,7 +203,7 @@ func handleYear(splited []string, logtimeOpt *logopt) {
 func handleQuarter(splited []string, logtimeOpt *logopt) {
 	(*logtimeOpt).count++
 	quartReg, _ := regexp.Compile(`(?i)^[1-4]|automne|ete|été|printemps|hiver|spring|fall|winter|summer$`)
-	if len(splited) < logtimeOpt.count || !quartReg.MatchString(splited[logtimeOpt.count]) {
+	if len(splited) <= logtimeOpt.count || !quartReg.MatchString(splited[logtimeOpt.count]) {
 		(*logtimeOpt).error = true
 		return
 	}
@@ -235,7 +235,7 @@ func handleQuarter(splited []string, logtimeOpt *logopt) {
 func handleSemester(splited []string, logtimeOpt *logopt) {
 	(*logtimeOpt).count++
 	quartReg, _ := regexp.Compile(`(\b|^)[1-2](\b|$)`)
-	if len(splited) < (*logtimeOpt).count || !quartReg.MatchString(splited[logtimeOpt.count]) {
+	if len(splited) <= (*logtimeOpt).count || !quartReg.MatchString(splited[logtimeOpt.count]) {
 		(*logtimeOpt).error = true
 		return
 	}
@@ -254,7 +254,7 @@ func handleSemester(splited []string, logtimeOpt *logopt) {
 func handleMonth(splited []string, logtimeOpt *logopt) {
 	var hasYear = false
 	(*logtimeOpt).count++
-	if len(splited) < (*logtimeOpt).count {
+	if len(splited) <= (*logtimeOpt).count {
 		(*logtimeOpt).error = true
 		return
 	}
