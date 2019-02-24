@@ -55,6 +55,8 @@ func Where(option string, event *Struct.Message) bool {
 
 		var guardians = []string{
 			"dcirlig",
+			"korlandi",
+			"syzhang",
 			"vtennero",
 			"elebouch",
 			"fbabin",
