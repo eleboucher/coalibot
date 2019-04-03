@@ -11,44 +11,34 @@ func Event(option string, event *Struct.Message) bool {
 	params.IconURL = "https://bde.student42.fr/img/bde42-logo-1538664197.jpg"
 	params.Username = "Undefined Bot"
 	attachment := slack.Attachment{
-		Title:     "Soirée de la Saint Patrick !",
+		Title:     "A la conquête de Paname !",
 		TitleLink: "https://www.facebook.com/events/1041473989381147",
-		Text:      "Le BDE Undefined vous propose un événement en E0 le 14 mars pour la St Patrick #bière #pizza! Des pizzas seront en libre service et GRATUIT 🍕. De la musique, de la bière et des cocktails !",
+		Text:      "le BDE vous organise une soirée au BAR3 🍻l'occasion idéale pour rencontrer les petits nouveaux qui viennent d'arriver en Avril. On vous prépare des animations et des surprises !",
 		Footer:    "Powered by Coalibot",
 		Color:     "#009a49",
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
 				Title: "Date",
-				Value: "le 14 mars de 18h à 23h.",
+				Value: "le 11 avril de 19h à 02h.",
 				Short: false,
 			},
 			slack.AttachmentField{
-				Title: "Buchette :beer:",
-				Value: "Pinte 3 €/Demi 2 €",
+				Title: "Biere :beer:",
+				Value: "Pinte 4 €",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Delirium Red :beer:",
-				Value: "Pinte 4,50€/Demi 2,50€",
+				Title: "Shot",
+				Value: "3€",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Karmeliet :beer:",
-				Value: "Pinte 4,50€/Demi 2,50€",
+				Title: "Jägerbomb",
+				Value: "5€",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Cuvée des Trolls :beer:",
-				Value: "Pinte 4,50€/Demi 2,50€",
-				Short: true,
-			},
-			slack.AttachmentField{
-				Title: "Cocktails :cocktail:",
-				Value: "Avec alcool, à base de vodka: 3€/Sans alcool: 1,50€",
-				Short: true,
-			},
-			slack.AttachmentField{
-				Title: "Les softs (Coca Cola, Jus de fruits) sont gratuits, comme toujours.",
+				Title: "Adresse : Bar3 (3 Rue de l'Ancienne Comédie, 75006 Paris)",
 				Short: true,
 			},
 		},
