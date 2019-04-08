@@ -12,7 +12,7 @@ func Event(option string, event *Struct.Message) bool {
 	params.Username = "Undefined Bot"
 	attachment := slack.Attachment{
 		Title:     "A la conquête de Paname !",
-		TitleLink: "https://www.facebook.com/events/1041473989381147",
+		TitleLink: "https://www.facebook.com/events/637136486730115",
 		Text:      "le BDE vous organise une soirée au BAR3 🍻l'occasion idéale pour rencontrer les petits nouveaux qui viennent d'arriver en Avril. On vous prépare des animations et des surprises !",
 		Footer:    "Powered by Coalibot",
 		Color:     "#009a49",
