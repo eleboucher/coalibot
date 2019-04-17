@@ -11,34 +11,44 @@ func Event(option string, event *Struct.Message) bool {
 	params.IconURL = "https://bde.student42.fr/img/bde42-logo-1538664197.jpg"
 	params.Username = "Undefined Bot"
 	attachment := slack.Attachment{
-		Title:     "A la conquête de Paname !",
-		TitleLink: "https://www.facebook.com/events/637136486730115",
-		Text:      "le BDE vous organise une soirée au BAR3 🍻l'occasion idéale pour rencontrer les petits nouveaux qui viennent d'arriver en Avril. On vous prépare des animations et des surprises !",
+		Title:     "Quarante d'Œuf Easter Party",
+		TitleLink: "https://www.facebook.com/events/1011459799052089/",
+		Text:      "Le BDE Undefined vous propose un événement en E0 le 24 Avril pour Pâques 🥚🐇. Des fontaines à chocolat seront en libre service et GRATUITE 🍫.",
 		Footer:    "Powered by Coalibot",
 		Color:     "#009a49",
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
 				Title: "Date",
-				Value: "le 11 avril de 19h à 02h.",
+				Value: "le 24 avril 2019 de 18:00 à 23:00",
 				Short: false,
 			},
 			slack.AttachmentField{
-				Title: "Biere :beer:",
-				Value: "Pinte 4 €",
+				Title: "Buchette :beer:",
+				Value: "Pinte 3 €/Demi 2 €",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Shot",
-				Value: "3€",
+				Title: "Delirium Red :beer:",
+				Value: "Pinte 4,50€/Demi 2,50€",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Jägerbomb",
-				Value: "5€",
+				Title: "Karmeliet :beer:",
+				Value: "Pinte 4,50€/Demi 2,50€",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Adresse : Bar3 (3 Rue de l'Ancienne Comédie, 75006 Paris)",
+				Title: "Cuvée des Trolls :beer:",
+				Value: "Pinte 4,50€/Demi 2,50€",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Cocktails :cocktail:",
+				Value: "Avec alcool, à base de vodka: 3€/Sans alcool: 1,50€",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Les softs (Coca Cola, Jus de fruits) sont gratuits, comme toujours.",
 				Short: true,
 			},
 		},
