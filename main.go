@@ -1,10 +1,8 @@
 package main
 
 import (
-	"net"
 	"os"
 
-	logrustash "github.com/bshuster-repo/logrus-logstash-hook"
 	"github.com/genesixx/coalibot/Struct"
 	"github.com/joho/godotenv"
 	"github.com/nlopes/slack"
@@ -15,11 +13,6 @@ import (
 func main() {
 	err := godotenv.Load()
 	log := logrus.New()
-	conn, err := net.Dial("tcp", os.Getenv("LOGSTASH_URL"))
-	if err == nil {
-		hook := logrustash.New(conn, logrustash.DefaultFormatter(logrus.Fields{"type": "Coalibot"}))
-		log.Hooks.Add(hook)
-	}
 	api := slack.New(os.Getenv("SLACK_API_TOKEN"))
 	rtm := api.NewRTM()
 	reactions := InitReaction()
