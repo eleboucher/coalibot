@@ -41,12 +41,12 @@
   },
   {
     "name": "guardians",
-    "match": "guardians|guardian|gardien|gardiens",
+    "match": "guardians?|gardiens?",
     "reaction": "guardsman"
   },
   {
     "name": "branle-couille",
-    "match": "branle(.)couille|branles(.)couilles",
+    "match": "branles?(.)couilles?",
     "reactions": ["hand", "couilles"]
   },
   {
