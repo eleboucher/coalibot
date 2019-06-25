@@ -11,69 +11,50 @@ func Event(option string, event *Struct.Message) bool {
 	params.IconURL = "https://bde.student42.fr/img/bde42-logo-1538664197.jpg"
 	params.Username = "Undefined Bot"
 	attachment := slack.Attachment{
-		Title:     "Barbec' Petanque Cup Pong",
-		TitleLink: "https://www.facebook.com/events/398544317410148",
-		Text:      "Le BDE undefined 42, en partenariat avec CPP et 42Green vous invitent ce jeudi 23 mai 2019 à venir partager avec nous une journée récréative, qui se terminera avec un barbecue offert à tous les étudiants (vegan compatible) !",
+		Title:     "AfterWork (Ouverture du 95) Happy Hour de 16h à 20h !",
+		TitleLink: "https://www.facebook.com/events/409610906300164",
+		Text:      "Venez Networker autour d'une petite mousse 😎",
 		Footer:    "Powered by Coalibot",
 		Color:     "#87CEEB",
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
 				Title: "Date",
-				Value: "le jeudi 23 mai 2019 de 12:00 à 23:00",
+				Value: "Ce soir! (25/06)",
 				Short: false,
 			},
 			slack.AttachmentField{
-				Title: "Programme",
-				Value: "",
-				Short: false,
-			},
-			slack.AttachmentField{
-				Title: "Dés 10h, et jusque 14h environ, tournoi de pétanque.",
-				Value: "Inscriptions ci-dessous : https://doodle.com/poll/eda7pqvb2khyk8se Puis pétanque libre à partir de 14h, jusqu'à la tombée de la nuit !",
-				Short: false,
-			},
-			slack.AttachmentField{
-				Title: "Dés 14h, et jusque 23h, tournoi de cup pong.",
-				Value: "Inscriptions ci-dessous : 14h-18h : https://doodle.com/poll/puftq63gkbsu6a8r 18h-22h : https://doodle.com/poll/97ynm78u4zv27f8w",
-				Short: false,
-			},
-			slack.AttachmentField{
-				Title: "Dés 19h, barbecue gratuit, sans inscriptions.",
-				Value: "",
-				Short: false,
-			},
-			slack.AttachmentField{
-				Title: "Buvette",
-				Value: "",
-				Short: false,
-			},
-			slack.AttachmentField{
-				Title: "Buchette :beer:",
-				Value: "Pinte 3 €/Demi 2 €",
+				Title: "Monaco / 1664 / Grimbergen :beer:",
+				Value: "Pinte 5 €",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Delirium Red :beer:",
-				Value: "Pinte 4,50€/Demi 2,50€",
+				Title: "Gallia / Chouffe :beer:",
+				Value: "Pinte 6€",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Karmeliet :beer:",
-				Value: "Pinte 4,50€/Demi 2,50€",
-				Short: true,
-			},
-			slack.AttachmentField{
-				Title: "Cuvée des Trolls :beer:",
-				Value: "Pinte 4,50€/Demi 2,50€",
+				Title: "Verre de vin :wine_glass:",
+				Value: "Pinte 3,50€",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "Cocktails :cocktail:",
-				Value: "Avec alcool, à base de vodka: 3€/Sans alcool: 1,50€",
+				Value: "Avec alcool(sauf long island): 6€/Sans alcool: 5€",
 				Short: true,
 			},
 			slack.AttachmentField{
-				Title: "Les softs (Coca Cola, Jus de fruits) sont gratuits, comme toujours.",
+				Title: "Planche de charcuterie ou fromage",
+				Value: "12 €",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Guacamole et chips",
+				Value: "6 €",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Planche et bouteille de vin",
+				Value: "27 €",
 				Short: true,
 			},
 		},
