@@ -8,7 +8,7 @@ import (
 
 func IntraLogtime(user string, rangeBegin time.Time, rangeEnd time.Time, client *api42.Client42) time.Duration {
 	beginAt := rangeBegin.Format("2006-01-02")
-	endAt := rangeEnd.Format("2006-01-02")
+	endAt := rangeEnd.AddDate(0, 0, 1).Format("2006-01-02")
 	params := api42.NewParameter()
 	params.AddRange("begin_at", beginAt, endAt)
 	params.PerPage = 100
