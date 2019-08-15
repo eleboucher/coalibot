@@ -68,7 +68,7 @@ func Emotes(option string, event *Struct.Message) bool {
 	if emote == nil {
 		return false
 	}
-	url := "https://static-cdn.jtvnw.net/emoticons/v1/" + strconv.Itoa(emote.ID) + "/5.0"
+	url := "https://static-cdn.jtvnw.net/emoticons/v1/" + strconv.Itoa(emote.ID) + "/2.0"
 	downloaded := download(url)
 	defer downloaded.Close()
 	if downloaded == nil {
