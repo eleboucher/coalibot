@@ -8,8 +8,8 @@ import (
 )
 
 func Prof(option string, event *utils.Message) bool {
-	user, not_valid := utils.GetLogin(option, event)
-	if not_valid {
+	user, notValid := utils.GetLogin(option, event)
+	if notValid {
 		utils.PostMsg(event, slack.MsgOptionText("invalid login", false))
 		return false
 	}

@@ -10,32 +10,57 @@ import (
 	"gitlab.com/clafoutis/api42"
 )
 
+var guardians = []string{
+	"dcirlig",
+	"korlandi",
+	"syzhang",
+	"vtennero",
+	"elebouch",
+	"fbabin",
+	"tbailly-",
+	"mmerabet",
+	"aledru",
+	"dlavaury",
+	"jauplat",
+	"jraymond",
+}
+
+func branleCouille(user string, event *utils.Message) (string, error) {
+	params := api42.NewParameter()
+	y, m, d := time.Now().Date()
+	rangeBegin := time.Date(y, m, d, 0, 0, 0, 0, time.Now().Location())
+	rangeEnd := rangeBegin.AddDate(0, 0, -7)
+	logtime := utils.IntraLogtime(user, rangeEnd, rangeBegin, event.FortyTwo)
+	if logtime.Hours() >= 35 {
+		return "*" + user + "* is not a branle couille", nil
+	}
+	data, err := event.FortyTwo.GetUserLocations(user, params)
+	if err != nil {
+		return "login invalide", err
+	}
+
+	return formatLocation(data, user), nil
+}
+
+func formatLocation(data []api42.Location42, user string) string {
+	if len(data) == 0 || data[0].EndAt != nil {
+		var diff = time.Now().Sub(*data[0].EndAt)
+
+		return "*" + user + "* est hors-ligne depuis *" + utils.PrettyDurationPrinting(diff) + "*"
+	}
+	return "*" + user + "* est à la place *" + data[0].Host + "*"
+}
+
 func Where(option string, event *utils.Message) bool {
 	params := api42.NewParameter()
 	if len(strings.Split(option, " ")) == 4 && (strings.IndexAny(option, "le branle couille") != -1 || strings.IndexAny(option, "la branle couille") != -1) {
-		y, m, d := time.Now().Date()
-		rangeBegin := time.Date(y, m, d, 0, 0, 0, 0, time.Now().Location())
-		rangeEnd := rangeBegin.AddDate(0, 0, -7)
 		user := strings.Split(option, " ")[3]
-		logtime := utils.IntraLogtime(user, rangeEnd, rangeBegin, event.FortyTwo)
-		if logtime.Hours() >= 35 {
-			utils.PostMsg(event, slack.MsgOptionText("*"+user+"* is not a branle couille", false))
-			return true
-		}
-		data, err := event.FortyTwo.GetUserLocations(user, params)
+		message, err := branleCouille(user, event)
+
 		if err != nil {
-			utils.PostMsg(event, slack.MsgOptionText("login invalide", false))
 			return false
 		}
-
-		if len(data) == 0 || data[0].EndAt != nil {
-			var diff = time.Now().Sub(*data[0].EndAt)
-
-			utils.PostMsg(event, slack.MsgOptionText("*"+user+"* est hors-ligne depuis *"+utils.PrettyDurationPrinting(diff)+"*", false))
-		} else {
-			utils.PostMsg(event, slack.MsgOptionText("*"+user+"* est à la place *"+data[0].Host+"*", false))
-		}
-		return true
+		utils.PostMsg(event, slack.MsgOptionText(message, false))
 	}
 	user, error := utils.GetLogin(option, event)
 	if error == true {
@@ -45,27 +70,14 @@ func Where(option string, event *utils.Message) bool {
 	if user[0] == '!' || user[0] == '?' {
 		return false
 	}
+
 	if user == "dieu" {
 		user = "elebouch"
 	} else if user == "manager" {
 		user = "vtennero"
 	}
-	if user == "guardians" || user == "gardiens" {
 
-		var guardians = []string{
-			"dcirlig",
-			"korlandi",
-			"syzhang",
-			"vtennero",
-			"elebouch",
-			"fbabin",
-			"tbailly-",
-			"mmerabet",
-			"aledru",
-			"dlavaury",
-			"jauplat",
-			"jraymond",
-		}
+	if user == "guardians" || user == "gardiens" {
 		var str string
 		for i := 0; i < len(guardians); i++ {
 			data, err := event.FortyTwo.GetUserLocations(guardians[i], params)
@@ -74,30 +86,19 @@ func Where(option string, event *utils.Message) bool {
 				str += "login invalide\n"
 				return false
 			}
-			if len(data) == 0 || data[0].EndAt != nil {
-				var diff = time.Now().Sub(*data[0].EndAt)
-
-				str += "*" + guardians[i] + "* est hors-ligne depuis " + utils.PrettyDurationPrinting(diff) + "\n"
-			} else {
-				str += "*" + guardians[i] + "* est à la place *" + data[0].Host + "*\n"
-			}
+			str += formatLocation(data, user) + "\n"
 		}
 		utils.PostMsg(event, slack.MsgOptionText(str, false))
 
 		return true
 	}
+
 	data, err := event.FortyTwo.GetUserLocations(user, params)
 	if err != nil {
 		utils.PostMsg(event, slack.MsgOptionText("login invalide", false))
 		return false
 	}
 
-	if len(data) == 0 || data[0].EndAt != nil {
-		var diff = time.Now().Sub(*data[0].EndAt)
-
-		utils.PostMsg(event, slack.MsgOptionText("*"+user+"* est hors-ligne depuis *"+utils.PrettyDurationPrinting(diff)+"*", false))
-	} else {
-		utils.PostMsg(event, slack.MsgOptionText("*"+user+"* est à la place *"+data[0].Host+"*", false))
-	}
+	utils.PostMsg(event, slack.MsgOptionText(formatLocation(data, user), false))
 	return true
 }

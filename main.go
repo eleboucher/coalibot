@@ -31,7 +31,6 @@ func main() {
 			go React(message, reactions)
 
 			if message.User != "" {
-				log.WithFields(logrus.Fields{"Channel": message.Channel, "User": message.User, "Text": message.Message}).Info()
 				go handleCommand(&message, log)
 			}
 		case *slack.RTMError:

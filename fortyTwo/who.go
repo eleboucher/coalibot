@@ -25,6 +25,7 @@ func Who(option string, event *utils.Message) bool {
 	if err != nil {
 		return false
 	}
+
 	if len(data) == 0 {
 		utils.PostMsg(event, slack.MsgOptionText("Place *"+place+"* vide.", false))
 	} else if data[0].EndAt == nil {

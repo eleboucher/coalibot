@@ -47,8 +47,6 @@ var commands = map[string]func(string, *utils.Message) bool{
 	"event":        fortyTwo.Event,
 	"roulettetop":  miscs.RouletteTop,
 	"anroche":      users.Anroche,
-	"calba":        users.Calba,
-	"fciprian":     users.Fciprian,
 	"elebouch":     users.Elebouch,
 	"spritz":       bars.Spritz,
 	"cdt":          bars.Cdt,

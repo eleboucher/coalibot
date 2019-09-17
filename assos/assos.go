@@ -5,8 +5,7 @@ import (
 	"github.com/nlopes/slack"
 )
 
-func Assos(option string, event *utils.Message) bool {
-	var assos = `<#C04GT8U3Y|bde>
+var assos = `<#C04GT8U3Y|bde>
 <#C8C0EGZUY|42genesys> :42genesys:
 <#C03BN553Z|42entrepreneurs> :42entrepreneurs:
 <#C4LF6DS82|42_ai> :42ai:
@@ -17,6 +16,8 @@ func Assos(option string, event *utils.Message) bool {
 <#C7X7V8HV5|airsoft42>  :ak-42:
 <#C4W29G7N2|code_her>  :codeher:
 <#C8U8Z88TB|42zen>`
+
+func Assos(option string, event *utils.Message) bool {
 	utils.PostMsg(event, slack.MsgOptionText(assos, false))
 	return true
 }
