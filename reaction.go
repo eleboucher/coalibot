@@ -7,11 +7,11 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/utils"
 	"github.com/nlopes/slack"
 )
 
-func InitReaction() []Struct.React {
+func InitReaction() []utils.React {
 	file, err := os.OpenFile("reaction.json", os.O_WRONLY|os.O_CREATE, 0660)
 	if err != nil {
 		fmt.Println(err)
@@ -19,7 +19,7 @@ func InitReaction() []Struct.React {
 	}
 	defer file.Close()
 	byteValue, _ := ioutil.ReadFile("reaction.json")
-	var reactions []Struct.React
+	var reactions []utils.React
 	json.Unmarshal(byteValue, &reactions)
 	for i := 0; i < len(reactions); i++ {
 		reactions[i].Compiled, _ = regexp.Compile(fmt.Sprintf("(?i)(^|[^a-zA-Z0-9])(%s)($|[^a-zA-Z0-9])", reactions[i].Match))
@@ -27,13 +27,13 @@ func InitReaction() []Struct.React {
 	return reactions
 }
 
-func reacts(event Struct.Message, reaction Struct.React, msgRef slack.ItemRef) {
+func reacts(event utils.Message, reaction utils.React, msgRef slack.ItemRef) {
 	for i := 0; i < len(reaction.Reactions); i++ {
 		event.API.AddReaction(reaction.Reactions[i], msgRef)
 	}
 }
 
-func React(event Struct.Message, reactions []Struct.React) {
+func React(event utils.Message, reactions []utils.React) {
 	msgRef := slack.NewRefToMessage(event.Channel, event.Timestamp)
 	for i := 0; i < len(reactions); i++ {
 		if reactions[i].Compiled.FindStringIndex(event.Message) != nil {

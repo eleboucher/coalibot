@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/genesixx/coalibot/Struct"
+	"github.com/genesixx/coalibot/utils"
 	"github.com/joho/godotenv"
 	"github.com/nlopes/slack"
 	"github.com/sirupsen/logrus"
@@ -27,7 +27,7 @@ func main() {
 		case *slack.ConnectedEvent:
 			log.Info("Ready")
 		case *slack.MessageEvent:
-			var message = Struct.Message{Message: ev.Msg.Text, Channel: ev.Msg.Channel, User: ev.Msg.User, Timestamp: ev.Msg.Timestamp, ThreadTimestamp: ev.Msg.ThreadTimestamp, API: api, FortyTwo: client}
+			var message = utils.Message{Message: ev.Msg.Text, Channel: ev.Msg.Channel, User: ev.Msg.User, Timestamp: ev.Msg.Timestamp, ThreadTimestamp: ev.Msg.ThreadTimestamp, API: api, FortyTwo: client}
 			go React(message, reactions)
 
 			if message.User != "" {
