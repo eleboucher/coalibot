@@ -16,16 +16,16 @@ import (
 
 var now = time.Now()
 var usage = "```" + `Usage: 
-bc logtime [-i] [LOGIN]
-bc logtime [-i] -d BEGIN END [LOGIN]
-bc logtime [-i] -y YEAR [LOGIN]
-bc logtime [-i] -m MONTH [YEAR] [LOGIN]
-bc logtime [-i] -t TRIMESTER [YEAR] [LOGIN]
-bc logtime [-i] -s SEMESTER [YEAR] [LOGIN]
+bc logtime [-b] [LOGIN]
+bc logtime [-b] -d BEGIN END [LOGIN]
+bc logtime [-b] -y YEAR [LOGIN]
+bc logtime [-b] -m MONTH [YEAR] [LOGIN]
+bc logtime [-b] -t TRIMESTER [YEAR] [LOGIN]
+bc logtime [-b] -s SEMESTER [YEAR] [LOGIN]
 
-logtime displays the total school presence logtime
+logtime displays the total cluster logtime
 
--i                   displays cluster logtime instead of school presence
+-b  --badgeuse            displays school presence instead of cluster logtime  
 
 -d BEGIN END displays logtime between begin_date and end_date
 									 date format: %dd/%MM/%yyyy
@@ -39,7 +39,7 @@ School presence is only stored since Nov 2017.` + "```"
 
 type logopt struct {
 	count     int
-	intra     bool
+	badgeuse  bool
 	dateBegin time.Time
 	dateEnd   time.Time
 	login     string
@@ -77,10 +77,10 @@ var monthL = map[string]int{
 var zeroDate = time.Time{}
 
 func Logtime(option string, event *utils.Message) bool {
-	var logtimeOpt = logopt{count: 0, intra: false, dateBegin: zeroDate, dateEnd: zeroDate, login: "", logtime: -1, error: false}
+	var logtimeOpt = logopt{count: 0, badgeuse: false, dateBegin: zeroDate, dateEnd: zeroDate, login: "", logtime: -1, error: false}
 	var splited = strings.Split(option, " ")
-	if splited[logtimeOpt.count] == "-i" || splited[logtimeOpt.count] == "--intra" {
-		logtimeOpt.intra = true
+	if splited[logtimeOpt.count] == "-b" || splited[logtimeOpt.count] == "--badgeuse" {
+		logtimeOpt.badgeuse = true
 		logtimeOpt.count++
 	}
 
@@ -107,8 +107,8 @@ func Logtime(option string, event *utils.Message) bool {
 		logtimeOpt.dateEnd = logtimeOpt.dateBegin.AddDate(1, 0, 0).Add(-time.Nanosecond)
 	}
 
-	if len(splited) > logtimeOpt.count && (splited[logtimeOpt.count] == "-i" || splited[logtimeOpt.count] == "--intra") {
-		logtimeOpt.intra = true
+	if len(splited) > logtimeOpt.count && (splited[logtimeOpt.count] == "-b" || splited[logtimeOpt.count] == "--badgeuse") {
+		logtimeOpt.badgeuse = true
 		logtimeOpt.count++
 	}
 	if !logtimeOpt.error {
@@ -131,10 +131,10 @@ func Logtime(option string, event *utils.Message) bool {
 		return false
 	}
 	if logtimeOpt.dateBegin != zeroDate && logtimeOpt.dateEnd != zeroDate {
-		switch logtimeOpt.intra {
-		case false:
-			logtimeOpt.logtime = utils.Logtime(logtimeOpt.login, logtimeOpt.dateBegin, logtimeOpt.dateEnd, event.FortyTwo)
+		switch logtimeOpt.badgeuse {
 		case true:
+			logtimeOpt.logtime = utils.Logtime(logtimeOpt.login, logtimeOpt.dateBegin, logtimeOpt.dateEnd, event.FortyTwo)
+		case false:
 			logtimeOpt.logtime = utils.IntraLogtime(logtimeOpt.login, logtimeOpt.dateBegin, logtimeOpt.dateEnd, event.FortyTwo)
 		}
 	}
@@ -145,18 +145,18 @@ func Logtime(option string, event *utils.Message) bool {
 			Color: "good",
 			Fields: []slack.AttachmentField{
 				slack.AttachmentField{
-					Title: "Résultat",
+					Title: "Logtime",
 					Value: logtimeStr,
 					Short: true,
 				},
 			},
 			Footer: "Powered by Coalibot",
 		}
-		var intra = "intra"
-		if !logtimeOpt.intra {
-			intra = "badgeuse"
+		var intra = "badgeuse"
+		if !logtimeOpt.badgeuse {
+			intra = "intra"
 		}
-		utils.PostMsg(event, slack.MsgOptionText("Logtime *"+intra+"* pour *"+logtimeOpt.login+"* entre *"+logtimeOpt.dateBegin.Format("2006-01-02")+"* et *"+logtimeOpt.dateEnd.Format("2006-01-02")+"*", false), slack.MsgOptionAttachments(attachment), slack.MsgOptionTS(event.Timestamp))
+		utils.PostMsg(event, slack.MsgOptionText("Logtime *"+intra+"* for *"+logtimeOpt.login+"* between *"+logtimeOpt.dateBegin.Format("2006-01-02")+"* and *"+logtimeOpt.dateEnd.Format("2006-01-02")+"*", false), slack.MsgOptionAttachments(attachment), slack.MsgOptionTS(event.Timestamp))
 	}
 	return true
 }
