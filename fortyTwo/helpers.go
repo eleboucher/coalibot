@@ -118,6 +118,11 @@ func hasDoneIntership(user *api42.User42) string {
 		} else if v.Project.ID == 119 {
 			indexContractProject = k
 		}
+		if v.Project.ID == 1055 {
+			indexInternProject = k
+		} else if v.Project.ID == 1090 {
+			indexContractProject = k
+		}
 	}
 	if indexInternProject != -1 && indexContractProject != -1 &&
 		user.Projects[indexContractProject].Status == "finished" &&
