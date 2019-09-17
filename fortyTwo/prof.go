@@ -61,7 +61,7 @@ func Prof(option string, event *utils.Message) bool {
 			},
 			slack.AttachmentField{
 				Title: "Contact",
-				Value: fmt.Sprintf("_%s_ • %s", getNumber(data), data.Email),
+				Value: fmt.Sprintf("%s", data.Email),
 				Short: false,
 			},
 		},

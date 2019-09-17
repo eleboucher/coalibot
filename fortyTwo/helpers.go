@@ -9,16 +9,6 @@ import (
 	"gitlab.com/clafoutis/api42"
 )
 
-// getNumber returns the user's number, or "hidden" if it is.
-func getNumber(user *api42.User42) string {
-	switch user.Phone {
-	case "":
-		return "Hidden"
-	default:
-	}
-	return user.Phone
-}
-
 // getMainCampus returns the primary campus' name of the user.
 // If the campus can't be found, "Unknown Campus" is returned.
 func getMainCampus(user *api42.User42) string {
