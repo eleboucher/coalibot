@@ -27,6 +27,7 @@ var commands = map[string]func(string, *utils.Message) bool{
 	"roulette":     miscs.Roulette,
 	"coin":         miscs.Coin,
 	"meteo":        miscs.Meteo,
+	"weather":      miscs.Meteo,
 	"roll":         miscs.Roll,
 	"roulettestat": miscs.RouletteStat,
 	"score":        fortyTwo.Score,
