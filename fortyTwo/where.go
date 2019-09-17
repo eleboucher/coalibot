@@ -31,7 +31,7 @@ func Where(option string, event *utils.Message) bool {
 		if len(data) == 0 || data[0].EndAt != nil {
 			var diff = time.Now().Sub(*data[0].EndAt)
 
-			utils.PostMsg(event, slack.MsgOptionText("*"+user+"* est hors-ligne depuis *"+utils.FmtDuration(diff)+"*", false))
+			utils.PostMsg(event, slack.MsgOptionText("*"+user+"* est hors-ligne depuis *"+utils.PrettyDurationPrinting(diff)+"*", false))
 		} else {
 			utils.PostMsg(event, slack.MsgOptionText("*"+user+"* est à la place *"+data[0].Host+"*", false))
 		}
