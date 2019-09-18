@@ -11,14 +11,32 @@ import (
 	"github.com/nlopes/slack"
 )
 
+var helper = "bc roll nbResultat [option1, option2, ...]\nbc roll nbResultat min-max\nbc roll nbResultat max```"
+
+// Returns an int >= min, < max
+func randomInt(min int, max int, maxincluded bool) int {
+	if maxincluded {
+		return min + rand.Intn(max-min+1)
+	}
+	return min + rand.Intn(max-min)
+}
+
 func Roll(option string, event *utils.Message) bool {
 	splited := strings.Split(option, " ")
 	length, err := strconv.Atoi(splited[0])
 
 	if err != nil {
+		utils.PostMsg(event, slack.MsgOptionText(helper, false), slack.MsgOptionTS(event.Timestamp))
 		return false
 	}
-	if len(splited) >= 2 && strings.IndexAny(option, "[") != -1 &&
+
+	if len(splited) == 1 {
+		str := strconv.Itoa(randomInt(1, length, true))
+
+		utils.PostMsg(event, slack.MsgOptionText(str, false), slack.MsgOptionTS(event.Timestamp))
+		return true
+
+	} else if len(splited) >= 2 && strings.IndexAny(option, "[") != -1 &&
 		strings.IndexAny(option, "]") != -1 &&
 		strings.IndexAny(option, "[") < strings.IndexAny(option, "]") {
 		ranthings := strings.Split(
@@ -50,12 +68,12 @@ func Roll(option string, event *utils.Message) bool {
 		}
 		var str string
 		for i := 0; i < length; i++ {
-			str += strconv.Itoa(rand.Intn(max-min+1) + min)
+			str += strconv.Itoa(randomInt(min, max, true))
 			if i < length-1 {
 				str += " "
 			}
 		}
-		utils.PostMsg(event, slack.MsgOptionText(str, false))
+		utils.PostMsg(event, slack.MsgOptionText(str, false), slack.MsgOptionTS(event.Timestamp))
 		return true
 	} else if max, err := strconv.Atoi(splited[1]); err == nil {
 
@@ -65,7 +83,7 @@ func Roll(option string, event *utils.Message) bool {
 		}
 		var str string
 		for i := 0; i < length; i++ {
-			str += strconv.Itoa(rand.Intn(max))
+			str += strconv.Itoa(randomInt(1, max, true))
 			if i < length-1 {
 				str += " "
 			}
@@ -73,5 +91,6 @@ func Roll(option string, event *utils.Message) bool {
 		utils.PostMsg(event, slack.MsgOptionText(str, false), slack.MsgOptionTS(event.Timestamp))
 		return true
 	}
+	utils.PostMsg(event, slack.MsgOptionText(helper, false), slack.MsgOptionTS(event.Timestamp))
 	return false
 }
