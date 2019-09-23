@@ -11,7 +11,15 @@ import (
 )
 
 func Meteo(option string, event *utils.Message) bool {
-	res, err := http.Get("http://en.wttr.in/" + strings.ReplaceAll(option, " ", "+") + "?T0")
+	var lat = "48.90"
+	var lon = "2.32"
+	var options string
+	if option != "" {
+		options = strings.ReplaceAll(option, " ", "+")
+	} else {
+		options = lat + "," + lon
+	}
+	res, err := http.Get("http://en.wttr.in/" + options + "?T0")
 	if err != nil {
 		fmt.Println(err)
 		return false
