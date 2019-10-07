@@ -87,7 +87,7 @@ func Where(option string, event *utils.Message) bool {
 				str += "login invalide\n"
 				return false
 			}
-			str += formatLocation(data, user) + "\n"
+			str += formatLocation(data, guardians[i]) + "\n"
 		}
 		utils.PostMsg(event, slack.MsgOptionText(str, false))
 
