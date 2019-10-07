@@ -61,6 +61,7 @@ func Where(option string, event *utils.Message) bool {
 			return false
 		}
 		utils.PostMsg(event, slack.MsgOptionText(message, false))
+		return true
 	}
 	user, error := utils.GetLogin(option, event)
 	if error == true {
