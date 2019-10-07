@@ -25,7 +25,7 @@ var guardians = []string{
 	"jraymond",
 }
 
-var branleCouilleRegex = regexp.MustCompile(`branles?.couilles?.(\w+)`)
+var branleCouilleRegex = regexp.MustCompile(`branles?.couilles?.(.+)`)
 
 func branleCouille(user string, event *utils.Message) (string, error) {
 	params := api42.NewParameter()
@@ -56,10 +56,11 @@ func formatLocation(data []api42.Location42, user string) string {
 func Where(option string, event *utils.Message) bool {
 	params := api42.NewParameter()
 	if branleCouilleRegex.MatchString(option) {
-		user := branleCouilleRegex.FindString(option)
+		user := branleCouilleRegex.FindStringSubmatch(option)[1]
 		message, err := branleCouille(user, event)
 
 		if err != nil {
+			println(err)
 			return false
 		}
 		utils.PostMsg(event, slack.MsgOptionText(message, false))
