@@ -8,29 +8,29 @@ import (
 )
 
 func Prof(option string, event *utils.Message) bool {
-	user, notValid := utils.GetLogin(option, event)
+	login, notValid := utils.GetLogin(option, event)
 	if notValid {
 		utils.PostMsg(event, slack.MsgOptionText("invalid login", false))
 		return false
 	}
-	data, err := event.FortyTwo.GetUser(user)
+	data, err := event.FortyTwo.GetUser(login)
 	if err != nil {
 		utils.PostMsg(event, slack.MsgOptionText("invalid login", false))
 		return false
 	}
 
-	logtime := getLogtime(user, event.FortyTwo)
+	logtime := getLogtime(login, event.FortyTwo)
 	stage := hasDoneIntership(data)
 	blocs, _ := event.FortyTwo.GetBlocs(nil)
-	coalitions, _ := event.FortyTwo.GetCoalitionsByUser(user, nil)
-	color, slug := getCoasRepr(user, event.FortyTwo, blocs, coalitions)
+	coalitions, _ := event.FortyTwo.GetCoalitionsByUser(login, nil)
+	color, slug := getCoasRepr(login, event.FortyTwo, blocs, coalitions)
 	location := "Unavailable"
 	if data.Location != "" {
 		location = data.Location
 	}
-	user = getTitle(data)
+	user := getTitle(data)
 	attachment := slack.Attachment{
-		AuthorName: fmt.Sprintf("%s <%s|%s - %s>", slug, "https://profile.intra.42.fr/users/"+user, data.Displayname, user),
+		AuthorName: fmt.Sprintf("%s <%s|%s - %s>", slug, "https://profile.intra.42.fr/users/"+login, data.Displayname, user),
 		ThumbURL:   data.ImageURL,
 		Color:      color,
 		Fields: []slack.AttachmentField{
