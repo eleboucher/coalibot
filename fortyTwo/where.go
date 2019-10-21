@@ -23,6 +23,7 @@ var guardians = []string{
 	"dlavaury",
 	"jauplat",
 	"jraymond",
+	"vburidar",
 }
 
 var branleCouilleRegex = regexp.MustCompile(`branles?.couilles?.(.+)`)
