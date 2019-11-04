@@ -9,57 +9,51 @@ func Event(option string, event *utils.Message) bool {
 	params := utils.SlackParams
 	params.IconURL = "https://bde.student42.fr/img/bde42-logo-1538664197.jpg"
 	params.Username = "Undefined Bot"
-	// attachment := slack.Attachment{
-	// 	Title:     "AfterWork (Ouverture du 95) Happy Hour de 16h à 20h !",
-	// 	TitleLink: "https://www.facebook.com/events/409610906300164",
-	// 	Text:      "Venez Networker autour d'une petite mousse 😎",
-	// 	Footer:    "Powered by Coalibot",
-	// 	Color:     "#87CEEB",
-	// 	Fields: []slack.AttachmentField{
-	// 		slack.AttachmentField{
-	// 			Title: "Date",
-	// 			Value: "Ce soir! (25/06)",
-	// 			Short: false,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Monaco / 1664 / Grimbergen :beer:",
-	// 			Value: "Pinte 5 €",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Gallia / Chouffe :beer:",
-	// 			Value: "Pinte 6€",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Verre de vin :wine_glass:",
-	// 			Value: "Pinte 3,50€",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Cocktails :cocktail:",
-	// 			Value: "Avec alcool(sauf long island): 6€/Sans alcool: 5€",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Planche de charcuterie ou fromage",
-	// 			Value: "12 €",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Guacamole et chips",
-	// 			Value: "6 €",
-	// 			Short: true,
-	// 		},
-	// 		slack.AttachmentField{
-	// 			Title: "Planche et bouteille de vin",
-	// 			Value: "27 €",
-	// 			Short: true,
-	// 		},
-	// 	},
-	// }
-	// utils.PostMsg(event, slack.MsgOptionAttachments(attachment), slack.MsgOptionPostMessageParameters(params))
-	utils.PostMsg(event, slack.MsgOptionText("Coming soon!", false), slack.MsgOptionPostMessageParameters(params))
+	attachment := slack.Attachment{
+		Title:     "Noche de los Muertos",
+		TitleLink: "https://www.facebook.com/events/505707719983028",
+		Text:      "Le 08/11 le BDE UNICODE vous organise une soirée dans 42. Theme: Dias de los Muertos/ Neon 👻🇲🇽. (1 token == 1 euro)",
+		Footer:    "Powered by Coalibot",
+		Color:     "#ff32bb",
+		Fields: []slack.AttachmentField{
+			slack.AttachmentField{
+				Title: "Date",
+				Value: "vendredi 8 Novembre de 21:00 à 04:00",
+				Short: false,
+			},
+			slack.AttachmentField{
+				Title: "Tarif",
+				Value: "Prévente: 10€ (adhérent), 12€ (non adhérent).\nSur place: 15€",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Bière blonde :beer:",
+				Value: "3 tokens la pinte, 2 tokens le demi",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Bière rouge :beer:",
+				Value: "4 tokens la pinte, 3 tokens le demi",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Cocktails :cocktail:",
+				Value: "5 tokens",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Alcools forts + Softs (Whisky coca, vodka orange, etc...) :whisky:",
+				Value: "12 €",
+				Short: true,
+			},
+			slack.AttachmentField{
+				Title: "Vestiaire gratuit pour les personnes déguisées et pour les adherents BDE, sinon 1 Un peso (token)",
+				Short: true,
+			},
+		},
+	}
+	utils.PostMsg(event, slack.MsgOptionAttachments(attachment), slack.MsgOptionPostMessageParameters(params))
+	// utils.PostMsg(event, slack.MsgOptionText("Coming soon!", false), slack.MsgOptionPostMessageParameters(params))
 
 	return true
 }
