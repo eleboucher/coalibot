@@ -7,8 +7,8 @@ import (
 
 func Event(option string, event *utils.Message) bool {
 	params := utils.SlackParams
-	params.IconURL = "https://bde.student42.fr/img/bde42-logo-1538664197.jpg"
-	params.Username = "Undefined Bot"
+	params.IconURL = "https://scontent-cdt1-1.xx.fbcdn.net/v/t1.0-9/72837094_1434269160066611_1550685959262044160_n.png?_nc_cat=100&_nc_oc=AQnnBrO0tgIxEsYONp9dIR-9bZ830RKV3jI-xNxw8dvcP0qVBrR7ttej4JeI9fLKk9s&_nc_ht=scontent-cdt1-1.xx&oh=841847d7c60b39ed54b28057e1ae5770&oe=5E170AA7"
+	params.Username = "Unicode Bot"
 	attachment := slack.Attachment{
 		Title:     "Noche de los Muertos",
 		TitleLink: "https://www.facebook.com/events/505707719983028",
