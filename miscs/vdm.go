@@ -36,11 +36,11 @@ func Vdm(option string, event *utils.Message) bool {
 		fmt.Println(err)
 		return false
 	}
-	elem := doc.Find(".panel-content").ChildrenFiltered(".block").Has("a")
+	elem := doc.Find(".article-contents").ChildrenFiltered("a")
 	vdms := ""
 	for i := 0; i < nb; i++ {
 		vdm := strings.Join(strings.Fields(elem.Eq(i).Text()), " ")
-		if vdm != "" {
+		if vdm != "" && strings.HasPrefix(vdm, "Aujourd'hui,") {
 			vdms += fmt.Sprintf(">%s\n\n", vdm)
 		}
 	}
