@@ -20,5 +20,6 @@
   "whoami": "Bot slack crée par <@elebouch>! sponso par <@U1XKEC3T8>",
   "poro": "Cette commande n'existe pas :deso:",
   "intra-slack": "Pour lier votre compte intra à votre compte slack : https://42born2code.slack.com/archives/C3QG85SG6/p1546873508251000",
-  "kevin": "http://chng.it/rD2jfqxrCV"
+  "kevin": "http://chng.it/rD2jfqxrCV",
+  "valgrind": "Pour installer Valgrind sur High Sierra: `brew install --HEAD https://raw.githubusercontent.com/LouisBrunner/valgrind-macos/master/valgrind.rb`"
 }
