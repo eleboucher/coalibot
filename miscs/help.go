@@ -14,82 +14,82 @@ func Help(option string, event *utils.Message) bool {
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
 				Title: "alliance",
-				Value: "Stats de l'Alliance",
+				Value: "Stat of the Alliance",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "addmusic",
-				Value: "ajoute une musique a la playlist",
+				Value: "Add a music to the playlist",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "brew",
-				Value: "Commande pour installer brew",
+				Value: "How to install brew",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "event",
-				Value: "Event de ce jour",
+				Value: "today's event for 42 Paris",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "halp",
-				Value: "Instructions pour les problèmes liés à iscsi",
+				Value: "Instruction for iscsi problems",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "intra-slack",
-				Value: "Instructions pour connecter slack à l'intra",
+				Value: "Instruction to connect slack to the intranet",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "logtime",
-				Value: "Pour plus d'info `bc logtime --help`",
+				Value: "Give the logtime of the given user, get more help `bc logtime --help`",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "meteo",
-				Value: "Donne le temps qu'il fait à 42",
+				Value: "Give the weather",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "music",
-				Value: "Donne une musique aléatoire",
+				Value: "Give a random music",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "prof",
-				Value: " Donne les infos de l'étudiant",
+				Value: "Give info of the student",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "score",
-				Value: "Donne le score des coalitions",
+				Value: "Give 42 paris coalitions score",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "skin",
-				Value: "Donne les différents skins slack",
+				Value: "Give slack skins",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "source",
-				Value: "Donne le repo de Coalibot",
+				Value: "Give the repo link of Coalibot",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "stat",
-				Value: "Stat du bot en direct",
+				Value: "Give stats of the bot",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "where",
-				Value: "Donne la position de l'étudiant",
+				Value: "Give the position of the given student",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "who",
-				Value: "Donne qui est à cette place",
+				Value: "Give the information of who is there",
 				Short: true,
 			},
 			slack.AttachmentField{
@@ -98,28 +98,27 @@ func Help(option string, event *utils.Message) bool {
 			},
 			slack.AttachmentField{
 				Title: "coin",
-				Value: "pile ou face",
+				Value: "Heads or tails",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "kaamelott",
-				Value: "citation aléatoire de Kaamelott",
+				Value: "Random Kaamelott quote (FR)",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "oss",
-				Value: "citation aléatoire de OSS 117",
+				Value: "Random OSS 117 quote (FR)",
 				Short: true,
 			},
 			slack.AttachmentField{
 				Title: "mhenni",
-				Value: "citation aléatoire de Mohammed Henni",
+				Value: "Random Mohammed Henni quote (FR)",
 				Short: true,
 			},
-
 			slack.AttachmentField{
 				Title: "glados",
-				Value: "citation aléatoire de GLaDOS",
+				Value: "Random GLaDOS quote (FR)",
 				Short: true,
 			},
 			slack.AttachmentField{
@@ -129,7 +128,7 @@ func Help(option string, event *utils.Message) bool {
 			},
 			slack.AttachmentField{
 				Title: "roulette",
-				Value: "Roulette Russe",
+				Value: "Russian Roulette",
 				Short: true,
 			},
 		},
