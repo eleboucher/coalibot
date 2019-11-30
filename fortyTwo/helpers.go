@@ -51,6 +51,19 @@ func getLogtime(user string, client *api42.Client42) time.Duration {
 	return utils.IntraLogtime(user, rangeEnd, rangeBegin, client)
 }
 
+func getCoalitionEmoji(slug string) string {
+	coasDict := map[string]string {
+		// 42 Madrid's coalitions
+		"atlantis": "coa-atlantis",
+		"metropolis": "coa-metropolis",
+		"wakanda": "coa-wakanda",
+	}
+	if emoji, ok := coasDict[slug]; ok {
+		return emoji
+	}
+	return slug
+}
+
 // getCoasRepr returns the user's coaltion's slug and color.
 func getCoasRepr(user string, client *api42.Client42, blocs []api42.Bloc42, coalitions []api42.Coalition42) (string, string) {
 	coaData := getCoalition(1, blocs, coalitions)
@@ -60,7 +73,7 @@ func getCoasRepr(user string, client *api42.Client42, blocs []api42.Bloc42, coal
 		coaData = &coalitions[0]
 	}
 	if coaData != nil {
-		return coaData.Color, fmt.Sprintf(":%s:", coaData.Slug)
+		return coaData.Color, fmt.Sprintf(":%s:", getCoalitionEmoji(coaData.Slug))
 	}
 	return color, slug
 }
