@@ -52,6 +52,11 @@ func getCoalitionEmoji(slug string) string {
 		"atlantis":   "coa-atlantis",
 		"metropolis": "coa-metropolis",
 		"wakanda":    "coa-wakanda",
+		//42 Paris temp coalition
+		"42cursus-paris-the-federation": "the-federation",
+		"42cursus-paris-the-alliance":   "the-alliance",
+		"42cursus-paris-the-order":      "the-order",
+		"42cursus-paris-the-assembly":   "the-assembly",
 	}
 	if emoji, ok := coasDict[slug]; ok {
 		return emoji
