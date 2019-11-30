@@ -124,18 +124,33 @@ func getMainCampusID(user *api42.User42) int {
 	return -1
 }
 
+func getMainCursusID(user *api42.User42) int {
+	for _, cursus := range user.CursusUsers {
+		if cursus.EndAt == nil {
+			return cursus.CursusID
+		}
+	}
+	return -1
+}
+
 func getCoalitionsByUser(
 	user *api42.User42,
 	client *api42.Client42,
 ) ([]api42.Coalition42, error) {
-	params := api42.NewParameter()
-	params.AddFilter("cursus_id", "1")
 	campus := getMainCampusID(user)
+	cursus := getMainCursusID(user)
+	if cursus == -1 || campus == -1 {
+		cursus = 1
+		campus = 1
+	}
+	params := api42.NewParameter()
+	params.AddFilter("cursus_id", cursus)
 	params.AddFilter("campus_id", campus)
 	bloc, err := client.GetBlocs(params)
 	if err != nil {
 		return nil, err
 	}
+
 	return bloc[0].Coalitions, nil
 }
 
