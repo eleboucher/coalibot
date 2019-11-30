@@ -29,12 +29,7 @@ func getMainCampus(user *api42.User42) string {
 // getTitle returns the formated selected title of the User.
 // If no title is selected, or if the selected title can't be found, this simply returns the user's login.
 func getTitle(user *api42.User42) string {
-	selected := -1
-	for _, title := range user.TitleUsers {
-		if title.Selected {
-			selected = title.TitleID
-		}
-	}
+	selected := getMainCampusID(user)
 	for _, title := range user.Titles {
 		if title.ID == selected {
 			return strings.Replace(title.Name, "%login", user.Login, -1)
@@ -52,11 +47,11 @@ func getLogtime(user string, client *api42.Client42) time.Duration {
 }
 
 func getCoalitionEmoji(slug string) string {
-	coasDict := map[string]string {
+	coasDict := map[string]string{
 		// 42 Madrid's coalitions
-		"atlantis": "coa-atlantis",
+		"atlantis":   "coa-atlantis",
 		"metropolis": "coa-metropolis",
-		"wakanda": "coa-wakanda",
+		"wakanda":    "coa-wakanda",
 	}
 	if emoji, ok := coasDict[slug]; ok {
 		return emoji
@@ -118,6 +113,30 @@ func cursusLevels(cursus []api42.CursusUser42, blocs []api42.Bloc42, coas []api4
 		builder.WriteString(fmt.Sprintf("%s — _%02.2f_\n", c.Cursus.Name, c.Level))
 	}
 	return builder.String()
+}
+
+func getMainCampusID(user *api42.User42) int {
+	for _, campus := range user.CampusUsers {
+		if campus.IsPrimary {
+			return campus.CampusID
+		}
+	}
+	return -1
+}
+
+func getCoalitionsByUser(
+	user *api42.User42,
+	client *api42.Client42,
+) ([]api42.Coalition42, error) {
+	params := api42.NewParameter()
+	params.AddFilter("cursus_id", "1")
+	campus := getMainCampusID(user)
+	params.AddFilter("campus_id", campus)
+	bloc, err := client.GetBlocs(params)
+	if err != nil {
+		return nil, err
+	}
+	return bloc[0].Coalitions, nil
 }
 
 // hasDoneIntership returns an emoticon corresponding to the Internship status.

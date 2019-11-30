@@ -10,7 +10,18 @@ import (
 )
 
 func Score(option string, event *utils.Message) bool {
-	coalitions, err := event.FortyTwo.GetCoalitionsByBloc(1, nil)
+	login, notValid := utils.GetLogin(option, event)
+	if notValid {
+		utils.PostMsg(event, slack.MsgOptionText("invalid login", false))
+		return false
+	}
+	data, err := event.FortyTwo.GetUser(login)
+	if err != nil {
+		utils.PostMsg(event, slack.MsgOptionText("invalid login", false))
+		return false
+	}
+	coalitions, err := getCoalitionsByUser(data, event.FortyTwo)
+
 	msgRef := slack.NewRefToMessage(event.Channel, event.Timestamp)
 	go event.API.AddReaction(":the-alliance:", msgRef)
 	if err != nil {
