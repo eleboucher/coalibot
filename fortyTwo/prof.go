@@ -31,7 +31,7 @@ func Prof(option string, event *utils.Message) bool {
 	user := getTitle(data)
 	attachment := slack.Attachment{
 		AuthorName: fmt.Sprintf("%s <%s|%s - %s>", slug, "https://profile.intra.42.fr/users/"+login, data.Displayname, user),
-		ThumbURL:   data.ImageURL,
+		ThumbURL:   fmt.Sprintf("https://cdn.intra.42.fr/users/medium_%s.jpg", login),
 		Color:      color,
 		Fields: []slack.AttachmentField{
 			slack.AttachmentField{
