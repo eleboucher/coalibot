@@ -22,17 +22,20 @@ bc logtime [-b] -y YEAR [LOGIN]
 bc logtime [-b] -m MONTH [YEAR] [LOGIN]
 bc logtime [-b] -t TRIMESTER [YEAR] [LOGIN]
 bc logtime [-b] -s SEMESTER [YEAR] [LOGIN]
+bc logtime [-b] -w [LOGIN]
 
 logtime displays the total cluster logtime
+default parameter is the current month
 
 -b  --badgeuse            displays school presence instead of cluster logtime  
 
 -d BEGIN END displays logtime between begin_date and end_date
 									 date format: %dd/%MM/%yyyy
 -y YEAR             displays logtime during the given year
--m MONTH [YEAR]      displays logtime during the given month
+-m MONTH [YEAR]     displays logtime during the given month
 -t TRIMESTER [YEAR] displays logtime during the given trimester
 -s SEMESTER [YEAR]  displays logtime during the given semester
+-w --week			displays logtime during the last 7 days
 
 NOTE: school presence of the month is only updated at the end of the month.
 School presence is only stored since Nov 2017.` + "```"
@@ -96,6 +99,8 @@ func Logtime(option string, event *utils.Message) bool {
 			handleQuarter(splited, &logtimeOpt)
 		case "--semestre", "-s":
 			handleQuarter(splited, &logtimeOpt)
+		case "--week", "-w":
+			handleWeek(splited, &logtimeOpt)
 		case "-h", "--help":
 			logtimeOpt.error = true
 		default:
@@ -162,48 +167,54 @@ func Logtime(option string, event *utils.Message) bool {
 }
 
 func handleDate(splited []string, logtimeOpt *logopt) {
-	(*logtimeOpt).count++
+	logtimeOpt.count++
 
-	if len(splited) < (*logtimeOpt).count+2 {
-		(*logtimeOpt).error = true
+	if len(splited) < logtimeOpt.count+2 {
+		logtimeOpt.error = true
 		return
 	}
 	dateBegin, err := time.Parse("02/01/2006", splited[logtimeOpt.count])
 
 	if err != nil {
-		(*logtimeOpt).error = true
+		logtimeOpt.error = true
 		return
 	}
-	(*logtimeOpt).dateBegin = dateBegin
+	logtimeOpt.dateBegin = dateBegin
 	dateEnd, err := time.Parse("02/01/2006", splited[logtimeOpt.count+1])
 	if err != nil {
-		(*logtimeOpt).error = true
+		logtimeOpt.error = true
 		return
 	}
 	y, m, d := dateEnd.Date()
-	(*logtimeOpt).dateEnd = time.Date(y, m, d, 23, 59, 59, int(-time.Nanosecond), dateEnd.Location())
-	(*logtimeOpt).count += 2
+	logtimeOpt.dateEnd = time.Date(y, m, d, 23, 59, 59, int(-time.Nanosecond), dateEnd.Location())
+	logtimeOpt.count += 2
 }
 
 func handleYear(splited []string, logtimeOpt *logopt) {
-	(*logtimeOpt).count++
+	logtimeOpt.count++
 	yearReg, _ := regexp.Compile(`(\b|^)20\d{2}(\b|$)`)
-	if len(splited) <= (*logtimeOpt).count || !yearReg.MatchString(splited[logtimeOpt.count]) {
-		(*logtimeOpt).error = true
+	if len(splited) <= logtimeOpt.count || !yearReg.MatchString(splited[logtimeOpt.count]) {
+		logtimeOpt.error = true
 		return
 	}
 	year, _ := strconv.Atoi(splited[logtimeOpt.count])
-	(*logtimeOpt).dateBegin = time.Date(year, time.January, 1, 0, 0, 0, 0, now.Location())
-	(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(1, 0, 0).Add(-time.Nanosecond)
-	(*logtimeOpt).count++
+	logtimeOpt.dateBegin = time.Date(year, time.January, 1, 0, 0, 0, 0, now.Location())
+	logtimeOpt.dateEnd = logtimeOpt.dateBegin.AddDate(1, 0, 0).Add(-time.Nanosecond)
+	logtimeOpt.count++
+}
 
+func handleWeek(splited []string, logtimeOpt *logopt) {
+	y, m, d := time.Now().Date()
+	logtimeOpt.dateBegin = time.Date(y, m, d, 0, 0, 0, 0, time.Now().Location())
+	logtimeOpt.dateEnd = logtimeOpt.dateBegin.AddDate(0, 0, -7)
+	logtimeOpt.count++
 }
 
 func handleQuarter(splited []string, logtimeOpt *logopt) {
-	(*logtimeOpt).count++
+	logtimeOpt.count++
 	quartReg, _ := regexp.Compile(`(?i)^[1-4]|automne|ete|été|printemps|hiver|spring|fall|winter|summer$`)
 	if len(splited) <= logtimeOpt.count || !quartReg.MatchString(splited[logtimeOpt.count]) {
-		(*logtimeOpt).error = true
+		logtimeOpt.error = true
 		return
 	}
 	var quarter int
@@ -221,40 +232,40 @@ func handleQuarter(splited []string, logtimeOpt *logopt) {
 	}
 	year := time.Now().Year()
 	yearReg, _ := regexp.Compile(`(\b|^)20\d{2}(\b|$)`)
-	if len(splited) > (*logtimeOpt).count+1 && yearReg.MatchString(splited[logtimeOpt.count+1]) {
+	if len(splited) > logtimeOpt.count+1 && yearReg.MatchString(splited[logtimeOpt.count+1]) {
 		year, _ = strconv.Atoi(splited[logtimeOpt.count+1])
-		(*logtimeOpt).count++
+		logtimeOpt.count++
 	}
-	(*logtimeOpt).dateBegin = time.Date(year, time.Month((quarter-1)*3+1), 1, 0, 0, 0, 0, now.Location())
-	(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(0, 3, 0).Add(-time.Nanosecond)
-	fmt.Println((*logtimeOpt).dateEnd)
-	(*logtimeOpt).count++
+	logtimeOpt.dateBegin = time.Date(year, time.Month((quarter-1)*3+1), 1, 0, 0, 0, 0, now.Location())
+	logtimeOpt.dateEnd = logtimeOpt.dateBegin.AddDate(0, 3, 0).Add(-time.Nanosecond)
+	fmt.Println(logtimeOpt.dateEnd)
+	logtimeOpt.count++
 }
 
 func handleSemester(splited []string, logtimeOpt *logopt) {
-	(*logtimeOpt).count++
+	logtimeOpt.count++
 	quartReg, _ := regexp.Compile(`(\b|^)[1-2](\b|$)`)
-	if len(splited) <= (*logtimeOpt).count || !quartReg.MatchString(splited[logtimeOpt.count]) {
-		(*logtimeOpt).error = true
+	if len(splited) <= logtimeOpt.count || !quartReg.MatchString(splited[logtimeOpt.count]) {
+		logtimeOpt.error = true
 		return
 	}
 	semestre, _ := strconv.Atoi(splited[logtimeOpt.count])
 	year := time.Now().Year()
 	yearReg, _ := regexp.Compile(`(\b|^)20\d{2}(\b|$)`)
-	if len(splited) >= (*logtimeOpt).count+1 && yearReg.MatchString(splited[logtimeOpt.count+1]) {
+	if len(splited) >= logtimeOpt.count+1 && yearReg.MatchString(splited[logtimeOpt.count+1]) {
 		year, _ = strconv.Atoi(splited[logtimeOpt.count+1])
-		(*logtimeOpt).count++
+		logtimeOpt.count++
 	}
-	(*logtimeOpt).dateBegin = time.Date(year, time.Month((semestre-1)*6+1), 1, 0, 0, 0, 0, now.Location())
-	(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(0, 6, 0).Add(-time.Nanosecond)
-	(*logtimeOpt).count++
+	logtimeOpt.dateBegin = time.Date(year, time.Month((semestre-1)*6+1), 1, 0, 0, 0, 0, now.Location())
+	logtimeOpt.dateEnd = logtimeOpt.dateBegin.AddDate(0, 6, 0).Add(-time.Nanosecond)
+	logtimeOpt.count++
 }
 
 func handleMonth(splited []string, logtimeOpt *logopt) {
 	var hasYear = false
-	(*logtimeOpt).count++
-	if len(splited) <= (*logtimeOpt).count {
-		(*logtimeOpt).error = true
+	logtimeOpt.count++
+	if len(splited) <= logtimeOpt.count {
+		logtimeOpt.error = true
 		return
 	}
 	t := transform.Chain(norm.NFD, transform.RemoveFunc(isMn), norm.NFC)
@@ -262,24 +273,24 @@ func handleMonth(splited []string, logtimeOpt *logopt) {
 	monthReg, _ := regexp.Compile(`(\b|^)(0[1-9]|[1-9]|1[012])(\b|$)`)
 	year := time.Now().Year()
 	yearReg, _ := regexp.Compile(`(\b|^)20\d{2}(\b|$)`)
-	if len(splited) > (*logtimeOpt).count+1 && yearReg.MatchString(splited[logtimeOpt.count+1]) {
+	if len(splited) > logtimeOpt.count+1 && yearReg.MatchString(splited[logtimeOpt.count+1]) {
 		year, _ = strconv.Atoi(splited[logtimeOpt.count+1])
 		hasYear = true
 	}
 	if value, ok := monthL[month]; ok {
-		(*logtimeOpt).dateBegin = time.Date(year, time.Month(value), 1, 0, 0, 0, 0, now.Location())
-		(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(0, 1, 0).Add(-time.Nanosecond)
+		logtimeOpt.dateBegin = time.Date(year, time.Month(value), 1, 0, 0, 0, 0, now.Location())
+		logtimeOpt.dateEnd = logtimeOpt.dateBegin.AddDate(0, 1, 0).Add(-time.Nanosecond)
 	} else if monthReg.MatchString(month) {
 		monthInt, _ := strconv.Atoi(splited[logtimeOpt.count])
-		(*logtimeOpt).dateBegin = time.Date(year, time.Month(monthInt), 1, 0, 0, 0, 0, now.Location())
-		(*logtimeOpt).dateEnd = (*logtimeOpt).dateBegin.AddDate(0, 1, 0).Add(-time.Nanosecond)
+		logtimeOpt.dateBegin = time.Date(year, time.Month(monthInt), 1, 0, 0, 0, 0, now.Location())
+		logtimeOpt.dateEnd = logtimeOpt.dateBegin.AddDate(0, 1, 0).Add(-time.Nanosecond)
 	} else {
-		(*logtimeOpt).error = true
+		logtimeOpt.error = true
 	}
 	if hasYear {
-		(*logtimeOpt).count += 2
+		logtimeOpt.count += 2
 	} else {
-		(*logtimeOpt).count++
+		logtimeOpt.count++
 	}
 
 }
