@@ -112,7 +112,7 @@ func cursusLevels(cursus []api42.CursusUser42, blocs []api42.Bloc42, coas []api4
 			switch len(name) {
 			case 0:
 			default:
-				builder.WriteString(fmt.Sprintf(":%s: • ", name))
+				builder.WriteString(fmt.Sprintf(":%s: • ", getCoalitionEmoji(name)))
 			}
 		}
 		builder.WriteString(fmt.Sprintf("%s — _%02.2f_\n", c.Cursus.Name, c.Level))
