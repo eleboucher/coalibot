@@ -1,7 +1,6 @@
 package fortyTwo
 
 import (
-	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -205,8 +204,8 @@ func handleYear(splited []string, logtimeOpt *logopt) {
 
 func handleWeek(splited []string, logtimeOpt *logopt) {
 	y, m, d := time.Now().Date()
-	logtimeOpt.dateBegin = time.Date(y, m, d, 0, 0, 0, 0, time.Now().Location())
-	logtimeOpt.dateEnd = logtimeOpt.dateBegin.AddDate(0, 0, -7)
+	logtimeOpt.dateEnd = time.Date(y, m, d, 0, 0, 0, 0, now.Location())
+	logtimeOpt.dateBegin = logtimeOpt.dateEnd.AddDate(0, 0, -7).Add(-time.Nanosecond)
 	logtimeOpt.count++
 }
 
@@ -238,7 +237,6 @@ func handleQuarter(splited []string, logtimeOpt *logopt) {
 	}
 	logtimeOpt.dateBegin = time.Date(year, time.Month((quarter-1)*3+1), 1, 0, 0, 0, 0, now.Location())
 	logtimeOpt.dateEnd = logtimeOpt.dateBegin.AddDate(0, 3, 0).Add(-time.Nanosecond)
-	fmt.Println(logtimeOpt.dateEnd)
 	logtimeOpt.count++
 }
 
