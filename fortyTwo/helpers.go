@@ -131,7 +131,7 @@ func getMainCampusID(user *api42.User42) int {
 
 func getMainCursusID(user *api42.User42) int {
 	for _, cursus := range user.CursusUsers {
-		if cursus.EndAt == nil {
+		if cursus.EndAt == nil && cursus.HasCoalition {
 			return cursus.CursusID
 		}
 	}
