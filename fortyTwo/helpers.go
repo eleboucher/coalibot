@@ -132,7 +132,7 @@ func getMainCampusID(user *api42.User42) int {
 
 func getMainCursusID(user *api42.User42) int {
 	reversedCursusUser := user.CursusUsers
-	reverseAny(&reversedCursusUser)
+	reverseAny(reversedCursusUser)
 	for _, cursus := range reversedCursusUser {
 		if cursus.EndAt == nil && cursus.HasCoalition {
 			return cursus.CursusID
