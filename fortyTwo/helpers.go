@@ -2,6 +2,7 @@ package fortyTwo
 
 import (
 	"fmt"
+	"reflect"
 	"strings"
 	"time"
 
@@ -130,12 +131,22 @@ func getMainCampusID(user *api42.User42) int {
 }
 
 func getMainCursusID(user *api42.User42) int {
-	for _, cursus := range user.CursusUsers {
+	reversedCursusUser := user.CursusUsers
+	reverseAny(&reversedCursusUser)
+	for _, cursus := range reversedCursusUser {
 		if cursus.EndAt == nil && cursus.HasCoalition {
 			return cursus.CursusID
 		}
 	}
 	return -1
+}
+
+func reverseAny(s interface{}) {
+	n := reflect.ValueOf(s).Len()
+	swap := reflect.Swapper(s)
+	for i, j := 0, n-1; i < j; i, j = i+1, j-1 {
+		swap(i, j)
+	}
 }
 
 func getCoalitionsByUser(
