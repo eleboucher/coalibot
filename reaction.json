@@ -49,4 +49,9 @@
     "match": "balai(.)couille|ballek",
     "reactions": ["balai", "couilles"]
   }
+   {
+    "name": "male-gal",
+    "match": "male-gal",
+    "reactions": ["son", "underage"]
+  }
 ]
