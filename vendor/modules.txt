@@ -1,0 +1,48 @@
+# github.com/PuerkitoBio/goquery v1.5.1
+## explicit
+github.com/PuerkitoBio/goquery
+# github.com/andybalholm/cascadia v1.1.0
+github.com/andybalholm/cascadia
+# github.com/gorilla/websocket v1.2.0
+github.com/gorilla/websocket
+# github.com/hako/durafmt v0.0.0-20191009132224-3f39dc1ed9f4
+## explicit
+github.com/hako/durafmt
+# github.com/joho/godotenv v1.3.0
+## explicit
+github.com/joho/godotenv
+# github.com/konsorten/go-windows-terminal-sequences v1.0.3
+github.com/konsorten/go-windows-terminal-sequences
+# github.com/lib/pq v1.5.2
+## explicit
+github.com/lib/pq
+github.com/lib/pq/oid
+github.com/lib/pq/scram
+# github.com/nlopes/slack v0.6.0
+## explicit
+github.com/nlopes/slack
+github.com/nlopes/slack/internal/errorsx
+github.com/nlopes/slack/internal/timex
+github.com/nlopes/slack/slackutilsx
+# github.com/pkg/errors v0.8.0
+github.com/pkg/errors
+# github.com/sirupsen/logrus v1.6.0
+## explicit
+github.com/sirupsen/logrus
+# gitlab.com/clafoutis/api v0.0.0-00010101000000-000000000000 => ../../../gitlab.com/clafoutis/api
+## explicit
+gitlab.com/clafoutis/api
+# gitlab.com/clafoutis/api42 v0.0.0-00010101000000-000000000000 => ../../../gitlab.com/clafoutis/api42
+## explicit
+gitlab.com/clafoutis/api42
+# golang.org/x/net v0.0.0-20200202094626-16171245cfb2
+golang.org/x/net/html
+golang.org/x/net/html/atom
+# golang.org/x/sys v0.0.0-20190422165155-953cdadca894
+golang.org/x/sys/unix
+# golang.org/x/text v0.3.2
+## explicit
+golang.org/x/text/transform
+golang.org/x/text/unicode/norm
+# gitlab.com/clafoutis/api42 => ../../../gitlab.com/clafoutis/api42
+# gitlab.com/clafoutis/api => ../../../gitlab.com/clafoutis/api
