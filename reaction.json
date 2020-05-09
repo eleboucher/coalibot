@@ -51,7 +51,7 @@
   },
   {
     "name": "male-gal",
-    "match": "male-gal",
+    "match": "male-gal|malemale|male|amalegalme|malgal",
     "reactions": ["son", "underage"]
   }
 ]
