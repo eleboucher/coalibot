@@ -17,7 +17,7 @@ import (
 	"github.com/eleboucher/coalibot/twitch"
 	"github.com/eleboucher/coalibot/users"
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 	"github.com/sirupsen/logrus"
 )
 

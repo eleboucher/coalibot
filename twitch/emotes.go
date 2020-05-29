@@ -8,7 +8,7 @@ import (
 	"strconv"
 
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 type gbStruct struct {

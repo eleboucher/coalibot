@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 
 	"github.com/eleboucher/coalibot/utils"
 )

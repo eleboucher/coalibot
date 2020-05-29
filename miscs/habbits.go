@@ -9,7 +9,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/eleboucher/coalibot/utils"
 
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 const (

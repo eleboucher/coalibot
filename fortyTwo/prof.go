@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 func Prof(option string, event *utils.Message) bool {

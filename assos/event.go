@@ -2,7 +2,7 @@ package assos
 
 import (
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 func Event(option string, event *utils.Message) bool {

@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 var helper = "bc roll nbResultat [option1, option2, ...]\nbc roll nbResultat min-max\nbc roll nbResultat max```"

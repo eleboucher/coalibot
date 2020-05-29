@@ -5,7 +5,7 @@ import (
 
 	"github.com/eleboucher/coalibot/utils"
 	"github.com/joho/godotenv"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 	"github.com/sirupsen/logrus"
 	"gitlab.com/clafoutis/api42"
 )

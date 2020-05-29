@@ -8,7 +8,7 @@ import (
 	"unicode"
 
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"
 )

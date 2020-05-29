@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 
 	"gitlab.com/clafoutis/api42"
 )

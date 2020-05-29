@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 func GLaDOS(option string, event *utils.Message) bool {

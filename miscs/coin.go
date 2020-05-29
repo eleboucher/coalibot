@@ -4,7 +4,7 @@ import (
 	"math/rand"
 
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 func Coin(option string, event *utils.Message) bool {

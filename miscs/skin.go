@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 func Skin(option string, event *utils.Message) bool {

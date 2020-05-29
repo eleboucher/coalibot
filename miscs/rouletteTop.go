@@ -8,7 +8,7 @@ import (
 	"sort"
 
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 type s_roulette struct {

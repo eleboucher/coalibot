@@ -2,7 +2,7 @@ package miscs
 
 import (
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 func Hello(option string, event *utils.Message) bool {

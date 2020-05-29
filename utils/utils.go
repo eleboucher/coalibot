@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/hako/durafmt"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 func IndexOf(word string, data []string) int {
