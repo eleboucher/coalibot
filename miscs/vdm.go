@@ -9,7 +9,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/nlopes/slack"
 
-	"github.com/genesixx/coalibot/utils"
+	"github.com/eleboucher/coalibot/utils"
 )
 
 func Vdm(option string, event *utils.Message) bool {

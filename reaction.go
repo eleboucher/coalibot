@@ -7,7 +7,7 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/genesixx/coalibot/utils"
+	"github.com/eleboucher/coalibot/utils"
 	"github.com/nlopes/slack"
 )
 

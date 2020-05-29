@@ -1,4 +1,4 @@
-module github.com/genesixx/coalibot
+module github.com/eleboucher/coalibot
 
 go 1.14
 

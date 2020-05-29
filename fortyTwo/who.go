@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/genesixx/coalibot/utils"
+	"github.com/eleboucher/coalibot/utils"
 	"github.com/nlopes/slack"
 
 	"gitlab.com/clafoutis/api42"

@@ -8,7 +8,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/nlopes/slack"
 
-	"github.com/genesixx/coalibot/utils"
+	"github.com/eleboucher/coalibot/utils"
 )
 
 func Dtc(option string, event *utils.Message) bool {

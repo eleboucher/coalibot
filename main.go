@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/genesixx/coalibot/utils"
+	"github.com/eleboucher/coalibot/utils"
 	"github.com/joho/godotenv"
 	"github.com/nlopes/slack"
 	"github.com/sirupsen/logrus"

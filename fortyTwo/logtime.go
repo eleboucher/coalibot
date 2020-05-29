@@ -7,14 +7,14 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/genesixx/coalibot/utils"
+	"github.com/eleboucher/coalibot/utils"
 	"github.com/nlopes/slack"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"
 )
 
 var now = time.Now()
-var usage = "```" + `Usage: 
+var usage = "```" + `Usage:
 bc logtime [-b] [LOGIN]
 bc logtime [-b] -d BEGIN END [LOGIN]
 bc logtime [-b] -y YEAR [LOGIN]
@@ -26,7 +26,7 @@ bc logtime [-b] -w [LOGIN]
 logtime displays the total cluster logtime
 default parameter is the current month
 
--b  --badgeuse            displays school presence instead of cluster logtime  
+-b  --badgeuse            displays school presence instead of cluster logtime
 
 -d BEGIN END displays logtime between begin_date and end_date
 									 date format: %dd/%MM/%yyyy

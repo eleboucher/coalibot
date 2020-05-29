@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/genesixx/coalibot/utils"
+	"github.com/eleboucher/coalibot/utils"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )

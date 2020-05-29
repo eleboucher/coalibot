@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/genesixx/coalibot/utils"
+	"github.com/eleboucher/coalibot/utils"
 	"gitlab.com/clafoutis/api42"
 )
 

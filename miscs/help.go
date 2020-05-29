@@ -1,14 +1,14 @@
 package miscs
 
 import (
-	"github.com/genesixx/coalibot/utils"
+	"github.com/eleboucher/coalibot/utils"
 	"github.com/nlopes/slack"
 )
 
 func Help(option string, event *utils.Message) bool {
 	attachment := slack.Attachment{
 		Title:     "Coalibot Helper",
-		TitleLink: "https://github.com/genesixx/coalibot",
+		TitleLink: "https://github.com/eleboucher/coalibot",
 		Footer:    "Powered by Coalibot",
 		Color:     "good",
 		Fields: []slack.AttachmentField{
