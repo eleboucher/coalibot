@@ -24,7 +24,7 @@ func HandleRouletteStat(event *Message) {
 	// a map container to decode the JSON structure into
 	c := make(map[string]int)
 
-	// unmarschal JSON
+	// unmarshal JSON
 	json.Unmarshal(byteValue, &c) // these lines to see the difference
 	if c[user.Name] != 0 {
 		c[user.Name] = c[user.Name] + 1

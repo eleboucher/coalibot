@@ -8,17 +8,16 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/eleboucher/coalibot/assos"
-	"github.com/eleboucher/coalibot/bars"
+	log "github.com/sirupsen/logrus"
+
 	"github.com/eleboucher/coalibot/citation"
-	"github.com/eleboucher/coalibot/database"
 	"github.com/eleboucher/coalibot/fortyTwo"
 	"github.com/eleboucher/coalibot/miscs"
 	"github.com/eleboucher/coalibot/twitch"
 	"github.com/eleboucher/coalibot/users"
 	"github.com/eleboucher/coalibot/utils"
-	"github.com/slack-go/slack"
 	"github.com/sirupsen/logrus"
+	"github.com/slack-go/slack"
 )
 
 var commands = map[string]func(string, *utils.Message) bool{
@@ -30,12 +29,12 @@ var commands = map[string]func(string, *utils.Message) bool{
 	"weather":      miscs.Meteo,
 	"roll":         miscs.Roll,
 	"roulettestat": miscs.RouletteStat,
-	"score":        fortyTwo.Score,
-	"alliance":     fortyTwo.Alliance,
-	"prof":         fortyTwo.Prof,
-	"logtime":      fortyTwo.Logtime,
-	"who":          fortyTwo.Who,
-	"where":        fortyTwo.Where,
+	"score":        utils.FortyTwoMiddleware(fortyTwo.Score),
+	"alliance":     utils.FortyTwoMiddleware(fortyTwo.Alliance),
+	"prof":         utils.FortyTwoMiddleware(fortyTwo.Prof),
+	"logtime":      utils.FortyTwoMiddleware(fortyTwo.Logtime),
+	"who":          utils.FortyTwoMiddleware(fortyTwo.Who),
+	"where":        utils.FortyTwoMiddleware(fortyTwo.Where),
 	"oss":          citation.Oss,
 	"kaamelott":    citation.Kaamelott,
 	"mhenni":       citation.Mhenni,
@@ -48,22 +47,16 @@ var commands = map[string]func(string, *utils.Message) bool{
 	"roulettetop":  miscs.RouletteTop,
 	"anroche":      users.Anroche,
 	"elebouch":     users.Elebouch,
-	"spritz":       bars.Spritz,
-	"cdt":          bars.Cdt,
-	"moty":         bars.Moty,
 	"gfaim":        miscs.Gfaim,
 	"apero":        miscs.Apero,
 	"skin":         miscs.Skin,
-	"shop":         assos.Shop,
-	"bde":          assos.Bde,
-	"asso":         assos.Assos,
 	"emote":        twitch.Emotes,
 }
 
-func handleCommand(event *utils.Message, log *logrus.Logger) {
+func handleCommand(event *utils.Message) {
 	var isCommand = false
-	var option = ""
-	var command = ""
+	var option string
+	var command string
 
 	sort.Strings(BlackList)
 	i := sort.Search(len(BlackList),
@@ -95,7 +88,6 @@ func handleCommand(event *utils.Message, log *logrus.Logger) {
 	}
 	if isCommand {
 		log.WithFields(logrus.Fields{"Channel": event.Channel, "User": event.User, "command": event.Message}).Info()
-		go database.AddCommand(event, command, option)
 	}
 }
 
@@ -112,7 +104,7 @@ func reply(command string, event *utils.Message) bool {
 	// a map container to decode the JSON structure into
 	c := make(map[string]interface{})
 
-	// unmarschal JSON
+	// unmarshal JSON
 	e := json.Unmarshal(byteValue, &c)
 	if e != nil || c[command] == nil {
 		return false
