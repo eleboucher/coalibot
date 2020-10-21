@@ -26,7 +26,6 @@ func RouletteTop(option string, event *utils.Message) bool {
 	byteValue, _ := ioutil.ReadFile("rouletteStat.json")
 	c := make(map[string]int)
 
-	// unmarschal JSON
 	json.Unmarshal(byteValue, &c)
 	var roulette []s_roulette
 	for k, v := range c {

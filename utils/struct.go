@@ -30,4 +30,8 @@ type Music struct {
 	Link  string `json:"link"`
 }
 
-var SlackParams = slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true}
+var SlackParams = slack.PostMessageParameters{
+	UnfurlMedia: true,
+	UnfurlLinks: true,
+	Markdown:    true,
+}

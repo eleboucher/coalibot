@@ -34,32 +34,32 @@ func Prof(option string, event *utils.Message) bool {
 		ThumbURL:   fmt.Sprintf("https://cdn.intra.42.fr/users/medium_%s.jpg", login),
 		Color:      color,
 		Fields: []slack.AttachmentField{
-			slack.AttachmentField{
+			{
 				Title: "Cursus",
 				Value: cursusLevels(data.CursusUsers, blocs, coalitions, event.FortyTwo),
 				Short: false,
 			},
-			slack.AttachmentField{
+			{
 				Title: "Weekly Logtime",
 				Value: utils.FmtDuration(logtime),
 				Short: true,
 			},
-			slack.AttachmentField{
+			{
 				Title: "Internship",
 				Value: stage,
 				Short: true,
 			},
-			slack.AttachmentField{
+			{
 				Title: "Location",
 				Value: location,
 				Short: true,
 			},
-			slack.AttachmentField{
+			{
 				Title: "Campus",
 				Value: getMainCampus(data),
 				Short: true,
 			},
-			slack.AttachmentField{
+			{
 				Title: "Contact",
 				Value: fmt.Sprintf("%s", data.Email),
 				Short: false,

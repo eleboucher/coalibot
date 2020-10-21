@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func HandleRouletteStat(event *Message) {
@@ -25,13 +27,22 @@ func HandleRouletteStat(event *Message) {
 	c := make(map[string]int)
 
 	// unmarshal JSON
-	json.Unmarshal(byteValue, &c) // these lines to see the difference
+	if err := json.Unmarshal(byteValue, &c); err != nil {
+		log.Error(err)
+		return
+	}
 	if c[user.Name] != 0 {
 		c[user.Name] = c[user.Name] + 1
 	} else {
 		c[user.Name] = 1
 	}
 	toJson, _ := json.Marshal(c)
-	file.Write(toJson)
-	file.Sync()
+	if _, err := file.Write(toJson); err != nil {
+		log.Error(err)
+		return
+	}
+	if err := file.Sync(); err != nil {
+		log.Error(err)
+		return
+	}
 }

@@ -148,7 +148,7 @@ func Logtime(option string, event *utils.Message) bool {
 		attachment := slack.Attachment{
 			Color: "good",
 			Fields: []slack.AttachmentField{
-				slack.AttachmentField{
+				{
 					Title: "Logtime",
 					Value: logtimeStr,
 					Short: true,

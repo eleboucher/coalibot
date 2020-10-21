@@ -8,6 +8,7 @@ import (
 	"strconv"
 
 	"github.com/eleboucher/coalibot/utils"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/slack-go/slack"
 )
@@ -28,7 +29,10 @@ func RouletteStat(option string, event *utils.Message) bool {
 	c := make(map[string]int)
 
 	// unmarschal JSON
-	json.Unmarshal(byteValue, &c)
+	if err := json.Unmarshal(byteValue, &c); err != nil {
+		log.Error(err)
+		return false
+	}
 
 	var count = 0
 	if c[user.Name] != 0 {

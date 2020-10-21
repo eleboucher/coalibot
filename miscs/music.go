@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/eleboucher/coalibot/utils"
+	log "github.com/sirupsen/logrus"
 	"github.com/slack-go/slack"
 )
 
@@ -21,7 +22,10 @@ func Music(option string, event *utils.Message) bool {
 	byteValue, _ := ioutil.ReadFile("music.json")
 	var musics []utils.Music
 
-	json.Unmarshal(byteValue, &musics)
+	if err := json.Unmarshal(byteValue, &musics); err != nil {
+		log.Error(err)
+		return false
+	}
 	if len(musics) == 0 {
 		return false
 	}

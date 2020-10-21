@@ -11,6 +11,7 @@ import (
 	"unicode"
 
 	"gitlab.com/clafoutis/api42"
+	"golang.org/x/text/runes"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"
 )
@@ -25,7 +26,7 @@ func Logtime(user string, rangeBegin time.Time, rangeEnd time.Time, client *api4
 	if err != nil || data.FirstName == "" || data.LastName == "" {
 		return 0
 	}
-	t := transform.Chain(norm.NFD, transform.RemoveFunc(isMn), norm.NFC)
+	t := transform.Chain(norm.NFD, runes.Remove(runes.In(unicode.Mn)), norm.NFC)
 	firstName, _, _ := transform.String(t, strings.TrimSpace(data.FirstName))
 	lastName, _, _ := transform.String(t, strings.TrimSpace(data.LastName))
 	var name = name{firstName: firstName, lastName: lastName}
@@ -59,8 +60,4 @@ func getHourByName(name name, data [][]string) int {
 		}
 	}
 	return duration
-}
-
-func isMn(r rune) bool {
-	return unicode.Is(unicode.Mn, r) // Mn: nonspacing marks
 }

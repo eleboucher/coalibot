@@ -13,8 +13,14 @@ import (
 )
 
 func Vdm(option string, event *utils.Message) bool {
-	nb := 1
-	params := slack.PostMessageParameters{UnfurlMedia: true, UnfurlLinks: true, Markdown: true, IconURL: "http://golem13.fr/wp-content/uploads/2012/10/vdm.gif", Username: "Vie De Merde"}
+	var nb int
+	params := slack.PostMessageParameters{
+		UnfurlMedia: true,
+		UnfurlLinks: true,
+		Markdown:    true,
+		IconURL:     "http://golem13.fr/wp-content/uploads/2012/10/vdm.gif",
+		Username:    "Vie De Merde",
+	}
 
 	res, err := http.Get("https://www.viedemerde.fr/aleatoire")
 	if err != nil {
@@ -27,7 +33,11 @@ func Vdm(option string, event *utils.Message) bool {
 		nb = 1
 	}
 	if nb > 10 {
-		utils.PostMsg(event, slack.MsgOptionText("max 10 requests", false), slack.MsgOptionPostMessageParameters(params))
+		utils.PostMsg(
+			event,
+			slack.MsgOptionText("max 10 requests", false),
+			slack.MsgOptionPostMessageParameters(params),
+		)
 		return true
 	}
 	// Load the HTML document
@@ -46,10 +56,19 @@ func Vdm(option string, event *utils.Message) bool {
 	}
 	if vdms != "" {
 		if nb > 1 {
-			utils.PostMsg(event, slack.MsgOptionText(vdms, false), slack.MsgOptionPostMessageParameters(params), slack.MsgOptionTS(event.Timestamp))
+			utils.PostMsg(
+				event,
+				slack.MsgOptionText(vdms, false),
+				slack.MsgOptionPostMessageParameters(params),
+				slack.MsgOptionTS(event.Timestamp),
+			)
 
 		} else {
-			utils.PostMsg(event, slack.MsgOptionText(vdms, false), slack.MsgOptionPostMessageParameters(params))
+			utils.PostMsg(
+				event,
+				slack.MsgOptionText(vdms, false),
+				slack.MsgOptionPostMessageParameters(params),
+			)
 		}
 	}
 	return true

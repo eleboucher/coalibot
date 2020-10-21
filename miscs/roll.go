@@ -26,18 +26,26 @@ func Roll(option string, event *utils.Message) bool {
 	length, err := strconv.Atoi(splited[0])
 
 	if err != nil {
-		utils.PostMsg(event, slack.MsgOptionText(helper, false), slack.MsgOptionTS(event.Timestamp))
+		utils.PostMsg(
+			event,
+			slack.MsgOptionText(helper, false),
+			slack.MsgOptionTS(event.Timestamp),
+		)
 		return false
 	}
 
 	if len(splited) == 1 {
 		str := strconv.Itoa(randomInt(1, length, true))
 
-		utils.PostMsg(event, slack.MsgOptionText(str, false), slack.MsgOptionTS(event.Timestamp))
+		utils.PostMsg(
+			event,
+			slack.MsgOptionText(str, false),
+			slack.MsgOptionTS(event.Timestamp),
+		)
 		return true
 
-	} else if len(splited) >= 2 && strings.IndexAny(option, "[") != -1 &&
-		strings.IndexAny(option, "]") != -1 &&
+	} else if len(splited) >= 2 && strings.Contains(option, "[") &&
+		strings.Contains(option, "]") &&
 		strings.IndexAny(option, "[") < strings.IndexAny(option, "]") {
 		ranthings := strings.Split(
 			strings.TrimSpace(
@@ -53,9 +61,13 @@ func Roll(option string, event *utils.Message) bool {
 				str += " "
 			}
 		}
-		utils.PostMsg(event, slack.MsgOptionText(str, false), slack.MsgOptionTS(event.Timestamp))
+		utils.PostMsg(
+			event,
+			slack.MsgOptionText(str, false),
+			slack.MsgOptionTS(event.Timestamp),
+		)
 		return true
-	} else if matched := regexp.MustCompile(`^\d+-\d+$`); len(splited) == 2 && matched.MatchString(splited[1]) == true {
+	} else if matched := regexp.MustCompile(`^\d+-\d+$`); len(splited) == 2 && matched.MatchString(splited[1]) {
 		fmt.Println(strings.Split(splited[1], "-")[0])
 		min, err := strconv.Atoi(strings.Split(splited[1], "-")[0])
 		max, err1 := strconv.Atoi(strings.Split(splited[1], "-")[1])
@@ -63,7 +75,11 @@ func Roll(option string, event *utils.Message) bool {
 			return false
 		}
 		if length > 100 || max > 1000000 || length <= 0 || max <= 0 || min < 0 {
-			utils.PostMsg(event, slack.MsgOptionText("taille max == 100 et tailledude max == 1000000", false), slack.MsgOptionTS(event.Timestamp))
+			utils.PostMsg(
+				event,
+				slack.MsgOptionText("taille max == 100 et tailledude max == 1000000", false),
+				slack.MsgOptionTS(event.Timestamp),
+			)
 			return false
 		}
 		var str string
@@ -73,12 +89,20 @@ func Roll(option string, event *utils.Message) bool {
 				str += " "
 			}
 		}
-		utils.PostMsg(event, slack.MsgOptionText(str, false), slack.MsgOptionTS(event.Timestamp))
+		utils.PostMsg(
+			event,
+			slack.MsgOptionText(str, false),
+			slack.MsgOptionTS(event.Timestamp),
+		)
 		return true
 	} else if max, err := strconv.Atoi(splited[1]); err == nil {
 
 		if length > 100 || max > 1000000 || length <= 0 || max <= 0 {
-			utils.PostMsg(event, slack.MsgOptionText("taille max == 100 et tailledude max == 1000000", false), slack.MsgOptionTS(event.Timestamp))
+			utils.PostMsg(
+				event,
+				slack.MsgOptionText("taille max == 100 et tailledude max == 1000000", false),
+				slack.MsgOptionTS(event.Timestamp),
+			)
 			return false
 		}
 		var str string
@@ -88,9 +112,17 @@ func Roll(option string, event *utils.Message) bool {
 				str += " "
 			}
 		}
-		utils.PostMsg(event, slack.MsgOptionText(str, false), slack.MsgOptionTS(event.Timestamp))
+		utils.PostMsg(
+			event,
+			slack.MsgOptionText(str, false),
+			slack.MsgOptionTS(event.Timestamp),
+		)
 		return true
 	}
-	utils.PostMsg(event, slack.MsgOptionText(helper, false), slack.MsgOptionTS(event.Timestamp))
+	utils.PostMsg(
+		event,
+		slack.MsgOptionText(helper, false),
+		slack.MsgOptionTS(event.Timestamp),
+	)
 	return false
 }

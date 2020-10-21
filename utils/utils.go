@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/hako/durafmt"
+	log "github.com/sirupsen/logrus"
 	"github.com/slack-go/slack"
 )
 
@@ -66,5 +67,7 @@ func PostMsg(event *Message, options ...slack.MsgOption) {
 	if event.ThreadTimestamp != "" {
 		options = append(options, slack.MsgOptionTS(event.Timestamp))
 	}
-	event.API.PostMessage(channel, options...)
+	if _, _, err := event.API.PostMessage(channel, options...); err != nil {
+		log.Error(err)
+	}
 }
