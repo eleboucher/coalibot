@@ -15,7 +15,7 @@ func FortyTwoMiddleware(fn func(string, *Message) bool) func(string, *Message) b
 		if config.FortyTwo == nil {
 			client, err := api42.NewAPI(os.Getenv("INTRA_CLIENT_ID"), os.Getenv("INTRA_SECRET"))
 			if err != nil {
-				log.Error("Error with the api")
+				log.Errorf("Error with the api, %s", err)
 			}
 			config.FortyTwo = client
 		}
