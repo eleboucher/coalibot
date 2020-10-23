@@ -104,7 +104,7 @@ func Logtime(option string, event *utils.Message) bool {
 			logtimeOpt.error = true
 		default:
 			logtimeOpt.dateBegin = time.Date(time.Now().Year(), time.January, 1, 0, 0, 0, 0, now.Location())
-			logtimeOpt.dateEnd = logtimeOpt.dateBegin.AddDate(1, 0, 0).Add(-time.Nanosecond)
+			logtimeOpt.dateEnd = logtimeOpt.dateBegin.AddDate(0, 1, 0).Add(-time.Nanosecond)
 		}
 	} else {
 		logtimeOpt.dateBegin = time.Date(time.Now().Year(), time.January, 1, 0, 0, 0, 0, now.Location())
