@@ -39,10 +39,10 @@ func (q *queue) manage() {
 }
 
 func (q *queue) setLimits(header http.Header) {
-	if header["X-Secondly-Ratelimit-Remaining"] == nil {
+	if header["X-Secondly-RateLimit-Remaining"] == nil {
 		return
 	}
-	n, _ := strconv.Atoi(header["X-Secondly-Ratelimit-Remaining"][0])
+	n, _ := strconv.Atoi(header["X-Secondly-RateLimit-Remaining"][0])
 	q.SecondRRemain = n
 	if n == 0 {
 		q.NextBlock = time.NewTimer(time.Second * 2)
