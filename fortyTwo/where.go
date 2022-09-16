@@ -21,7 +21,6 @@ var guardians = []string{
 	"mmerabet",
 	"aledru",
 	"dlavaury",
-	"jauplat",
 	"jraymond",
 	"vburidar",
 }
