@@ -18,28 +18,37 @@ type ViewState struct {
 
 type View struct {
 	SlackResponse
-	ID              string           `json:"id"`
-	TeamID          string           `json:"team_id"`
-	Type            ViewType         `json:"type"`
-	Title           *TextBlockObject `json:"title"`
-	Close           *TextBlockObject `json:"close"`
-	Submit          *TextBlockObject `json:"submit"`
-	Blocks          Blocks           `json:"blocks"`
-	PrivateMetadata string           `json:"private_metadata"`
-	CallbackID      string           `json:"callback_id"`
-	State           *ViewState       `json:"state"`
-	Hash            string           `json:"hash"`
-	ClearOnClose    bool             `json:"clear_on_close"`
-	NotifyOnClose   bool             `json:"notify_on_close"`
-	RootViewID      string           `json:"root_view_id"`
-	PreviousViewID  string           `json:"previous_view_id"`
-	AppID           string           `json:"app_id"`
-	ExternalID      string           `json:"external_id"`
-	BotID           string           `json:"bot_id"`
+	ID                 string           `json:"id"`
+	TeamID             string           `json:"team_id"`
+	Type               ViewType         `json:"type"`
+	Title              *TextBlockObject `json:"title"`
+	Close              *TextBlockObject `json:"close"`
+	Submit             *TextBlockObject `json:"submit"`
+	Blocks             Blocks           `json:"blocks"`
+	PrivateMetadata    string           `json:"private_metadata"`
+	CallbackID         string           `json:"callback_id"`
+	State              *ViewState       `json:"state"`
+	Hash               string           `json:"hash"`
+	ClearOnClose       bool             `json:"clear_on_close"`
+	NotifyOnClose      bool             `json:"notify_on_close"`
+	RootViewID         string           `json:"root_view_id"`
+	PreviousViewID     string           `json:"previous_view_id"`
+	AppID              string           `json:"app_id"`
+	ExternalID         string           `json:"external_id"`
+	BotID              string           `json:"bot_id"`
+	AppInstalledTeamID string           `json:"app_installed_team_id"`
+}
+
+type ViewSubmissionCallbackResponseURL struct {
+	BlockID     string `json:"block_id"`
+	ActionID    string `json:"action_id"`
+	ChannelID   string `json:"channel_id"`
+	ResponseURL string `json:"response_url"`
 }
 
 type ViewSubmissionCallback struct {
-	Hash string `json:"hash"`
+	Hash         string                              `json:"hash"`
+	ResponseURLs []ViewSubmissionCallbackResponseURL `json:"response_urls,omitempty"`
 }
 
 type ViewClosedCallback struct {
@@ -90,7 +99,7 @@ func NewErrorsViewSubmissionResponse(errors map[string]string) *ViewSubmissionRe
 
 type ModalViewRequest struct {
 	Type            ViewType         `json:"type"`
-	Title           *TextBlockObject `json:"title"`
+	Title           *TextBlockObject `json:"title,omitempty"`
 	Blocks          Blocks           `json:"blocks"`
 	Close           *TextBlockObject `json:"close,omitempty"`
 	Submit          *TextBlockObject `json:"submit,omitempty"`
@@ -150,6 +159,23 @@ func (api *Client) OpenView(triggerID string, view ModalViewRequest) (*ViewRespo
 	return api.OpenViewContext(context.Background(), triggerID, view)
 }
 
+// ValidateUniqueBlockID will verify if each input block has a unique block ID if set
+func ValidateUniqueBlockID(view ModalViewRequest) bool {
+
+	uniqueBlockID := map[string]bool{}
+
+	for _, b := range view.Blocks.BlockSet {
+		if inputBlock, ok := b.(*InputBlock); ok {
+			if _, ok := uniqueBlockID[inputBlock.BlockID]; ok {
+				return false
+			}
+			uniqueBlockID[inputBlock.BlockID] = true
+		}
+	}
+
+	return true
+}
+
 // OpenViewContext opens a view for a user with a custom context.
 func (api *Client) OpenViewContext(
 	ctx context.Context,
@@ -159,6 +185,11 @@ func (api *Client) OpenViewContext(
 	if triggerID == "" {
 		return nil, ErrParametersMissing
 	}
+
+	if !ValidateUniqueBlockID(view) {
+		return nil, ErrBlockIDNotUnique
+	}
+
 	req := openViewRequest{
 		TriggerID: triggerID,
 		View:      view,

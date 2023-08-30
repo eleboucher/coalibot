@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"log"
 )
 
 type queue struct {
@@ -39,6 +40,7 @@ func (q *queue) manage() {
 }
 
 func (q *queue) setLimits(header http.Header) {
+	log.Print("pouet")
 	if header["X-Secondly-RateLimit-Remaining"] == nil {
 		return
 	}

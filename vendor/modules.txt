@@ -1,9 +1,11 @@
 # github.com/PuerkitoBio/goquery v1.5.1
-## explicit
+## explicit; go 1.13
 github.com/PuerkitoBio/goquery
 # github.com/andybalholm/cascadia v1.1.0
+## explicit
 github.com/andybalholm/cascadia
-# github.com/gorilla/websocket v1.2.0
+# github.com/gorilla/websocket v1.4.2
+## explicit; go 1.12
 github.com/gorilla/websocket
 # github.com/hako/durafmt v0.0.0-20191009132224-3f39dc1ed9f4
 ## explicit
@@ -12,33 +14,34 @@ github.com/hako/durafmt
 ## explicit
 github.com/joho/godotenv
 # github.com/konsorten/go-windows-terminal-sequences v1.0.3
+## explicit
 github.com/konsorten/go-windows-terminal-sequences
-# github.com/lib/pq v1.5.2
-## explicit
-# github.com/pkg/errors v0.8.0
-github.com/pkg/errors
 # github.com/sirupsen/logrus v1.6.0
-## explicit
+## explicit; go 1.13
 github.com/sirupsen/logrus
-# github.com/slack-go/slack v0.6.4
-## explicit
+# github.com/slack-go/slack v0.12.3
+## explicit; go 1.16
 github.com/slack-go/slack
+github.com/slack-go/slack/internal/backoff
 github.com/slack-go/slack/internal/errorsx
 github.com/slack-go/slack/internal/timex
 github.com/slack-go/slack/slackutilsx
 # gitlab.com/clafoutis/api v0.0.0-00010101000000-000000000000 => ../../../gitlab.com/clafoutis/api
-## explicit
+## explicit; go 1.21.0
 gitlab.com/clafoutis/api
 # gitlab.com/clafoutis/api42 v0.0.0-00010101000000-000000000000 => ../../../gitlab.com/clafoutis/api42
-## explicit
+## explicit; go 1.21.0
 gitlab.com/clafoutis/api42
-# golang.org/x/net v0.0.0-20200202094626-16171245cfb2
+# golang.org/x/net v0.0.0-20220722155237-a158d28d115b
+## explicit; go 1.17
 golang.org/x/net/html
 golang.org/x/net/html/atom
-# golang.org/x/sys v0.0.0-20190422165155-953cdadca894
+# golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f
+## explicit; go 1.17
+golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
-# golang.org/x/text v0.3.3
-## explicit
+# golang.org/x/text v0.3.8
+## explicit; go 1.17
 golang.org/x/text/runes
 golang.org/x/text/transform
 golang.org/x/text/unicode/norm

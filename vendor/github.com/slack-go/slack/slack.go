@@ -23,7 +23,9 @@ type httpClient interface {
 
 // ResponseMetadata holds pagination metadata
 type ResponseMetadata struct {
-	Cursor string `json:"next_cursor"`
+	Cursor   string   `json:"next_cursor"`
+	Messages []string `json:"messages"`
+	Warnings []string `json:"warnings"`
 }
 
 func (t *ResponseMetadata) initialize() *ResponseMetadata {
@@ -43,6 +45,7 @@ type AuthTestResponse struct {
 	UserID string `json:"user_id"`
 	// EnterpriseID is only returned when an enterprise id present
 	EnterpriseID string `json:"enterprise_id,omitempty"`
+	BotID        string `json:"bot_id"`
 }
 
 type authTestResponseFull struct {
@@ -54,11 +57,14 @@ type authTestResponseFull struct {
 type ParamOption func(*url.Values)
 
 type Client struct {
-	token      string
-	endpoint   string
-	debug      bool
-	log        ilogger
-	httpclient httpClient
+	token              string
+	appLevelToken      string
+	configToken        string
+	configRefreshToken string
+	endpoint           string
+	debug              bool
+	log                ilogger
+	httpclient         httpClient
 }
 
 // Option defines an option for a Client
@@ -88,6 +94,21 @@ func OptionLog(l logger) func(*Client) {
 // OptionAPIURL set the url for the client. only useful for testing.
 func OptionAPIURL(u string) func(*Client) {
 	return func(c *Client) { c.endpoint = u }
+}
+
+// OptionAppLevelToken sets an app-level token for the client.
+func OptionAppLevelToken(token string) func(*Client) {
+	return func(c *Client) { c.appLevelToken = token }
+}
+
+// OptionConfigToken sets a configuration token for the client.
+func OptionConfigToken(token string) func(*Client) {
+	return func(c *Client) { c.configToken = token }
+}
+
+// OptionConfigRefreshToken sets a configuration refresh token for the client.
+func OptionConfigRefreshToken(token string) func(*Client) {
+	return func(c *Client) { c.configRefreshToken = token }
 }
 
 // New builds a slack client from the provided token and options.
@@ -148,6 +169,6 @@ func (api *Client) postMethod(ctx context.Context, path string, values url.Value
 }
 
 // get a slack web method.
-func (api *Client) getMethod(ctx context.Context, path string, values url.Values, intf interface{}) error {
-	return getResource(ctx, api.httpclient, api.endpoint+path, values, intf, api)
+func (api *Client) getMethod(ctx context.Context, path string, token string, values url.Values, intf interface{}) error {
+	return getResource(ctx, api.httpclient, api.endpoint+path, token, values, intf, api)
 }
