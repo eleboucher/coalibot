@@ -1,4 +1,6 @@
 # Coalibot
+<img src="https://github.com/user-attachments/assets/80af61ec-e041-46dd-8563-191b85cefe03" alt="Description" width="300">
+
 
 Slack bot for the school [42Born2Code](http://www.42.fr/)
 
