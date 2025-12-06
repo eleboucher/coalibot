@@ -9,7 +9,7 @@ require (
 	github.com/sirupsen/logrus v1.6.0
 	github.com/slack-go/slack v0.12.3
 	gitlab.com/clafoutis/api42 v0.0.0-00010101000000-000000000000
-	golang.org/x/text v0.7.0
+	golang.org/x/text v0.13.0
 )
 
 require (
@@ -17,8 +17,8 @@ require (
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.3 // indirect
 	gitlab.com/clafoutis/api v0.0.0-00010101000000-000000000000 // indirect
-	golang.org/x/net v0.7.0 // indirect
-	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
+	golang.org/x/sys v0.13.0 // indirect
 )
 
 replace gitlab.com/clafoutis/api42 => ../../../gitlab.com/clafoutis/api42
